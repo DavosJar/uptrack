@@ -1,0 +1,509 @@
+basePath: /api/v1
+definitions:
+  app.APIResponse:
+    properties:
+      _links:
+        additionalProperties:
+          type: string
+        type: object
+      _meta:
+        additionalProperties: true
+        type: object
+      data: {}
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  presentation.CheckResultResponse:
+    properties:
+      error_message:
+        type: string
+      response_time_ms:
+        type: integer
+      status:
+        enum:
+        - UP
+        - DOWN
+        - DEGRADED
+        - UNSTABLE
+        - FLAPPING
+        - UNKNOWN
+        type: string
+      timestamp:
+        format: date-time
+        type: string
+    type: object
+  presentation.ConfigurationDetail:
+    properties:
+      retry_count:
+        type: integer
+      retry_delay_seconds:
+        type: integer
+      timeout_seconds:
+        type: integer
+    type: object
+  presentation.CreateTargetRequest:
+    properties:
+      name:
+        example: My Website
+        type: string
+      type:
+        enum:
+        - WEB
+        - API
+        example: WEB
+        type: string
+      url:
+        example: https://example.com
+        type: string
+    required:
+    - name
+    - type
+    - url
+    type: object
+  presentation.LoginRequest:
+    properties:
+      email:
+        example: user@example.com
+        type: string
+      password:
+        example: password123
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  presentation.MetricResponse:
+    properties:
+      response_time_ms:
+        type: integer
+      timestamp:
+        format: date-time
+        type: string
+    type: object
+  presentation.RegisterRequest:
+    properties:
+      email:
+        example: user@example.com
+        type: string
+      password:
+        example: password123
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  presentation.StatisticsResponse:
+    properties:
+      avg_response_time_ms:
+        type: integer
+      success_rate:
+        type: number
+      target_id:
+        type: string
+      total_checks:
+        type: integer
+    type: object
+  presentation.TargetDetailResponse:
+    properties:
+      avg_response_time_ms:
+        type: integer
+      configuration:
+        $ref: '#/definitions/presentation.ConfigurationDetail'
+      created_at:
+        format: date-time
+        type: string
+      current_status:
+        type: string
+      id:
+        type: string
+      last_checked_at:
+        format: date-time
+        nullable: true
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      url:
+        type: string
+    type: object
+  presentation.TargetResponse:
+    properties:
+      avg_response_time_ms:
+        example: 150
+        type: integer
+      created_at:
+        format: date-time
+        type: string
+      current_status:
+        example: UP
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      last_checked_at:
+        format: date-time
+        nullable: true
+        type: string
+      name:
+        example: My Website
+        type: string
+      type:
+        example: WEB
+        type: string
+      url:
+        example: https://example.com
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API for monitoring targets and managing users
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: UpTrackAI API
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and return JWT token
+      parameters:
+      - description: User login credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/presentation.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login successful
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "401":
+          description: Invalid credentials
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      summary: Login user
+      tags:
+      - auth
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with email and password
+      parameters:
+      - description: User registration data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/presentation.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User registered successfully
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "409":
+          description: User already exists
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      summary: Register a new user
+      tags:
+      - auth
+  /targets:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of all monitoring targets for the authenticated
+        user
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/presentation.TargetResponse'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all monitoring targets
+      tags:
+      - monitoring
+    post:
+      consumes:
+      - application/json
+      description: Create a new monitoring target for the authenticated user
+      parameters:
+      - description: Target creation data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/presentation.CreateTargetRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/presentation.TargetResponse'
+              type: object
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new monitoring target
+      tags:
+      - monitoring
+  /targets/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve detailed information about a specific monitoring target
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/presentation.TargetDetailResponse'
+              type: object
+        "400":
+          description: Invalid target ID
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "404":
+          description: Target not found
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get monitoring target by ID
+      tags:
+      - monitoring
+  /targets/{id}/history:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve status change history for a specific monitoring target
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 50
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/presentation.CheckResultResponse'
+                  type: array
+              type: object
+        "400":
+          description: Invalid target ID
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get target status history
+      tags:
+      - monitoring
+  /targets/{id}/metrics:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve metrics history for a specific monitoring target
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 100
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/presentation.MetricResponse'
+                  type: array
+              type: object
+        "400":
+          description: Invalid target ID
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get target metrics
+      tags:
+      - monitoring
+  /targets/{id}/statistics:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve aggregated statistics for a specific monitoring target
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/presentation.StatisticsResponse'
+              type: object
+        "400":
+          description: Invalid target ID
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get target statistics
+      tags:
+      - monitoring
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

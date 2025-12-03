@@ -1,0 +1,33 @@
+# Archivos temporales
+tmp/
+*.log
+*.exe
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dependencias (se descargan en build)
+vendor/
+
+# Testing
+testdata/
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Documentación
+*.md
+docs/
+
+# Archivos locales
+.env
+.env.local
