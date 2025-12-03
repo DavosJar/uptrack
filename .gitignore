@@ -28,7 +28,8 @@ tmp/
 *.swo
 *~
 
-# Environment variables (solo ignora overrides locales)
+# Environment variables
+.env
 .env.local
 .env.*.local
 
