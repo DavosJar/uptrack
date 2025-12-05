@@ -46,9 +46,9 @@ const StatusSegment: React.FC<StatusSegmentProps> = ({ segment, index }) => {
       {segment.percentage > 5 && `${segment.percentage.toFixed(0)}%`}
       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-3 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 border border-gray-700 shadow-2xl">
         <div className="font-bold mb-2 text-base">{segment.status}</div>
-        <div className="text-gray-300 mb-1">Start: {formatTime(segment.startTime)}</div>
-        <div className="text-gray-300 mb-1">End: {formatTime(segment.endTime)}</div>
-        <div className="text-gray-300">Duration: {segment.duration}</div>
+        <div className="text-gray-300 mb-1">Inicio: {formatTime(segment.startTime)}</div>
+        <div className="text-gray-300 mb-1">Fin: {formatTime(segment.endTime)}</div>
+        <div className="text-gray-300">Duración: {segment.duration}</div>
       </div>
     </div>
   );
@@ -99,10 +99,10 @@ const HeatmapCell: React.FC<HeatmapCellProps> = ({ hourData, dayData, hourIdx })
       {hourData.hasData && (
         <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-10 border border-border-dark shadow-lg">
           <div className="font-semibold mb-1">{hourData.status.toUpperCase()}</div>
-          <div className="text-text-muted">Date: {dayData.date}</div>
-          <div className="text-text-muted">Start: {formatTime(startTime)}</div>
-          <div className="text-text-muted">End: {formatTime(endTime)}</div>
-          <div className="text-text-muted">Avg: {hourData.ms}ms</div>
+          <div className="text-text-muted">Fecha: {dayData.date}</div>
+          <div className="text-text-muted">Inicio: {formatTime(startTime)}</div>
+          <div className="text-text-muted">Fin: {formatTime(endTime)}</div>
+          <div className="text-text-muted">Promedio: {hourData.ms}ms</div>
           <div className="text-text-muted">Checks: {hourData.count}</div>
         </div>
       )}
@@ -159,7 +159,7 @@ const TargetDetail: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-white text-xl">Loading...</div>
+        <div className="text-white text-xl">Cargando...</div>
       </div>
     );
   }
@@ -167,7 +167,7 @@ const TargetDetail: React.FC = () => {
   if (error || !target) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-red-500 text-xl">{error || 'Target not found'}</div>
+        <div className="text-red-500 text-xl">{error || 'Sistema no encontrado'}</div>
       </div>
     );
   }
@@ -392,7 +392,7 @@ const TargetDetail: React.FC = () => {
       {/* Breadcrumb & Header */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2 text-text-muted text-sm font-medium">
-          <span className="hover:text-white cursor-pointer" onClick={() => navigate('/systems')}>Systems</span>
+          <span className="hover:text-white cursor-pointer" onClick={() => navigate('/systems')}>Sistemas</span>
           <ChevronRight className="w-4 h-4" />
           <span className="text-white">{target.data.name}</span>
         </div>
@@ -403,13 +403,13 @@ const TargetDetail: React.FC = () => {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-text-muted hidden sm:block">
-              Last checked: {new Date(target.data.last_checked_at).toLocaleString()} 
+              Última verificación: {new Date(target.data.last_checked_at).toLocaleString()} 
             </span>
             <button 
               onClick={() => window.location.reload()}
               className="flex items-center gap-2 bg-background-hover hover:bg-border-dark text-white px-4 h-10 rounded-lg font-medium transition-colors border border-border-dark"
             >
-              <RefreshCw className="w-4 h-4" /> Refresh
+              <RefreshCw className="w-4 h-4" /> Actualizar
             </button>
           </div>
         </div>
@@ -418,7 +418,7 @@ const TargetDetail: React.FC = () => {
       {/* Status Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
-          <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Current Status</p>
+          <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Estado Actual</p>
           <div className="flex items-center gap-3">
             <div className={`w-3 h-3 rounded-full ${statusColor} ${target.data.current_status === 'UP' ? 'animate-pulse' : ''}`}></div>
             <span className="text-2xl font-bold text-white">{target.data.current_status}</span>
@@ -426,7 +426,7 @@ const TargetDetail: React.FC = () => {
         </div>
 
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
-          <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Availability (24h)</p>
+          <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Disponibilidad (24h)</p>
           <span className="text-2xl font-bold text-white">
             {statisticsData?.success_rate 
               ? (statisticsData.success_rate > 1 
@@ -437,33 +437,33 @@ const TargetDetail: React.FC = () => {
         </div>
 
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
-          <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Avg Response (24h)</p>
+          <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Respuesta Prom. (24h)</p>
           <span className="text-2xl font-bold text-white">{statisticsData?.avg_response_time_ms ? statisticsData.avg_response_time_ms.toFixed(0) : 0}ms</span>
         </div>
 
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
-          <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">CPU Peak (24h)</p>
+          <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Pico CPU (24h)</p>
           <span className="text-2xl font-bold text-white">N/A</span>
         </div>
       </div>
 
       {/* Status History (24h) */}
       <div className="bg-background-card border border-border-dark rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Status History (24h)</h2>
+        <h2 className="text-xl font-bold text-white mb-4">Historial de Estado (24h)</h2>
         <div className="flex w-full h-8 rounded overflow-visible">
           {statusHistoryBar.map((segment, idx) => (
             <StatusSegment key={idx} segment={segment} index={idx} />
           ))}
         </div>
         <div className="flex justify-between mt-2 text-sm text-text-muted">
-          <span>24 hours ago</span>
-          <span>Now</span>
+          <span>Hace 24 horas</span>
+          <span>Ahora</span>
         </div>
       </div>
 
       {/* Response Time History (7-day Heatmap) */}
       <div className="bg-background-card border border-border-dark rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Response Time History (7 days)</h2>
+        <h2 className="text-xl font-bold text-white mb-4">Historial de Tiempos de Respuesta (7 días)</h2>
         <div className="space-y-2">
           {heatmapData.map((dayData, dayIdx) => (
             <div key={dayIdx} className="flex items-center gap-2">
@@ -485,11 +485,11 @@ const TargetDetail: React.FC = () => {
 
       {/* Performance Metrics */}
       <div className="bg-background-card border border-border-dark rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Performance Metrics</h2>
+        <h2 className="text-xl font-bold text-white mb-4">Métricas de Rendimiento</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Response Time Chart */}
           <div>
-            <h3 className="text-sm font-medium text-text-muted mb-3">Response Time (24h)</h3>
+            <h3 className="text-sm font-medium text-text-muted mb-3">Tiempo de Respuesta (24h)</h3>
             <div className="w-full h-[250px]">
               <ResponsiveContainer width="100%" height={250}>
                 <AreaChart data={metricsChartData}>
@@ -513,9 +513,9 @@ const TargetDetail: React.FC = () => {
                     strokeWidth={2} 
                     strokeDasharray="5 5" 
                     dot={false}
-                    name="Average"
+                    name="Promedio"
                   />
-                  <Area type="monotone" dataKey="value" stroke="#135bec" strokeWidth={2} fillOpacity={1} fill="url(#colorResponse)" name="Response Time" />
+                  <Area type="monotone" dataKey="value" stroke="#135bec" strokeWidth={2} fillOpacity={1} fill="url(#colorResponse)" name="Tiempo de Respuesta" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -523,7 +523,7 @@ const TargetDetail: React.FC = () => {
 
           {/* CPU Usage Chart */}
           <div>
-            <h3 className="text-sm font-medium text-text-muted mb-3">CPU Usage (24h)</h3>
+            <h3 className="text-sm font-medium text-text-muted mb-3">Uso de CPU (24h)</h3>
             <div className="w-full h-[250px]">
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={cpuChartData}>
@@ -544,27 +544,27 @@ const TargetDetail: React.FC = () => {
 
       {/* Configuration Details */}
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-white">Configuration</h2>
+        <h2 className="text-xl font-bold text-white">Configuración</h2>
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <p className="text-text-muted text-sm font-medium mb-1">Alert on Failure</p>
-              <p className="text-white font-medium">{target.configuration?.alert_on_failure ? 'Enabled' : 'Disabled'}</p>
+              <p className="text-text-muted text-sm font-medium mb-1">Alerta en Fallo</p>
+              <p className="text-white font-medium">{target.configuration?.alert_on_failure ? 'Activada' : 'Desactivada'}</p>
             </div>
             <div>
-              <p className="text-text-muted text-sm font-medium mb-1">Alert on Recovery</p>
-              <p className="text-white font-medium">{target.configuration?.alert_on_recovery ? 'Enabled' : 'Disabled'}</p>
+              <p className="text-text-muted text-sm font-medium mb-1">Alerta en Recuperación</p>
+              <p className="text-white font-medium">{target.configuration?.alert_on_recovery ? 'Activada' : 'Desactivada'}</p>
             </div>
             <div>
-              <p className="text-text-muted text-sm font-medium mb-1">Retry Count</p>
+              <p className="text-text-muted text-sm font-medium mb-1">Intentos de Reintento</p>
               <p className="text-white font-medium">{target.configuration?.retry_count || 0}</p>
             </div>
             <div>
-              <p className="text-text-muted text-sm font-medium mb-1">Timeout</p>
+              <p className="text-text-muted text-sm font-medium mb-1">Tiempo Límite</p>
               <p className="text-white font-medium">{target.configuration?.timeout_seconds || 0}s</p>
             </div>
             <div>
-              <p className="text-text-muted text-sm font-medium mb-1">Created At</p>
+              <p className="text-text-muted text-sm font-medium mb-1">Fecha de Creación</p>
               <p className="text-white font-medium">{new Date(target.data.created_at).toLocaleString()}</p>
             </div>
     
