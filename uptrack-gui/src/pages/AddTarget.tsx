@@ -81,7 +81,7 @@ const AddTarget: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto p-4 lg:p-8">
       <h1 className="text-3xl font-bold mb-8 text-white">Agregar Nuevo Sistema</h1>
-      <form onSubmit={handleSubmit} className="bg-gray-800/20 border border-gray-600 rounded-xl p-8 space-y-8 shadow-sm">
+      <form onSubmit={handleSubmit} className="bg-background-card border border-border-dark rounded-xl p-8 space-y-8 shadow-lg">
         <div className="space-y-6">
             <div className="flex items-center gap-3 pb-2 border-b border-gray-600">
               <Monitor className="text-primary w-5 h-5" />

@@ -14,10 +14,10 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
-  const baseClasses = 'px-4 py-2 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors';
+  const baseClasses = 'px-4 h-11 rounded-lg font-bold focus:outline-none transition-all active:scale-[0.98]';
   const variantClasses = {
-    primary: 'bg-primary text-text-main hover:bg-primary-hover focus:ring-primary',
-    secondary: 'bg-background-hover text-text-main hover:bg-border-dark focus:ring-border-dark',
+    primary: 'bg-primary text-white hover:bg-primary-hover shadow-lg shadow-primary/20',
+    secondary: 'bg-background-hover text-white hover:bg-border-dark border border-border-dark',
   };
 
   return (

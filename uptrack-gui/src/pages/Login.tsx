@@ -70,8 +70,8 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-background text-foreground">
-      <div className="hidden md:flex flex-col items-center justify-center bg-card p-12 border-r border-border relative overflow-hidden">
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-background text-text-main">
+      <div className="hidden md:flex flex-col items-center justify-center bg-background-surface p-12 border-r border-border-dark relative overflow-hidden">
         {/* Abstract background shape */}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 to-transparent pointer-events-none"></div>
         <div className="flex flex-col items-start max-w-sm gap-8 relative z-10">
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
           <h1 className="text-5xl font-black leading-tight tracking-tighter text-white">
             Tu centro de control unificado.
           </h1>
-          <p className="text-lg text-white">
+          <p className="text-lg text-text-muted">
             Monitoreo inteligente y en tiempo real para todos tus sistemas web críticos.
           </p>
         </div>
@@ -95,25 +95,25 @@ const Login: React.FC = () => {
             <h2 className="text-3xl font-bold text-white">
               {isLogin ? 'Bienvenido de nuevo' : 'Crear cuenta'}
             </h2>
-            <p className="text-white">
+            <p className="text-text-muted">
               {isLogin ? 'Inicia sesión para acceder a tu dashboard.' : 'Regístrate para comenzar a monitorear tus sistemas.'}
             </p>
           </div>
           <form onSubmit={isLogin ? handleLoginSubmit : handleRegisterSubmit} className="flex flex-col gap-6">
             <label className="flex flex-col w-full gap-2">
-              <span className="text-sm font-medium text-white">Correo electrónico</span>
+              <span className="text-sm font-medium text-text-muted">Correo electrónico</span>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="ejemplo@tuempresa.com"
-                className="w-full bg-background border border-border rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 required
               />
             </label>
             <label className="flex flex-col w-full gap-2">
-              <span className="text-sm font-medium text-white">Contraseña</span>
+              <span className="text-sm font-medium text-text-muted">Contraseña</span>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -121,13 +121,13 @@ const Login: React.FC = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="w-full bg-background border border-border rounded-lg h-11 px-4 pr-12 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                  className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 pr-12 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-primary-hover transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>

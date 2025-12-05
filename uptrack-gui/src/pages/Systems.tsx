@@ -136,7 +136,7 @@ const Systems: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-text-main">
       <div className="w-full pt-8 pb-8">
         <div className="max-w-[75%] mx-auto px-4 md:px-0">
           {/* Custom Header Layout */}
@@ -147,7 +147,7 @@ const Systems: React.FC = () => {
                 Agregar Sistema
               </Button>
             </div>
-            <p className="text-white">Administra el ciclo de vida de tus sistemas monitoreados.</p>
+            <p className="text-text-muted">Administra el ciclo de vida de tus sistemas monitoreados.</p>
           </div>
 
           {loading ? (
@@ -168,8 +168,8 @@ const Systems: React.FC = () => {
           ) : (
             <div className="space-y-6">
               {/* Header Card - Hidden on mobile */}
-              <div className="hidden md:block bg-gray-800/60 border border-gray-600 rounded-lg p-4">
-                <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-300">
+              <div className="hidden md:block bg-background-card border border-border-dark rounded-lg p-4">
+                <div className="grid grid-cols-12 gap-4 text-sm font-medium text-text-muted">
                   <div className="col-span-3">Sistema</div>
                   <div className="col-span-2">Tipo</div>
                   <div className="col-span-3">URL</div>
@@ -181,7 +181,7 @@ const Systems: React.FC = () => {
               {/* Systems List */}
               <div className="space-y-4">
                 {targets.map((target) => (
-                  <div key={target.id} className="bg-gray-800/40 border border-gray-600 rounded-lg overflow-hidden">
+                  <div key={target.id} className="bg-background-card border border-border-dark rounded-lg overflow-hidden hover:border-primary/50 transition-colors">
                     {/* Desktop: Table-like layout */}
                     <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:p-4 md:items-center">
                       <div className="md:col-span-3">
