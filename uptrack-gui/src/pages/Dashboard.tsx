@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { PageHeader } from '../components/ui/PageHeader';
+import { fetchWithAuth } from '../api/fetch';
 
 interface Target {
   id: string;
@@ -24,11 +25,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchTargets = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/targets`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const response = await fetchWithAuth('/api/v1/targets');
 
         if (response.ok) {
           const data = await response.json();
@@ -85,15 +82,10 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="w-full pt-8 pb-8">
-        <div className="max-w-[75%] mx-auto px-4 md:px-0">
+        <div className="max-w-[95%] lg:max-w-[75%] mx-auto px-4 md:px-0">
           <PageHeader
             title="Dashboard"
             description="Bienvenido al dashboard de monitoreo de UpTrack."
-            action={
-              <Button onClick={() => navigate('/add-target')}>
-                Agregar Sistema
-              </Button>
-            }
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -122,10 +114,7 @@ const Dashboard: React.FC = () => {
             </div>
           ) : targets.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-white">No hay sistemas configurados.</p>
-              <Button onClick={() => navigate('/add-target')} className="mt-4">
-                Agregar Primer Sistema
-              </Button>
+              <p className="text-white">No hay sistemas configurados. Usa el botón del navbar para agregar uno.</p>
             </div>
           ) : (
             <div>

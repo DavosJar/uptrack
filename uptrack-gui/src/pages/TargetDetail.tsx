@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronRight, RefreshCw } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { fetchWithAuth } from '../api/fetch';
 
 const buildApiUrl = (baseUrl: string, link: string): string => {
-  return `${baseUrl}${link}`;
-};
-
-const authFetch = async (url: string) => {
-  return await fetch(url, {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-    },
-  });
+  return link;
 };
 
 interface StatusSegmentProps {
@@ -121,9 +114,8 @@ const TargetDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchEndpointData = async (link: string) => {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL;
-    const fullUrl = buildApiUrl(baseUrl, link);
-    const response = await authFetch(fullUrl);
+    const fullUrl = buildApiUrl('', link);
+    const response = await fetchWithAuth(fullUrl);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
     return data.data;
@@ -135,8 +127,8 @@ const TargetDetail: React.FC = () => {
       try {
         setLoading(true);
         setError(null);
-        const url = `${import.meta.env.VITE_API_BASE_URL}/api/v1/targets/${id}`;
-        const response = await authFetch(url);
+        const url = `/api/v1/targets/${id}`;
+        const response = await fetchWithAuth(url);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         setTarget(data);

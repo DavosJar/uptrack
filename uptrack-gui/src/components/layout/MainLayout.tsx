@@ -13,7 +13,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <div className="flex h-screen bg-background text-text-main font-sans overflow-hidden">
-      <MobileHeader isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
+      <MobileHeader 
+        isMobileOpen={isMobileOpen} 
+        setIsMobileOpen={setIsMobileOpen}
+        isDesktopOpen={isDesktopOpen}
+        setIsDesktopOpen={setIsDesktopOpen}
+      />
       <Sidebar
         isDesktopOpen={isDesktopOpen}
         setIsDesktopOpen={setIsDesktopOpen}
@@ -22,7 +27,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       />
 
       {/* Main Layout */}
-      <main className="flex-1 overflow-y-auto h-full relative transition-all duration-300 pt-20 lg:pt-0">
+      <main className="flex-1 overflow-y-auto h-full relative transition-all duration-300 pt-16">
         <Content>
           {children}
         </Content>

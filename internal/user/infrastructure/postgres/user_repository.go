@@ -103,7 +103,7 @@ func (r *UserRepository) SaveWithEmail(email string) (*domain.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	usr := domain.NewMinimalUser(emailObj)
+	usr := domain.NewUser(emailObj, "") // Usa NewUser que sí inicializa timestamps
 	return r.Save(usr)
 }
 
@@ -113,7 +113,7 @@ func (r *UserRepository) SaveWithEmailTx(tx interface{}, email string) (*domain.
 	if err != nil {
 		return nil, err
 	}
-	usr := domain.NewMinimalUser(emailObj)
+	usr := domain.NewUser(emailObj, "") // Usa NewUser que sí inicializa timestamps
 	return r.SaveTx(txDB, usr)
 }
 

@@ -4,6 +4,7 @@ import FormField from '../components/ui/FormField';
 import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
 import { Monitor, Settings } from 'lucide-react';
+import { fetchWithAuth } from '../api/fetch';
 
 const AddTarget: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -43,11 +44,10 @@ const AddTarget: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/targets`, {
+      const response = await fetchWithAuth('/api/v1/targets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
           name: formData.name,

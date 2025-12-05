@@ -14,24 +14,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isDesktopOpen, setIsDesktopOpen, isMo
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
     { icon: Monitor, label: 'Systems', path: '/systems' },
-    { icon: Bell, label: 'Alerts', path: '/dashboard' },
     { icon: BarChart, label: 'Reports', path: '/dashboard' },
-    { icon: User, label: 'Profile', path: '/dashboard' },
+    { icon: User, label: 'Profile', path: '/profile' },
     { icon: Settings, label: 'Settings', path: '/dashboard' },
   ];
 
   return (
     <>
-      {/* Desktop Toggle */}
-      <div className={`hidden lg:block fixed top-4 z-50 transition-all duration-300 ${isDesktopOpen ? 'left-60' : 'left-4'}`}>
-        <button
-          onClick={() => setIsDesktopOpen(!isDesktopOpen)}
-          className="p-2 bg-background-card hover:bg-background-hover text-text-main rounded-lg shadow-lg transition-colors"
-        >
-          {isDesktopOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
-        </button>
-      </div>
-
       {/* Mobile Overlay */}
       <div
         className={`lg:hidden fixed inset-0 bg-black z-30 transition-opacity duration-300 ${isMobileOpen ? 'opacity-70 backdrop-blur-sm' : 'opacity-0 pointer-events-none'}`}
@@ -39,12 +28,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isDesktopOpen, setIsDesktopOpen, isMo
       />
 
       {/* Sidebar */}
-      <div className={`fixed lg:static top-0 left-0 h-full bg-background border-r border-border-dark transition-all duration-300 z-40 overflow-hidden ${isMobileOpen ? 'w-64' : 'w-0'} ${isDesktopOpen ? 'lg:w-64' : 'lg:w-0'}`}>
+      <div className={`fixed top-16 left-0 h-[calc(100vh-4rem)] bg-background border-r border-border-dark transition-all duration-300 z-40 overflow-hidden ${isMobileOpen ? 'w-64' : 'w-0'} ${isDesktopOpen ? 'lg:w-64' : 'lg:w-0'}`}>
         <div className="flex flex-col h-full">
-          <div className="p-6 border-b border-border-dark">
-            <h2 className="text-text-main text-xl font-bold">Uptrack</h2>
-          </div>
-          <nav className="flex-1 p-4">
+          <nav className="flex-1 p-4 pt-6">
             <ul className="space-y-2">
               {navItems.map((item) => (
                 <li key={item.label}>

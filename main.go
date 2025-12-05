@@ -10,6 +10,8 @@ import (
 	"uptrackai/internal/monitoring/presentation"
 	sec "uptrackai/internal/security"
 	sechand "uptrackai/internal/security/presentation"
+	userapplication "uptrackai/internal/user/application"
+	userpresentation "uptrackai/internal/user/presentation"
 
 	"github.com/joho/godotenv"
 )
@@ -66,8 +68,13 @@ func main() {
 
 	// 4. Inicializar handlers (capa de presentación)
 	monitoringHandler := presentation.NewMonitoringHandler(monitoringAppService)
+
+	// User: service + handler
+	userService := userapplication.NewService(repos.UserRepo)
+	userHandler := userpresentation.NewUserHandler(userService)
+
 	// 5. HTTP Server en goroutine separada
-	go config.StartHTTPServer("8080", monitoringHandler, securityHandler)
+	go config.StartHTTPServer("8080", monitoringHandler, securityHandler, userHandler)
 
 	// 6. Scheduler bloquea el main thread
 	config.RunScheduler(repos)

@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import AddTarget from './pages/AddTarget';
 import Systems from './pages/Systems';
 import TargetDetail from './pages/TargetDetail';
+import Profile from './pages/Profile';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -57,6 +58,16 @@ function App() {
             <Navigate to="/login" />
           )
         } />
+        <Route path="/profile" element={
+          isLoggedIn ? (
+            <MainLayout>
+              <Profile />
+            </MainLayout>
+          ) : (
+            <Navigate to="/login" />
+          )
+        } />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
   );

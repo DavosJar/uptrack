@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { Settings, Trash2, Play } from 'lucide-react';
+import { fetchWithAuth } from '../api/fetch';
 
 interface Target {
   id: string;
@@ -22,11 +23,7 @@ const Systems: React.FC = () => {
   useEffect(() => {
     const fetchTargets = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/targets`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const response = await fetchWithAuth('/api/v1/targets');
 
         if (response.ok) {
           const data = await response.json();
@@ -138,15 +135,10 @@ const Systems: React.FC = () => {
   return (
     <div className="min-h-screen bg-background text-text-main">
       <div className="w-full pt-8 pb-8">
-        <div className="max-w-[75%] mx-auto px-4 md:px-0">
+        <div className="max-w-[95%] lg:max-w-[75%] mx-auto px-4 md:px-0">
           {/* Custom Header Layout */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-2">
-              <h1 className="text-2xl md:text-3xl font-bold text-white">Gestión de Sistemas</h1>
-              <Button onClick={() => navigate('/add-target')} className="px-3 py-2 text-sm">
-                Agregar Sistema
-              </Button>
-            </div>
+            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Gestión de Sistemas</h1>
             <p className="text-text-muted">Administra el ciclo de vida de tus sistemas monitoreados.</p>
           </div>
 
@@ -160,10 +152,7 @@ const Systems: React.FC = () => {
             </div>
           ) : targets.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-white">No hay sistemas configurados.</p>
-              <Button onClick={() => navigate('/add-target')} className="mt-4">
-                Agregar Primer Sistema
-              </Button>
+              <p className="text-white">No hay sistemas configurados. Usa el botón del navbar para agregar uno.</p>
             </div>
           ) : (
             <div className="space-y-6">

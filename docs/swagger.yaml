@@ -15,6 +15,38 @@ definitions:
       success:
         type: boolean
     type: object
+  application.CompleteUserProfileCommand:
+    properties:
+      avatar_url:
+        type: string
+      full_name:
+        type: string
+      language:
+        type: string
+      timezone:
+        type: string
+    type: object
+  application.UserProfileDTO:
+    properties:
+      avatar_url:
+        type: string
+      created_at:
+        description: ISO 8601
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      language:
+        type: string
+      timezone:
+        type: string
+      updated_at:
+        description: ISO 8601
+        type: string
+    type: object
   presentation.CheckResultResponse:
     properties:
       error_message:
@@ -22,16 +54,8 @@ definitions:
       response_time_ms:
         type: integer
       status:
-        enum:
-        - UP
-        - DOWN
-        - DEGRADED
-        - UNSTABLE
-        - FLAPPING
-        - UNKNOWN
         type: string
       timestamp:
-        format: date-time
         type: string
     type: object
   presentation.ConfigurationDetail:
@@ -79,7 +103,6 @@ definitions:
       response_time_ms:
         type: integer
       timestamp:
-        format: date-time
         type: string
     type: object
   presentation.RegisterRequest:
@@ -113,15 +136,12 @@ definitions:
       configuration:
         $ref: '#/definitions/presentation.ConfigurationDetail'
       created_at:
-        format: date-time
         type: string
       current_status:
         type: string
       id:
         type: string
       last_checked_at:
-        format: date-time
-        nullable: true
         type: string
       name:
         type: string
@@ -136,7 +156,6 @@ definitions:
         example: 150
         type: integer
       created_at:
-        format: date-time
         type: string
       current_status:
         example: UP
@@ -145,8 +164,6 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
       last_checked_at:
-        format: date-time
-        nullable: true
         type: string
       name:
         example: My Website
@@ -500,6 +517,85 @@ paths:
       summary: Get target statistics
       tags:
       - monitoring
+  /users/me:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve profile information for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/application.UserProfileDTO'
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get current user profile
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Complete or update the profile information for the authenticated
+        user
+      parameters:
+      - description: Profile data
+        in: body
+        name: profile
+        required: true
+        schema:
+          $ref: '#/definitions/application.CompleteUserProfileCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/application.UserProfileDTO'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/app.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Complete or update user profile
+      tags:
+      - users
 securityDefinitions:
   BearerAuth:
     description: Type "Bearer" followed by a space and JWT token.
