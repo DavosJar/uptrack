@@ -47,3 +47,10 @@ go.work
 # --- NOTA SRE ---
 # NO ignoramos: Dockerfile, docker-compose.yml, *.md, testdata/
 # Esos archivos son sagrados.
+
+# --- Frontend (React/Vite) ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+# --- Fin ---
