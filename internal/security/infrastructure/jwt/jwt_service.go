@@ -1,12 +1,15 @@
 package jwt
 
 import (
+	"errors"
 	"os"
 	"time"
 	"uptrackai/internal/security/domain"
 
 	jwtlib "github.com/golang-jwt/jwt/v5"
 )
+
+var ErrInvalidToken = errors.New("invalid token")
 
 type JWTService struct{}
 
@@ -44,16 +47,16 @@ func (s *JWTService) Generate(userID, role string, duration time.Duration) (stri
 func (s *JWTService) Parse(tokenStr string) (*domain.TokenClaims, error) {
 	token, err := jwtlib.ParseWithClaims(tokenStr, &claims{}, func(token *jwtlib.Token) (interface{}, error) {
 		if token.Method.Alg() != jwtlib.SigningMethodHS256.Alg() {
-			return nil, domain.ErrInvalidToken
+			return nil, ErrInvalidToken
 		}
 		return jwtSecret(), nil
 	})
 	if err != nil {
-		return nil, domain.ErrInvalidToken
+		return nil, ErrInvalidToken
 	}
 	c, ok := token.Claims.(*claims)
 	if !ok || !token.Valid {
-		return nil, domain.ErrInvalidToken
+		return nil, ErrInvalidToken
 	}
 
 	return &domain.TokenClaims{

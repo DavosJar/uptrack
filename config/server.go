@@ -3,6 +3,8 @@ package config
 import (
 	"log"
 	"uptrackai/internal/security/presentation"
+
+	"uptrackai/internal/security/infrastructure/jwt"
 	"uptrackai/internal/server/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -70,7 +72,10 @@ func StartHTTPServer(port string, handlers ...HTTPHandler) {
 
 	// API v1 routes (protegidas con middleware)
 	v1 := router.Group("/api/v1")
-	v1.Use(middleware.ExtractUserID()) // Middleware que extrae userId del JWT
+	
+	// Inicializar servicio de JWT para el middleware
+	tokenService := jwt.NewJWTService()
+	v1.Use(middleware.ExtractUserID(tokenService))
 
 	for _, handler := range otherHandlers {
 		handler.RegisterRoutes(v1)
