@@ -1,0 +1,56 @@
+# --- Binarios y Compilación (Basura generada) ---
+# Binarios principales
+main
+main.exe
+tmp/
+
+# Archivos objeto y librerías compartidas
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# --- Entorno Local y Secretos (SEGURIDAD) ---
+# Nunca subas esto. Aquí viven tus API Keys.
+.env
+.env.local
+.env.*.local
+
+# --- IDEs y Editores (Configuración personal) ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Docker & Base de Datos (Datos volátiles) ---
+# Ignoramos los DATOS de la BD, pero NO el docker-compose.yml
+postgres_data/
+*.db
+*.sqlite
+*.sqlite3
+
+# --- Logs ---
+*.log
+
+# --- Go ---
+# Vendor se ignora salvo que uses "go mod vendor" explícitamente
+vendor/
+# Workspace local (si usas go work)
+go.work
+
+# --- NOTA SRE ---
+# NO ignoramos: Dockerfile, docker-compose.yml, *.md, testdata/
+# Esos archivos son sagrados.
+
+# --- Frontend (React/Vite) ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+# --- Fin ---
