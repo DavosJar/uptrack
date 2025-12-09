@@ -6,6 +6,9 @@ WORKDIR /app
 # Instalar dependencias del sistema
 RUN apk add --no-cache git
 
+# Configurar git para permitir el directorio como seguro
+RUN git config --global --add safe.directory /app
+
 # Instalar Air para hot reload
 RUN go install github.com/air-verse/air@latest
 
