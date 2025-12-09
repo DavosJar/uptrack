@@ -8,10 +8,8 @@ import (
 	_ "uptrackai/docs" // This is required for swagger
 	"uptrackai/internal/monitoring/application"
 	"uptrackai/internal/monitoring/presentation"
-	sec "uptrackai/internal/security"
-	sechand "uptrackai/internal/security/presentation"
-	userapplication "uptrackai/internal/user/application"
-	userpresentation "uptrackai/internal/user/presentation"
+	"uptrackai/internal/security"
+	"uptrackai/internal/user"
 
 	"github.com/joho/godotenv"
 )
@@ -62,19 +60,17 @@ func main() {
 		repos.StatsRepo,
 	)
 
-	// Security: service + handler (sigue el mismo estándar de handlers)
-	authService := sec.NewAuthService(db, repos.UserRepo, repos.CredentialRepo)
-	securityHandler := sechand.NewSecurityHandler(authService)
+	// Security Module (Encapsulado)
+	securityModule := security.NewModule(db, repos.UserRepo, repos.CredentialRepo)
 
 	// 4. Inicializar handlers (capa de presentación)
 	monitoringHandler := presentation.NewMonitoringHandler(monitoringAppService)
 
-	// User: service + handler
-	userService := userapplication.NewService(repos.UserRepo)
-	userHandler := userpresentation.NewUserHandler(userService)
+	// User Module (Encapsulado)
+	userModule := user.NewModule(repos.UserRepo)
 
 	// 5. HTTP Server en goroutine separada
-	go config.StartHTTPServer("8080", monitoringHandler, securityHandler, userHandler)
+	go config.StartHTTPServer("8080", monitoringHandler, securityModule.Handler, userModule.Handler)
 
 	// 6. Scheduler bloquea el main thread
 	config.RunScheduler(repos)
