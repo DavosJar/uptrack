@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 	"uptrackai/internal/app"
-	secsvc "uptrackai/internal/security"
+	secsvc "uptrackai/internal/security/application"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"

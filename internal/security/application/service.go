@@ -1,8 +1,9 @@
-package security
+package application
 
 import (
+	"errors"
 	"time"
-	security "uptrackai/internal/security/infrastructure/postgres"
+	"uptrackai/internal/security/domain"
 	userdomain "uptrackai/internal/user/domain"
 
 	"github.com/google/uuid"
@@ -22,11 +23,25 @@ type LoginInput struct {
 type AuthService struct {
 	db       *gorm.DB
 	userRepo userdomain.UserRepository
-	credRepo *security.CredentialRepository
+	credRepo domain.CredentialRepository
+	hasher   domain.PasswordHasher
+	tokenGen domain.TokenGenerator
 }
 
-func NewAuthService(db *gorm.DB, userRepo userdomain.UserRepository, credRepo *security.CredentialRepository) *AuthService {
-	return &AuthService{db: db, userRepo: userRepo, credRepo: credRepo}
+func NewAuthService(
+	db *gorm.DB,
+	userRepo userdomain.UserRepository,
+	credRepo domain.CredentialRepository,
+	hasher domain.PasswordHasher,
+	tokenGen domain.TokenGenerator,
+) *AuthService {
+	return &AuthService{
+		db:       db,
+		userRepo: userRepo,
+		credRepo: credRepo,
+		hasher:   hasher,
+		tokenGen: tokenGen,
+	}
 }
 
 // Register crea un usuario y su credencial de forma transaccional
@@ -51,7 +66,6 @@ func (s *AuthService) Register(input RegisterInput) error {
 		tx.Rollback()
 		return userdomain.ErrUserAlreadyExists
 	}
-	// Si hay error diferente a "not found", continuar (usuario no existe, es ok)
 
 	// 2. Crear usuario dentro de la transacción
 	user, err := s.userRepo.SaveWithEmailTx(tx, email)
@@ -61,7 +75,7 @@ func (s *AuthService) Register(input RegisterInput) error {
 	}
 
 	// 3. Crear hash de password
-	hash, err := HashPassword(input.Password)
+	hash, err := s.hasher.HashPassword(input.Password)
 	if err != nil {
 		tx.Rollback()
 		return err
@@ -74,7 +88,7 @@ func (s *AuthService) Register(input RegisterInput) error {
 		tx.Rollback()
 		return err
 	}
-	cred := security.CredentialEntity{
+	cred := domain.Credential{
 		UserID:       uuidId,
 		PasswordHash: hash,
 	}
@@ -99,11 +113,25 @@ func (s *AuthService) Login(input LoginInput) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	// 4. Verificar password
+	if !s.hasher.CheckPassword(cred.PasswordHash, input.Password) {
+		return "", errors.New("invalid credentials")
+	}
+
+	// Actualizar último login
 	now := time.Now()
 	cred.LastLoginAt = &now
 	err = s.credRepo.Update(cred)
 	if err != nil {
 		return "", err
 	}
-	return GenerateJWT(cred.UserID.String(), "USER", 1*time.Hour)
+
+	// 5. Generar JWT
+	return s.tokenGen.Generate(existingUser.ID().String(), "USER", time.Hour*24)
+}
+
+// ParseToken valida y extrae la información del token
+func (s *AuthService) ParseToken(token string) (*domain.TokenClaims, error) {
+	return s.tokenGen.Parse(token)
 }

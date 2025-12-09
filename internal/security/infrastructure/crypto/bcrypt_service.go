@@ -1,11 +1,16 @@
-package security
+package crypto
 
 import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// HashPassword genera un hash seguro para el password
-func HashPassword(password string) (string, error) {
+type BcryptService struct{}
+
+func NewBcryptService() *BcryptService {
+	return &BcryptService{}
+}
+
+func (s *BcryptService) HashPassword(password string) (string, error) {
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		return "", err
@@ -13,7 +18,6 @@ func HashPassword(password string) (string, error) {
 	return string(hash), nil
 }
 
-// CheckPassword compara un password plano con su hash
-func CheckPassword(hash, password string) bool {
+func (s *BcryptService) CheckPassword(hash, password string) bool {
 	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(password)) == nil
 }
