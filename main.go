@@ -7,6 +7,7 @@ import (
 	"uptrackai/config"
 	_ "uptrackai/docs" // This is required for swagger
 	"uptrackai/internal/monitoring"
+	"uptrackai/internal/notifications"
 	"uptrackai/internal/security"
 	"uptrackai/internal/user"
 
@@ -46,18 +47,21 @@ func main() {
 	}
 
 	config.RunMigrations(db)
-	config.SeedMonitoringTargets(db) // Seed temporal para testing
+	//config.SeedMonitoringTargets(db) // Seed temporal para testing
 
 	// 2. Inicializar Módulos (Application & Infrastructure)
 	monitoringModule := monitoring.NewModule(db)
 	securityModule := security.NewModule(db)
 	userModule := user.NewModule(db)
+	notificationsModule := notifications.NewModule(db)
 
 	// 3. HTTP Server en goroutine separada
 	go config.StartHTTPServer("8080",
 		monitoringModule.Handler,
 		securityModule.Handler,
-		userModule.Handler)
+		userModule.Handler,
+		notificationsModule.Handler,
+	)
 
 	// 4. Scheduler bloquea el main thread
 	monitoringModule.StartScheduler()
