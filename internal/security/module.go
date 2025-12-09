@@ -2,11 +2,11 @@ package security
 
 import (
 	"uptrackai/internal/security/application"
-	"uptrackai/internal/security/domain"
 	"uptrackai/internal/security/infrastructure/crypto"
 	"uptrackai/internal/security/infrastructure/jwt"
+	"uptrackai/internal/security/infrastructure/postgres"
 	"uptrackai/internal/security/presentation"
-	userdomain "uptrackai/internal/user/domain"
+	userpostgres "uptrackai/internal/user/infrastructure/postgres"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -20,19 +20,17 @@ type Module struct {
 }
 
 // NewModule inicializa todo lo relacionado con seguridad
-func NewModule(db *gorm.DB, userRepo userdomain.UserRepository, credRepo domain.CredentialRepository) *Module {
-	// 1. Infrastructure Services
+func NewModule(db *gorm.DB) *Module {
+	userRepo := userpostgres.NewUserRepository(db)
+	credRepo := postgres.NewCredentialRepository(db)
+
 	tokenService := jwt.NewJWTService()
 	cryptoService := crypto.NewBcryptService()
 
-	// 2. Application Service
 	service := application.NewAuthService(db, userRepo, credRepo, cryptoService, tokenService)
 
-	// 3. Handler
 	handler := presentation.NewSecurityHandler(service)
 
-	// 4. Middleware
-	// Inyectamos el servicio de tokens directamente al middleware
 	extractUserMiddleware := presentation.ExtractUserID(tokenService)
 
 	return &Module{

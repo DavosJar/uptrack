@@ -2,8 +2,10 @@ package user
 
 import (
 	"uptrackai/internal/user/application"
-	"uptrackai/internal/user/domain"
+	"uptrackai/internal/user/infrastructure/postgres"
 	"uptrackai/internal/user/presentation"
+
+	"gorm.io/gorm"
 )
 
 // Module encapsula la inicialización del dominio de usuarios
@@ -13,8 +15,9 @@ type Module struct {
 }
 
 // NewModule inicializa todo lo relacionado con usuarios
-// Recibe las dependencias necesarias (repositorios, etc)
-func NewModule(userRepo domain.UserRepository) *Module {
+func NewModule(db *gorm.DB) *Module {
+	userRepo := postgres.NewUserRepository(db)
+
 	// 1. Service
 	service := application.NewService(userRepo)
 
