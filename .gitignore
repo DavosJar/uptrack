@@ -1,46 +1,56 @@
-# Binaries for programs and plugins
+# --- Binarios y Compilación (Basura generada) ---
+# Binarios principales
+main
+main.exe
+tmp/
+
+# Archivos objeto y librerías compartidas
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-
-# Test binary, built with `go test -c`
 *.test
-
-# Output of the go coverage tool
 *.out
 
-# Dependency directories
-vendor/
+# --- Entorno Local y Secretos (SEGURIDAD) ---
+# Nunca subas esto. Aquí viven tus API Keys.
+.env
+.env.local
+.env.*.local
 
-# Go workspace file
-go.work
-
-# Air
-tmp/
-*.log
-
-# IDE
+# --- IDEs y Editores (Configuración personal) ---
 .idea/
 .vscode/
 *.swp
 *.swo
 *~
+.DS_Store
+Thumbs.db
 
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# Database
+# --- Docker & Base de Datos (Datos volátiles) ---
+# Ignoramos los DATOS de la BD, pero NO el docker-compose.yml
+postgres_data/
 *.db
 *.sqlite
 *.sqlite3
 
-# OS
-.DS_Store
-Thumbs.db
+# --- Logs ---
+*.log
 
-# Docker volumes data
-postgres_data/
+# --- Go ---
+# Vendor se ignora salvo que uses "go mod vendor" explícitamente
+vendor/
+# Workspace local (si usas go work)
+go.work
+
+# --- NOTA SRE ---
+# NO ignoramos: Dockerfile, docker-compose.yml, *.md, testdata/
+# Esos archivos son sagrados.
+
+# --- Frontend (React/Vite) ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+# --- Fin ---
