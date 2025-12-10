@@ -7,9 +7,11 @@ import (
 func TestNewNotificationChannel_Success(t *testing.T) {
 	channelId := "channel123"
 	userId := "user456"
-	address := "user@example.com"
+	chType := "TELEGRAM"
+	value := "123456789"
+	priority := 10
 
-	channel, err := NewNotificationChannel(channelId, userId, address)
+	channel, err := NewNotificationChannel(channelId, userId, chType, value, priority)
 
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -17,14 +19,20 @@ func TestNewNotificationChannel_Success(t *testing.T) {
 	if channel == nil {
 		t.Fatal("Expected channel to be created")
 	}
-	if channel.ChannelId() != channelId {
-		t.Errorf("Expected channelId %s, got %s", channelId, channel.ChannelId())
+	if channel.ID().String() != channelId {
+		t.Errorf("Expected channelId %s, got %s", channelId, channel.ID().String())
 	}
-	if channel.UserId() != userId {
-		t.Errorf("Expected userId %s, got %s", userId, channel.UserId())
+	if channel.UserID() != userId {
+		t.Errorf("Expected userId %s, got %s", userId, channel.UserID())
 	}
-	if channel.Address() != address {
-		t.Errorf("Expected address %s, got %s", address, channel.Address())
+	if channel.Type().String() != chType {
+		t.Errorf("Expected type %s, got %s", chType, channel.Type().String())
+	}
+	if channel.Value().String() != value {
+		t.Errorf("Expected value %s, got %s", value, channel.Value().String())
+	}
+	if channel.Priority().Int() != priority {
+		t.Errorf("Expected priority %d, got %d", priority, channel.Priority().Int())
 	}
 	if !channel.IsActive() {
 		t.Error("Expected channel to be active by default")
@@ -32,7 +40,7 @@ func TestNewNotificationChannel_Success(t *testing.T) {
 }
 
 func TestNewNotificationChannel_EmptyChannelId(t *testing.T) {
-	_, err := NewNotificationChannel("", "user123", "user@example.com")
+	_, err := NewNotificationChannel("", "user123", "TELEGRAM", "val", 1)
 
 	if err != ErrChannelIdEmpty {
 		t.Errorf("Expected ErrChannelIdEmpty, got %v", err)
@@ -40,76 +48,55 @@ func TestNewNotificationChannel_EmptyChannelId(t *testing.T) {
 }
 
 func TestNewNotificationChannel_EmptyUserId(t *testing.T) {
-	_, err := NewNotificationChannel("channel123", "", "user@example.com")
+	_, err := NewNotificationChannel("channel123", "", "TELEGRAM", "val", 1)
 
-	if err != ErrChannelIdEmpty {
-		t.Errorf("Expected ErrChannelIdEmpty, got %v", err)
+	if err != ErrUserIdEmpty {
+		t.Errorf("Expected ErrUserIdEmpty, got %v", err)
 	}
 }
 
-func TestNewNotificationChannel_EmptyAddress(t *testing.T) {
-	_, err := NewNotificationChannel("channel123", "user123", "")
+func TestNewNotificationChannel_InvalidType(t *testing.T) {
+	_, err := NewNotificationChannel("channel123", "user123", "INVALID", "val", 1)
 
-	if err != ErrAddressEmpty {
-		t.Errorf("Expected ErrAddressEmpty, got %v", err)
+	if err != ErrInvalidChannelType {
+		t.Errorf("Expected ErrInvalidChannelType, got %v", err)
 	}
 }
 
-func TestNotificationChannel_Activate(t *testing.T) {
-	channel, _ := NewNotificationChannel("channel123", "user123", "user@example.com")
-	channel.Deactivate()
+func TestNewNotificationChannel_InvalidPriority(t *testing.T) {
+	_, err := NewNotificationChannel("channel123", "user123", "TELEGRAM", "val", 11)
 
-	channel.Activate()
-
-	if !channel.IsActive() {
-		t.Error("Expected channel to be active after Activate()")
+	if err != ErrInvalidPriority {
+		t.Errorf("Expected ErrInvalidPriority, got %v", err)
 	}
 }
 
-func TestNotificationChannel_Deactivate(t *testing.T) {
-	channel, _ := NewNotificationChannel("channel123", "user123", "user@example.com")
+func TestNotificationChannel_UpdateConfiguration(t *testing.T) {
+	channel, _ := NewNotificationChannel("1", "u1", "TELEGRAM", "old", 5)
 
-	channel.Deactivate()
-
-	if channel.IsActive() {
-		t.Error("Expected channel to be inactive after Deactivate()")
-	}
-}
-
-func TestNotificationChannel_UpdateAddress(t *testing.T) {
-	channel, _ := NewNotificationChannel("channel123", "user123", "old@example.com")
-	newAddress := "new@example.com"
-
-	err := channel.UpdateAddress(newAddress)
-
+	err := channel.UpdateConfiguration("new", 8)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
-	if channel.Address() != newAddress {
-		t.Errorf("Expected address %s, got %s", newAddress, channel.Address())
+
+	if channel.Value().String() != "new" {
+		t.Error("Value not updated")
+	}
+	if channel.Priority().Int() != 8 {
+		t.Error("Priority not updated")
 	}
 }
 
-func TestNotificationChannel_UpdateAddress_Empty(t *testing.T) {
-	channel, _ := NewNotificationChannel("channel123", "user123", "user@example.com")
+func TestNotificationChannel_ActivateDeactivate(t *testing.T) {
+	channel, _ := NewNotificationChannel("1", "u1", "TELEGRAM", "val", 5)
 
-	err := channel.UpdateAddress("")
+	channel.Deactivate()
+	if channel.IsActive() {
+		t.Error("Expected inactive")
+	}
 
-	if err != ErrAddressEmpty {
-		t.Errorf("Expected ErrAddressEmpty, got %v", err)
+	channel.Activate()
+	if !channel.IsActive() {
+		t.Error("Expected active")
 	}
 }
-
-func TestNotificationChannel_BelongsTo(t *testing.T) {
-	userId := "user123"
-	channel, _ := NewNotificationChannel("channel123", userId, "user@example.com")
-
-	if !channel.BelongsTo(userId) {
-		t.Errorf("Expected channel to belong to user %s", userId)
-	}
-
-	if channel.BelongsTo("differentUser") {
-		t.Error("Expected channel to NOT belong to different user")
-	}
-}
-

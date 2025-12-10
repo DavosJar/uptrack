@@ -15,7 +15,12 @@ func NewNotificationService(repo NotificationChannelRepository) *NotificationSer
 
 // SendNotification envía una notificación a través de un canal específico
 func (s *NotificationService) SendNotification(channelId string, message string) error {
-	channel, err := s.repository.FindById(channelId)
+	cId, err := NewChannelId(channelId)
+	if err != nil {
+		return err
+	}
+
+	channel, err := s.repository.FindById(cId)
 	if err != nil {
 		return err
 	}
