@@ -2,49 +2,57 @@ package domain
 
 // Entity: CheckConfiguration
 type CheckConfiguration struct {
-	configId          ConfigId
-	timeoutSeconds    int
-	retryCount        int
-	retryDelaySeconds int
-	alertOnFailure    bool
-	alertOnRecovery   bool
+	configId             ConfigId
+	timeoutSeconds       int
+	retryCount           int
+	retryDelaySeconds    int
+	checkIntervalSeconds int // Frecuencia de chequeo en segundos
+	alertOnFailure       bool
+	alertOnRecovery      bool
 }
 
 // NewCheckConfiguration crea una nueva instancia de CheckConfiguration
-func NewCheckConfiguration(timeoutSeconds int, retryCount int, retryDelaySeconds int) *CheckConfiguration {
+func NewCheckConfiguration(timeoutSeconds int, retryCount int, retryDelaySeconds int, checkIntervalSeconds int) *CheckConfiguration {
 	return &CheckConfiguration{
-		timeoutSeconds:    timeoutSeconds,
-		retryCount:        retryCount,
-		retryDelaySeconds: retryDelaySeconds,
-		alertOnFailure:    true,
-		alertOnRecovery:   true,
+		timeoutSeconds:       timeoutSeconds,
+		retryCount:           retryCount,
+		retryDelaySeconds:    retryDelaySeconds,
+		checkIntervalSeconds: checkIntervalSeconds,
+		alertOnFailure:       true,
+		alertOnRecovery:      true,
 	}
 }
 
 func NewDefaultCheckConfiguration() *CheckConfiguration {
 	return &CheckConfiguration{
-		timeoutSeconds:    10,
-		retryCount:        3,
-		retryDelaySeconds: 1,
-		alertOnFailure:    true,
-		alertOnRecovery:   true,
+		timeoutSeconds:       10,
+		retryCount:           3,
+		retryDelaySeconds:    1,
+		checkIntervalSeconds: 300, // 5 minutos por defecto
+		alertOnFailure:       true,
+		alertOnRecovery:      true,
 	}
 }
 
-func NewFullCheckConfiguration(id ConfigId, timeoutSeconds int, retryCount int, retryDelaySeconds int, alertOnFailure bool, alertOnRecovery bool) *CheckConfiguration {
+func NewFullCheckConfiguration(id ConfigId, timeoutSeconds int, retryCount int, retryDelaySeconds int, checkIntervalSeconds int, alertOnFailure bool, alertOnRecovery bool) *CheckConfiguration {
 	return &CheckConfiguration{
-		configId:          id,
-		timeoutSeconds:    timeoutSeconds,
-		retryCount:        retryCount,
-		retryDelaySeconds: retryDelaySeconds,
-		alertOnFailure:    alertOnFailure,
-		alertOnRecovery:   alertOnRecovery,
+		configId:             id,
+		timeoutSeconds:       timeoutSeconds,
+		retryCount:           retryCount,
+		retryDelaySeconds:    retryDelaySeconds,
+		checkIntervalSeconds: checkIntervalSeconds,
+		alertOnFailure:       alertOnFailure,
+		alertOnRecovery:      alertOnRecovery,
 	}
 }
 
 // Getters
 func (c *CheckConfiguration) ConfigId() ConfigId {
 	return c.configId
+}
+
+func (c *CheckConfiguration) CheckIntervalSeconds() int {
+	return c.checkIntervalSeconds
 }
 
 func (c *CheckConfiguration) TimeoutSeconds() int {

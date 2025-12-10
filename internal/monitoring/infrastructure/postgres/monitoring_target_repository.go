@@ -134,6 +134,7 @@ func (r *PostgresMonitoringTargetRepository) toDomain(entity *MonitoringTargetEn
 		entity.TimeoutSeconds,
 		entity.RetryCount,
 		entity.RetryDelaySeconds,
+		300, // Default check interval
 	)
 
 	previousStatus := domain.TargetStatus(entity.PreviousStatus)

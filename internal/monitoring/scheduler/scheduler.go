@@ -221,7 +221,7 @@ func (s *Scheduler) performCheck(target *domain.MonitoringTarget) *domain.CheckR
 	elapsed := int(time.Since(start).Milliseconds())
 
 	if err != nil {
-		return domain.NewCheckResultWithError(id, err.Error())
+		return domain.NewCheckResultWithError(id, elapsed, err.Error())
 	}
 	defer resp.Body.Close()
 
@@ -304,7 +304,7 @@ func (s *Scheduler) updateStatistics(target *domain.MonitoringTarget, avgRespons
 	}
 
 	// Actualizar con nuevos datos (lógica de ponderación en domain)
-	stats.UpdateWithNewChecks(avgResponseTime, checksCount)
+	stats.UpdateWithNewChecks(avgResponseTime, checksCount, 300)
 
 	// Guardar en DB
 	err = s.statisticsRepository.Save(stats)

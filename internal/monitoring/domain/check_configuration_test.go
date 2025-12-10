@@ -9,7 +9,7 @@ func TestNewCheckConfiguration_Success(t *testing.T) {
 	retryCount := 3
 	retryDelay := 5
 
-	config := NewCheckConfiguration(timeout, retryCount, retryDelay)
+	config := NewCheckConfiguration(timeout, retryCount, retryDelay, 300)
 
 	if config == nil {
 		t.Fatal("Expected config to be created")
@@ -116,7 +116,7 @@ func TestCheckConfiguration_UpdateRetryPolicy_InvalidDelay(t *testing.T) {
 }
 
 func TestCheckConfiguration_IsValid(t *testing.T) {
-	config := NewCheckConfiguration(30, 3, 5)
+	config := NewCheckConfiguration(30, 3, 5, 300)
 
 	if !config.IsValid() {
 		t.Error("Expected config to be valid")
@@ -124,7 +124,7 @@ func TestCheckConfiguration_IsValid(t *testing.T) {
 }
 
 func TestCheckConfiguration_IsValid_InvalidTimeout(t *testing.T) {
-	config := NewCheckConfiguration(0, 3, 5)
+	config := NewCheckConfiguration(0, 3, 5, 300)
 
 	if config.IsValid() {
 		t.Error("Expected config to be invalid with timeout 0")

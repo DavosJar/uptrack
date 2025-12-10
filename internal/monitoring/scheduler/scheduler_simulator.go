@@ -416,7 +416,7 @@ func (s *SimulatorScheduler) updateStatistics(target *domain.MonitoringTarget, a
 		return
 	}
 
-	stats.UpdateWithNewChecks(avgResponseTime, checksCount)
+	stats.UpdateWithNewChecks(avgResponseTime, checksCount, 300)
 
 	err = s.statisticsRepository.Save(stats)
 	if err != nil {

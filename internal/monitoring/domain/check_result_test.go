@@ -33,7 +33,7 @@ func TestNewCheckResultWithError(t *testing.T) {
 	errorMsg := "Connection timeout"
 	targetId := TargetId("target-123")
 
-	result := NewCheckResultWithError(targetId, errorMsg)
+	result := NewCheckResultWithError(targetId, 0, errorMsg)
 
 	if result == nil {
 		t.Fatal("Expected check result to be created")
