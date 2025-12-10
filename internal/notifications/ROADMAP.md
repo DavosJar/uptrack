@@ -6,7 +6,7 @@ Este documento detalla los pasos necesarios para finalizar el módulo de notific
 - [x] **Definir `AlertEvent`**: Estructura agnóstica para eventos de alerta.
 - [x] **Definir `AlertSeverity`**: Niveles de severidad universales (OK, WARNING, CRITICAL).
 - [x] **Implementar `SeverityMapper`**: Traducción de estados de monitoreo a severidades sin `switch/case`.
-- [ ] **Unit Tests**: Tests para `AlertEvent.ShouldNotify()` y `SeverityMapper`.
+- [x] **Unit Tests**: Tests para `AlertEvent.ShouldNotify()` y `SeverityMapper`.
 
 ## 2. Integración con Monitoring (Adapter Pattern)
 - [ ] **Crear Adapter en Monitoring**:
