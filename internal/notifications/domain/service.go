@@ -5,11 +5,13 @@ package domain
 // NotificationService maneja lógica de negocio compleja entre múltiples entidades
 type NotificationService struct {
 	repository NotificationChannelRepository
+	registry   *SenderRegistry
 }
 
-func NewNotificationService(repo NotificationChannelRepository) *NotificationService {
+func NewNotificationService(repo NotificationChannelRepository, registry *SenderRegistry) *NotificationService {
 	return &NotificationService{
 		repository: repo,
+		registry:   registry,
 	}
 }
 
@@ -29,6 +31,10 @@ func (s *NotificationService) SendNotification(channelId string, message string)
 		return ErrChannelInactive
 	}
 
-	// Aquí iría la lógica de envío real (delegada a infrastructure)
-	return nil
+	sender, ok := s.registry.Get(channel.Type())
+	if !ok {
+		return ErrSenderNotFound
+	}
+
+	return sender.Send(channel.Value().String(), message)
 }

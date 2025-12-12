@@ -4,6 +4,7 @@ import (
 	"log"
 
 	monitoringpostgres "uptrackai/internal/monitoring/infrastructure/postgres"
+	notificationpostgres "uptrackai/internal/notifications/infrastructure/postgres"
 	securitypostgres "uptrackai/internal/security/infrastructure/postgres"
 	userpostgres "uptrackai/internal/user/infrastructure/postgres"
 
@@ -24,6 +25,9 @@ func RunMigrations(db *gorm.DB) error {
 		&monitoringpostgres.CheckResultEntity{},
 		&monitoringpostgres.MetricEntity{},
 		&monitoringpostgres.TargetStatisticsEntity{},
+
+		// Notification system
+		&notificationpostgres.TelegramLinkingToken{},
 	)
 
 	if err != nil {

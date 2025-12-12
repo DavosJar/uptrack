@@ -69,15 +69,15 @@ Antes de integrar con la DB real, verificamos la lógica con un simulador.
     - Escenarios probados: Stable UP, Stable DOWN (500), Degraded (Delay > 2x Histórico).
     - Verificación de Métricas: Confirmado que el promedio ignora fallos y estados degradados.
 
-## Fase 3: Integración de Notificaciones Asíncronas (🚧 Pendiente)
+## Fase 3: Integración de Notificaciones Asíncronas (🚧 En Progreso)
 
-Las notificaciones son I/O bound y lentas (HTTP requests a Telegram/Slack). No pueden frenar el monitoreo.
+Las notificaciones son I/O bound y lentas. El módulo de `notifications` ya está listo para recibir eventos.
 
 - [ ] **Conectar `Orchestrator` con `NotificationDispatcher`**:
     - El orquestador debe pasar el resultado del análisis al dispatcher.
 - [ ] **Implementar `NotificationWorker`**:
     - Goroutine que escucha `alertChannel`.
-    - Llama al `NotificationService` (que usará los Adapters de Telegram/Slack).
+    - Llama al `NotificationService` (que ya tiene los Senders de Telegram configurados).
 - [ ] **Integrar `SeverityMapper`**:
     - El `ResultAnalyzer` usará el `SeverityMapper` para convertir el cambio de estado en un `AlertEvent`.
     - Si `ShouldNotify()` es true, se envía al canal.

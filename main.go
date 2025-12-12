@@ -60,7 +60,10 @@ func main() {
 		monitoringModule.Handler,
 		securityModule.Handler,
 		userModule.Handler,
-		notificationsModule.Handler,
+		notificationsModule.ConfigHandler,
+		notificationsModule.LinkingHandler,
+		// TODO: Add WebhookHandler when channel repository is ready
+		// notificationsModule.WebhookHandler,
 	)
 
 	// 4. Scheduler bloquea el main thread
