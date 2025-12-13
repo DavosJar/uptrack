@@ -54,8 +54,8 @@ func StartHTTPServer(port string, handlers ...HTTPHandler) {
 
 	// Separate public auth routes from protected API routes
 	var securityHandler *presentation.SecurityHandler
-	var publicHandlers []HTTPHandler
-	var protectedHandlers []HTTPHandler
+	publicHandlers := []HTTPHandler{}
+	protectedHandlers := []HTTPHandler{}
 
 	for _, handler := range handlers {
 		if sh, ok := handler.(*presentation.SecurityHandler); ok {

@@ -26,6 +26,9 @@ func (r *PostgresMonitoringTargetRepository) Save(target *domain.MonitoringTarge
 
 	entity := r.toEntity(target)
 
+	// Debug log para verificar qué se está guardando
+	// log.Printf("💾 Saving Target: %s | Status: %s", entity.Name, entity.CurrentStatus)
+
 	if err := r.db.Save(entity).Error; err != nil {
 		return nil, err
 	}

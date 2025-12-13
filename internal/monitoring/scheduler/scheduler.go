@@ -304,7 +304,31 @@ func (s *Scheduler) updateStatistics(target *domain.MonitoringTarget, avgRespons
 	}
 
 	// Actualizar con nuevos datos (lógica de ponderación en domain)
-	stats.UpdateWithNewChecks(avgResponseTime, checksCount, 300)
+	// Calcular maxChecks basado en política de 7 días
+	const WINDOW_DAYS = 7
+	const SECONDS_IN_DAY = 86400
+	checkInterval := target.Configuration().CheckIntervalSeconds()
+	if checkInterval <= 0 {
+		checkInterval = 300 // Fallback default 5 min
+	}
+	maxChecks := (WINDOW_DAYS * SECONDS_IN_DAY) / checkInterval
+
+	// 1. Calcular nuevo promedio (Matemática pura)
+	// Solo actualizamos el promedio si la sesión fue estable y rápida (<= 4 pings)
+	currentAvg := stats.AvgResponseTimeMs()
+	newAvg := currentAvg
+
+	if checksCount <= 4 {
+		newAvg = domain.CalculateNewAverage(
+			currentAvg,
+			stats.TotalChecksCount(),
+			avgResponseTime,
+			1, // 1 Check Session
+		)
+	}
+
+	// 2. Actualizar estado (Mutación)
+	stats.UpdateState(newAvg, maxChecks)
 
 	// Guardar en DB
 	err = s.statisticsRepository.Save(stats)

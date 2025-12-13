@@ -26,10 +26,16 @@ func (a *ResultAnalyzer) Analyze(
 	finalStatus := metrics.LastStatus
 
 	// 3. Regla de Degradación de Performance
-	// Si es UP pero lento (> 2x promedio histórico) -> DEGRADED
+	// Si es UP pero lento (> 3x promedio histórico) -> DEGRADED
+	// EXCEPCIÓN: Si el tiempo actual es muy bajo (ej: < 200ms), no consideramos degradación
+	// para evitar falsos positivos en sistemas hiper-rápidos (ej: 10ms -> 25ms).
+	const MinLatencyThreshold = 200 // ms
+
 	if finalStatus == domain.TargetStatusUp {
 		historicalAvg := historical.AvgResponseTimeMs()
-		if historicalAvg > 0 && metrics.AvgResponseTimeMs >= historicalAvg*2 {
+
+		// Solo marcamos DEGRADED si supera el TRIPLE del histórico Y ADEMÁS supera el umbral mínimo perceptible
+		if historicalAvg > 0 && metrics.AvgResponseTimeMs >= historicalAvg*3 && metrics.AvgResponseTimeMs > MinLatencyThreshold {
 			finalStatus = domain.TargetStatusDegraded
 		}
 	}

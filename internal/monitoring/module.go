@@ -48,16 +48,26 @@ func NewModule(db *gorm.DB) *Module {
 
 // StartScheduler ejecuta el scheduler oficial periódicamente
 func (m *Module) StartScheduler() {
-	ticker := time.NewTicker(5 * time.Minute)
+	// Intervalo de ejecución del scheduler (Modificar aquí a voluntad)
+	const SchedulerInterval = 1 * time.Minute
+	ticker := time.NewTicker(SchedulerInterval)
 	defer ticker.Stop()
 
 	// Primera ejecución inmediata
 	m.executeScheduler()
 
-	// Luego cada 5 minutos
+	// Luego cada intervalo
 	for range ticker.C {
 		m.executeScheduler()
 	}
+}
+
+// DummyNotificationChecker para cumplir con la interfaz cuando no hay repo real
+type DummyNotificationChecker struct{}
+
+func (d *DummyNotificationChecker) HasActiveChannel(userId string) bool {
+	// Por ahora retornamos false para probar la alerta en consola
+	return false
 }
 
 func (m *Module) executeScheduler() {
@@ -67,12 +77,31 @@ func (m *Module) executeScheduler() {
 		return
 	}
 
-	s := scheduler.NewScheduler(
-		targets,
-		m.checkRepo,
-		m.metricsRepo,
+	// Configuración dinámica del pool
+	// TargetsPerWorker = 1 -> Modo "Hilo por Target" (Máxima velocidad, mayor consumo de recursos)
+	// TargetsPerWorker = 5 -> Modo "Pool Balanceado" (Recomendado para producción)
+	const TargetsPerWorker = 1
+	workerCount := (len(targets) + TargetsPerWorker - 1) / TargetsPerWorker
+	if workerCount == 0 {
+		workerCount = 1
+	}
+
+	config := scheduler.OrchestratorConfig{
+		WorkerCount: workerCount,
+		BufferSize:  len(targets),
+	}
+
+	// Usar Orchestrator en lugar del Scheduler legacy
+	orch := scheduler.NewOrchestrator(
+		config,
 		m.targetRepo,
+		m.metricsRepo,
+		m.checkRepo,
 		m.statsRepo,
+		nil, // Dispatcher (nil por ahora)
+		&DummyNotificationChecker{},
 	)
-	s.Start()
+
+	// Ejecutar lote y medir tiempo (log incluido en RunBatch)
+	orch.RunBatch(targets)
 }

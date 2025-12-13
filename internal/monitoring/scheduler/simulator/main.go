@@ -42,7 +42,7 @@ func main() {
 	healthChecker := scheduler.NewHealthChecker()
 	metricsCalc := scheduler.NewMetricsCalculator()
 	resultAnalyzer := scheduler.NewResultAnalyzer()
-	stateUpdater := scheduler.NewStateUpdater(targetRepo)
+	stateUpdater := scheduler.NewStateUpdater(targetRepo, nil, nil)
 
 	// 2. Definir Escenarios Reales usando httpbin.org
 	scenarios := []struct {
