@@ -112,7 +112,7 @@ func TestMonitoringTarget_Rename_Empty(t *testing.T) {
 
 func TestMonitoringTarget_UpdateConfiguration(t *testing.T) {
 	target := NewMonitoringTarget("API", "https://api.example.com", TargetTypeAPI)
-	newConfig := NewCheckConfiguration(60, 5, 10)
+	newConfig := NewCheckConfiguration(60, 5, 10, 120)
 
 	err := target.UpdateConfiguration(newConfig)
 

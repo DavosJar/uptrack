@@ -291,8 +291,9 @@ func (s *SimulatorScheduler) handleStableState(target *domain.MonitoringTarget, 
 
 	finalStatus := confirmedStatus
 
-	// DEGRADED: Si es UP pero el tiempo de respuesta >= 2.0x del promedio histórico
-	if confirmedStatus == domain.TargetStatusUp && historicalAvg > 0 && avgResponseTime >= historicalAvg*2 {
+	// DEGRADED: Si es UP pero el tiempo de respuesta >= 3.0x del promedio histórico
+	// Y supera el umbral mínimo de 200ms
+	if confirmedStatus == domain.TargetStatusUp && historicalAvg > 0 && avgResponseTime >= historicalAvg*3 && avgResponseTime > 200 {
 		finalStatus = domain.TargetStatusDegraded
 	}
 
@@ -416,7 +417,31 @@ func (s *SimulatorScheduler) updateStatistics(target *domain.MonitoringTarget, a
 		return
 	}
 
-	stats.UpdateWithNewChecks(avgResponseTime, checksCount)
+	// Calcular maxChecks basado en política de 7 días
+	const WINDOW_DAYS = 7
+	const SECONDS_IN_DAY = 86400
+	checkInterval := target.Configuration().CheckIntervalSeconds()
+	if checkInterval <= 0 {
+		checkInterval = 300 // Fallback default 5 min
+	}
+	maxChecks := (WINDOW_DAYS * SECONDS_IN_DAY) / checkInterval
+
+	// 1. Calcular nuevo promedio (Matemática pura)
+	// Solo actualizamos el promedio histórico si la verificación fue estable (<= 4 pings)
+	var newAvg int
+	if checksCount <= 4 {
+		newAvg = domain.CalculateNewAverage(
+			stats.AvgResponseTimeMs(),
+			stats.TotalChecksCount(),
+			avgResponseTime,
+			checksCount,
+		)
+	} else {
+		newAvg = stats.AvgResponseTimeMs()
+	}
+
+	// 2. Actualizar estado (Mutación)
+	stats.UpdateState(newAvg, maxChecks)
 
 	err = s.statisticsRepository.Save(stats)
 	if err != nil {

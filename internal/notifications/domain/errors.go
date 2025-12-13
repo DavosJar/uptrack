@@ -13,4 +13,5 @@ var (
 	ErrChannelInactive      = errors.New("notification channel is inactive")
 	ErrInvalidChannelType   = errors.New("invalid notification channel type")
 	ErrInvalidPriority      = errors.New("priority must be between 1 and 10")
+	ErrSenderNotFound       = errors.New("sender not found for channel type")
 )

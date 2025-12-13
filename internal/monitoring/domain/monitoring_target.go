@@ -125,6 +125,12 @@ func (m *MonitoringTarget) UpdateStatus(newStatus TargetStatus) error {
 	return nil
 }
 
+// UpdateExecutionInfo actualiza la información de la última ejecución sin cambiar el estado
+func (m *MonitoringTarget) UpdateExecutionInfo(responseTime int) {
+	m.lastResponseTime = responseTime
+	m.lastCheckedAt = time.Now()
+}
+
 // isValidTransition valida si la transición de estado es permitida (State Machine)
 func (m *MonitoringTarget) isValidTransition(from, to TargetStatus) bool {
 	// UNKNOWN puede ir a cualquier estado (estado inicial)
@@ -142,6 +148,7 @@ func (m *MonitoringTarget) isValidTransition(from, to TargetStatus) bool {
 		},
 		TargetStatusDown: {
 			TargetStatusUp,       // DOWN -> UP (recuperación)
+			TargetStatusDegraded, // DOWN -> DEGRADED (recuperación parcial/lenta)
 			TargetStatusFlapping, // DOWN -> FLAPPING (intermitente)
 			TargetStatusUnstable, // DOWN -> UNSTABLE (inestabilidad)
 		},

@@ -54,13 +54,16 @@ func StartHTTPServer(port string, handlers ...HTTPHandler) {
 
 	// Separate public auth routes from protected API routes
 	var securityHandler *presentation.SecurityHandler
-	var otherHandlers []HTTPHandler
+	publicHandlers := []HTTPHandler{}
+	protectedHandlers := []HTTPHandler{}
 
 	for _, handler := range handlers {
 		if sh, ok := handler.(*presentation.SecurityHandler); ok {
 			securityHandler = sh
 		} else {
-			otherHandlers = append(otherHandlers, handler)
+			// Check if handler should be public (e.g., webhooks)
+			// For now, we'll register webhooks separately below
+			protectedHandlers = append(protectedHandlers, handler)
 		}
 	}
 
@@ -70,14 +73,22 @@ func StartHTTPServer(port string, handlers ...HTTPHandler) {
 		securityHandler.RegisterRoutes(auth)
 	}
 
+	// Public API routes (no auth) - for webhooks
+	if len(publicHandlers) > 0 {
+		publicAPI := router.Group("/api")
+		for _, handler := range publicHandlers {
+			handler.RegisterRoutes(publicAPI)
+		}
+	}
+
 	// API v1 routes (protegidas con middleware)
 	v1 := router.Group("/api/v1")
-	
+
 	// Inicializar servicio de JWT para el middleware
 	tokenService := jwt.NewJWTService()
 	v1.Use(middleware.ExtractUserID(tokenService))
 
-	for _, handler := range otherHandlers {
+	for _, handler := range protectedHandlers {
 		handler.RegisterRoutes(v1)
 	}
 

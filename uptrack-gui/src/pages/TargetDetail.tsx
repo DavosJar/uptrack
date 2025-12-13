@@ -36,7 +36,6 @@ const StatusSegment: React.FC<StatusSegmentProps> = ({ segment, index }) => {
       className={`${segment.color} flex items-center justify-center text-xs text-white font-medium relative group transition-opacity hover:opacity-90 cursor-pointer`}
       style={{ width: `${segment.percentage}%` }}
     >
-      {segment.percentage > 5 && `${segment.percentage.toFixed(0)}%`}
       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-3 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 border border-gray-700 shadow-2xl">
         <div className="font-bold mb-2 text-base">{segment.status}</div>
         <div className="text-gray-300 mb-1">Inicio: {formatTime(segment.startTime)}</div>
@@ -133,6 +132,7 @@ const TargetDetail: React.FC = () => {
         const data = await response.json();
         setTarget(data);
         const history_events = await fetchEndpointData(data._links?.history);
+        console.log("HISTORY EVENTS:", history_events);
         setHistoryEvents(history_events);
         const metrics_list = await fetchEndpointData(data._links?.metrics);
         setMetricsList(metrics_list);
@@ -168,14 +168,53 @@ const TargetDetail: React.FC = () => {
 
   const statusColor = target.data.current_status === 'UP' ? 'bg-status-success' : target.data.current_status === 'DOWN' ? 'bg-status-danger' : 'bg-status-warning';
   
-  const metricsChartData = metricsList.slice(-24).reverse().map((m: any) => ({
-    time: new Date(m.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-    value: m.response_time_ms
-  }));
+  // Filter metrics for the last 24 hours
+  const now = new Date();
+  const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-  const avgResponseTime = metricsList.length > 0 
-    ? metricsList.reduce((sum: number, m: any) => sum + (m.response_time_ms || 0), 0) / metricsList.length 
-    : 0;
+  // 1. Prepare Metrics
+  const filteredMetrics = metricsList
+    .filter((m: any) => new Date(m.timestamp) >= twentyFourHoursAgo)
+    .sort((a: any, b: any) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+
+  // 2. Prepare History
+  const filteredHistory = historyEvents
+    .filter((e: any) => new Date(e.timestamp) >= twentyFourHoursAgo)
+    .sort((a: any, b: any) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+
+  // 3. Determine Start Time (Adaptive)
+  // Default to 24h ago
+  let startTime = twentyFourHoursAgo;
+  
+  // If we have data, check if the oldest data point is more recent than 24h ago
+  let oldestDataTime = now.getTime();
+  let hasData = false;
+
+  if (filteredMetrics.length > 0) {
+      oldestDataTime = Math.min(oldestDataTime, new Date(filteredMetrics[0].timestamp).getTime());
+      hasData = true;
+  }
+  // Also check history, but only if it starts within the window
+  if (filteredHistory.length > 0) {
+      oldestDataTime = Math.min(oldestDataTime, new Date(filteredHistory[0].timestamp).getTime());
+      hasData = true;
+  }
+
+  if (hasData) {
+      // Use the oldest data point as start time, but clamp to 24h ago max
+      // (Logic: if oldestDataTime > twentyFourHoursAgo, use oldestDataTime)
+      if (oldestDataTime > twentyFourHoursAgo.getTime()) {
+          startTime = new Date(oldestDataTime);
+      }
+  }
+
+  const metricsChartData = filteredMetrics.map((m: any) => ({
+      timestamp: new Date(m.timestamp).getTime(),
+      value: m.response_time_ms
+    }));
+
+  // Usar el promedio histórico real (del backend) en lugar de calcularlo sobre las métricas visibles
+  const avgResponseTime = statisticsData?.avg_response_time_ms || 0;
 
   const cpuChartData = Array.from({ length: 24 }, (_, i) => ({ time: `${i}:00`, value: Math.floor(Math.random() * 60) + 10 }));
 
@@ -184,10 +223,8 @@ const TargetDetail: React.FC = () => {
     const today = new Date();
     const data = [];
     
-    // Calcular la media global de response time de las métricas
-    const globalAvg = metricsList.length > 0 
-      ? metricsList.reduce((sum: number, m: any) => sum + (m.response_time_ms || 0), 0) / metricsList.length 
-      : 100;
+    // Usar el promedio histórico global para determinar umbrales de lentitud
+    const globalAvg = statisticsData?.avg_response_time_ms || 100;
     
     for (let i = 0; i < 7; i++) {
       const d = new Date(today);
@@ -297,59 +334,118 @@ const TargetDetail: React.FC = () => {
   };
 
   const buildStatusHistoryBar = () => {
+    // Use the adaptive startTime calculated above
+    const barStartTime = startTime;
+    const totalDuration = now.getTime() - barStartTime.getTime();
+
+    // If duration is very small (e.g. < 1 min), show full bar as current status
+    if (totalDuration < 60000) {
+         const status = target.data.current_status || 'UNKNOWN';
+         return [{ 
+            status: status, 
+            percentage: 100, 
+            color: status === 'UP' ? 'bg-status-success' : status === 'DOWN' ? 'bg-status-danger' : status === 'DEGRADED' ? 'bg-status-warning' : 'bg-gray-600',
+            startTime: barStartTime,
+            endTime: now,
+            duration: 'Just now'
+          }];
+    }
+
     if (historyEvents.length === 0) {
-      const now = new Date();
-      const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+      const status = target.data.current_status || 'UNKNOWN';
       return [{ 
-        status: 'UP', 
+        status: status, 
         percentage: 100, 
-        color: 'bg-status-success',
-        startTime: oneDayAgo,
+        color: status === 'UP' ? 'bg-status-success' : status === 'DOWN' ? 'bg-status-danger' : status === 'DEGRADED' ? 'bg-status-warning' : 'bg-gray-600',
+        startTime: barStartTime,
         endTime: now,
         duration: '24h'
       }];
     }
     
-    // Ordenar eventos por timestamp ascendente
-    const sortedEvents = [...historyEvents].sort((a, b) => 
+    // Ordenar eventos por timestamp ascendente (usamos todos para buscar el estado inicial)
+    const sortedAllEvents = [...historyEvents].sort((a, b) => 
       new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
     );
     
-    const segments: any[] = [];
-    let currentStatus = sortedEvents[0].status;
-    let startTime = new Date(sortedEvents[0].timestamp);
+    // Find initial status at barStartTime
+    let currentStatus = 'UNKNOWN';
+    let startIndex = 0;
+
+    // Find the first event that is INSIDE our window (>= barStartTime)
+    const firstEventInWindowIndex = sortedAllEvents.findIndex(e => new Date(e.timestamp) >= barStartTime);
+
+    if (firstEventInWindowIndex === -1) {
+        // All events are older than barStartTime. Use the status of the last event.
+        if (sortedAllEvents.length > 0) {
+             currentStatus = sortedAllEvents[sortedAllEvents.length - 1].status;
+        }
+        return [{
+            status: currentStatus,
+            percentage: 100,
+            color: currentStatus === 'UP' ? 'bg-status-success' : currentStatus === 'DOWN' ? 'bg-status-danger' : currentStatus === 'DEGRADED' ? 'bg-status-warning' : 'bg-gray-600',
+            startTime: barStartTime,
+            endTime: now,
+            duration: '24h'
+        }];
+    } else if (firstEventInWindowIndex === 0) {
+        // All events are within the window.
+        // The status BEFORE the first event is technically unknown if we have no prior history.
+        // However, usually we assume the first event establishes the status.
+        // Or we can start the bar AT the first event time?
+        // But barStartTime is already set to the oldest data point (which would be this event).
+        currentStatus = sortedAllEvents[0].status;
+        startIndex = 0;
+    } else {
+        // There is an event before barStartTime.
+        currentStatus = sortedAllEvents[firstEventInWindowIndex - 1].status;
+        startIndex = firstEventInWindowIndex;
+    }
     
-    for (let i = 1; i < sortedEvents.length; i++) {
-      if (sortedEvents[i].status !== currentStatus) {
-        const endTime = new Date(sortedEvents[i].timestamp);
-        const durationMs = endTime.getTime() - startTime.getTime();
-        const durationMinutes = Math.floor(durationMs / (1000 * 60));
-        const durationHours = Math.floor(durationMinutes / 60);
-        const remainingMinutes = durationMinutes % 60;
+    const segments: any[] = [];
+    let segmentStartTime = barStartTime;
+    
+    for (let i = startIndex; i < sortedAllEvents.length; i++) {
+      // Only process events that are effectively changing status or are the first one in window
+      // But we already set currentStatus. We look for CHANGES.
+      if (sortedAllEvents[i].status !== currentStatus) {
+        const eventTime = new Date(sortedAllEvents[i].timestamp);
         
-        let durationText = '';
-        if (durationHours > 0) {
-          durationText = `${durationHours}h ${remainingMinutes}m`;
-        } else {
-          durationText = `${durationMinutes}m`;
+        // Ensure we don't go back in time (shouldn't happen due to sort and index logic)
+        if (eventTime < segmentStartTime) continue;
+
+        const endTime = eventTime;
+        const durationMs = endTime.getTime() - segmentStartTime.getTime();
+        
+        // Only add segment if it has duration
+        if (durationMs > 0) {
+            const durationMinutes = Math.floor(durationMs / (1000 * 60));
+            const durationHours = Math.floor(durationMinutes / 60);
+            const remainingMinutes = durationMinutes % 60;
+            
+            let durationText = '';
+            if (durationHours > 0) {
+            durationText = `${durationHours}h ${remainingMinutes}m`;
+            } else {
+            durationText = `${durationMinutes}m`;
+            }
+            
+            segments.push({
+            status: currentStatus,
+            color: currentStatus === 'UP' ? 'bg-status-success' : currentStatus === 'DOWN' ? 'bg-status-danger' : currentStatus === 'DEGRADED' ? 'bg-status-warning' : 'bg-gray-600',
+            startTime: segmentStartTime,
+            endTime,
+            duration: durationText
+            });
         }
         
-        segments.push({
-          status: currentStatus,
-          color: currentStatus === 'UP' ? 'bg-status-success' : currentStatus === 'DOWN' ? 'bg-status-danger' : 'bg-status-warning',
-          startTime,
-          endTime,
-          duration: durationText
-        });
-        
-        currentStatus = sortedEvents[i].status;
-        startTime = endTime;
+        currentStatus = sortedAllEvents[i].status;
+        segmentStartTime = endTime;
       }
     }
     
     // Agregar el último segmento hasta ahora
-    const now = new Date();
-    const durationMs = now.getTime() - startTime.getTime();
+    const durationMs = now.getTime() - segmentStartTime.getTime();
     const durationMinutes = Math.floor(durationMs / (1000 * 60));
     const durationHours = Math.floor(durationMinutes / 60);
     const remainingMinutes = durationMinutes % 60;
@@ -363,14 +459,13 @@ const TargetDetail: React.FC = () => {
     
     segments.push({
       status: currentStatus,
-      color: currentStatus === 'UP' ? 'bg-status-success' : currentStatus === 'DOWN' ? 'bg-status-danger' : 'bg-status-warning',
-      startTime,
+      color: currentStatus === 'UP' ? 'bg-status-success' : currentStatus === 'DOWN' ? 'bg-status-danger' : currentStatus === 'DEGRADED' ? 'bg-status-warning' : 'bg-gray-600',
+      startTime: segmentStartTime,
       endTime: now,
       duration: durationText
     });
     
-    // Calcular percentages
-    const totalDuration = now.getTime() - new Date(sortedEvents[0].timestamp).getTime();
+    // Calcular percentages based on dynamic totalDuration
     return segments.map(seg => ({
       ...seg,
       percentage: ((seg.endTime.getTime() - seg.startTime.getTime()) / totalDuration) * 100
@@ -491,12 +586,22 @@ const TargetDetail: React.FC = () => {
                       <stop offset="95%" stopColor="#135bec" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="time" stroke="#4b5563" fontSize={10} tickLine={false} axisLine={false} />
+                  <XAxis 
+                    dataKey="timestamp" 
+                    type="number" 
+                    domain={[startTime.getTime(), now.getTime()]} 
+                    tickFormatter={(unixTime) => new Date(unixTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                    stroke="#4b5563" 
+                    fontSize={10} 
+                    tickLine={false} 
+                    axisLine={false} 
+                  />
                   <YAxis stroke="#4b5563" fontSize={10} tickLine={false} axisLine={false} />
                   <CartesianGrid strokeDasharray="3 3" stroke="#232f48" vertical={false} />
                   <Tooltip 
                     contentStyle={{backgroundColor: '#181F2D', border: '1px solid #324467', borderRadius: '8px'}} 
                     itemStyle={{color: '#fff'}} 
+                    labelFormatter={(label) => new Date(label).toLocaleString()}
                   />
                   <Line 
                     type="monotone" 

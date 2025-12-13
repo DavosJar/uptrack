@@ -25,10 +25,11 @@ func NewCheckResult(targetId TargetId, responseTimeMs int, reachable bool, statu
 	}
 }
 
-func NewCheckResultWithError(targetId TargetId, errorMessage string) *CheckResult {
+func NewCheckResultWithError(targetId TargetId, responseTimeMs int, errorMessage string) *CheckResult {
 	return &CheckResult{
 		monitoringTargetId: targetId, // ← NUEVO
 		timestamp:          time.Now(),
+		responseTimeMs:     responseTimeMs,
 		reachable:          false,
 		status:             TargetStatusDown,
 		errorMessage:       errorMessage,
