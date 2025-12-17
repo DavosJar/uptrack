@@ -2,6 +2,7 @@ package application
 
 import (
 	"fmt"
+	"log"
 	"uptrackai/internal/notifications/domain"
 	"uptrackai/internal/notifications/infrastructure/postgres"
 )
@@ -43,6 +44,8 @@ func (s *TelegramLinkingService) GenerateLink(userID string) (string, error) {
 // ValidateAndConsume validates a token and marks it as used
 // Returns the associated userID if valid
 func (s *TelegramLinkingService) ValidateAndConsume(token string) (string, error) {
+	log.Printf("🔍 Validating token: %s...", token[:10]+"...")
+
 	// 1. Fetch token
 	record, err := s.tokenRepo.FindByToken(token)
 	if err != nil {

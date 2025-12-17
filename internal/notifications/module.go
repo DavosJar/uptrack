@@ -16,7 +16,7 @@ type Module struct {
 	ConfigHandler  *presentation.NotificationConfigHandler
 	LinkingHandler *presentation.TelegramLinkingHandler
 	WebhookHandler *presentation.TelegramWebhookHandler
-	Service        *domain.NotificationService
+	Service        *application.NotificationService
 	LinkingService *application.TelegramLinkingService
 	PollingService *application.TelegramPollingService
 	stopPoller     func()
@@ -45,12 +45,12 @@ func NewModule(db *gorm.DB) *Module {
 
 	// 2. Setup Repositories
 	tokenRepo := postgres.NewLinkingTokenRepository(db)
-	// TODO: Implement full NotificationChannelRepository
-	// For now, we'll use nil and log a warning in the polling service
-	var channelRepo domain.NotificationChannelRepository = nil
+	channelRepo := postgres.NewPostgresNotificationChannelRepository(db)
+	notificationRepo := postgres.NewPostgresNotificationRepository(db)
 
 	// 3. Setup Services
 	linkingService := application.NewTelegramLinkingService(tokenRepo, telegramBotName)
+	notificationService := application.NewNotificationService(channelRepo, notificationRepo, registry)
 
 	// Polling Service (for local development without webhook)
 	var pollingService *application.TelegramPollingService
@@ -61,20 +61,20 @@ func NewModule(db *gorm.DB) *Module {
 
 		// Start polling in background if no webhook URL is configured
 		webhookURL := os.Getenv("TELEGRAM_WEBHOOK_URL")
+
 		if webhookURL == "" {
 			poller := sender.NewTelegramPoller(telegramToken, pollingService.HandleUpdate)
 			go poller.Start()
-			stopPollerFunc = poller.Stop
-			log.Println("🤖 Telegram Polling mode enabled (no webhook URL configured)")
+			stopPollerFunc = func() {
+				poller.Stop()
+			}
 		}
 	}
 
-	// TODO: notificationService := domain.NewNotificationService(channelRepo, registry)
-
 	// 4. Setup Handlers
-	configHandler := presentation.NewNotificationConfigHandler()
+	configHandler := presentation.NewNotificationConfigHandler(channelRepo)
 	linkingHandler := presentation.NewTelegramLinkingHandler(linkingService)
-	// TODO: webhookHandler := presentation.NewTelegramWebhookHandler(linkingService, channelRepo, notificationService)
+	webhookHandler := presentation.NewTelegramWebhookHandler(linkingService, channelRepo, telegramSender)
 
 	// 5. Setup Webhook (if configured)
 	webhookURL := os.Getenv("TELEGRAM_WEBHOOK_URL") // e.g., "https://yourdomain.com/api/webhooks/telegram"
@@ -91,10 +91,10 @@ func NewModule(db *gorm.DB) *Module {
 	return &Module{
 		ConfigHandler:  configHandler,
 		LinkingHandler: linkingHandler,
-		// WebhookHandler: webhookHandler,
+		WebhookHandler: webhookHandler,
 		LinkingService: linkingService,
 		PollingService: pollingService,
 		stopPoller:     stopPollerFunc,
-		// Service:        notificationService,
+		Service:        notificationService,
 	}
 }

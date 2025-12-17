@@ -20,3 +20,13 @@ type NotificationChannelRepository interface {
 	// Delete removes a channel by its ID
 	Delete(id ChannelId) error
 }
+
+// NotificationRepository interface for Notification Aggregate (GUI History)
+type NotificationRepository interface {
+	Save(notification *Notification) error
+	FindById(id NotificationId) (*Notification, error)
+	FindByUserId(userId string, limit int, offset int) ([]*Notification, error)
+	CountUnread(userId string) (int64, error)
+	MarkAsRead(id NotificationId) error
+	MarkAllAsRead(userId string) error
+}

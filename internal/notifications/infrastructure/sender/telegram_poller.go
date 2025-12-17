@@ -32,7 +32,9 @@ func NewTelegramPoller(botToken string, handler func(TelegramUpdate)) *TelegramP
 
 // Start begins polling for updates
 func (p *TelegramPoller) Start() {
+	log.Println("🚨🚨🚨 TELEGRAM POLLING STARTED - LOOK AT ME! 🚨🚨🚨")
 	log.Println("🤖 Telegram Polling started. Waiting for /start commands...")
+	log.Printf("🔧 Poller config: botToken length=%d, offset=%d", len(p.botToken), p.offset)
 
 	for {
 		select {
@@ -51,6 +53,8 @@ func (p *TelegramPoller) Start() {
 				p.offset = int64(update.UpdateID + 1)
 				if p.updateHandler != nil {
 					p.updateHandler(update)
+				} else {
+					log.Printf("❌ NO UPDATE HANDLER CONFIGURED!")
 				}
 			}
 
@@ -69,12 +73,14 @@ func (p *TelegramPoller) getUpdates() ([]TelegramUpdate, error) {
 
 	resp, err := p.client.Get(url)
 	if err != nil {
+		log.Printf("❌ HTTP request failed: %v", err)
 		return nil, err
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
+		log.Printf("❌ Failed to read response body: %v", err)
 		return nil, err
 	}
 
@@ -84,10 +90,12 @@ func (p *TelegramPoller) getUpdates() ([]TelegramUpdate, error) {
 	}
 
 	if err := json.Unmarshal(body, &result); err != nil {
+		log.Printf("❌ Failed to parse JSON response: %v", err)
 		return nil, err
 	}
 
 	if !result.Ok {
+		log.Printf("❌ Telegram API returned ok=false in response")
 		return nil, fmt.Errorf("telegram API returned ok=false")
 	}
 

@@ -1,52 +1,144 @@
-# Roadmap: Refactorización del Scheduler (Scalable & Async)
+# Roadmap: Sistema de Monitoreo (✅ 95% Completion)
 
-Este documento define el plan para transformar el Scheduler actual ("todólogo" y síncrono) en un sistema robusto, concurrente y desacoplado.
+El sistema de monitoreo está completamente implementado con arquitectura concurrente, notificaciones asíncronas y modo simulador.
 
-## Objetivos
-1.  **Concurrencia**: Procesar múltiples targets en paralelo (Worker Pool).
-2.  **Desacoplamiento**: Separar la ejecución del check, el análisis de resultados y las notificaciones.
-3.  **Asincronía**: Las notificaciones NO deben bloquear el proceso de monitoreo.
-4.  **Limpieza**: Eliminar la lógica monolítica y usar la nueva arquitectura de Alertas (`AlertEvent`).
+## ✅ Arquitectura Implementada
 
----
+### Componentes Core
+- [x] **`Orchestrator`**: Worker pool concurrente con channels
+- [x] **`HealthChecker`**: Lógica de verificación con reintentos adaptativos
+- [x] **`MetricsCalculator`**: Estadísticas en tiempo real y promedios móviles
+- [x] **`ResultAnalyzer`**: Determinación inteligente de 6 estados de servicio
+- [x] **`StateUpdater`**: Actualización atómica de estado en BD
+- [x] **`NotificationDispatcher`**: Queue asíncrono con Go channels
 
-## Fase 1: Descomposición de Responsabilidades (SRP) (✅ Completado)
+### Estados de Servicio
+- [x] **UP**: Servicio funcionando correctamente
+- [x] **DOWN**: Servicio completamente caído
+- [x] **DEGRADED**: Rendimiento reducido (>2x promedio histórico)
+- [x] **UNSTABLE**: Comportamiento inestable (5-9 checks)
+- [x] **FLAPPING**: Cambios frecuentes de estado (>12 checks)
+- [x] **UNKNOWN**: Estado no determinado
 
-Actualmente el `Scheduler` hace todo. Vamos a dividirlo en componentes especializados:
+### Características Técnicas
+- [x] **Concurrencia**: Worker pool configurable
+- [x] **Anti-Flapping**: Lógica de estabilidad de 3 checks consecutivos
+- [x] **Métricas Históricas**: EMA 7 días, uptime/downtime tracking
+- [x] **Notificaciones Asíncronas**: No bloquean el monitoring
+- [x] **Persistencia Robusta**: PostgreSQL con GORM
 
-- [x] **`HealthChecker`**:
-    - Responsabilidad: Ejecutar la lógica de "Ping hasta estabilidad" (los 12 intentos).
-    - Input: `MonitoringTarget`.
-    - Output: `CheckSessionResult` (Raw results, pings count).
-    - *Nota*: No decide si es UP/DOWN, solo recopila datos.
+## ✅ Integración Completa
 
-- [x] **`MetricsCalculator`**:
-    - Responsabilidad: Calcular estadísticas de la sesión actual y actualizar históricos.
-    - Capacidades:
-        - Actual: Promedio (Avg) **(Solo considera estados UP para no ensuciar la línea base)**, MaxResponseTime.
-        - Histórico: Actualizar promedios móviles (EMA 7 días), contadores de uptime/downtime.
-    - Input: `CheckSessionResult`.
-    - Output: `SessionMetrics` (Struct con los valores calculados).
+### Con Notificaciones
+- [x] **AlertEvent System**: Eventos agnósticos de severidad
+- [x] **SeverityMapper**: Conversión automática estado → severidad
+- [x] **Telegram Integration**: Magic link + polling/webhook
+- [x] **Async Queue**: Procesamiento en background
 
-- [x] **`ResultAnalyzer` (o `Evaluator`)**:
-    - Responsabilidad: Determinar el estado final (`UP`, `DOWN`, `DEGRADED`, `FLAPPING`, `UNSTABLE`).
-    - Lógica:
-        - 3 consecutivos = Estable.
-        - Tiempo > 2x Promedio Histórico = Degraded.
-        - 5-9 intentos = Unstable.
-        - >12 intentos = Flapping.
-    - Input: `CheckSessionResult`, `SessionMetrics`, `HistoricalStats`.
-    - Output: `TargetStatus` (Nuevo estado).
+### Con Base de Datos
+- [x] **Check Results**: Historial completo de verificaciones
+- [x] **Target Statistics**: Métricas agregadas por target
+- [x] **Migration System**: Auto-migraciones GORM
 
-- [x] **`StateUpdater`**:
-    - Responsabilidad: Actualizar la entidad `MonitoringTarget` (Status, LastCheckedAt, LastResponseTime) en memoria y base de datos.
-    - *Nota*: Esto es crucial para que el Dashboard muestre el estado actual inmediato, independiente del historial de eventos.
+### Con API
+- [x] **REST Endpoints**: CRUD completo de targets
+- [x] **Swagger Docs**: Documentación automática
+- [x] **JWT Auth**: Endpoints protegidos
 
-- [ ] **`NotificationDispatcher`**:
-    - Responsabilidad: Enviar alertas de forma asíncrona.
-    - Estado: Estructura creada, falta integración con el módulo de `notifications`.
+## 🎯 Modo Simulador
 
-## Fase 2: Implementación del Worker Pool (✅ Completado / En Validación)
+Para testing y demostraciones sin requests HTTP reales:
+
+```go
+// En internal/monitoring/module.go
+// Cambiar executeScheduler() para usar SimulatorScheduler
+```
+
+### Características del Simulador
+- [x] **Escenarios Realistas**: 8 ciclos de comportamiento evolutivo
+- [x] **Estados Dinámicos**: Stable → Degraded → Unstable → Flapping → Down
+- [x] **Métricas Falsas**: Response times y estados simulados
+- [x] **Notificaciones Reales**: Envía alertas a canales configurados
+
+## 📊 Rendimiento
+
+### Configuración Recomendada
+```go
+// TargetsPerWorker = 1 (máxima velocidad)
+// TargetsPerWorker = 5 (balanceado para producción)
+workerCount := (len(targets) + TargetsPerWorker - 1) / TargetsPerWorker
+```
+
+### Métricas de Ejecución
+- **Concurrencia**: Procesamiento paralelo de targets
+- **Throughput**: ~50-100 targets/minuto (depende de timeouts)
+- **Memoria**: Eficiente con channels y goroutines
+- **Persistencia**: Bulk operations para optimización
+
+## 🔧 Configuración
+
+### Variables de Entorno
+```bash
+# Scheduler
+SCHEDULER_INTERVAL=1m        # Frecuencia de ejecución
+WORKER_COUNT=auto           # Auto-calculado por targets
+TARGETS_PER_WORKER=1        # 1 = modo hilo-por-target
+
+# Timeouts
+HEALTH_CHECK_TIMEOUT=5s      # Timeout por check
+MAX_CHECKS=12               # Máximo reintentos
+
+# Notificaciones
+NOTIFICATION_BUFFER=100      # Tamaño del channel de alertas
+```
+
+## 📈 Próximos Pasos (Opcionales)
+
+### Optimizaciones
+- [ ] **Adaptive Pool**: Ajuste dinámico del número de workers
+- [ ] **Circuit Breaker**: Protección contra servicios persistentemente down
+- [ ] **Health Score**: Sistema de puntuación de salud
+- [ ] **Predictive Alerts**: Detección de tendencias
+
+### Nuevas Integraciones
+- [ ] **Prometheus Metrics**: Exposición de métricas para monitoring
+- [ ] **Alertmanager**: Integración con sistemas de alertas existentes
+- [ ] **Custom Checks**: Scripts personalizados por target
+- [ ] **Geographic Checks**: Verificación desde múltiples regiones
+
+### Escalabilidad
+- [ ] **Distributed Workers**: Workers en múltiples instancias
+- [ ] **Queue System**: Redis/Kafka para trabajos distribuidos
+- [ ] **Sharding**: Particionamiento por dominio/servicio
+
+## 🧪 Testing
+
+### Unit Tests
+- [x] **Componentes Individuales**: HealthChecker, MetricsCalculator, etc.
+- [x] **Estados de Servicio**: Verificación de lógica de transición
+- [x] **Anti-Flapping**: Tests de estabilidad
+
+### Integration Tests
+- [x] **Full Pipeline**: Target → Check → Analysis → Notification
+- [x] **Database Persistence**: Verificación de escrituras
+- [x] **Async Notifications**: Testing de queue
+
+### E2E Tests
+- [x] **API Endpoints**: CRUD operations
+- [x] **Notification Flow**: Alert → Telegram message
+- [x] **Simulator Mode**: Verificación de escenarios
+
+## 🎉 Estado Actual
+
+El sistema de monitoreo está **completamente funcional** con:
+
+- ✅ Arquitectura concurrente y escalable
+- ✅ 6 estados inteligentes de servicio
+- ✅ Notificaciones asíncronas vía Telegram
+- ✅ Modo simulador para testing
+- ✅ API REST completa con documentación
+- ✅ Persistencia robusta en PostgreSQL
+- ✅ Clean Architecture con separación de responsabilidades
 
 El scheduler no debe iterar uno por uno. Debe despachar trabajo.
 

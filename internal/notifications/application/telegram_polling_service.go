@@ -53,23 +53,17 @@ func (s *TelegramPollingService) handleStartCommand(update sender.TelegramUpdate
 	token := strings.TrimSpace(parts[1])
 	chatID := fmt.Sprintf("%d", update.Message.Chat.ID)
 
-	log.Printf("📩 Received /start command from chat_id=%s with token=%s...", chatID, token[:10])
-
 	// Validate and consume token
 	userID, err := s.linkingService.ValidateAndConsume(token)
 	if err != nil {
-		log.Printf("❌ Invalid token: %v", err)
 		s.sendMessage(chatID, "❌ Invalid or expired link. Please generate a new one from the app.")
 		return
 	}
-
-	log.Printf("✅ Token valid for user_id=%s", userID)
 
 	// Create NotificationChannel
 	channelID := fmt.Sprintf("telegram_%s_%s", userID, chatID)
 	channel, err := domain.NewNotificationChannel(channelID, userID, "TELEGRAM", chatID, 10)
 	if err != nil {
-		log.Printf("❌ Failed to create channel: %v", err)
 		s.sendMessage(chatID, "❌ Failed to link account. Please try again.")
 		return
 	}
@@ -78,15 +72,13 @@ func (s *TelegramPollingService) handleStartCommand(update sender.TelegramUpdate
 	if s.channelRepo != nil {
 		err = s.channelRepo.Save(channel)
 		if err != nil {
-			log.Printf("❌ Failed to save channel: %v", err)
-			s.sendMessage(chatID, "❌ Failed to link account. Please try again.")
+			s.sendMessage(chatID, "❌ Failed to link account. Database error.")
 			return
 		}
 	} else {
-		log.Printf("⚠️  Channel repository not available. Channel NOT saved to DB (channelID=%s)", channelID)
+		s.sendMessage(chatID, "❌ System error: Cannot save channel.")
+		return
 	}
-
-	log.Printf("💾 Channel saved: %s", channelID)
 
 	// Send success message
 	s.sendMessage(chatID, "✅ Your Telegram account has been successfully linked! You'll now receive alerts here.")

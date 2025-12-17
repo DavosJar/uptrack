@@ -46,6 +46,7 @@ const (
 
 // AlertEvent es la NUEVA estructura agnóstica que reemplazará eventualmente a AlertMessage
 type AlertEvent struct {
+	UserID           string // ID del usuario propietario del recurso
 	Title            string
 	Message          string
 	Severity         AlertSeverity
@@ -57,8 +58,9 @@ type AlertEvent struct {
 }
 
 // NewAlertEvent crea una nueva instancia de AlertEvent
-func NewAlertEvent(title, message string, severity, prevSeverity AlertSeverity, source string, alertType AlertType, metadata map[string]string) *AlertEvent {
+func NewAlertEvent(userId, title, message string, severity, prevSeverity AlertSeverity, source string, alertType AlertType, metadata map[string]string) *AlertEvent {
 	return &AlertEvent{
+		UserID:           userId,
 		Title:            title,
 		Message:          message,
 		Severity:         severity,

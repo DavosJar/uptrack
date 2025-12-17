@@ -1,9 +1,8 @@
 package scheduler
 
 import (
+	"fmt"
 	"log"
-	"sync"
-	"time"
 	"uptrackai/internal/monitoring/domain"
 	notificationdomain "uptrackai/internal/notifications/domain"
 )
@@ -24,8 +23,7 @@ type Orchestrator struct {
 	notificationChecker NotificationChecker
 	severityMapper      *notificationdomain.SeverityMapper
 
-	jobQueue chan *domain.MonitoringTarget
-	wg       sync.WaitGroup
+	workerPool *WorkerPool
 }
 
 type OrchestratorConfig struct {
@@ -42,7 +40,7 @@ func NewOrchestrator(
 	dispatcher *NotificationDispatcher,
 	notificationChecker NotificationChecker,
 ) *Orchestrator {
-	return &Orchestrator{
+	orch := &Orchestrator{
 		config:              config,
 		healthChecker:       NewHealthChecker(),
 		metricsCalc:         NewMetricsCalculator(),
@@ -52,49 +50,33 @@ func NewOrchestrator(
 		statsRepo:           statsRepo,
 		notificationChecker: notificationChecker,
 		severityMapper:      notificationdomain.NewSeverityMapper(),
-		jobQueue:            make(chan *domain.MonitoringTarget, config.BufferSize),
 	}
+
+	// Create worker pool with processing function
+	workerPoolConfig := WorkerPoolConfig{
+		WorkerCount: config.WorkerCount,
+		BufferSize:  config.BufferSize,
+	}
+	orch.workerPool = NewWorkerPool(workerPoolConfig, orch.processTarget)
+
+	return orch
 }
 
-// Start inicia el pool de workers y queda listo para recibir trabajos
+// Start inicia el pool de workers
 func (o *Orchestrator) Start() {
-	log.Printf("🚀 Iniciando Scheduler Orchestrator con %d workers", o.config.WorkerCount)
-
-	for i := 0; i < o.config.WorkerCount; i++ {
-		o.wg.Add(1)
-		go o.worker(i)
-	}
+	o.workerPool.Start()
 }
 
 // Stop detiene el orchestrator y espera a que terminen los workers
 func (o *Orchestrator) Stop() {
-	close(o.jobQueue)
-	o.wg.Wait()
-	log.Println("🛑 Scheduler Orchestrator detenido")
+	log.Println("Deteniendo Scheduler Orchestrator...")
+	o.workerPool.Stop()
+	log.Println("Scheduler Orchestrator detenido")
 }
 
 // Schedule agrega una lista de targets para ser procesados
 func (o *Orchestrator) Schedule(targets []*domain.MonitoringTarget) {
-	go func() {
-		for _, t := range targets {
-			o.jobQueue <- t
-		}
-	}()
-}
-
-func (o *Orchestrator) worker(id int) {
-	defer o.wg.Done()
-	start := time.Now()
-	processedCount := 0
-
-	for target := range o.jobQueue {
-		o.processTarget(target)
-		processedCount++
-	}
-
-	duration := time.Since(start)
-	// Log de rendimiento por worker
-	log.Printf("👷 WORKER_FINISH | ID: %d | Processed: %d | Duration: %v", id, processedCount, duration)
+	o.workerPool.SubmitBatch(targets)
 }
 
 func (o *Orchestrator) processTarget(target *domain.MonitoringTarget) {
@@ -150,8 +132,34 @@ func (o *Orchestrator) processTarget(target *domain.MonitoringTarget) {
 	historical.UpdateState(newAvg, maxChecks)
 	_ = o.statsRepo.Save(historical)
 
-	// 7. Notificar si es necesario (Logic pending integration with SeverityMapper)
-	// TODO: Integrar SeverityMapper y NotificationDispatcher aquí
+	// 7. Notificar si es necesario
+	if o.notificationChecker != nil && o.notificationChecker.HasActiveChannel(target.UserId().String()) {
+		newSeverity := o.severityMapper.Map(string(newStatus))
+		prevSeverity := o.severityMapper.Map(string(previousStatus))
+
+		message := fmt.Sprintf("Target %s is now %s", target.Name(), newStatus)
+
+		event := notificationdomain.NewAlertEvent(
+			target.UserId().String(),
+			"Status Change: "+target.Name(),
+			message,
+			newSeverity,
+			prevSeverity,
+			"Target: "+target.Name(),
+			notificationdomain.AlertTypeMonitoring,
+			map[string]string{
+				"url":           target.Url(),
+				"response_time": fmt.Sprintf("%dms", metrics.AvgResponseTimeMs),
+			},
+		)
+
+		if event.ShouldNotify() {
+			if o.dispatcher != nil {
+				o.dispatcher.Dispatch(*event)
+				log.Printf("📢 ALERT DISPATCHED | Target: %s | Severity: %s", target.Name(), newSeverity)
+			}
+		}
+	}
 
 	// 8. Log de Transición de Estado (Solo si hubo cambio relevante)
 	// Si el estado cambió, imprimimos la transición clara: PREV -> NEW
@@ -162,21 +170,11 @@ func (o *Orchestrator) processTarget(target *domain.MonitoringTarget) {
 	}
 }
 
-// RunBatch ejecuta un lote de targets y espera a que terminen
+// RunBatch ejecuta un lote de targets de manera asíncrona
 func (o *Orchestrator) RunBatch(targets []*domain.MonitoringTarget) {
-	start := time.Now()
-	o.Start()
+	// Enviar trabajos de manera asíncrona
+	o.Schedule(targets)
 
-	// Enviar trabajos
-	for _, t := range targets {
-		o.jobQueue <- t
-	}
-
-	// Cerrar cola y esperar workers
-	o.Stop()
-	duration := time.Since(start)
-
-	// Log de tiempo de ejecución del pool
-	log.Printf("POOL_EXECUTION | Targets: %d | Workers: %d | Duration: %v",
-		len(targets), o.config.WorkerCount, duration)
+	// NO esperamos - los workers procesan en background
+	// El próximo ciclo del scheduler vendrá en el intervalo configurado
 }

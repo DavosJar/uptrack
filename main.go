@@ -50,10 +50,10 @@ func main() {
 	//config.SeedMonitoringTargets(db) // Seed temporal para testing
 
 	// 2. Inicializar Módulos (Application & Infrastructure)
-	monitoringModule := monitoring.NewModule(db)
+	notificationsModule := notifications.NewModule(db)
+	monitoringModule := monitoring.NewModule(db, notificationsModule.Service)
 	securityModule := security.NewModule(db)
 	userModule := user.NewModule(db)
-	notificationsModule := notifications.NewModule(db)
 
 	// 3. HTTP Server en goroutine separada
 	go config.StartHTTPServer("8080",
@@ -62,8 +62,7 @@ func main() {
 		userModule.Handler,
 		notificationsModule.ConfigHandler,
 		notificationsModule.LinkingHandler,
-		// TODO: Add WebhookHandler when channel repository is ready
-		// notificationsModule.WebhookHandler,
+		notificationsModule.WebhookHandler,
 	)
 
 	// 4. Scheduler bloquea el main thread

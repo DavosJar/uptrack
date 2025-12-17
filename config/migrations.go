@@ -28,11 +28,19 @@ func RunMigrations(db *gorm.DB) error {
 
 		// Notification system
 		&notificationpostgres.TelegramLinkingToken{},
+		&notificationpostgres.NotificationChannelEntity{},
+		&notificationpostgres.NotificationEntity{},
 	)
 
 	if err != nil {
 		log.Printf("❌ Error en migraciones: %v", err)
 		return err
+	}
+
+	// Migration for notification channels - fix ID length after table creation
+	err = db.Exec(`ALTER TABLE notification_channels ALTER COLUMN id TYPE varchar(100)`).Error
+	if err != nil {
+		log.Printf("⚠️  Error updating notification_channels table: %v", err)
 	}
 
 	log.Println("✅ Migraciones completadas")
