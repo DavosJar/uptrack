@@ -1,0 +1,7 @@
+# Diagramas del Sistema
+
+Esta sección contiene los diagramas arquitectónicos del sistema UpTrackAI.
+
+## Diagrama de Clases
+
+![Diagrama de Clases - UpTrackAI](diagrams/img/Diagrama de Clases - UpTrackAI.png)

@@ -174,7 +174,7 @@ const Systems: React.FC = () => {
                     {/* Desktop: Table-like layout */}
                     <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:p-4 md:items-center">
                       <div className="md:col-span-3">
-                        <h3 className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/targets/${target.id}`)}>
+                        <h3 className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/target/${target.id}`)}>
                           {target.name}
                         </h3>
                       </div>
@@ -199,7 +199,7 @@ const Systems: React.FC = () => {
                     {/* Mobile: Card-like layout similar to dashboard */}
                     <div className="md:hidden p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/targets/${target.id}`)}>
+                        <h3 className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/target/${target.id}`)}>
                           {target.name}
                         </h3>
                         <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`}>

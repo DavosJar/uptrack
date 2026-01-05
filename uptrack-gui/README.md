@@ -1,75 +1,190 @@
-# React + TypeScript + Vite
+# UpTrack GUI - Dashboard de Monitoreo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interfaz web moderna para el sistema de monitoreo UpTrackAI, construida con React, TypeScript y Vite.
 
-Currently, two official plugins are available:
+## ✨ Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dashboard en Tiempo Real**: Visualización del estado de servicios
+- **Gráficos Interactivos**: Métricas de rendimiento y uptime
+- **Notificaciones**: Gestión de alertas y canales
+- **Interfaz Moderna**: Diseño con Tailwind CSS
+- **TypeScript**: Type safety completo
+- **Vite**: Desarrollo rápido con HMR
 
-## React Compiler
+## 🚀 Inicio Rápido
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Prerrequisitos
+- Node.js 18+
+- pnpm (recomendado) o npm
 
-Note: This will impact Vite dev & build performances.
+### Instalación
+```bash
+# Instalar dependencias
+pnpm install
 
-## Expanding the ESLint configuration
+# Ejecutar en modo desarrollo
+pnpm dev
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Construir para producción
+pnpm build
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Preview de producción
+pnpm preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Configuración
+```bash
+# Variables de entorno (.env)
+VITE_API_BASE_URL=http://localhost:8080/api/v1
 ```
+
+## 🏗️ Arquitectura
+
+```
+uptrack-gui/
+├── src/
+│   ├── api/           # Cliente HTTP para la API
+│   ├── components/    # Componentes reutilizables
+│   ├── pages/         # Páginas principales
+│   ├── hooks/         # Hooks personalizados
+│   └── types/         # Definiciones TypeScript
+├── public/            # Assets estáticos
+└── dist/              # Build output
+```
+
+## 🎨 Tecnologías
+
+- **React 18** - Framework UI
+- **TypeScript** - Type safety
+- **Vite** - Build tool y dev server
+- **Tailwind CSS** - Styling utility-first
+- **React Router** - Navegación
+- **Axios** - HTTP client
+- **Chart.js** - Gráficos
+
+## 📱 Páginas
+
+### Dashboard
+- Estado general del sistema
+- Lista de targets con status
+- Gráficos de uptime
+- Alertas recientes
+
+### Targets
+- Gestión CRUD de servicios monitoreados
+- Configuración de checks
+- Historial de estados
+
+### Notificaciones
+- Configuración de canales (Telegram, Email)
+- Historial de alertas
+- Gestión de suscripciones
+
+## 🔧 Scripts Disponibles
+
+```bash
+# Desarrollo
+pnpm dev          # Servidor de desarrollo
+pnpm build        # Build de producción
+pnpm preview      # Preview del build
+pnpm lint         # Ejecutar ESLint
+
+# Testing (futuro)
+pnpm test         # Ejecutar tests
+pnpm test:ui      # Tests con UI
+```
+
+## 🌐 API Integration
+
+La GUI se conecta a la API REST de UpTrackAI:
+
+```typescript
+// Ejemplo de llamada a la API
+const response = await api.get('/monitoring/targets');
+const targets = response.data;
+```
+
+### Endpoints Principales
+- `GET /monitoring/targets` - Listar targets
+- `POST /monitoring/targets` - Crear target
+- `GET /notifications/channels` - Canales de notificación
+- `GET /notifications/telegram/link` - Magic link Telegram
+
+## 🎯 Roadmap
+
+### Próximas Características
+- [ ] **Real-time Updates**: WebSocket para actualizaciones live
+- [ ] **Advanced Charts**: Gráficos históricos detallados
+- [ ] **Alert Management**: Ack y escalado de alertas
+- [ ] **User Management**: Perfiles y permisos
+- [ ] **Dark Mode**: Tema oscuro
+- [ ] **Mobile App**: PWA responsive
+
+### Mejoras Técnicas
+- [ ] **Testing**: Unit tests con Vitest
+- [ ] **E2E Testing**: Playwright
+- [ ] **Performance**: Code splitting y lazy loading
+- [ ] **Accessibility**: WCAG compliance
+- [ ] **i18n**: Internacionalización
+
+## 🤝 Desarrollo
+
+### Estructura de Componentes
+```typescript
+// Componente típico
+interface TargetCardProps {
+  target: Target;
+  onStatusChange: (status: TargetStatus) => void;
+}
+
+export const TargetCard: React.FC<TargetCardProps> = ({
+  target,
+  onStatusChange
+}) => {
+  // Lógica del componente
+};
+```
+
+### Convenciones
+- **Nombres**: PascalCase para componentes, camelCase para funciones
+- **Hooks**: `use` prefix (ej: `useTargets`)
+- **Types**: Definidos en `src/types/`
+- **API**: Centralizado en `src/api/`
+
+## 📦 Build y Deployment
+
+### Producción
+```bash
+# Build optimizado
+pnpm build
+
+# Los archivos se generan en `dist/`
+# Servir con nginx, vercel, etc.
+```
+
+### Docker (Opcional)
+```dockerfile
+FROM nginx:alpine
+COPY dist/ /usr/share/nginx/html/
+EXPOSE 80
+```
+
+## 🐛 Troubleshooting
+
+### Problemas Comunes
+- **CORS**: Verificar configuración del backend
+- **API Connection**: Verificar `VITE_API_BASE_URL`
+- **Build Errors**: Limpiar `node_modules` y reinstall
+
+### Debug
+```bash
+# Ver logs del dev server
+pnpm dev --debug
+
+# Verificar build
+pnpm build --mode development
+```
+
+## 📄 Licencia
+
+Este proyecto es parte de UpTrackAI y está bajo la Licencia MIT.

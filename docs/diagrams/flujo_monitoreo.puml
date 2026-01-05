@@ -1,0 +1,48 @@
+@startuml Flujo de Monitoreo - UpTrackAI
+title Flujo de Ejecución de Monitoreo y Alertas
+
+start
+
+:Scheduler Orchestrator;
+note right: Se ejecuta periódicamente
+
+:Enviar Target a Cola de Trabajos;
+
+fork
+    :Worker 1;
+fork again
+    :Worker 2;
+fork again
+    :Worker N;
+end fork
+
+:Ejecutar HealthChecker;
+
+if (¿Status UP?) then (Sí)
+    :Calcular Métricas;
+    note right: Latencia, uptime, SSL, etc.
+else (No)
+    note right: Error de conexión, Timeout, 5xx
+endif
+
+:Analizar Resultados;
+
+if (¿Cambio de Estado?) then (Sí)
+    :Actualizar Estado en BD;
+    :Guardar Historial de Eventos;
+    
+    if (¿Cambio de Severidad?) then (Sí)
+        :Evento de Alerta -> Canal;
+        :Worker de Notificación;
+        :API Telegram/Slack (Asíncrono);
+    else (No)
+        :Sin Notificación;
+    endif
+else (No)
+    :Actualizar Último Chequeo;
+    :Guardar Solo Métricas;
+endif
+
+stop
+
+@enduml

@@ -14,9 +14,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isDesktopOpen, setIsDesktopOpen, isMo
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
     { icon: Monitor, label: 'Systems', path: '/systems' },
-    { icon: BarChart, label: 'Reports', path: '/dashboard' },
+    { icon: BarChart, label: 'Reports', path: '/reports' },
     { icon: User, label: 'Profile', path: '/profile' },
-    { icon: Settings, label: 'Settings', path: '/dashboard' },
+    { icon: Settings, label: 'Settings', path: '/settings' },
   ];
 
   return (

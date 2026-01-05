@@ -158,7 +158,7 @@ const Dashboard: React.FC = () => {
                 {filteredTargets.map((target) => (
                   <div key={target.id} className="bg-gray-800/40 border border-gray-600 rounded-lg p-6 hover:border-primary/50 transition-colors w-full max-w-sm">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold text-white truncate cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/targets/${target.id}`)}>
+                      <h3 className="text-xl font-bold text-white truncate cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/target/${target.id}`)}>
                         {target.name}
                       </h3>
                       <span className={`text-xl font-bold uppercase ${getStatusColor(target.current_status)}`}>

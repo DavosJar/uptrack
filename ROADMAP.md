@@ -189,44 +189,42 @@
 ### Tareas
 - [ ] **3.1** Crear tablas de notificaciones
   ```sql
-  notification_channels (id, user_id, type, config_json, enabled)
-  notification_rules (id, target_id, channel_id, notify_on_states)
+  notification_channels (id, user_id, type, config_json, enabled) -- Para Telegram/Email
+  notifications (id, user_id, title, message, severity, read_at, created_at) -- Para GUI
   ```
   
 - [ ] **3.2** Implementar `internal/notifications/domain/`
-  - `notification_channel.go` - Email, Webhook, Slack
-  - `notification_rule.go` - Qué estados notificar
+  - `notification_channel.go` - Telegram (prioridad), Email, Webhook
+  - `notification.go` - Entidad para el historial de notificaciones (GUI)
   
-- [ ] **3.3** Servicio de Email (SMTP)
-  - Config: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
-  - Template HTML para alertas
-  - Subject: "[UptracKAI] {target_name} is {status}"
+- [ ] **3.3** Integración Telegram (Prioridad)
+  - [x] `TelegramLinkingService` (Magic Link)
+  - [x] `TelegramSender` (Envío de mensajes)
+  - [ ] Conectar `NotificationService` con `TelegramSender`
+  - [ ] Guardar `chat_id` en `notification_channels`
   
-- [ ] **3.4** Servicio de Webhook
-  - POST JSON a URL configurada
-  - Payload: target_id, status, timestamp, response_time
-  - Retry con backoff (3 intentos)
+- [ ] **3.4** Notificaciones GUI (In-App)
+  - [ ] `PostgresNotificationRepository` (Guardar historial)
+  - [ ] `GET /api/v1/notifications` - Listar historial
+  - [ ] `POST /api/v1/notifications/:id/read` - Marcar leída
   
 - [ ] **3.5** Integrar en scheduler
-  - Después de `handleStableState()` / `handleFlappingState()`
-  - Obtener rules del target
-  - Enviar notificación a cada canal activo
+  - En `Orchestrator`, detectar cambio de estado.
+  - Convertir a `AlertEvent` (usando `SeverityMapper`).
+  - Enviar a `NotificationDispatcher`.
+  - `NotificationService` recibe evento -> Guarda en DB (GUI) -> Envía a Telegram.
   
 - [ ] **3.6** Endpoints de configuración
-  - `POST /api/v1/channels` - Crear canal
-  - `GET /api/v1/channels` - Listar mis canales
-  - `DELETE /api/v1/channels/:id` - Eliminar canal
-  - `POST /api/v1/targets/:id/notifications` - Configurar alertas
+  - `GET /api/v1/notifications/channels` - Listar canales (Telegram conectado?)
+  - `DELETE /api/v1/notifications/channels/:id` - Desvincular Telegram
   
 - [ ] **3.7** Tests de notificaciones
-  - Mock SMTP server
-  - Mock webhook endpoint
-  - Verificar que se envían en cambios de estado
+  - Verificar flujo completo: Cambio de Estado -> Evento -> DB -> Telegram Mock
 
 ### Entregable v0.6
-✅ Notificaciones por email funcionales  
-✅ Webhooks configurables  
-✅ Reglas por target  
+✅ Notificaciones por Telegram funcionales  
+✅ Historial de notificaciones en GUI  
+✅ Vinculación de cuenta Telegram (Magic Link)  
 
 ---
 
@@ -621,5 +619,3 @@ CREATE TABLE provider_health (
 - Feature única en el mercado (a este precio)
 
 ---
-
-**Última actualización**: 2025-11-24

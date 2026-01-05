@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:17.6-alpine
+    container_name: uptrackai-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: uptrackai_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d uptrackai_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - uptrackai-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: uptrackai-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      # Override para Docker (la app se conecta al servicio 'postgres')
+      DB_HOST: postgres
+    ports:
+      - "8080:8080"
+    volumes:
+      # Montaje para hot reload - código fuente
+      - .:/app
+      # Cache de módulos Go (mejora performance)
+      - go-mod-cache:/go/pkg/mod
+      # Excluir tmp para evitar conflictos
+      - /app/tmp
+    networks:
+      - uptrackai-network
+    command: air -c .air.toml
+
+volumes:
+  postgres_data:
+    driver: local
+  go-mod-cache:
+    driver: local
+
+networks:
+  uptrackai-network:
+    driver: bridge

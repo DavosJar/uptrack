@@ -1,0 +1,55 @@
+@startuml Diagrama de Componentes C4 - Backend UpTrackAI
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(backend, "Backend API") {
+    Component(api, "API REST", "Gin Framework", "Endpoints HTTP para gestión de usuarios, targets y resultados")
+    
+    Component(auth, "Módulo de Seguridad", "Go", "Autenticación, autorización, gestión de tokens JWT")
+    
+    Component(user, "Módulo de Usuarios", "Go", "Gestión de cuentas, perfiles y permisos de usuarios")
+    
+    Component(monitoring, "Módulo de Monitoreo", "Go", "Lógica de negocio para targets, chequeos y resultados")
+    
+    Component(notifications, "Módulo de Notificaciones", "Go", "Gestión de alertas y envío de notificaciones")
+    
+    Component(scheduler, "Scheduler", "Go", "Orquestador de chequeos periódicos en background")
+    
+    Component(repository, "Capa de Repositorio", "GORM", "Acceso a datos con patrón repositorio")
+}
+
+ContainerDb(db, "Base de Datos", "PostgreSQL", "Almacena usuarios, targets, resultados, configuraciones")
+
+Container_Ext(spa, "SPA Web", "React", "Interfaz web de usuario")
+
+Container_Ext(mobile, "App Móvil", "Kotlin", "Aplicación móvil")
+
+System_Ext(telegram, "Telegram API", "Webhook", "Servicio de mensajería Telegram")
+
+System_Ext(sistemasExternos, "Sistemas Monitoreados", "HTTP/HTTPS", "APIs y servicios a monitorear")
+
+Rel(spa, api, "Consume API", "HTTPS/JSON")
+Rel(mobile, api, "Consume API", "HTTPS/JSON")
+Rel(api, auth, "Valida autenticación")
+Rel(api, user, "Gestiona usuarios")
+Rel(api, monitoring, "Gestiona targets y resultados")
+Rel(api, notifications, "Configura alertas")
+Rel(user, repository, "Lee/Escribe usuarios")
+Rel(monitoring, repository, "Lee/Escribe datos")
+Rel(auth, repository, "Lee/Escribe usuarios")
+Rel(notifications, repository, "Lee configuraciones")
+Rel(repository, db, "SQL queries", "TCP/PostgreSQL")
+Rel(scheduler, monitoring, "Ejecuta chequeos programados")
+Rel(scheduler, sistemasExternos, "Realiza HTTP checks")
+Rel(notifications, telegram, "Envía mensajes", "Webhook/HTTPS")
+
+note as Info
+    **Tipo de Diagrama:** Componentes C4
+    **Contenedor:** Backend API
+    **Arquitectura:** Clean Architecture
+    **Versión:** 1.0
+    **Fecha:** 05/01/2026
+end note
+
+SHOW_LEGEND()
+
+@enduml
