@@ -16,3 +16,63 @@
   --color-border-dark: #324467;
   --color-border-light: #555555;
 }
+
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* Hide scrollbars in print */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Reset margins and paddings for page */
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  /* Ensure graphs print correctly */
+  .recharts-wrapper {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+  
+  .recharts-surface {
+    overflow: visible !important;
+  }
+
+  /* Force the responsive container to have size in print */
+  .recharts-responsive-container {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 300px !important;
+  }
+
+  /* CRITICAL: Force SVG paths (bars) to be visible and colored */
+  .recharts-surface path,
+  .recharts-surface rect {
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    fill-opacity: 1 !important;
+    stroke-opacity: 1 !important;
+  }
+
+  /* Specific overrides for the bars using the classes we added */
+  .print-uptime-bar path {
+    fill: #4ade80 !important;
+    stroke: #4ade80 !important;
+    stroke-width: 1px !important;
+  }
+
+  .print-response-bar path {
+    fill: #3b82f6 !important;
+    stroke: #3b82f6 !important;
+    stroke-width: 1px !important;
+  }
+}

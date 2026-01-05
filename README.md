@@ -1,185 +1,95 @@
-# 🚀 UptracKAI - Intelligent Monitoring System
+# 🚀 UpTrackAI - Intelligent Monitoring System
 
-Sistema de monitoreo inteligente que detecta cambios de estado reales en APIs y servicios. Elimina falsos positivos usando confirmación adaptativa y clasifica problemas en 6 estados: UP, DOWN, DEGRADED, UNSTABLE, FLAPPING, UNKNOWN.
+<div align="center">
 
-## ✨ Características
+![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
-- **Monitoreo Inteligente**: Detección de 6 estados de servicio con eliminación de falsos positivos
-- **Notificaciones en Tiempo Real**: Integración con Telegram vía magic link
-- **Arquitectura Limpia**: Separación clara de responsabilidades con Clean Architecture
-- **API REST**: Documentada con Swagger/OpenAPI
-- **Autenticación JWT**: Sistema de usuarios seguro
-- **Base de Datos PostgreSQL**: Persistencia robusta con GORM
-- **Modo Simulador**: Para testing y demostraciones sin requests reales
-- **Interfaz Web**: Dashboard moderno con React + Vite + Tailwind CSS
-- **Docker**: Despliegue completo con docker-compose
+</div>
 
-## 🚀 Inicio Rápido
+Sistema de monitoreo inteligente diseñado para detectar cambios de estado reales en servicios, eliminando falsos positivos mediante confirmación adaptativa.
 
-### Con Docker (Recomendado)
+![Arquitectura General](docs/diagrams/img/Diagrama%20de%20Contenedores%20C4%20-%20UpTrackAI.png)
+
+## 🛠️ Stack Tecnológico
+
+### Backend
+- **Lenguaje:** Go (Golang) 1.21+
+- **Framework Web:** Gin
+- **ORM:** GORM
+- **Base de Datos:** PostgreSQL
+- **Arquitectura:** Clean Architecture
+
+### Frontend
+- **Framework:** React 18
+- **Build Tool:** Vite
+- **Lenguaje:** TypeScript
+- **Estilos:** Tailwind CSS
+- **Gráficos:** Recharts
+
+### Infraestructura & Docs
+- **Contenedores:** Docker & Docker Compose
+- **Documentación:** Quarto & Swagger/OpenAPI
+
+## 🚀 Inicialización Rápida
+
+### Opción A: Docker (Recomendado)
+
+Levanta todo el entorno (Base de datos, Backend y Frontend) con un solo comando.
 
 ```bash
-# Levantar todo el sistema
-make docker-up
+# Levantar servicios
+docker-compose up --build
 
-# O en segundo plano
-make docker-up-d
+# Acceder
+# Frontend: http://localhost:5173
+# Backend API: http://localhost:8080
 ```
 
-### Desarrollo Local
+### Opción B: Desarrollo Local
+
+Si prefieres ejecutar los servicios individualmente en tu máquina.
+
+#### 1. Backend
+Requisito: PostgreSQL corriendo localmente.
 
 ```bash
-# Instalar dependencias
+# En la raíz del proyecto
 go mod tidy
-
-# Ejecutar con hot reload
-make air-local
-
-# O compilar y ejecutar
-go build -o main .
-./main
+go run main.go
 ```
 
-## 📋 Requisitos
-
-- Go 1.21+
-- PostgreSQL 13+
-- Docker & Docker Compose (opcional)
-- Node.js 18+ (para el frontend)
-
-## 🏗️ Arquitectura
-
-```
-uptrack/
-├── cmd/uptrackai/          # Punto de entrada
-├── internal/
-│   ├── monitoring/         # Sistema de monitoreo
-│   │   ├── domain/         # Reglas de negocio
-│   │   ├── application/    # Casos de uso
-│   │   ├── infrastructure/ # Persistencia
-│   │   └── presentation/   # API HTTP
-│   ├── notifications/      # Sistema de notificaciones
-│   ├── security/          # Autenticación JWT
-│   └── user/              # Gestión de usuarios
-├── uptrack-gui/           # Frontend React
-├── config/                # Configuración BD y migraciones
-└── docs/                  # Documentación API
-```
-
-## 🔧 Configuración
-
-### Variables de Entorno
-
-```bash
-# Base de datos
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_NAME=uptrackai
-
-# JWT
-JWT_SECRET=your-secret-key
-
-# Telegram Bot (opcional)
-TELEGRAM_BOT_TOKEN=your-bot-token
-TELEGRAM_BOT_NAME=your-bot-name
-
-# Webhook (opcional, para producción)
-TELEGRAM_WEBHOOK_URL=https://yourdomain.com/api/webhooks/telegram
-```
-
-### Telegram Notifications
-
-1. Crear un bot con @BotFather en Telegram
-2. Obtener el token del bot
-3. Configurar variables de entorno
-4. Los usuarios pueden vincular su Telegram vía magic link desde la app
-
-## 📊 API Endpoints
-
-### Monitoring
-- `GET /api/v1/monitoring/targets` - Listar targets
-- `POST /api/v1/monitoring/targets` - Crear target
-- `GET /api/v1/monitoring/targets/{id}/stats` - Estadísticas
-
-### Notifications
-- `GET /api/v1/notifications/telegram/link` - Generar magic link
-- `GET /api/v1/notifications/channels` - Listar canales
-
-### Auth
-- `POST /api/v1/auth/login` - Login
-- `POST /api/v1/auth/register` - Registro
-
-Documentación completa en `/docs` cuando el servidor esté corriendo.
-
-## 🧪 Testing
-
-```bash
-# Ejecutar tests
-make test
-
-# Con verbose
-make test-verbose
-```
-
-## 🐳 Comandos Docker
-
-```bash
-make help  # Ver todos los comandos
-
-# Desarrollo
-make docker-up      # Levantar servicios
-make docker-logs    # Ver logs
-make docker-shell   # Terminal del contenedor
-make docker-restart # Reiniciar
-
-# Base de datos
-make db-connect     # Conectar a PostgreSQL
-```
-
-## 🎯 Estados de Servicio
-
-- **UP**: Servicio funcionando correctamente
-- **DOWN**: Servicio completamente caído
-- **DEGRADED**: Rendimiento reducido
-- **UNSTABLE**: Comportamiento inestable
-- **FLAPPING**: Cambios frecuentes de estado
-- **UNKNOWN**: Estado no determinado
-
-## 🤖 Modo Simulador
-
-Para testing sin requests reales:
-
-```go
-// En internal/monitoring/module.go
-// Cambiar executeScheduler() para usar SimulatorScheduler
-```
-
-El simulador genera comportamientos realistas y ciclos de degradación.
-
-## 📱 Frontend
+#### 2. Frontend
+Requisito: Node.js 18+ y pnpm.
 
 ```bash
 cd uptrack-gui
+
+# Instalar dependencias
 pnpm install
+
+# Configurar entorno (opcional si el backend corre en puerto 8080)
+# cp .env.example .env
+
+# Iniciar servidor de desarrollo
 pnpm dev
 ```
+Accede al frontend en `http://localhost:5173`.
 
-Dashboard moderno con gráficos de estado de servicios.
+## 📚 Documentación Detallada
 
-## 📝 Roadmap
+Este proyecto cuenta con una documentación exhaustiva generada con **Quarto**, que incluye:
+- Diagramas de arquitectura (C4, Clases, Flujos).
+- Detalles de implementación de módulos.
+- Guías de base de datos.
 
-Ver ROADMAP.md para futuras características.
+Puedes encontrar los archivos fuente en la carpeta `docs/` o visualizar el sitio generado en `docs/_book/index.html`.
 
-## 🤝 Contribuir
-
-1. Fork el proyecto
-2. Crear rama feature (`git checkout -b feature/AmazingFeature`)
-3. Commit cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push (`git push origin feature/AmazingFeature`)
-5. Abrir Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT.
+---
+![Flujo de Monitoreo](docs/diagrams/img/Flujo%20de%20Monitoreo%20-%20UpTrackAI.png)
+*Flujo de detección y confirmación de estados*

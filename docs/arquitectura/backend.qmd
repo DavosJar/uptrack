@@ -1,0 +1,70 @@
+# Backend y Servicios
+
+El backend de UpTrackAI está construido en Go, priorizando el rendimiento y la concurrencia.
+
+## Arquitectura de Componentes (C4 Nivel 3)
+
+El siguiente diagrama detalla los módulos internos del Backend API y sus interacciones.
+
+![Diagrama de Componentes](../diagrams/img/Diagrama de Componentes C4 - Backend UpTrackAI.png)
+
+### Módulos Principales
+
+- **API REST (Gin):** Punto de entrada para clientes Web y Móviles.
+- **Scheduler:** Orquestador que gestiona la ejecución periódica de chequeos.
+- **Monitoring Module:** Núcleo de lógica de negocio que ejecuta los health checks.
+- **Notification Module:** Gestiona canales y envío de alertas.
+- **Security Module:** Autenticación y autorización (JWT).
+
+## Flujo de Monitoreo
+
+El proceso de verificación de un objetivo sigue un flujo estricto para determinar el estado y la necesidad de alertar.
+
+![Flujo de Monitoreo](../diagrams/img/Flujo de Monitoreo - UpTrackAI.png)
+
+1.  **Scheduler:** Desencadena el trabajo.
+2.  **Worker:** Ejecuta el chequeo HTTP/TCP.
+3.  **Analyzer:** Evalúa si el resultado implica un cambio de estado (UP -> DOWN).
+4.  **Notifier:** Si la severidad cambia, se despacha una alerta asíncrona.
+
+## Estructura Clean Architecture
+
+![Arquitectura Clean](../diagrams/img/arquitectura_clean.png)
+
+La implementación respeta las capas de Clean Architecture, asegurando que la lógica de dominio permanezca agnóstica a frameworks externos como Gin o GORM.
+
+## Stack Tecnológico
+
+- **Lenguaje**: Go 1.21+
+- **Framework**: Gin (enrutador HTTP)
+- **Base de Datos**: PostgreSQL con GORM
+- **Migraciones**: GORM AutoMigrate
+- **Configuración**: Variables de entorno
+- **Logging**: Logging estructurado con contexto
+
+## Estructura de Módulos
+
+```
+internal/
+├── monitoring/          # Objetivos de monitoreo y verificaciones
+├── notifications/       # Sistema de notificaciones asíncronas
+├── user/               # Gestión de usuarios
+├── security/           # Autenticación y autorización
+├── server/             # Servidor HTTP y middleware
+└── repository/         # Interfaces de repositorio compartidas
+```
+
+API RESTful con respuestas JSON:
+
+- `GET /api/targets` - Listar objetivos de monitoreo
+- `POST /api/targets` - Crear nuevo objetivo
+- `GET /api/targets/{id}` - Obtener detalles del objetivo
+- `PUT /api/targets/{id}` - Actualizar objetivo
+- `DELETE /api/targets/{id}` - Eliminar objetivo
+
+## Manejo de Errores
+
+- **Errores de Dominio**: Validación de lógica de negocio
+- **Errores de Infraestructura**: Fallos de servicios externos
+- **Errores HTTP**: Códigos de estado y mensajes apropiados
+- **Logging**: Reporte estructurado de errores

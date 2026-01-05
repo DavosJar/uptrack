@@ -1,0 +1,98 @@
+@startuml
+
+class Cuenta {
+  -nombreUsuario: string
+  -hashContrasena: string
+  -maxObjetivosPermitidos: int
+  -creadoEn: datetime
+  -idCuenta: string
+  -ultimoLoginEn: datetime
+  -estaActiva: bool
+
+  +activar()
+  +desactivar()
+  +actualizarNombreUsuario(nuevoNombre: string)
+  +actualizarHashContrasena(nuevoHash: string)
+  +marcarLogin(fecha: datetime)
+}
+
+class Usuario {
+  -idUsuario: string
+  -nombre: string
+  -email: string
+  -creadoEn: datetime
+
+  +agregarCanalNotificacion(canal: CanalNotificacion)
+  +puedeMonitorearMasObjetivos(): bool
+}
+
+class CanalNotificacion {
+  -idCanal: string
+  -direccion: string
+  -estaActivo: bool
+  -creadoEn: datetime
+
+  +activar()
+  +desactivar()
+  +actualizarDireccion(nuevaDireccion: string)
+}
+
+class ObjetivoMonitoreo {
+  -idObjetivo: string
+  -nombre: string
+  -url: string
+  -estado: EstadoObjetivo
+  -creadoEn: datetime
+  -ultimoChequeoEn: datetime
+  -ultimoTiempoRespuestaMs: int
+
+  +actualizarEstado(nuevoEstado: string)
+  +renombrar(nuevoNombre: string)
+}
+
+class ResultadoChequeo {
+  -idResultadoChequeo: string
+  -timestamp: datetime
+  -tiempoRespuestaMs: int
+  -alcanzable: bool
+  -estado: EstadoObjetivo
+  -mensajeError: string
+}
+
+class ConfiguracionChequeo {
+  -idConfiguracion: string
+  -timeoutSegundos: int
+  -cantidadReintentos: int
+  -retrasoReintentoSegundos: int
+  -alertarEnFallo: bool
+  -alertarEnRecuperacion: bool
+
+  +actualizarIntervalo(segundos: int)
+  +actualizarPoliticaReintentos(reintentos: int, retrasoSegundos: int)
+  +esValida(): bool
+}
+
+enum EstadoObjetivo {
+  UP
+  DOWN
+  DEGRADED
+  FLAPPING
+  UNKNOWN
+}
+
+enum TipoObjetivo {
+  API
+  WEB
+}
+
+
+
+Usuario "1" *-- "1" Cuenta
+Usuario "1" *-- "0..*" CanalNotificacion
+Usuario "1" *-- "0..*" ObjetivoMonitoreo
+ObjetivoMonitoreo "1" *-- "1" ConfiguracionChequeo
+
+
+ObjetivoMonitoreo "1" -- "0..*" ResultadoChequeo
+
+@enduml

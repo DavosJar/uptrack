@@ -1,0 +1,25 @@
+@startuml c4_diagram
+skinparam rectangle {
+  BackgroundColor<<Person>> #E3F2FD
+  BackgroundColor<<System>> #BBDEFB
+  BackgroundColor<<External>> #E0E0E0
+  BorderColor #000000
+}
+skinparam ArrowColor #000000
+
+!definelong Person($id,$label)
+rectangle "$label" <<Person>> as $id
+!enddefinelong
+
+!definelong System($id,$label)
+rectangle "$label" <<System>> as $id
+!enddefinelong
+
+!definelong System_Ext($id,$label)
+rectangle "$label" <<External>> as $id
+!enddefinelong
+
+!definelong Rel($from,$to,$label)
+$from --> $to : $label
+!enddefinelong
+@enduml

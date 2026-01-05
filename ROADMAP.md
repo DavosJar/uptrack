@@ -619,5 +619,3 @@ CREATE TABLE provider_health (
 - Feature única en el mercado (a este precio)
 
 ---
-
-**Última actualización**: 2025-11-24

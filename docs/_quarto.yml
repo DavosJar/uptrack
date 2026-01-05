@@ -1,0 +1,28 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Documentación Técnica de UpTrackAI"
+  author: "Equipo UpTrackAI"
+  date: today
+  chapters:
+    - index.qmd
+    - part: "Arquitectura del Sistema"
+      chapters:
+        - arquitectura/overview.qmd
+        - arquitectura/backend.qmd
+        - arquitectura/frontend.qmd
+        - arquitectura/database.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    mermaid:
+      theme: default
+    include-in-header: header.html

@@ -1,0 +1,362 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Documentación Técnica de UpTrackAI",
+    "section": "",
+    "text": "1 Bienvenido a UpTrackAI\nUpTrackAI es una plataforma SaaS moderna diseñada para el monitoreo inteligente de sistemas, APIs y servicios web. Esta documentación técnica detalla la arquitectura, componentes y flujos de trabajo del sistema.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Bienvenido a UpTrackAI</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#objetivo-del-sistema",
+    "href": "index.html#objetivo-del-sistema",
+    "title": "Documentación Técnica de UpTrackAI",
+    "section": "1.1 Objetivo del Sistema",
+    "text": "1.1 Objetivo del Sistema\nProporcionar a desarrolladores y administradores de sistemas una herramienta robusta para: - Monitorear la disponibilidad (uptime) y latencia de servicios. - Recibir alertas en tiempo real vía Telegram, Slack, etc. - Analizar métricas históricas y estadísticas de rendimiento. - Gestionar notificaciones y equipos de trabajo.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Bienvenido a UpTrackAI</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#estructura-de-la-documentación",
+    "href": "index.html#estructura-de-la-documentación",
+    "title": "Documentación Técnica de UpTrackAI",
+    "section": "1.2 Estructura de la Documentación",
+    "text": "1.2 Estructura de la Documentación\nLa documentación está organizada en las siguientes secciones:\n\nVisión General: Contexto del sistema y alcance.\nBackend: Arquitectura interna, microservicios lógicos y flujos de monitoreo.\nFrontend: Aplicaciones de usuario (Web y Móvil) e integraciones.\nBase de Datos: Modelo de datos y persistencia.\n\nComience explorando la Visión General.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Bienvenido a UpTrackAI</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/overview.html",
+    "href": "arquitectura/overview.html",
+    "title": "2  Visión General del Sistema",
+    "section": "",
+    "text": "2.1 Diagrama de Contexto (C4 Nivel 1)\nUpTrackAI se integra en un ecosistema empresarial para proporcionar visibilidad sobre la salud de los servicios críticos.\nEl siguiente diagrama muestra cómo UpTrackAI interactúa con sus usuarios y sistemas externos.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Visión General del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/overview.html#diagrama-de-contexto-c4-nivel-1",
+    "href": "arquitectura/overview.html#diagrama-de-contexto-c4-nivel-1",
+    "title": "2  Visión General del Sistema",
+    "section": "",
+    "text": "Diagrama de Contexto\n\n\n\n2.1.1 Actores y Sistemas\n\nUsuario: Persona que configura los monitoreos y recibe las alertas.\nUpTrackAI (Sistema): El núcleo de la solución SaaS.\nSistemas Monitoreados: APIs, sitios web y servidores que son objeto de verificación.\nServicio de Mensajería: Plataformas externas (Telegram, Slack) utilizadas para entregar notificaciones en tiempo real.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Visión General del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/overview.html#alcance",
+    "href": "arquitectura/overview.html#alcance",
+    "title": "2  Visión General del Sistema",
+    "section": "2.2 Alcance",
+    "text": "2.2 Alcance\nEl sistema abarca desde la recolección de métricas mediante chequeos HTTP/TCP hasta la entrega de alertas y visualización de datos históricos.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Visión General del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/overview.html#clean-architecture",
+    "href": "arquitectura/overview.html#clean-architecture",
+    "title": "2  Visión General del Sistema",
+    "section": "2.3 Clean Architecture",
+    "text": "2.3 Clean Architecture\nUpTrackAI implementa Clean Architecture con clara separación de responsabilidades:\nCapa de Presentación (HTTP, CLI)\n    ↓\nCapa de Aplicación (Casos de Uso, Servicios)\n    ↓\nCapa de Dominio (Entidades, Reglas de Negocio)\n    ↓\nCapa de Infraestructura (Base de Datos, APIs Externas)",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Visión General del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/overview.html#patrones-de-diseño-clave",
+    "href": "arquitectura/overview.html#patrones-de-diseño-clave",
+    "title": "2  Visión General del Sistema",
+    "section": "2.4 Patrones de Diseño Clave",
+    "text": "2.4 Patrones de Diseño Clave\n\n2.4.1 Patrón Repository\n\nAbstrae operaciones de acceso a datos\nPermite pruebas y mocking fáciles\nSoporta múltiples implementaciones de base de datos\n\n\n\n2.4.2 Inyección de Dependencias\n\nAcoplamiento bajo entre componentes\nPruebas y mantenimiento más fáciles\nConfigurable en tiempo de ejecución\n\n\n\n2.4.3 Patrón Worker Pool\n\nProcesamiento concurrente de objetivos de monitoreo\nCantidad de workers configurable según carga del sistema\nApagado graceful y gestión de recursos",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Visión General del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/overview.html#modelo-de-concurrencia",
+    "href": "arquitectura/overview.html#modelo-de-concurrencia",
+    "title": "2  Visión General del Sistema",
+    "section": "2.5 Modelo de Concurrencia",
+    "text": "2.5 Modelo de Concurrencia\nEl sistema utiliza goroutines y canales para concurrencia:\n\nWorker Pool: Procesamiento paralelo de objetivos\nNotificaciones Asíncronas: Entrega desacoplada de alertas\nPolling de Telegram: Procesamiento de mensajes en segundo plano",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Visión General del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/overview.html#gestión-de-estados",
+    "href": "arquitectura/overview.html#gestión-de-estados",
+    "title": "2  Visión General del Sistema",
+    "section": "2.6 Gestión de Estados",
+    "text": "2.6 Gestión de Estados\nMonitoreo inteligente con detección de 6 estados:\n\nUP: El objetivo está saludable\nDOWN: El objetivo es inalcanzable\nDEGRADED: Problemas de rendimiento detectados\nUNSTABLE: Fallos intermitentes\nFLAPPING: Cambios rápidos de estado\nUNKNOWN: Datos insuficientes para determinar",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Visión General del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/backend.html",
+    "href": "arquitectura/backend.html",
+    "title": "3  Backend y Servicios",
+    "section": "",
+    "text": "3.1 Arquitectura de Componentes (C4 Nivel 3)\nEl backend de UpTrackAI está construido en Go, priorizando el rendimiento y la concurrencia.\nEl siguiente diagrama detalla los módulos internos del Backend API y sus interacciones.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Backend y Servicios</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/backend.html#arquitectura-de-componentes-c4-nivel-3",
+    "href": "arquitectura/backend.html#arquitectura-de-componentes-c4-nivel-3",
+    "title": "3  Backend y Servicios",
+    "section": "",
+    "text": "Diagrama de Componentes\n\n\n\n3.1.1 Módulos Principales\n\nAPI REST (Gin): Punto de entrada para clientes Web y Móviles.\nScheduler: Orquestador que gestiona la ejecución periódica de chequeos.\nMonitoring Module: Núcleo de lógica de negocio que ejecuta los health checks.\nNotification Module: Gestiona canales y envío de alertas.\nSecurity Module: Autenticación y autorización (JWT).",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Backend y Servicios</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/backend.html#flujo-de-monitoreo",
+    "href": "arquitectura/backend.html#flujo-de-monitoreo",
+    "title": "3  Backend y Servicios",
+    "section": "3.2 Flujo de Monitoreo",
+    "text": "3.2 Flujo de Monitoreo\nEl proceso de verificación de un objetivo sigue un flujo estricto para determinar el estado y la necesidad de alertar.\n\n\n\nFlujo de Monitoreo\n\n\n\nScheduler: Desencadena el trabajo.\nWorker: Ejecuta el chequeo HTTP/TCP.\nAnalyzer: Evalúa si el resultado implica un cambio de estado (UP -&gt; DOWN).\nNotifier: Si la severidad cambia, se despacha una alerta asíncrona.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Backend y Servicios</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/backend.html#estructura-clean-architecture",
+    "href": "arquitectura/backend.html#estructura-clean-architecture",
+    "title": "3  Backend y Servicios",
+    "section": "3.3 Estructura Clean Architecture",
+    "text": "3.3 Estructura Clean Architecture\n\n\n\nArquitectura Clean\n\n\nLa implementación respeta las capas de Clean Architecture, asegurando que la lógica de dominio permanezca agnóstica a frameworks externos como Gin o GORM.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Backend y Servicios</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/backend.html#stack-tecnológico",
+    "href": "arquitectura/backend.html#stack-tecnológico",
+    "title": "3  Backend y Servicios",
+    "section": "3.4 Stack Tecnológico",
+    "text": "3.4 Stack Tecnológico\n\nLenguaje: Go 1.21+\nFramework: Gin (enrutador HTTP)\nBase de Datos: PostgreSQL con GORM\nMigraciones: GORM AutoMigrate\nConfiguración: Variables de entorno\nLogging: Logging estructurado con contexto",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Backend y Servicios</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/backend.html#estructura-de-módulos",
+    "href": "arquitectura/backend.html#estructura-de-módulos",
+    "title": "3  Backend y Servicios",
+    "section": "3.5 Estructura de Módulos",
+    "text": "3.5 Estructura de Módulos\ninternal/\n├── monitoring/          # Objetivos de monitoreo y verificaciones\n├── notifications/       # Sistema de notificaciones asíncronas\n├── user/               # Gestión de usuarios\n├── security/           # Autenticación y autorización\n├── server/             # Servidor HTTP y middleware\n└── repository/         # Interfaces de repositorio compartidas\nAPI RESTful con respuestas JSON:\n\nGET /api/targets - Listar objetivos de monitoreo\nPOST /api/targets - Crear nuevo objetivo\nGET /api/targets/{id} - Obtener detalles del objetivo\nPUT /api/targets/{id} - Actualizar objetivo\nDELETE /api/targets/{id} - Eliminar objetivo",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Backend y Servicios</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/backend.html#manejo-de-errores",
+    "href": "arquitectura/backend.html#manejo-de-errores",
+    "title": "3  Backend y Servicios",
+    "section": "3.6 Manejo de Errores",
+    "text": "3.6 Manejo de Errores\n\nErrores de Dominio: Validación de lógica de negocio\nErrores de Infraestructura: Fallos de servicios externos\nErrores HTTP: Códigos de estado y mensajes apropiados\nLogging: Reporte estructurado de errores",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Backend y Servicios</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/frontend.html",
+    "href": "arquitectura/frontend.html",
+    "title": "4  Frontend y Experiencia de Usuario",
+    "section": "",
+    "text": "4.1 Diagrama de Contenedores (C4 Nivel 2)\nUpTrackAI ofrece interfaces modernas para la gestión del monitoreo.\nEl sistema expone interfaces para usuarios finales y administradores.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Frontend y Experiencia de Usuario</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/frontend.html#diagrama-de-contenedores-c4-nivel-2",
+    "href": "arquitectura/frontend.html#diagrama-de-contenedores-c4-nivel-2",
+    "title": "4  Frontend y Experiencia de Usuario",
+    "section": "",
+    "text": "Diagrama de Contenedores\n\n\n\n4.1.1 Aplicaciones\n\nSPA Web (React): Panel de control principal. Permite gestión completa de targets, visualización de gráficas y configuración de cuenta.\nApp Móvil (Kotlin): Aplicación nativa para consulta rápida de estados y recepción de notificaciones push (futuro).",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Frontend y Experiencia de Usuario</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/frontend.html#integración-con-telegram-magic-link",
+    "href": "arquitectura/frontend.html#integración-con-telegram-magic-link",
+    "title": "4  Frontend y Experiencia de Usuario",
+    "section": "4.2 Integración con Telegram (Magic Link)",
+    "text": "4.2 Integración con Telegram (Magic Link)\nPara facilitar la vinculación de cuentas de Telegram sin fricción, se implementó un sistema de “Magic Link”.\n\n4.2.1 Flujo de Vinculación\n\nSolicitud: El usuario hace clic en “Conectar Telegram” en la Web App.\nGeneración: El backend genera un token único de corta duración (15 min).\nRedirección: Se abre un deep link a Telegram (t.me/UpTrackBot?start=TOKEN).\nVinculación: Al dar “Start”, el bot envía el token al backend, que asocia el Chat ID con el usuario.\n\nEste mecanismo elimina la necesidad de que el usuario copie y pegue códigos manualmente.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Frontend y Experiencia de Usuario</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/frontend.html#stack-tecnológico",
+    "href": "arquitectura/frontend.html#stack-tecnológico",
+    "title": "4  Frontend y Experiencia de Usuario",
+    "section": "4.3 Stack Tecnológico",
+    "text": "4.3 Stack Tecnológico\n\nLenguaje: TypeScript\nFramework: React 18 con Vite\nEstilos: Tailwind CSS\nGestión de Estado: Hooks de React + Context\nEnrutamiento: React Router\nCliente API: Fetch API con hooks personalizados\nHerramienta de Build: Vite",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Frontend y Experiencia de Usuario</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/frontend.html#estructura-de-componentes",
+    "href": "arquitectura/frontend.html#estructura-de-componentes",
+    "title": "4  Frontend y Experiencia de Usuario",
+    "section": "4.4 Estructura de Componentes",
+    "text": "4.4 Estructura de Componentes\nsrc/\n├── components/\n│   ├── layout/          # Componentes de layout (Header, Sidebar)\n│   └── ui/             # Componentes UI reutilizables\n├── pages/              # Componentes de página\n│   ├── Dashboard.tsx\n│   ├── Systems.tsx\n│   ├── AddTarget.tsx\n│   └── TargetDetail.tsx\n├── api/                # Funciones cliente API\n├── data/               # Tipos de datos y constantes\n└── assets/             # Activos estáticos\nUtiliza gestión de estado integrada de React:\n\nEstado Local: useState para estado de componentes\nEstado del Servidor: Hooks personalizados para datos API\nEstado Global: Context para sesión de usuario\nEstado de Formularios: Componentes controlados",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Frontend y Experiencia de Usuario</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/frontend.html#integración-con-api",
+    "href": "arquitectura/frontend.html#integración-con-api",
+    "title": "4  Frontend y Experiencia de Usuario",
+    "section": "4.5 Integración con API",
+    "text": "4.5 Integración con API\nHooks personalizados para obtención de datos:\nconst useTargets = () =&gt; {\n  const [targets, setTargets] = useState([]);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() =&gt; {\n    fetchTargets().then(setTargets).finally(() =&gt; setLoading(false));\n  }, []);\n\n  return { targets, loading };\n};",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Frontend y Experiencia de Usuario</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/frontend.html#diseño-responsivo",
+    "href": "arquitectura/frontend.html#diseño-responsivo",
+    "title": "4  Frontend y Experiencia de Usuario",
+    "section": "4.6 Diseño Responsivo",
+    "text": "4.6 Diseño Responsivo\nEnfoque mobile-first con Tailwind CSS:\n\nSistema de Breakpoints: breakpoints sm/md/lg/xl\nLayout Grid: Flexbox y CSS Grid\nBiblioteca de Componentes: Componentes UI consistentes\nModo Oscuro: Capacidad de cambio de tema",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Frontend y Experiencia de Usuario</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/frontend.html#inicialización-y-despliegue",
+    "href": "arquitectura/frontend.html#inicialización-y-despliegue",
+    "title": "4  Frontend y Experiencia de Usuario",
+    "section": "4.7 Inicialización y Despliegue",
+    "text": "4.7 Inicialización y Despliegue\nEsta sección detalla cómo poner en marcha la aplicación frontend, ya sea para desarrollo local o para despliegue en producción utilizando contenedores.\n\n4.7.1 Desarrollo Local (Sin Docker)\nIdeal para el desarrollo activo y pruebas rápidas.\nRequisitos: - Node.js (v18+) - pnpm (recomendado)\nPasos:\n\nInstalación de dependencias: bash     cd uptrack-gui     pnpm install\nConfiguración de Entorno: Cree un archivo .env en la raíz del proyecto uptrack-gui para definir la URL del backend API. properties     VITE_API_URL=http://localhost:8080\nEjecución: Inicie el servidor de desarrollo con recarga en caliente (HMR). bash     pnpm dev Acceda a la aplicación en http://localhost:5173.\n\n\n\n4.7.2 Despliegue con Docker\nPara entornos de producción, utilizamos una construcción multi-etapa que compila la aplicación React y la sirve utilizando Nginx.\n1. Dockerfile Asegúrese de tener el siguiente Dockerfile en la raíz de uptrack-gui:\n# Etapa 1: Construcción\nFROM node:20-alpine AS builder\nWORKDIR /app\nCOPY package.json pnpm-lock.yaml ./\nRUN npm install -g pnpm && pnpm install --frozen-lockfile\nCOPY . .\nRUN pnpm build\n\n# Etapa 2: Servidor Web\nFROM nginx:alpine\nCOPY --from=builder /app/dist /usr/share/nginx/html\n# Configuración necesaria para SPA (React Router)\nCOPY nginx.conf /etc/nginx/conf.d/default.conf\nEXPOSE 80\nCMD [\"nginx\", \"-g\", \"daemon off;\"]\n2. Configuración Nginx (nginx.conf) Necesario para manejar el enrutamiento del lado del cliente (evitar errores 404 al recargar).\nserver {\n    listen 80;\n    server_name localhost;\n    root /usr/share/nginx/html;\n    index index.html;\n\n    location / {\n        try_files $uri $uri/ /index.html;\n    }\n}\n3. Comandos de Ejecución\n# Construir la imagen\ndocker build -t uptrack-gui .\n\n# Ejecutar el contenedor (mapeando puerto 80 del contenedor al 3000 del host)\ndocker run -d -p 3000:80 --name uptrack-frontend uptrack-gui\nLa aplicación estará disponible en http://localhost:3000.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Frontend y Experiencia de Usuario</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/database.html",
+    "href": "arquitectura/database.html",
+    "title": "5  Modelo de Datos",
+    "section": "",
+    "text": "5.1 Diagrama de Clases / Entidades\nLa persistencia de datos se maneja en PostgreSQL, utilizando GORM como ORM para la interacción desde Go.\nEl siguiente diagrama ilustra las entidades principales del dominio y sus relaciones.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelo de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/database.html#diagrama-de-clases-entidades",
+    "href": "arquitectura/database.html#diagrama-de-clases-entidades",
+    "title": "5  Modelo de Datos",
+    "section": "",
+    "text": "Diagrama de Clases\n\n\n\n5.1.1 Entidades Principales\n\nUser: Propietario de la cuenta y los monitoreos.\nMonitoringTarget: URL o servicio específico a monitorear (ej. https://api.miempresa.com).\nCheckResult: Resultado individual de una ejecución de monitoreo (Status, Latencia, Timestamp).\nNotificationChannel: Configuración de un canal de alerta (ej. un chat de Telegram).\nAlertEvent: Registro de una alerta enviada.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelo de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/database.html#consideraciones-de-diseño",
+    "href": "arquitectura/database.html#consideraciones-de-diseño",
+    "title": "5  Modelo de Datos",
+    "section": "5.2 Consideraciones de Diseño",
+    "text": "5.2 Consideraciones de Diseño\n\nRelaciones: Un usuario tiene múltiples targets. Un target tiene múltiples resultados históricos.\nÍndices: Se utilizan índices en columnas de búsqueda frecuente como target_id y timestamp para optimizar consultas de historial.",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelo de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/database.html#diseño-de-base-de-datos",
+    "href": "arquitectura/database.html#diseño-de-base-de-datos",
+    "title": "5  Modelo de Datos",
+    "section": "5.3 Diseño de Base de Datos",
+    "text": "5.3 Diseño de Base de Datos\nBase de datos relacional PostgreSQL con las siguientes tablas clave:\n\n5.3.1 Tablas de Monitoreo Core\n\nmonitoring_targets: Configuraciones de objetivos\n\nid (UUID, PK)\nname (varchar)\nurl (varchar)\ncheck_interval (int)\ntimeout (int)\nexpected_status (int)\ncreated_at, updated_at (timestamp)\n\ncheck_results: Resultados individuales de verificaciones\n\nid (UUID, PK)\ntarget_id (UUID, FK)\nstatus (enum: UP, DOWN, etc.)\nresponse_time (int)\nstatus_code (int)\nerror_message (text)\nchecked_at (timestamp)\n\ntarget_metrics: Datos de rendimiento agregados\n\nid (UUID, PK)\ntarget_id (UUID, FK)\nuptime_percentage (decimal)\navg_response_time (int)\ntotal_checks (int)\nperiod_start, period_end (timestamp)\n\n\n\n\n5.3.2 Tablas de Notificaciones\n\nnotification_channels: Preferencias de notificación de usuario\n\nid (varchar(100), PK) - ID de canal de Telegram\nuser_id (UUID, FK)\nplatform (enum: telegram)\nenabled (boolean)\ncreated_at, updated_at (timestamp)\n\nlinking_tokens: Tokens de magic link\n\nid (UUID, PK)\ntoken (varchar, unique)\nuser_id (UUID, FK)\nexpires_at (timestamp)\nused (boolean)\n\n\n\n\n5.3.3 Tablas de Gestión de Usuarios\n\nusers: Cuentas de usuario\n\nid (UUID, PK)\nemail (varchar, unique)\npassword_hash (varchar)\ncreated_at, updated_at (timestamp)",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelo de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/database.html#evolución-del-esquema",
+    "href": "arquitectura/database.html#evolución-del-esquema",
+    "title": "5  Modelo de Datos",
+    "section": "5.4 Evolución del Esquema",
+    "text": "5.4 Evolución del Esquema\nMigraciones de base de datos manejadas a través de GORM AutoMigrate:\n\nAutomáticas: Actualizaciones de esquema al inicio de la aplicación\nVersionadas: Archivos de migración para cambios complejos\nTransaccionales: Rollback seguro en fallos",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelo de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/database.html#optimizaciones-de-rendimiento",
+    "href": "arquitectura/database.html#optimizaciones-de-rendimiento",
+    "title": "5  Modelo de Datos",
+    "section": "5.5 Optimizaciones de Rendimiento",
+    "text": "5.5 Optimizaciones de Rendimiento\n\n5.5.1 Índices\n\nClaves primarias en todas las tablas\nÍndices de claves foráneas\nÍndices compuestos en columnas consultadas frecuentemente\nÍndices basados en tiempo para datos históricos\n\n\n\n5.5.2 Optimización de Consultas\n\nOperaciones JOIN eficientes\nUso apropiado de EXPLAIN ANALYZE\nPooling de conexiones con driver pgx\nSentencias preparadas para consultas repetidas",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelo de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/database.html#retención-de-datos",
+    "href": "arquitectura/database.html#retención-de-datos",
+    "title": "5  Modelo de Datos",
+    "section": "5.6 Retención de Datos",
+    "text": "5.6 Retención de Datos\nPolíticas de retención de datos configurables:\n\nResultados de Verificaciones: Ventana rodante de 30 días\nMétricas: Datos históricos de 1 año\nNotificaciones: Registro de auditoría de 90 días",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelo de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "arquitectura/database.html#estrategia-de-backup",
+    "href": "arquitectura/database.html#estrategia-de-backup",
+    "title": "5  Modelo de Datos",
+    "section": "5.7 Estrategia de Backup",
+    "text": "5.7 Estrategia de Backup\n\nBackups Automatizados: Instantáneas diarias\nRecuperación Point-in-Time: Archivado WAL\nAlmacenamiento Offsite: Almacenamiento de backup en la nube\nPruebas: Pruebas regulares de restauración",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelo de Datos</span>"
+    ]
+  }
+]

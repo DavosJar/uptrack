@@ -1,0 +1,115 @@
+# Modelo de Datos
+
+La persistencia de datos se maneja en PostgreSQL, utilizando GORM como ORM para la interacción desde Go.
+
+## Diagrama de Clases / Entidades
+
+El siguiente diagrama ilustra las entidades principales del dominio y sus relaciones.
+
+![Diagrama de Clases](../diagrams/img/Diagrama de Clases - UpTrackAI.png)
+
+### Entidades Principales
+
+- **User:** Propietario de la cuenta y los monitoreos.
+- **MonitoringTarget:** URL o servicio específico a monitorear (ej. `https://api.miempresa.com`).
+- **CheckResult:** Resultado individual de una ejecución de monitoreo (Status, Latencia, Timestamp).
+- **NotificationChannel:** Configuración de un canal de alerta (ej. un chat de Telegram).
+- **AlertEvent:** Registro de una alerta enviada.
+
+## Consideraciones de Diseño
+
+- **Relaciones:** Un usuario tiene múltiples targets. Un target tiene múltiples resultados históricos.
+- **Índices:** Se utilizan índices en columnas de búsqueda frecuente como `target_id` y `timestamp` para optimizar consultas de historial.
+
+## Diseño de Base de Datos
+
+Base de datos relacional PostgreSQL con las siguientes tablas clave:
+
+### Tablas de Monitoreo Core
+
+- **monitoring_targets**: Configuraciones de objetivos
+  - id (UUID, PK)
+  - name (varchar)
+  - url (varchar)
+  - check_interval (int)
+  - timeout (int)
+  - expected_status (int)
+  - created_at, updated_at (timestamp)
+
+- **check_results**: Resultados individuales de verificaciones
+  - id (UUID, PK)
+  - target_id (UUID, FK)
+  - status (enum: UP, DOWN, etc.)
+  - response_time (int)
+  - status_code (int)
+  - error_message (text)
+  - checked_at (timestamp)
+
+- **target_metrics**: Datos de rendimiento agregados
+  - id (UUID, PK)
+  - target_id (UUID, FK)
+  - uptime_percentage (decimal)
+  - avg_response_time (int)
+  - total_checks (int)
+  - period_start, period_end (timestamp)
+
+### Tablas de Notificaciones
+
+- **notification_channels**: Preferencias de notificación de usuario
+  - id (varchar(100), PK) - ID de canal de Telegram
+  - user_id (UUID, FK)
+  - platform (enum: telegram)
+  - enabled (boolean)
+  - created_at, updated_at (timestamp)
+
+- **linking_tokens**: Tokens de magic link
+  - id (UUID, PK)
+  - token (varchar, unique)
+  - user_id (UUID, FK)
+  - expires_at (timestamp)
+  - used (boolean)
+
+### Tablas de Gestión de Usuarios
+
+- **users**: Cuentas de usuario
+  - id (UUID, PK)
+  - email (varchar, unique)
+  - password_hash (varchar)
+  - created_at, updated_at (timestamp)
+
+## Evolución del Esquema
+
+Migraciones de base de datos manejadas a través de GORM AutoMigrate:
+
+- **Automáticas**: Actualizaciones de esquema al inicio de la aplicación
+- **Versionadas**: Archivos de migración para cambios complejos
+- **Transaccionales**: Rollback seguro en fallos
+
+## Optimizaciones de Rendimiento
+
+### Índices
+- Claves primarias en todas las tablas
+- Índices de claves foráneas
+- Índices compuestos en columnas consultadas frecuentemente
+- Índices basados en tiempo para datos históricos
+
+### Optimización de Consultas
+- Operaciones JOIN eficientes
+- Uso apropiado de EXPLAIN ANALYZE
+- Pooling de conexiones con driver pgx
+- Sentencias preparadas para consultas repetidas
+
+## Retención de Datos
+
+Políticas de retención de datos configurables:
+
+- **Resultados de Verificaciones**: Ventana rodante de 30 días
+- **Métricas**: Datos históricos de 1 año
+- **Notificaciones**: Registro de auditoría de 90 días
+
+## Estrategia de Backup
+
+- **Backups Automatizados**: Instantáneas diarias
+- **Recuperación Point-in-Time**: Archivado WAL
+- **Almacenamiento Offsite**: Almacenamiento de backup en la nube
+- **Pruebas**: Pruebas regulares de restauración

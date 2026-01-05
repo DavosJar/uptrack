@@ -1,0 +1,40 @@
+@startuml Diagrama de Contenedores C4 - UpTrackAI
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(usuario, "Usuario", "Usuario final que supervisa el estado de sus sistemas")
+
+Person(admin, "Administrador", "Administra cuentas, límites y configuraciones avanzadas")
+
+System_Boundary(uptrack, "Uptrack") {
+    Container(mobile, "App Móvil", "Kotlin", "Aplicación móvil para usuarios finales. Consulta estados, recibe alertas y revisa métricas")
+    
+    Container(spa, "SPA Web", "React", "Aplicación web para usuarios y administradores. Gestión completa del sistema")
+    
+    Container(backend, "Backend API", "Go (Gin + GORM)", "API central. Gestiona usuarios, objetivos, chequeos, reglas y notificaciones")
+    
+    Container(db, "Base de Datos", "PostgreSQL", "Persistencia de cuentas, objetivos, configuraciones y resultados")
+}
+
+System_Ext(sistemasExternos, "Sistemas Monitoreados", "APIs y servicios web externos que son verificados por Uptrack")
+
+System_Ext(mensajeria, "Servicio de Mensajería", "WhatsApp / Telegram / Slack")
+
+Rel(usuario, mobile, "Consulta estado y recibe alertas")
+Rel(usuario, spa, "Gestiona objetivos y configuraciones")
+Rel(admin, spa, "Administra cuentas y límites")
+Rel(mobile, backend, "Consume API REST/JSON")
+Rel(spa, backend, "Consume API REST/JSON")
+Rel(backend, db, "Lee y escribe datos")
+Rel(backend, sistemasExternos, "Ejecuta chequeos HTTP/API")
+Rel(backend, mensajeria, "Envía notificaciones vía Webhooks/APIs")
+
+note as Info
+    **Tipo de Diagrama:** Contenedores C4
+    **Sistema:** UpTrackAI
+    **Versión:** 1.0
+    **Fecha:** 05/01/2026
+end note
+
+SHOW_LEGEND()
+
+@enduml

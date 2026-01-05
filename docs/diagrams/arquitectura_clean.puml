@@ -1,0 +1,72 @@
+@startuml diagrams/arquitectura_clean.puml
+title Arquitectura Clean - UpTrackAI
+
+skinparam componentStyle uml2
+skinparam packageStyle rectangle
+
+skinparam component {
+    BorderColor #333333
+    ArrowColor #333333
+}
+
+skinparam package {
+    BackgroundColor white
+    BorderColor #666666
+}
+
+package "Presentation Layer" as presentation {
+    [API REST\n(Gin Handlers)] as api #FFD4E5
+    [HTTP Middleware] as middleware #FFD4E5
+}
+
+package "Application Layer" as application {
+    [Application Services] as appServices #B4D7FF
+    [Use Cases] as usecases #B4D7FF
+}
+
+package "Domain Layer" as domain {
+    [Domain Models] as models #FFE5B4
+    [Repository Interfaces] as repoInterfaces #FFE5B4
+    [Domain Services] as domainServices #FFE5B4
+}
+
+package "Infrastructure Layer" as infrastructure {
+    [Repository Implementations\n(GORM)] as repos #D4F1D4
+    [External Services Clients] as external #D4F1D4
+    [Scheduler / Workers] as scheduler #D4F1D4
+}
+
+database "PostgreSQL" as db
+cloud "External APIs\n(Telegram, Systems)" as externalAPIs
+
+' Relaciones
+api -down-> appServices
+middleware -right-> api
+appServices -down-> usecases
+usecases -down-> domainServices
+usecases -down-> models
+usecases -down-> repoInterfaces
+
+repos .up.|> repoInterfaces
+repos -down-> db
+
+external .up.|> repoInterfaces
+external -down-> externalAPIs
+
+scheduler -up-> appServices
+
+note right of domain
+    **Núcleo de Negocio**
+    - Reglas de negocio puras
+    - Entidades y Value Objects
+    - Interfaces de repositorio
+end note
+
+note left of infrastructure
+    **Detalles de Implementación**
+    - Frameworks y Drivers
+    - Base de datos
+    - Adaptadores externos
+end note
+
+@enduml

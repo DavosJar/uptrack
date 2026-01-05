@@ -1,0 +1,33 @@
+# Arquitectura del Sistema
+
+Esta sección describe la arquitectura de UpTrackAI.
+
+## Resumen
+
+UpTrackAI sigue los principios de Clean Architecture con las siguientes capas:
+
+- **Dominio**: Lógica de negocio central y entidades
+- **Aplicación**: Casos de uso y servicios de aplicación
+- **Infraestructura**: Preocupaciones externas (base de datos, APIs, etc.)
+- **Presentación**: Manejadores HTTP y respuestas de API
+
+## Componentes
+
+### Backend (Go)
+
+- **Módulo de Monitoreo**: Maneja objetivos de monitoreo y verificaciones de salud
+- **Módulo de Notificaciones**: Gestiona notificaciones asíncronas vía Telegram
+- **Módulo de Usuario**: Gestión de usuarios y autenticación
+- **Módulo de Seguridad**: Seguridad y autorización
+
+### Frontend (React/TypeScript)
+
+- **Dashboard**: Interfaz principal de monitoreo
+- **Gestión de Objetivos**: Agregar y configurar objetivos de monitoreo
+- **Perfil de Usuario**: Configuraciones de usuario y vinculación con Telegram
+
+### Base de Datos (PostgreSQL)
+
+- **Datos de Monitoreo**: Objetivos, resultados de verificaciones, métricas
+- **Datos de Usuario**: Usuarios, canales de notificación
+- **Datos del Sistema**: Configuraciones y migraciones

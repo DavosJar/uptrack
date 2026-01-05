@@ -49,6 +49,9 @@ func StartHTTPServer(port string, handlers ...HTTPHandler) {
 		})
 	})
 
+	// Serve Quarto documentation (público, sin autenticación)
+	router.Static("/docs", "../docs/_book")
+
 	// Swagger documentation
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

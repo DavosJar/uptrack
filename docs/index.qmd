@@ -1,0 +1,22 @@
+# Bienvenido a UpTrackAI
+
+**UpTrackAI** es una plataforma SaaS moderna diseñada para el monitoreo inteligente de sistemas, APIs y servicios web. Esta documentación técnica detalla la arquitectura, componentes y flujos de trabajo del sistema.
+
+## Objetivo del Sistema
+
+Proporcionar a desarrolladores y administradores de sistemas una herramienta robusta para:
+- Monitorear la disponibilidad (uptime) y latencia de servicios.
+- Recibir alertas en tiempo real vía Telegram, Slack, etc.
+- Analizar métricas históricas y estadísticas de rendimiento.
+- Gestionar notificaciones y equipos de trabajo.
+
+## Estructura de la Documentación
+
+La documentación está organizada en las siguientes secciones:
+
+- **Visión General:** Contexto del sistema y alcance.
+- **Backend:** Arquitectura interna, microservicios lógicos y flujos de monitoreo.
+- **Frontend:** Aplicaciones de usuario (Web y Móvil) e integraciones.
+- **Base de Datos:** Modelo de datos y persistencia.
+
+Comience explorando la [Visión General](arquitectura/overview.qmd).

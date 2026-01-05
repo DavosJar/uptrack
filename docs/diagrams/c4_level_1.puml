@@ -1,0 +1,27 @@
+@startuml Diagrama de Contexto C4 - UpTrackAI
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Enterprise_Boundary(empresa, "Empresa UpTrackAI") {
+    Person(usuario, "Usuario", "Persona que administra y supervisa objetivos de monitoreo. Crea y gestiona objetivos, configura alertas, consulta estado y métricas")
+
+    System(uptrack, "UpTrack", "Plataforma SaaS de monitoreo de sistemas. Ejecuta chequeos periódicos, evalúa disponibilidad y latencia, gestiona configuraciones, orquesta notificaciones, almacena historial de resultados")
+
+    System_Ext(mensajeria, "Servicio de Mensajería", "Servicio externo de notificaciones (WhatsApp, Telegram, Slack). Responsable de entregar alertas al usuario")
+
+    Rel(usuario, uptrack, "Configura monitoreos, consulta estado, analiza resultados")
+
+    Rel(uptrack, mensajeria, "Envía alertas de fallo y recuperación")
+
+    Rel(mensajeria, usuario, "Entrega notificaciones en tiempo real")
+}
+
+note as Info
+    **Tipo de Diagrama:** Contexto C4
+    **Sistema:** UpTrackAI
+    **Versión:** 1.0
+    **Fecha:** 05/01/2026
+end note
+
+SHOW_LEGEND()
+
+@enduml
