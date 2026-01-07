@@ -143,21 +143,21 @@ const Systems: React.FC = () => {
           </div>
 
           {loading ? (
-            <div className="text-center py-8">
+            <div className="text-center py-8" role="status" aria-live="polite">
               <p className="text-white">Cargando sistemas...</p>
             </div>
           ) : error ? (
-            <div className="text-center py-8">
+            <div className="text-center py-8" role="alert" aria-live="assertive">
               <p className="text-red-400">{error}</p>
             </div>
           ) : targets.length === 0 ? (
-            <div className="text-center py-8">
+            <div className="text-center py-8" role="status">
               <p className="text-white">No hay sistemas configurados. Usa el botón del navbar para agregar uno.</p>
             </div>
           ) : (
-            <div className="space-y-6">
+            <section aria-label="Lista de sistemas" className="space-y-6">
               {/* Header Card - Hidden on mobile */}
-              <div className="hidden md:block bg-background-card border border-border-dark rounded-lg p-4">
+              <div className="hidden md:block bg-background-card border border-border-dark rounded-lg p-4" role="row" aria-label="Encabezados de columnas">
                 <div className="grid grid-cols-12 gap-4 text-sm font-medium text-text-muted">
                   <div className="col-span-3">Sistema</div>
                   <div className="col-span-2">Tipo</div>
@@ -168,13 +168,20 @@ const Systems: React.FC = () => {
               </div>
 
               {/* Systems List */}
-              <div className="space-y-4">
+              <ul role="list" className="space-y-4">
                 {targets.map((target) => (
-                  <div key={target.id} className="bg-background-card border border-border-dark rounded-lg overflow-hidden hover:border-primary/50 transition-colors">
+                  <li key={target.id} className="bg-background-card border border-border-dark rounded-lg overflow-hidden hover:border-primary/50 transition-colors" role="listitem">
                     {/* Desktop: Table-like layout */}
                     <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:p-4 md:items-center">
                       <div className="md:col-span-3">
-                        <h3 className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/target/${target.id}`)}>
+                        <h3 
+                          className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" 
+                          onClick={() => navigate(`/target/${target.id}`)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/target/${target.id}`); }}
+                          aria-label={`Ver detalles de ${target.name}`}
+                        >
                           {target.name}
                         </h3>
                       </div>
@@ -185,7 +192,7 @@ const Systems: React.FC = () => {
                         <p className="text-sm text-gray-300 truncate">{target.url}</p>
                       </div>
                       <div className="md:col-span-2">
-                        <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`}>
+                        <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`} aria-label={`Estado: ${getStatusText(target.current_status)}`}>
                           {getStatusText(target.current_status)}
                         </span>
                       </div>
@@ -199,10 +206,17 @@ const Systems: React.FC = () => {
                     {/* Mobile: Card-like layout similar to dashboard */}
                     <div className="md:hidden p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/target/${target.id}`)}>
+                        <h3 
+                          className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" 
+                          onClick={() => navigate(`/target/${target.id}`)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/target/${target.id}`); }}
+                          aria-label={`Ver detalles de ${target.name}`}
+                        >
                           {target.name}
                         </h3>
-                        <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`}>
+                        <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`} aria-label={`Estado: ${getStatusText(target.current_status)}`}>
                           {getStatusText(target.current_status)}
                         </span>
                       </div>
@@ -217,7 +231,7 @@ const Systems: React.FC = () => {
                     </div>
 
                     {/* Subtle vertical dividers - Desktop only */}
-                    <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:px-4 md:pb-4">
+                    <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:px-4 md:pb-4" aria-hidden="true">
                       <div className="col-span-3 border-r border-gray-600/50 h-1"></div>
                       <div className="col-span-2 border-r border-gray-600/50 h-1"></div>
                       <div className="col-span-3 border-r border-gray-600/50 h-1"></div>
@@ -227,13 +241,14 @@ const Systems: React.FC = () => {
 
                     {/* Action Buttons Area */}
                     <div className="bg-gray-700/30 px-4 py-3 border-t border-gray-600/50">
-                      <div className="flex gap-2 md:gap-3 justify-end flex-wrap">
+                      <div role="group" aria-label="Acciones del sistema" className="flex gap-2 md:gap-3 justify-end flex-wrap">
                         <Button
                           onClick={() => handleConfigure(target.id)}
                           variant="secondary"
                           className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm"
+                          aria-label={`Configurar ${target.name}`}
                         >
-                          <Settings className="w-3 h-3 md:w-4 md:h-4" />
+                          <Settings className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
                           <span className="hidden sm:inline">Configurar</span>
                           <span className="sm:hidden">Config</span>
                         </Button>
@@ -241,8 +256,9 @@ const Systems: React.FC = () => {
                           onClick={() => handleToggleActive(target.id)}
                           variant="secondary"
                           className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm"
+                          aria-label={`Activar/Desactivar ${target.name}`}
                         >
-                          <Play className="w-3 h-3 md:w-4 md:h-4" />
+                          <Play className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
                           <span className="hidden sm:inline">Activar</span>
                           <span className="sm:hidden">On/Off</span>
                         </Button>
@@ -250,17 +266,18 @@ const Systems: React.FC = () => {
                           onClick={() => handleDelete(target.id)}
                           variant="secondary"
                           className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm bg-red-600 hover:bg-red-700 text-white"
+                          aria-label={`Eliminar ${target.name}`}
                         >
-                          <Trash2 className="w-3 h-3 md:w-4 md:h-4" />
+                          <Trash2 className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
                           <span className="hidden sm:inline">Eliminar</span>
                           <span className="sm:hidden">Borrar</span>
                         </Button>
                       </div>
                     </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
           )}
         </div>
       </div>

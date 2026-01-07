@@ -25,20 +25,26 @@ const Sidebar: React.FC<SidebarProps> = ({ isDesktopOpen, setIsDesktopOpen, isMo
       <div
         className={`lg:hidden fixed inset-0 bg-black z-30 transition-opacity duration-300 ${isMobileOpen ? 'opacity-70 backdrop-blur-sm' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsMobileOpen(false)}
+        aria-hidden="true"
       />
 
       {/* Sidebar */}
-      <div className={`fixed top-16 left-0 h-[calc(100vh-4rem)] bg-background border-r border-border-dark transition-all duration-300 z-40 overflow-hidden ${isMobileOpen ? 'w-64' : 'w-0'} ${isDesktopOpen ? 'lg:w-64' : 'lg:w-0'}`}>
+      <aside 
+        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] bg-background border-r border-border-dark transition-all duration-300 z-40 overflow-hidden ${isMobileOpen ? 'w-64' : 'w-0'} ${isDesktopOpen ? 'lg:w-64' : 'lg:w-0'}`}
+        aria-label="Barra lateral de navegación"
+        aria-hidden={!isMobileOpen && !isDesktopOpen}
+      >
         <div className="flex flex-col h-full">
-          <nav className="flex-1 p-4 pt-6">
-            <ul className="space-y-2">
+          <nav aria-label="Menú principal" className="flex-1 p-4 pt-6">
+            <ul role="list" className="space-y-2">
               {navItems.map((item) => (
                 <li key={item.label}>
                   <button
                     className="w-full flex items-center gap-3 p-3 text-text-muted hover:bg-background-hover hover:text-text-main rounded-lg transition-colors"
                     onClick={() => { navigate(item.path); setIsMobileOpen(false); }}
+                    aria-label={`Ir a ${item.label}`}
                   >
-                    <item.icon size={20} />
+                    <item.icon size={20} aria-hidden="true" />
                     <span> {item.label}</span>
                   </button>
                 </li>
@@ -53,13 +59,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isDesktopOpen, setIsDesktopOpen, isMo
                 navigate('/login');
                 setIsMobileOpen(false);
               }}
+              aria-label="Cerrar sesión"
             >
-              <LogOut size={20} />
+              <LogOut size={20} aria-hidden="true" />
               <span>Logout</span>
             </button>
           </div>
         </div>
-      </div>
+      </aside>
     </>
   );
 };

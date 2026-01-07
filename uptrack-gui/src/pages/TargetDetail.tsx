@@ -35,8 +35,11 @@ const StatusSegment: React.FC<StatusSegmentProps> = ({ segment, index }) => {
       key={index}
       className={`${segment.color} flex items-center justify-center text-xs text-white font-medium relative group transition-opacity hover:opacity-90 cursor-pointer`}
       style={{ width: `${segment.percentage}%` }}
+      role="status"
+      aria-label={`${segment.status}: ${segment.duration} desde ${formatTime(segment.startTime)} hasta ${formatTime(segment.endTime)}`}
+      tabIndex={0}
     >
-      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-3 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 border border-gray-700 shadow-2xl">
+      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-3 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 border border-gray-700 shadow-2xl" role="tooltip">
         <div className="font-bold mb-2 text-base">{segment.status}</div>
         <div className="text-gray-300 mb-1">Inicio: {formatTime(segment.startTime)}</div>
         <div className="text-gray-300 mb-1">Fin: {formatTime(segment.endTime)}</div>
@@ -87,9 +90,12 @@ const HeatmapCell: React.FC<HeatmapCellProps> = ({ hourData, dayData, hourIdx })
     <div
       key={hourIdx}
       className={`flex-1 h-6 ${bgColor} rounded ${hourData.hasData ? 'hover:opacity-80 cursor-pointer' : ''} relative group`}
+      role={hourData.hasData ? 'status' : undefined}
+      aria-label={hourData.hasData ? `${hourData.status.toUpperCase()}: ${hourData.ms}ms, ${hourData.count} checks de ${formatTime(startTime)} a ${formatTime(endTime)}` : undefined}
+      tabIndex={hourData.hasData ? 0 : undefined}
     >
       {hourData.hasData && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-10 border border-border-dark shadow-lg">
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-10 border border-border-dark shadow-lg" role="tooltip">
           <div className="font-semibold mb-1">{hourData.status.toUpperCase()}</div>
           <div className="text-text-muted">Fecha: {dayData.date}</div>
           <div className="text-text-muted">Inicio: {formatTime(startTime)}</div>
@@ -150,7 +156,7 @@ const TargetDetail: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen" role="status" aria-live="polite">
         <div className="text-white text-xl">Cargando...</div>
       </div>
     );
@@ -158,7 +164,7 @@ const TargetDetail: React.FC = () => {
 
   if (error || !target) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen" role="alert" aria-live="assertive">
         <div className="text-red-500 text-xl">{error || 'Sistema no encontrado'}</div>
       </div>
     );

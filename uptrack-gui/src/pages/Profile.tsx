@@ -94,7 +94,7 @@ const Profile: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center" role="status" aria-live="polite">
         <p className="text-white">Cargando perfil...</p>
       </div>
     );
@@ -102,7 +102,7 @@ const Profile: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center" role="alert" aria-live="assertive">
         <p className="text-red-400">{error}</p>
       </div>
     );
@@ -110,7 +110,7 @@ const Profile: React.FC = () => {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center" role="status">
         <p className="text-white">No se encontró el perfil</p>
       </div>
     );
@@ -126,14 +126,14 @@ const Profile: React.FC = () => {
           />
 
           {error && (
-            <div className="mb-6 p-4 bg-red-900/20 border border-red-500 rounded-lg">
+            <div className="mb-6 p-4 bg-red-900/20 border border-red-500 rounded-lg" role="alert" aria-live="assertive">
               <p className="text-red-400">{error}</p>
             </div>
           )}
 
-          <div className="bg-gray-800/40 border border-gray-600 rounded-lg p-8">
+          <section className="bg-gray-800/40 border border-gray-600 rounded-lg p-8" aria-label="Información del perfil">
             {isEditing ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" aria-label="Editar perfil">
                 <FormField
                   label="Nombre Completo"
                   name="full_name"
@@ -248,7 +248,7 @@ const Profile: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>
+          </section>
         </div>
       </div>
     </div>

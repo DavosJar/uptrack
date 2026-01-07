@@ -24,6 +24,8 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       disabled={disabled || loading}
+      aria-busy={loading}
+      aria-disabled={disabled || loading}
       {...props}
     >
       {loading ? 'Loading...' : children}
