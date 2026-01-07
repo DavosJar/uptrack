@@ -1,9 +1,9 @@
 # --- CONFIGURACIÓN ---
 # Aquí definimos el comando. Si arreglas los permisos, borra "sudo".
 # Si actualizas a la versión nueva, cambia "docker-compose" por "docker compose".
-DC = sudo docker-compose
+DC = sudo docker-compose -f backend/docker-compose.yml
 
-.PHONY: help docker-up docker-up-d docker-down docker-build docker-logs docker-logs-app docker-logs-db docker-clean docker-restart docker-shell air-local db-connect db-docker test test-verbose build run tidy swagger clean
+.PHONY: help docker-up docker-up-d docker-down docker-build docker-logs docker-logs-app docker-logs-db docker-clean docker-restart docker-shell air-local db-connect db-docker test test-verbose build run tidy swagger clean local_dev check-env
 
 help: ## Muestra los comandos disponibles
 	@echo "Comandos disponibles:"
@@ -42,7 +42,29 @@ docker-shell: ## Entrar a la terminal del contenedor app
 
 # --- Local Development (Sin sudo, ahorra RAM) ---
 air-local: ## Correr Air nativo en Linux
-	air -c .air.toml
+	cd backend && air -c .air.toml
+
+check-env: ## Verifica y crea .env si no existe
+	@if [ ! -f backend/.env ]; then \
+		echo "Creando backend/.env desde .env.example"; \
+		cp backend/.env.example backend/.env; \
+	fi
+
+local_dev: check-env ## Levanta Postgres en Docker (persistente), y Backend + Frontend en local
+	@echo "🛑 Deteniendo contenedor de app (Docker) para liberar puerto 8080..."
+	-$(DC) stop app
+	@echo "🚀 Levantando base de datos (sin borrar datos)..."
+	$(DC) up -d postgres
+	@echo "⏳ Esperando a que PostgreSQL esté listo para aceptar conexiones..."
+	@until $(DC) exec -T postgres pg_isready -U postgres; do \
+		echo "   Esperando a Postgres..."; \
+		sleep 2; \
+	done
+	@echo "✅ Base de datos lista. Iniciando Backend y Frontend..."
+	@trap 'kill 0' EXIT; \
+	(cd backend && go run main.go) & \
+	(cd uptrack-gui && pnpm dev) & \
+	wait
 
 # --- Database ---
 db-connect: ## Conectar a PG desde el host (requiere psql instalado)
