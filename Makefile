@@ -1,7 +1,7 @@
 # --- CONFIGURACIÓN ---
 # Aquí definimos el comando. Si arreglas los permisos, borra "sudo".
 # Si actualizas a la versión nueva, cambia "docker-compose" por "docker compose".
-DC = sudo docker-compose -f backend/docker-compose.yml
+DC = sudo docker compose -f backend/docker-compose.yml
 
 .PHONY: help docker-up docker-up-d docker-down docker-build docker-logs docker-logs-app docker-logs-db docker-clean docker-restart docker-shell air-local db-connect db-docker test test-verbose build run tidy swagger clean local_dev check-env
 
