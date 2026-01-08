@@ -250,7 +250,7 @@ const TargetDetail: React.FC = () => {
         
         // Ignorar horas futuras
         if (hourStart > new Date()) {
-          hours.push({ hour: h, ms: 0, status: 'empty', hasData: false, count: 0 });
+          hours.push({ hour: h, ms: 0, status: 'empty' as 'empty', hasData: false, count: 0 });
           continue;
         }
 
@@ -267,10 +267,10 @@ const TargetDetail: React.FC = () => {
         });
         
         // Determinar el estado inicial de la hora (basado en el último evento ANTES de esta hora)
-        let initialStatus = null;
+        let initialStatus: 'UP' | 'DOWN' | 'DEGRADED' | null = null;
         const priorEvents = sortedHistory.filter((e: any) => new Date(e.timestamp).getTime() < hourStart.getTime());
         if (priorEvents.length > 0) {
-          initialStatus = priorEvents[priorEvents.length - 1].status;
+          initialStatus = priorEvents[priorEvents.length - 1].status as 'UP' | 'DOWN' | 'DEGRADED';
         }
 
         let ms = 0;
@@ -301,9 +301,6 @@ const TargetDetail: React.FC = () => {
 
         // Determinar STATUS final
         if (hasDownEvent || (startDown && !hourEvents.some((e: any) => e.status === 'UP'))) {
-             // Es crítico si hubo un DOWN, o si empezó DOWN y no se arregló en esta hora (o incluso si se arregló, hubo tiempo down)
-             // Ajuste: si empezó DOWN y hubo un UP a las 10:01, la hora 10-11 tuvo 1 min de downtime. ¿Es rojo?
-             // El usuario dice "priorizando estados criticos". Asumimos rojo si hubo CUALQUIER downtime.
              status = 'critical';
         } else if (isLatencyCritical) {
              status = 'critical';
@@ -312,14 +309,15 @@ const TargetDetail: React.FC = () => {
         } else if (isLatencySlow) {
              status = 'slow';
         } else if (hourMetrics.length > 0 || hourEvents.some((e: any) => e.status === 'UP') || initialStatus === 'UP') {
-             // Si tenemos datos (métricas o eventos conocidos o estado heredado UP), es normal (verde)
              status = 'normal';
         } else {
-             // Si no hay métricas, ni eventos, ni estado previo conocido... es vacío (antes de monitoreo)
              status = 'empty';
         }
-        
-        hours.push({ hour: h, ms, status, hasData: status !== 'empty', count: hourMetrics.length });
+
+        // Ensure status is always of the correct type
+        const statusTyped = status as 'normal' | 'slow' | 'critical' | 'empty';
+
+        hours.push({ hour: h, ms, status: statusTyped as 'normal' | 'slow' | 'critical' | 'empty', hasData: statusTyped !== 'empty', count: hourMetrics.length });
       }
       data.push({ day: dayName, date: d.toLocaleDateString(), hours });
     }
@@ -328,58 +326,6 @@ const TargetDetail: React.FC = () => {
 
   const heatmapData = generateHeatmapData();
 
-  const calculateStatusDuration = () => {
-    if (!target.data.last_checked_at) return 'Unknown';
-    
-    // Si no hay eventos de historial, usar el timestamp del target
-    if (historyEvents.length === 0) {
-      const now = new Date();
-      const lastChecked = new Date(target.last_checked_at);
-      const diffMs = now.getTime() - lastChecked.getTime();
-      const hours = Math.floor(diffMs / (1000 * 60 * 60));
-      const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-      
-      if (hours < 1) {
-        if (minutes < 1) return 'Just now';
-        return `For ${minutes} minute${minutes > 1 ? 's' : ''}`;
-      }
-      if (hours < 24) return `For ${hours} hour${hours > 1 ? 's' : ''}`;
-      const days = Math.floor(hours / 24);
-      return `For ${days} day${days > 1 ? 's' : ''}`;
-    }
-    
-    // Encontrar el momento del último cambio de estado
-    const currentStatus = target.current_status;
-    const sortedHistory = [...historyEvents].sort((a, b) => 
-      new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-    );
-    
-    // Buscar el evento más antiguo con el estado actual
-    let statusChangedAt = new Date(sortedHistory[0].timestamp);
-    
-    for (let i = 0; i < sortedHistory.length; i++) {
-      if (sortedHistory[i].status === currentStatus) {
-        // Seguir hasta el evento más antiguo con este status
-        statusChangedAt = new Date(sortedHistory[i].timestamp);
-      } else {
-        // Encontramos un estado diferente, el cambio fue en el evento anterior
-        break;
-      }
-    }
-    
-    const now = new Date();
-    const diffMs = now.getTime() - statusChangedAt.getTime();
-    const hours = Math.floor(diffMs / (1000 * 60 * 60));
-    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-    
-    if (hours < 1) {
-      if (minutes < 1) return 'Just now';
-      return `For ${minutes} minute${minutes > 1 ? 's' : ''}`;
-    }
-    if (hours < 24) return `For ${hours} hour${hours > 1 ? 's' : ''}`;
-    const days = Math.floor(hours / 24);
-    return `For ${days} day${days > 1 ? 's' : ''}`;
-  };
 
   const buildStatusHistoryBar = () => {
     // Use the adaptive startTime calculated above
