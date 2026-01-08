@@ -7,9 +7,10 @@ interface ModalProps {
   title?: string;
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  borderColor?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 'md' }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 'md', borderColor }) => {
   if (!isOpen) return null;
 
   const sizeClasses = {
@@ -26,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 
       aria-modal="true"
       aria-labelledby={title ? "modal-title" : undefined}
     >
-      <div className={`bg-background-card rounded-lg shadow-xl w-full mx-4 ${sizeClasses[size]} max-h-[90vh] overflow-y-auto`}>
+      <div className={`bg-background-card rounded-lg shadow-xl w-full mx-4 ${sizeClasses[size]} max-h-[90vh] overflow-y-auto border-2 ${borderColor || 'border-transparent'}`}>
         {(title || onClose) && (
           <div className="flex items-center justify-between p-6 border-b border-border-dark">
             {title && <h2 id="modal-title" className="text-xl font-semibold text-text-main">{title}</h2>}

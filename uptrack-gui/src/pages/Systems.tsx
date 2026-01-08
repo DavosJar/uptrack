@@ -138,13 +138,13 @@ const Systems: React.FC = () => {
         <div className="max-w-[95%] lg:max-w-[75%] mx-auto px-4 md:px-0">
           {/* Custom Header Layout */}
           <div className="mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Gestión de Sistemas</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-text-main mb-2">Gestión de Sistemas</h1>
             <p className="text-text-muted">Administra el ciclo de vida de tus sistemas monitoreados.</p>
           </div>
 
           {loading ? (
             <div className="text-center py-8" role="status" aria-live="polite">
-              <p className="text-white">Cargando sistemas...</p>
+              <p className="text-text-main">Cargando sistemas...</p>
             </div>
           ) : error ? (
             <div className="text-center py-8" role="alert" aria-live="assertive">
@@ -152,7 +152,7 @@ const Systems: React.FC = () => {
             </div>
           ) : targets.length === 0 ? (
             <div className="text-center py-8" role="status">
-              <p className="text-white">No hay sistemas configurados. Usa el botón del navbar para agregar uno.</p>
+              <p className="text-text-main">No hay sistemas configurados. Usa el botón del navbar para agregar uno.</p>
             </div>
           ) : (
             <section aria-label="Lista de sistemas" className="space-y-6">
@@ -175,7 +175,7 @@ const Systems: React.FC = () => {
                     <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:p-4 md:items-center">
                       <div className="md:col-span-3">
                         <h3 
-                          className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" 
+                          className="text-lg font-bold text-text-main cursor-pointer hover:text-primary transition-colors" 
                           onClick={() => navigate(`/target/${target.id}`)}
                           role="button"
                           tabIndex={0}
@@ -186,10 +186,10 @@ const Systems: React.FC = () => {
                         </h3>
                       </div>
                       <div className="md:col-span-2">
-                        <span className="text-sm text-gray-300">{target.target_type}</span>
+                        <span className="text-sm text-text-muted">{target.target_type}</span>
                       </div>
                       <div className="md:col-span-3">
-                        <p className="text-sm text-gray-300 truncate">{target.url}</p>
+                        <p className="text-sm text-text-muted truncate">{target.url}</p>
                       </div>
                       <div className="md:col-span-2">
                         <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`} aria-label={`Estado: ${getStatusText(target.current_status)}`}>
@@ -197,7 +197,7 @@ const Systems: React.FC = () => {
                         </span>
                       </div>
                       <div className="md:col-span-2">
-                        <span className="text-sm text-gray-300">
+                        <span className="text-sm text-text-muted">
                           {target.avg_response_time ? `${target.avg_response_time} ms` : 'N/A'}
                         </span>
                       </div>
@@ -207,7 +207,7 @@ const Systems: React.FC = () => {
                     <div className="md:hidden p-4">
                       <div className="flex items-center justify-between mb-3">
                         <h3 
-                          className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" 
+                          className="text-lg font-bold text-text-main cursor-pointer hover:text-primary transition-colors" 
                           onClick={() => navigate(`/target/${target.id}`)}
                           role="button"
                           tabIndex={0}
@@ -220,7 +220,7 @@ const Systems: React.FC = () => {
                           {getStatusText(target.current_status)}
                         </span>
                       </div>
-                      <div className="space-y-2 text-sm text-gray-300 mb-4">
+                      <div className="space-y-2 text-sm text-text-muted mb-4">
                         <p><span className="font-medium">Tipo:</span> {target.target_type}</p>
                         <p><span className="font-medium">URL:</span> {target.url}</p>
                         <p><span className="font-medium">Tiempo promedio:</span> {target.avg_response_time ? `${target.avg_response_time} ms` : 'N/A'}</p>
@@ -232,15 +232,15 @@ const Systems: React.FC = () => {
 
                     {/* Subtle vertical dividers - Desktop only */}
                     <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:px-4 md:pb-4" aria-hidden="true">
-                      <div className="col-span-3 border-r border-gray-600/50 h-1"></div>
-                      <div className="col-span-2 border-r border-gray-600/50 h-1"></div>
-                      <div className="col-span-3 border-r border-gray-600/50 h-1"></div>
-                      <div className="col-span-2 border-r border-gray-600/50 h-1"></div>
+                      <div className="col-span-3 border-r border-border-dark h-1"></div>
+                      <div className="col-span-2 border-r border-border-dark h-1"></div>
+                      <div className="col-span-3 border-r border-border-dark h-1"></div>
+                      <div className="col-span-2 border-r border-border-dark h-1"></div>
                       <div className="col-span-2 h-1"></div>
                     </div>
 
                     {/* Action Buttons Area */}
-                    <div className="bg-gray-700/30 px-4 py-3 border-t border-gray-600/50">
+                    <div className="bg-background-hover px-4 py-3 border-t border-border-dark">
                       <div role="group" aria-label="Acciones del sistema" className="flex gap-2 md:gap-3 justify-end flex-wrap">
                         <Button
                           onClick={() => handleConfigure(target.id)}

@@ -79,9 +79,9 @@ const Login: React.FC = () => {
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/20">
               <Monitor className="w-7 h-7 text-white" aria-hidden="true" />
             </div>
-            <span className="text-2xl font-bold tracking-tight text-white">UpTrack</span>
+            <span className="text-2xl font-bold tracking-tight text-text-main">UpTrack</span>
           </div>
-          <h1 className="text-5xl font-black leading-tight tracking-tighter text-white">
+          <h1 className="text-5xl font-black leading-tight tracking-tighter text-text-main">
             Tu centro de control unificado.
           </h1>
           <p className="text-lg text-text-muted">
@@ -92,7 +92,7 @@ const Login: React.FC = () => {
       <main className="flex flex-col items-center justify-center p-8 sm:p-12 bg-background" role="main">
         <div className="w-full max-w-md">
           <div className="flex flex-col gap-3 mb-10">
-            <h2 className="text-3xl font-bold text-white">
+            <h2 className="text-3xl font-bold text-text-main">
               {isLogin ? 'Bienvenido de nuevo' : 'Crear cuenta'}
             </h2>
             <p className="text-text-muted">
@@ -108,7 +108,7 @@ const Login: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="ejemplo@tuempresa.com"
-                className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 required
                 aria-required="true"
                 autoComplete="email"
@@ -123,7 +123,7 @@ const Login: React.FC = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 pr-12 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                  className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 pr-12 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                   required
                   aria-required="true"
                   autoComplete={isLogin ? 'current-password' : 'new-password'}
@@ -131,15 +131,15 @@ const Login: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors"
                   aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                 >
                   {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
                 </button>
               </div>
             </label>
-            {error && <p role="alert" aria-live="polite" className="text-white text-sm">{error}</p>}
-            {success && <p role="status" aria-live="polite" className="text-white text-sm">{success}</p>}
+            {error && <p role="alert" aria-live="polite" className="text-status-danger text-sm">{error}</p>}
+            {success && <p role="status" aria-live="polite" className="text-status-success text-sm">{success}</p>}
             <button
               type="submit"
               disabled={loading}
