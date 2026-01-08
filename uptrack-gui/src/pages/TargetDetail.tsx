@@ -33,17 +33,17 @@ const StatusSegment: React.FC<StatusSegmentProps> = ({ segment, index }) => {
   return (
     <div
       key={index}
-      className={`${segment.color} flex items-center justify-center text-xs text-white font-medium relative group transition-opacity hover:opacity-90 cursor-pointer`}
+      className={`${segment.color} flex items-center justify-center text-xs ${segment.status === 'DEGRADED' ? 'text-black' : 'text-white'} font-medium relative group transition-opacity hover:opacity-90 cursor-pointer`}
       style={{ width: `${segment.percentage}%` }}
       role="status"
       aria-label={`${segment.status}: ${segment.duration} desde ${formatTime(segment.startTime)} hasta ${formatTime(segment.endTime)}`}
       tabIndex={0}
     >
-      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-3 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 border border-gray-700 shadow-2xl" role="tooltip">
-        <div className="font-bold mb-2 text-base">{segment.status}</div>
-        <div className="text-gray-300 mb-1">Inicio: {formatTime(segment.startTime)}</div>
-        <div className="text-gray-300 mb-1">Fin: {formatTime(segment.endTime)}</div>
-        <div className="text-gray-300">Duración: {segment.duration}</div>
+      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-3 bg-background-surface text-text-main text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 border border-border-dark shadow-2xl" role="tooltip">
+        <div className="font-bold mb-2 text-base text-text-main">{segment.status}</div>
+        <div className="text-text-muted mb-1">Inicio: {formatTime(segment.startTime)}</div>
+        <div className="text-text-muted mb-1">Fin: {formatTime(segment.endTime)}</div>
+        <div className="text-text-muted">Duración: {segment.duration}</div>
       </div>
     </div>
   );
@@ -66,7 +66,7 @@ interface HeatmapCellProps {
 const HeatmapCell: React.FC<HeatmapCellProps> = ({ hourData, dayData, hourIdx }) => {
   const bgColor =
     hourData.status === 'empty'
-      ? 'bg-gray-800'
+      ? 'bg-transparent border border-border-dark' // Empty cells: Transparent with border
       : hourData.status === 'critical'
       ? 'bg-red-600'
       : hourData.status === 'slow'
@@ -95,8 +95,8 @@ const HeatmapCell: React.FC<HeatmapCellProps> = ({ hourData, dayData, hourIdx })
       tabIndex={hourData.hasData ? 0 : undefined}
     >
       {hourData.hasData && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-10 border border-border-dark shadow-lg" role="tooltip">
-          <div className="font-semibold mb-1">{hourData.status.toUpperCase()}</div>
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-background-surface text-text-main text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-10 border border-border-dark shadow-lg" role="tooltip">
+          <div className="font-semibold mb-1 text-text-main">{hourData.status.toUpperCase()}</div>
           <div className="text-text-muted">Fecha: {dayData.date}</div>
           <div className="text-text-muted">Inicio: {formatTime(startTime)}</div>
           <div className="text-text-muted">Fin: {formatTime(endTime)}</div>
@@ -157,7 +157,7 @@ const TargetDetail: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen" role="status" aria-live="polite">
-        <div className="text-white text-xl">Cargando...</div>
+        <div className="text-text-main text-xl">Cargando...</div>
       </div>
     );
   }
@@ -232,6 +232,9 @@ const TargetDetail: React.FC = () => {
     // Usar el promedio histórico global para determinar umbrales de lentitud
     const globalAvg = statisticsData?.avg_response_time_ms || 100;
     
+    // Ordenar historial cronológicamente una sola vez
+    const sortedHistory = [...historyEvents].sort((a: any, b: any) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+
     for (let i = 0; i < 7; i++) {
       const d = new Date(today);
       d.setDate(today.getDate() - (6 - i));
@@ -239,45 +242,84 @@ const TargetDetail: React.FC = () => {
       const hours = [];
       
       for (let h = 0; h < 24; h++) {
-        // Buscar métricas en esta hora específica del día
+        // Definir límites de la hora actual
+        const hourStart = new Date(d);
+        hourStart.setHours(h, 0, 0, 0);
+        const hourEnd = new Date(hourStart);
+        hourEnd.setHours(h + 1, 0, 0, 0);
+        
+        // Ignorar horas futuras
+        if (hourStart > new Date()) {
+          hours.push({ hour: h, ms: 0, status: 'empty', hasData: false, count: 0 });
+          continue;
+        }
+
+        // Buscar métricas en esta hora
         const hourMetrics = metricsList.filter((metric: any) => {
-          const metricDate = new Date(metric.timestamp);
-          return metricDate.getFullYear() === d.getFullYear() &&
-                 metricDate.getMonth() === d.getMonth() &&
-                 metricDate.getDate() === d.getDate() &&
-                 metricDate.getHours() === h;
+          const mTime = new Date(metric.timestamp).getTime();
+          return mTime >= hourStart.getTime() && mTime < hourEnd.getTime();
         });
         
-        // Buscar eventos de status en esta hora para verificar DOWN/DEGRADED
-        const hourEvents = historyEvents.filter((event: any) => {
-          const eventDate = new Date(event.timestamp);
-          return eventDate.getFullYear() === d.getFullYear() &&
-                 eventDate.getMonth() === d.getMonth() &&
-                 eventDate.getDate() === d.getDate() &&
-                 eventDate.getHours() === h;
+        // Buscar eventos en esta hora
+        const hourEvents = sortedHistory.filter((event: any) => {
+          const eTime = new Date(event.timestamp).getTime();
+          return eTime >= hourStart.getTime() && eTime < hourEnd.getTime();
         });
         
+        // Determinar el estado inicial de la hora (basado en el último evento ANTES de esta hora)
+        let initialStatus = null;
+        const priorEvents = sortedHistory.filter((e: any) => new Date(e.timestamp).getTime() < hourStart.getTime());
+        if (priorEvents.length > 0) {
+          initialStatus = priorEvents[priorEvents.length - 1].status;
+        }
+
         let ms = 0;
         let status: 'normal' | 'slow' | 'critical' | 'empty' = 'empty';
+        
+        // Lógica de Prioridad de Estados:
+        // 1. CRITICAL: Si hubo un evento DOWN en la hora, O si empezamos la hora en DOWN.
+        // 2. SLOW: Si hubo un evento DEGRADED, O si empezamos en DEGRADED (y no hubo DOWN).
+        // 3. NORMAL: Si hay métricas, O evento UP, O empezamos en UP.
+        
+        const hasDownEvent = hourEvents.some((e: any) => e.status === 'DOWN');
+        const startDown = initialStatus === 'DOWN';
+        
+        const hasDegradedEvent = hourEvents.some((e: any) => e.status === 'DEGRADED');
+        const startDegraded = initialStatus === 'DEGRADED';
+        
+        // Calcular latencia promedio si hay métricas
+        let isLatencyCritical = false;
+        let isLatencySlow = false;
         
         if (hourMetrics.length > 0) {
           const avgMs = hourMetrics.reduce((sum: number, m: any) => sum + (m.response_time_ms || 0), 0) / hourMetrics.length;
           ms = Math.round(avgMs);
           
-          // Verificar si hay estados DOWN o DEGRADED en los eventos
-          const hasDown = hourEvents.some((e: any) => e.status === 'DOWN');
-          const hasDegraded = hourEvents.some((e: any) => e.status === 'DEGRADED');
-          
-          if (hasDown || hasDegraded || ms > globalAvg * 4) {
-            status = 'critical';
-          } else if (ms > globalAvg * 2.5) {
-            status = 'slow';
-          } else {
-            status = 'normal';
-          }
+          if (ms > globalAvg * 4) isLatencyCritical = true;
+          else if (ms > globalAvg * 2.5) isLatencySlow = true;
+        }
+
+        // Determinar STATUS final
+        if (hasDownEvent || (startDown && !hourEvents.some((e: any) => e.status === 'UP'))) {
+             // Es crítico si hubo un DOWN, o si empezó DOWN y no se arregló en esta hora (o incluso si se arregló, hubo tiempo down)
+             // Ajuste: si empezó DOWN y hubo un UP a las 10:01, la hora 10-11 tuvo 1 min de downtime. ¿Es rojo?
+             // El usuario dice "priorizando estados criticos". Asumimos rojo si hubo CUALQUIER downtime.
+             status = 'critical';
+        } else if (isLatencyCritical) {
+             status = 'critical';
+        } else if (hasDegradedEvent || (startDegraded && !hourEvents.some((e: any) => e.status === 'UP' || e.status === 'DOWN'))) {
+             status = 'slow';
+        } else if (isLatencySlow) {
+             status = 'slow';
+        } else if (hourMetrics.length > 0 || hourEvents.some((e: any) => e.status === 'UP') || initialStatus === 'UP') {
+             // Si tenemos datos (métricas o eventos conocidos o estado heredado UP), es normal (verde)
+             status = 'normal';
+        } else {
+             // Si no hay métricas, ni eventos, ni estado previo conocido... es vacío (antes de monitoreo)
+             status = 'empty';
         }
         
-        hours.push({ hour: h, ms, status, hasData: hourMetrics.length > 0, count: hourMetrics.length });
+        hours.push({ hour: h, ms, status, hasData: status !== 'empty', count: hourMetrics.length });
       }
       data.push({ day: dayName, date: d.toLocaleDateString(), hours });
     }
@@ -485,13 +527,13 @@ const TargetDetail: React.FC = () => {
       {/* Breadcrumb & Header */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2 text-text-muted text-sm font-medium">
-          <span className="hover:text-white cursor-pointer" onClick={() => navigate('/systems')}>Sistemas</span>
+          <span className="hover:text-text-main cursor-pointer" onClick={() => navigate('/systems')}>Sistemas</span>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-white">{target.data.name}</span>
+          <span className="text-text-main">{target.data.name}</span>
         </div>
         <div className="flex flex-wrap justify-between items-start gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-white">{target.data.name}</h1>
+            <h1 className="text-3xl font-bold text-text-main">{target.data.name}</h1>
             <p className="text-text-muted mt-1">{target.data.url}</p>
           </div>
           <div className="flex items-center gap-4">
@@ -500,7 +542,7 @@ const TargetDetail: React.FC = () => {
             </span>
             <button 
               onClick={() => window.location.reload()}
-              className="flex items-center gap-2 bg-background-hover hover:bg-border-dark text-white px-4 h-10 rounded-lg font-medium transition-colors border border-border-dark"
+              className="flex items-center gap-2 bg-background-hover hover:bg-border-dark text-text-main px-4 h-10 rounded-lg font-medium transition-colors border border-border-dark"
             >
               <RefreshCw className="w-4 h-4" /> Actualizar
             </button>
@@ -514,13 +556,13 @@ const TargetDetail: React.FC = () => {
           <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Estado Actual</p>
           <div className="flex items-center gap-3">
             <div className={`w-3 h-3 rounded-full ${statusColor} ${target.data.current_status === 'UP' ? 'animate-pulse' : ''}`}></div>
-            <span className="text-2xl font-bold text-white">{target.data.current_status}</span>
+            <span className="text-2xl font-bold text-text-main">{target.data.current_status}</span>
           </div>
         </div>
 
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
           <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Disponibilidad (24h)</p>
-          <span className="text-2xl font-bold text-white">
+          <span className="text-2xl font-bold text-text-main">
             {statisticsData?.success_rate 
               ? (statisticsData.success_rate > 1 
                   ? statisticsData.success_rate.toFixed(2) 
@@ -531,18 +573,18 @@ const TargetDetail: React.FC = () => {
 
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
           <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Respuesta Prom. (24h)</p>
-          <span className="text-2xl font-bold text-white">{statisticsData?.avg_response_time_ms ? statisticsData.avg_response_time_ms.toFixed(0) : 0}ms</span>
+          <span className="text-2xl font-bold text-text-main">{statisticsData?.avg_response_time_ms ? statisticsData.avg_response_time_ms.toFixed(0) : 0}ms</span>
         </div>
 
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
           <p className="text-text-muted text-sm font-medium uppercase tracking-wider mb-2">Pico CPU (24h)</p>
-          <span className="text-2xl font-bold text-white">N/A</span>
+          <span className="text-2xl font-bold text-text-main">N/A</span>
         </div>
       </div>
 
       {/* Status History (24h) */}
       <div className="bg-background-card border border-border-dark rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Historial de Estado (24h)</h2>
+        <h2 className="text-xl font-bold text-text-main mb-4">Historial de Estado (24h)</h2>
         <div className="flex w-full h-8 rounded overflow-visible">
           {statusHistoryBar.map((segment, idx) => (
             <StatusSegment key={idx} segment={segment} index={idx} />
@@ -556,7 +598,7 @@ const TargetDetail: React.FC = () => {
 
       {/* Response Time History (7-day Heatmap) */}
       <div className="bg-background-card border border-border-dark rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Historial de Tiempos de Respuesta (7 días)</h2>
+        <h2 className="text-xl font-bold text-text-main mb-4">Historial de Tiempos de Respuesta (7 días)</h2>
         <div className="space-y-2">
           {heatmapData.map((dayData, dayIdx) => (
             <div key={dayIdx} className="flex items-center gap-2">
@@ -578,7 +620,7 @@ const TargetDetail: React.FC = () => {
 
       {/* Performance Metrics */}
       <div className="bg-background-card border border-border-dark rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Métricas de Rendimiento</h2>
+        <h2 className="text-xl font-bold text-text-main mb-4">Métricas de Rendimiento</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Response Time Chart */}
           <div>
@@ -595,7 +637,7 @@ const TargetDetail: React.FC = () => {
                   <XAxis 
                     dataKey="timestamp" 
                     type="number" 
-                    domain={[startTime.getTime(), now.getTime()]} 
+                    domain={['dataMin', 'dataMax']} 
                     tickFormatter={(unixTime) => new Date(unixTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                     stroke="#4b5563" 
                     fontSize={10} 
@@ -647,28 +689,28 @@ const TargetDetail: React.FC = () => {
 
       {/* Configuration Details */}
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-white">Configuración</h2>
+        <h2 className="text-xl font-bold text-text-main">Configuración</h2>
         <div className="bg-background-card border border-border-dark p-6 rounded-xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <p className="text-text-muted text-sm font-medium mb-1">Alerta en Fallo</p>
-              <p className="text-white font-medium">{target.configuration?.alert_on_failure ? 'Activada' : 'Desactivada'}</p>
+              <p className="text-text-main font-medium">{target.configuration?.alert_on_failure ? 'Activada' : 'Desactivada'}</p>
             </div>
             <div>
               <p className="text-text-muted text-sm font-medium mb-1">Alerta en Recuperación</p>
-              <p className="text-white font-medium">{target.configuration?.alert_on_recovery ? 'Activada' : 'Desactivada'}</p>
+              <p className="text-text-main font-medium">{target.configuration?.alert_on_recovery ? 'Activada' : 'Desactivada'}</p>
             </div>
             <div>
               <p className="text-text-muted text-sm font-medium mb-1">Intentos de Reintento</p>
-              <p className="text-white font-medium">{target.configuration?.retry_count || 0}</p>
+              <p className="text-text-main font-medium">{target.configuration?.retry_count || 0}</p>
             </div>
             <div>
               <p className="text-text-muted text-sm font-medium mb-1">Tiempo Límite</p>
-              <p className="text-white font-medium">{target.configuration?.timeout_seconds || 0}s</p>
+              <p className="text-text-main font-medium">{target.configuration?.timeout_seconds || 0}s</p>
             </div>
             <div>
               <p className="text-text-muted text-sm font-medium mb-1">Fecha de Creación</p>
-              <p className="text-white font-medium">{new Date(target.data.created_at).toLocaleString()}</p>
+              <p className="text-text-main font-medium">{new Date(target.data.created_at).toLocaleString()}</p>
             </div>
     
           </div>

@@ -48,12 +48,12 @@ const Register: React.FC = () => {
               <Monitor className="w-7 h-7 text-white" aria-hidden="true" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white">Crear Cuenta</h1>
-          <p className="text-white mt-2">Empieza a monitorear tus sistemas hoy.</p>
+          <h1 className="text-3xl font-bold text-text-main">Crear Cuenta</h1>
+          <p className="text-text-muted mt-2">Empieza a monitorear tus sistemas hoy.</p>
         </header>
         <form onSubmit={handleSubmit} className="space-y-5" aria-label="Formulario de registro">
           <div className="space-y-1.5">
-            <label htmlFor="register-email" className="text-sm font-medium text-white">Correo electrónico</label>
+            <label htmlFor="register-email" className="text-sm font-medium text-text-main">Correo electrónico</label>
             <input
               id="register-email"
               type="email"
@@ -61,14 +61,14 @@ const Register: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="tu@email.com"
-              className="w-full bg-background border border-border rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+              className="w-full bg-background border border-border rounded-lg h-11 px-4 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
               required
               aria-required="true"
               autoComplete="email"
             />
           </div>
           <div className="space-y-1.5">
-            <label htmlFor="register-password" className="text-sm font-medium text-white">Contraseña</label>
+            <label htmlFor="register-password" className="text-sm font-medium text-text-main">Contraseña</label>
             <input
               id="register-password"
               type="password"
@@ -76,7 +76,7 @@ const Register: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full bg-background border border-border rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+              className="w-full bg-background border border-border rounded-lg h-11 px-4 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
               required
               aria-required="true"
               autoComplete="new-password"
@@ -93,7 +93,7 @@ const Register: React.FC = () => {
             {loading ? 'Registrando...' : 'Registrarse'}
           </button>
         </form>
-        <footer className="text-center text-sm text-white">
+        <footer className="text-center text-sm text-text-muted">
           ¿Ya tienes cuenta? <a href="/login" className="text-primary font-medium hover:underline">Inicia sesión</a>
         </footer>
       </div>

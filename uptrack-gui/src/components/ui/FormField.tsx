@@ -38,7 +38,7 @@ const FormField: React.FC<FormFieldProps> = ({
           required={required}
           aria-describedby={helpTextId}
           aria-required={required}
-          className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+          className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-text-main focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
         >
           {options?.map((option) => (
             <option key={option.value} value={option.value}>
@@ -57,7 +57,7 @@ const FormField: React.FC<FormFieldProps> = ({
           placeholder={placeholder}
           aria-describedby={helpTextId}
           aria-required={required}
-          className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+          className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
         />
       )}
       {helpText && <p id={helpTextId} className="text-xs text-text-muted">{helpText}</p>}

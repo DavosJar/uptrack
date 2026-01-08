@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Monitor, Plus, User, Bell } from 'lucide-react';
+import { Menu, X, Monitor, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+
+import { NotificationBell } from '../ui/NotificationBell';
+import { ThemeToggle } from '../ui/ThemeToggle';
 
 interface MobileHeaderProps {
   isMobileOpen: boolean;
@@ -57,7 +60,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({ isMobileOpen, setIsMobileOp
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
             <Monitor className="w-5 h-5 text-white" aria-hidden="true" />
           </div>
-          <span className="text-xl font-bold text-white hidden sm:block">UpTrack</span>
+          <span className="text-xl font-bold text-text-main hidden sm:block">UpTrack</span>
         </div>
 
         {/* Espaciador */}
@@ -74,22 +77,10 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({ isMobileOpen, setIsMobileOp
         </button>
 
         {/* Botón de notificaciones */}
-        <button 
-          className="relative p-2 rounded-lg text-text-main hover:bg-background-hover transition-colors"
-          aria-label="Ver notificaciones"
-        >
-          <Bell size={20} aria-hidden="true" />
-          {/* Badge de notificaciones (opcional) */}
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" aria-label="Tiene notificaciones nuevas"></span>
-        </button>
-
-        {/* Botón de perfil */}
-        <button 
-          className="p-2 rounded-full bg-background-hover hover:bg-border-dark transition-colors"
-          aria-label="Abrir menú de usuario"
-        >
-          <User size={20} className="text-text-main" aria-hidden="true" />
-        </button>
+        <NotificationBell />
+        
+        {/* Toggle de Tema */}
+        <ThemeToggle />
       </header>
     </>
   );

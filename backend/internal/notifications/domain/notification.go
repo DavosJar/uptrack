@@ -57,15 +57,19 @@ func (n *Notification) CreatedAt() time.Time {
 	return n.createdAt
 }
 
-// Methods
-func (n *Notification) MarkAsRead() {
-	n.isRead = true
-}
+// Methods for hydration/persistence
 
 func (n *Notification) AssignId(id string) {
 	n.id = NotificationId(id)
 }
 
+func (n *Notification) MarkAsRead() {
+	n.isRead = true
+}
+
 func (n *Notification) SetCreatedAt(t time.Time) {
 	n.createdAt = t
 }
+
+// Methods
+// Methods for hydration/persistence

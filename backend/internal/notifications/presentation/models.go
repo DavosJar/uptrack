@@ -18,3 +18,13 @@ type CreateNotificationMethodRequest struct {
 	Value    string `json:"value" binding:"required" example:"123456789"`
 	Priority int    `json:"priority" binding:"required,min=1,max=10" example:"10"`
 }
+
+// NotificationResponse representa una notificación en la interfaz
+type NotificationResponse struct {
+	ID        string `json:"id"`
+	Title     string `json:"title"`
+	Message   string `json:"message"`
+	Severity  string `json:"severity"`
+	IsRead    bool   `json:"is_read"`
+	CreatedAt string `json:"created_at"`
+}
