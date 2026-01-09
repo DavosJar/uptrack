@@ -80,12 +80,12 @@ const AddTarget: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-4 lg:p-8">
-      <h1 className="text-3xl font-bold mb-8 text-white">Agregar Nuevo Sistema</h1>
+      <h1 className="text-3xl font-bold mb-8 text-text-main">Agregar Nuevo Sistema</h1>
       <form onSubmit={handleSubmit} className="bg-background-card border border-border-dark rounded-xl p-8 space-y-8 shadow-lg" aria-label="Formulario para agregar nuevo sistema">
         <fieldset className="space-y-6">
-          <legend className="flex items-center gap-3 pb-2 border-b border-gray-600">
+          <legend className="flex items-center gap-3 pb-2 border-b border-border-dark">
             <Monitor className="text-primary w-5 h-5" aria-hidden="true" />
-            <h2 className="text-lg font-semibold text-white">Información del Sistema</h2>
+            <h2 className="text-lg font-semibold text-text-main">Información del Sistema</h2>
           </legend>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
@@ -110,7 +110,7 @@ const AddTarget: React.FC = () => {
             />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-white">Tipo</label>
+            <label className="text-sm font-medium text-text-main">Tipo</label>
             <div role="group" aria-label="Tipo de sistema" className="grid grid-cols-2 gap-3">
               {[
                 { value: 'WEB', label: 'WEB' },
@@ -121,7 +121,7 @@ const AddTarget: React.FC = () => {
                   className={`flex items-center justify-center h-11 border rounded-lg cursor-pointer transition-colors ${
                     formData.type === option.value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-gray-600 bg-background text-white hover:border-primary/50'
+                      : 'border-border-dark bg-background-card text-text-main hover:border-primary/50'
                   }`}
                 >
                   <input
@@ -142,13 +142,13 @@ const AddTarget: React.FC = () => {
         </fieldset>
 
         <fieldset className="space-y-6">
-          <legend className="flex items-center gap-3 pb-2 border-b border-gray-600">
+          <legend className="flex items-center gap-3 pb-2 border-b border-border-dark">
             <Settings className="text-primary w-5 h-5" aria-hidden="true" />
-            <h2 className="text-lg font-semibold text-white">Configuración de Monitoreo</h2>
+            <h2 className="text-lg font-semibold text-text-main">Configuración de Monitoreo</h2>
           </legend>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-white">Intervalo</label>
+              <label className="text-sm font-medium text-text-main">Intervalo</label>
               <div role="group" aria-label="Intervalo de monitoreo" className="grid grid-cols-3 gap-2">
                 {[
                   { value: '1 min', label: '1 min' },
@@ -160,7 +160,7 @@ const AddTarget: React.FC = () => {
                     className={`flex items-center justify-center h-11 border rounded-lg cursor-pointer transition-colors text-xs ${
                       formData.interval === option.value
                         ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-gray-600 bg-background text-white hover:border-primary/50'
+                        : 'border-border-dark bg-background-card text-text-main hover:border-primary/50'
                     }`}
                   >
                     <input
@@ -178,9 +178,9 @@ const AddTarget: React.FC = () => {
               </div>
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-white">Red Interna</label>
-              <label className="flex items-center justify-between w-full h-11 px-4 border border-gray-400 rounded-lg bg-background hover:border-gray-300 cursor-pointer transition-colors">
-                <span className="text-sm text-white">Habilitar monitoreo interno</span>
+              <label className="text-sm font-medium text-text-main">Red Interna</label>
+              <label className="flex items-center justify-between w-full h-11 px-4 border border-border-dark rounded-lg bg-background-card hover:border-primary/50 cursor-pointer transition-colors">
+                <span className="text-sm text-text-main">Habilitar monitoreo interno</span>
                 <div className="relative w-12 h-6">
                   <input
                     type="checkbox"
@@ -201,7 +201,7 @@ const AddTarget: React.FC = () => {
 
         {error && <p role="alert" aria-live="assertive" className="text-destructive text-sm">{error}</p>}
 
-        <div className="flex justify-end gap-3 pt-6 border-t border-gray-600">
+        <div className="flex justify-end gap-3 pt-6 border-t border-border-dark">
           <Button variant="secondary" onClick={() => navigate('/dashboard')} aria-label="Cancelar y volver al dashboard">
             Cancelar
           </Button>

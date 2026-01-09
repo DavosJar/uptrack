@@ -13,6 +13,7 @@ type MonitoringTargetEntity struct {
 	Name              string    `gorm:"type:varchar(255);not null"`
 	URL               string    `gorm:"type:text;not null"`
 	TargetType        string    `gorm:"type:varchar(50);not null"`
+	IsActive          bool      `gorm:"default:true"`
 	PreviousStatus    string    `gorm:"type:varchar(50);default:'UNKNOWN'"`
 	CurrentStatus     string    `gorm:"type:varchar(50);default:'UNKNOWN'"`
 	TimeoutSeconds    int       `gorm:"default:10"`

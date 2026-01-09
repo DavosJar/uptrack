@@ -52,6 +52,20 @@ func (m *MockTargetRepository) ListByUserAndRole(userID userdomain.UserId, role 
 	return result, nil
 }
 
+func (m *MockTargetRepository) Delete(id domain.TargetId) error {
+	delete(m.targets, string(id))
+	return nil
+}
+
+func (m *MockTargetRepository) ToggleActive(id domain.TargetId, isActive bool) error {
+	target, exists := m.targets[string(id)]
+	if !exists {
+		return domain.ErrTargetNotFound
+	}
+	target.SetActive(isActive)
+	return nil
+}
+
 // MockStatsRepository - Mock simplificado
 type MockStatsRepository struct{}
 
