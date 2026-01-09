@@ -99,3 +99,19 @@ func (c *CheckConfiguration) UpdateRetryPolicy(retries int, delaySeconds int) er
 func (c *CheckConfiguration) IsValid() bool {
 	return c.timeoutSeconds > 0 && c.retryCount >= 0 && c.retryDelaySeconds >= 0
 }
+
+func (c *CheckConfiguration) EnableFailureAlerts() {
+	c.alertOnFailure = true
+}
+
+func (c *CheckConfiguration) DisableFailureAlerts() {
+	c.alertOnFailure = false
+}
+
+func (c *CheckConfiguration) EnableRecoveryAlerts() {
+	c.alertOnRecovery = true
+}
+
+func (c *CheckConfiguration) DisableRecoveryAlerts() {
+	c.alertOnRecovery = false
+}

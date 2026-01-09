@@ -38,6 +38,7 @@ func (h *MonitoringHandler) RegisterRoutes(router *gin.RouterGroup) {
 	router.POST("/targets", h.CreateTarget)
 	router.DELETE("/targets/:id", h.DeleteTarget)
 	router.PATCH("/targets/:id/toggle", h.ToggleActive)
+	router.PUT("/targets/:id/configuration", h.UpdateConfiguration)
 	router.GET("/targets/:id", h.GetTargetByID)
 	router.GET("/targets/:id/metrics", h.GetTargetMetrics)
 	router.GET("/targets/:id/history", h.GetTargetHistory)
@@ -273,6 +274,80 @@ func (h *MonitoringHandler) ToggleActive(c *gin.Context) {
 	}
 
 	response := app.BuildOKResponse("Target "+statusText+" successfully", true, nil)
+	c.JSON(http.StatusOK, response)
+}
+
+// UpdateConfiguration actualiza la configuración de un target
+// @Summary Update monitoring target configuration
+// @Description Update configuration settings for a specific monitoring target. User must own the target.
+// @Tags monitoring
+// @Accept json
+// @Produce json
+// @Param id path string true "Target ID"
+// @Param body body object true "Configuration update body"
+// @Success 200 {object} app.APIResponse "Configuration updated successfully"
+// @Failure 400 {object} app.APIResponse "Bad request"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 403 {object} app.APIResponse "Forbidden"
+// @Failure 500 {object} app.APIResponse "Internal server error"
+// @Security BearerAuth
+// @Router /targets/{id}/configuration [put]
+func (h *MonitoringHandler) UpdateConfiguration(c *gin.Context) {
+	userId, exists := middleware.GetUserID(c)
+	if !exists {
+		buildMonitoringErrorResponse(c, http.StatusUnauthorized, "user_id_missing", "User ID not found in context")
+		return
+	}
+
+	role, exists := middleware.GetRole(c)
+	if !exists {
+		buildMonitoringErrorResponse(c, http.StatusUnauthorized, "role_missing", "Role not found in context")
+		return
+	}
+
+	targetID := c.Param("id")
+	if targetID == "" {
+		buildMonitoringErrorResponse(c, http.StatusBadRequest, "invalid_id", "Target ID is required")
+		return
+	}
+
+	var requestBody struct {
+		TimeoutSeconds       int  `json:"timeout_seconds" binding:"required,min=1,max=60"`
+		RetryCount           int  `json:"retry_count" binding:"required,min=0,max=10"`
+		RetryDelaySeconds    int  `json:"retry_delay_seconds" binding:"required,min=1,max=60"`
+		CheckIntervalSeconds int  `json:"check_interval_seconds" binding:"required,min=30,max=3600"`
+		AlertOnFailure       bool `json:"alert_on_failure"`
+		AlertOnRecovery      bool `json:"alert_on_recovery"`
+	}
+
+	if err := c.ShouldBindJSON(&requestBody); err != nil {
+		buildMonitoringErrorResponse(c, http.StatusBadRequest, "invalid_body", "Invalid request body: "+err.Error())
+		return
+	}
+
+	cmd := application.UpdateConfigurationCommand{
+		TargetID:             domain.TargetId(targetID),
+		UserID:               userId,
+		Role:                 role,
+		TimeoutSeconds:       requestBody.TimeoutSeconds,
+		RetryCount:           requestBody.RetryCount,
+		RetryDelaySeconds:    requestBody.RetryDelaySeconds,
+		CheckIntervalSeconds: requestBody.CheckIntervalSeconds,
+		AlertOnFailure:       requestBody.AlertOnFailure,
+		AlertOnRecovery:      requestBody.AlertOnRecovery,
+	}
+
+	dto, err := h.appService.UpdateConfiguration(cmd)
+	if err != nil {
+		if err.Error() == "unauthorized: user does not own this target" {
+			buildMonitoringErrorResponse(c, http.StatusForbidden, "forbidden", err.Error())
+			return
+		}
+		buildMonitoringErrorResponse(c, http.StatusInternalServerError, "update_failed", "Failed to update configuration: "+err.Error())
+		return
+	}
+
+	response := app.BuildOKResponse("Configuration updated successfully", true, dto)
 	c.JSON(http.StatusOK, response)
 }
 

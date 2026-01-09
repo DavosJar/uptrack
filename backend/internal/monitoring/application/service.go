@@ -91,6 +91,55 @@ func (s *MonitoringApplicationService) ToggleActive(cmd ToggleActiveCommand) err
 	return nil
 }
 
+// UpdateConfiguration - Actualiza la configuración de un target
+func (s *MonitoringApplicationService) UpdateConfiguration(cmd UpdateConfigurationCommand) (*MonitoringTargetDetailDTO, error) {
+	// Verificar existencia primero
+	target, err := s.targetRepo.GetByID(cmd.TargetID)
+	if err != nil {
+		return nil, fmt.Errorf("target not found: %w", err)
+	}
+
+	// Verificar permisos (Ownership)
+	if cmd.Role != "ADMIN" && target.UserId() != cmd.UserID {
+		return nil, fmt.Errorf("unauthorized: user does not own this target")
+	}
+
+	// Crear nueva configuración
+	newConfig := domain.NewCheckConfiguration(
+		cmd.TimeoutSeconds,
+		cmd.RetryCount,
+		cmd.RetryDelaySeconds,
+		cmd.CheckIntervalSeconds,
+	)
+
+	// Establecer alertas
+	if cmd.AlertOnFailure {
+		newConfig.EnableFailureAlerts()
+	} else {
+		newConfig.DisableFailureAlerts()
+	}
+
+	if cmd.AlertOnRecovery {
+		newConfig.EnableRecoveryAlerts()
+	} else {
+		newConfig.DisableRecoveryAlerts()
+	}
+
+	// Actualizar configuración del target
+	if err := target.UpdateConfiguration(newConfig); err != nil {
+		return nil, fmt.Errorf("failed to update configuration: %w", err)
+	}
+
+	// Guardar cambios
+	if _, err := s.targetRepo.Save(target); err != nil {
+		return nil, fmt.Errorf("failed to save target: %w", err)
+	}
+
+	// Retornar DTO actualizado
+	dto := ToMonitoringTargetDetailDTO(target)
+	return &dto, nil
+}
+
 // ==================== QUERIES (Lectura) ====================
 
 // UpdateTargetName - Actualiza el nombre de un target
