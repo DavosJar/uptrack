@@ -71,35 +71,35 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-background text-text-main">
-      <div className="hidden md:flex flex-col items-center justify-center bg-background-surface p-12 border-r border-border-dark relative overflow-hidden">
+      <aside className="hidden md:flex flex-col items-center justify-center bg-background-surface p-12 border-r border-border-dark relative overflow-hidden" aria-label="Información de la aplicación">
         {/* Abstract background shape */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 to-transparent pointer-events-none"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" aria-hidden="true"></div>
         <div className="flex flex-col items-start max-w-sm gap-8 relative z-10">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/20">
-              <Monitor className="w-7 h-7 text-white" />
+              <Monitor className="w-7 h-7 text-white" aria-hidden="true" />
             </div>
-            <span className="text-2xl font-bold tracking-tight text-white">UpTrack</span>
+            <span className="text-2xl font-bold tracking-tight text-text-main">UpTrack</span>
           </div>
-          <h1 className="text-5xl font-black leading-tight tracking-tighter text-white">
+          <h1 className="text-5xl font-black leading-tight tracking-tighter text-text-main">
             Tu centro de control unificado.
           </h1>
           <p className="text-lg text-text-muted">
             Monitoreo inteligente y en tiempo real para todos tus sistemas web críticos.
           </p>
         </div>
-      </div>
-      <div className="flex flex-col items-center justify-center p-8 sm:p-12 bg-background">
+      </aside>
+      <main className="flex flex-col items-center justify-center p-8 sm:p-12 bg-background" role="main">
         <div className="w-full max-w-md">
           <div className="flex flex-col gap-3 mb-10">
-            <h2 className="text-3xl font-bold text-white">
+            <h2 className="text-3xl font-bold text-text-main">
               {isLogin ? 'Bienvenido de nuevo' : 'Crear cuenta'}
             </h2>
             <p className="text-text-muted">
               {isLogin ? 'Inicia sesión para acceder a tu dashboard.' : 'Regístrate para comenzar a monitorear tus sistemas.'}
             </p>
           </div>
-          <form onSubmit={isLogin ? handleLoginSubmit : handleRegisterSubmit} className="flex flex-col gap-6">
+          <form onSubmit={isLogin ? handleLoginSubmit : handleRegisterSubmit} className="flex flex-col gap-6" aria-label={isLogin ? 'Formulario de inicio de sesión' : 'Formulario de registro'}>
             <label className="flex flex-col w-full gap-2">
               <span className="text-sm font-medium text-text-muted">Correo electrónico</span>
               <input
@@ -108,8 +108,10 @@ const Login: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="ejemplo@tuempresa.com"
-                className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 required
+                aria-required="true"
+                autoComplete="email"
               />
             </label>
             <label className="flex flex-col w-full gap-2">
@@ -121,23 +123,27 @@ const Login: React.FC = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 pr-12 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                  className="w-full bg-background-input border border-border-dark rounded-lg h-11 px-4 pr-12 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                   required
+                  aria-required="true"
+                  autoComplete={isLogin ? 'current-password' : 'new-password'}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors"
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
                 </button>
               </div>
             </label>
-            {error && <p className="text-white text-sm">{error}</p>}
-            {success && <p className="text-white text-sm">{success}</p>}
+            {error && <p role="alert" aria-live="polite" className="text-status-danger text-sm">{error}</p>}
+            {success && <p role="status" aria-live="polite" className="text-status-success text-sm">{success}</p>}
             <button
               type="submit"
               disabled={loading}
+              aria-busy={loading}
               className="w-full bg-primary hover:bg-primary-hover h-11 rounded-lg font-bold text-white shadow-lg shadow-primary/20 transition-all active:scale-[0.98]"
             >
               {loading ? (isLogin ? 'Iniciando...' : 'Registrando...') : (isLogin ? 'Iniciar Sesión' : 'Crear cuenta')}
@@ -158,7 +164,7 @@ const Login: React.FC = () => {
             </div>
           </form>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

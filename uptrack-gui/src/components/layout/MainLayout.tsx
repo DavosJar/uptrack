@@ -43,7 +43,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
       {/* Main Layout */}
       <main 
-        className={`flex-1 overflow-y-auto h-full relative transition-all duration-300 pt-16 print:pt-0 print:ml-0 print:h-auto print:overflow-visible ${
+        className={`flex-1 overflow-y-auto h-[calc(100vh-4rem)] mt-16 relative transition-all duration-300 print:pt-0 print:ml-0 print:h-auto print:overflow-visible ${
           isDesktopOpen ? 'lg:ml-64' : 'lg:ml-0'
         }`}
       >

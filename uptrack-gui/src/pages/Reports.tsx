@@ -267,19 +267,21 @@ const Reports: React.FC = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto print:p-0 print:max-w-none print:w-full">
       {/* Control Panel - Hidden when printing */}
-      <div className="print:hidden bg-background-card rounded-xl border border-border-dark p-6 mb-8 shadow-lg">
+      <section className="print:hidden bg-background-card rounded-xl border border-border-dark p-6 mb-8 shadow-lg" aria-label="Generador de reportes">
         <h1 className="text-2xl font-bold text-text-main mb-6 flex items-center gap-2">
-          <FileText className="text-primary" />
+          <FileText className="text-primary" aria-hidden="true" />
           Generate Performance Report
         </h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+        <form className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end" onSubmit={(e) => { e.preventDefault(); generateReport(); }} aria-label="Formulario para generar reporte">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-text-muted">Select Target</label>
+            <label htmlFor="target-select" className="text-sm font-medium text-text-muted">Select Target</label>
             <select 
+              id="target-select"
               className="w-full bg-background border border-border-dark rounded-lg px-4 py-2.5 text-text-main focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
               value={selectedTargetId}
               onChange={(e) => setSelectedTargetId(e.target.value)}
+              aria-required="true"
             >
               <option value="">-- Select a System --</option>
               {targets.map(t => (
@@ -289,27 +291,31 @@ const Reports: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-text-muted">Start Date</label>
+            <label htmlFor="start-date" className="text-sm font-medium text-text-muted">Start Date</label>
             <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4" />
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4" aria-hidden="true" />
               <input 
+                id="start-date"
                 type="date" 
                 className="w-full bg-background border border-border-dark rounded-lg pl-10 pr-4 py-2.5 text-text-main focus:ring-2 focus:ring-primary outline-none"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
+                aria-label="Fecha de inicio del reporte"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-text-muted">End Date</label>
+            <label htmlFor="end-date" className="text-sm font-medium text-text-muted">End Date</label>
             <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4" />
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4" aria-hidden="true" />
               <input 
+                id="end-date"
                 type="date" 
                 className="w-full bg-background border border-border-dark rounded-lg pl-10 pr-4 py-2.5 text-text-main focus:ring-2 focus:ring-primary outline-none"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
+                aria-label="Fecha de fin del reporte"
               />
             </div>
           </div>
@@ -318,25 +324,27 @@ const Reports: React.FC = () => {
             onClick={generateReport}
             disabled={loading}
             className="bg-primary hover:bg-primary-hover text-white font-medium py-2.5 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-busy={loading}
+            aria-label="Generar reporte de rendimiento"
           >
             {loading ? (
-              <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
+              <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" aria-hidden="true"></span>
             ) : (
               <>
-                <BarChart2 size={18} />
+                <BarChart2 size={18} aria-hidden="true" />
                 Generate Report
               </>
             )}
           </button>
-        </div>
+        </form>
         
         {error && (
-          <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm flex items-center gap-2">
-            <AlertTriangle size={16} />
+          <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm flex items-center gap-2" role="alert" aria-live="assertive">
+            <AlertTriangle size={16} aria-hidden="true" />
             {error}
           </div>
         )}
-      </div>
+      </section>
 
       {/* Report View */}
       {reportData && (
@@ -345,8 +353,9 @@ const Reports: React.FC = () => {
             <button 
               onClick={handlePrint}
               className="flex items-center gap-2 px-4 py-2 bg-primary text-white hover:bg-primary-hover rounded-lg transition-colors"
+              aria-label="Guardar reporte como PDF"
             >
-              <Download size={18} />
+              <Download size={18} aria-hidden="true" />
               Save as PDF
             </button>
           </div>

@@ -7,9 +7,10 @@ interface ModalProps {
   title?: string;
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  borderColor?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 'md' }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 'md', borderColor }) => {
   if (!isOpen) return null;
 
   const sizeClasses = {
@@ -20,15 +21,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-      <div className={`bg-background-card rounded-lg shadow-xl w-full mx-4 ${sizeClasses[size]} max-h-[90vh] overflow-y-auto`}>
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={title ? "modal-title" : undefined}
+    >
+      <div className={`bg-background-card rounded-lg shadow-xl w-full mx-4 ${sizeClasses[size]} max-h-[90vh] overflow-y-auto border-2 ${borderColor || 'border-transparent'}`}>
         {(title || onClose) && (
           <div className="flex items-center justify-between p-6 border-b border-border-dark">
-            {title && <h2 className="text-xl font-semibold text-text-main">{title}</h2>}
+            {title && <h2 id="modal-title" className="text-xl font-semibold text-text-main">{title}</h2>}
             {onClose && (
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-background-hover rounded-lg transition-colors"
+                aria-label="Cerrar modal"
               >
                 <X size={20} className="text-text-muted" />
               </button>

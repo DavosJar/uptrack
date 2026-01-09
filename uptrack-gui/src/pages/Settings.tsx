@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { fetchWithAuth } from '../api/fetch';
+import { PageHeader } from '../components/ui/PageHeader';
 
 const Settings: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -36,63 +37,72 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-text-main">Configuración</h1>
-      </div>
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="w-full pt-8 pb-8">
+        <div className="max-w-[95%] lg:max-w-[75%] mx-auto px-4 md:px-0">
+          <PageHeader 
+            title="Configuración" 
+            description="Gestiona las preferencias y notificaciones de tu cuenta."
+          />
 
-      <div className="bg-background-surface rounded-xl border border-border-dark p-6">
-        <h2 className="text-lg font-semibold text-text-main mb-4">Canales de Notificación</h2>
-        <p className="text-text-muted mb-6">
-          Configura los medios por los cuales deseas recibir alertas cuando tus sistemas cambien de estado.
-        </p>
+          <div className="space-y-6">
+            <section className="bg-background-surface rounded-xl border border-border-dark p-6" aria-labelledby="notifications-heading">
+              <h2 id="notifications-heading" className="text-lg font-semibold text-text-main mb-4">Canales de Notificación</h2>
+              <p className="text-text-muted mb-6">
+                Configura los medios por los cuales deseas recibir alertas cuando tus sistemas cambien de estado.
+              </p>
 
-        <div className="space-y-4">
-          {/* Telegram Integration Card */}
-          <div className="flex items-center justify-between p-4 bg-background rounded-lg border border-border-dark">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-500/10 rounded-full">
-                <Send className="text-blue-500" size={24} />
+              <div className="space-y-4">
+                {/* Telegram Integration Card */}
+                <article className="flex items-center justify-between p-4 bg-background rounded-lg border border-border-dark">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-blue-500/10 rounded-full" aria-hidden="true">
+                      <Send className="text-blue-500" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-text-main">Telegram</h3>
+                      <p className="text-sm text-text-muted">Recibe alertas instantáneas a través de nuestro bot</p>
+                    </div>
+                  </div>
+                  
+                  <button
+                    onClick={handleConnectTelegram}
+                    disabled={loading}
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Conectar cuenta de Telegram"
+                    aria-busy={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 size={18} className="animate-spin" aria-hidden="true" />
+                        <span>Conectando...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send size={18} aria-hidden="true" />
+                        <span>Conectar Telegram</span>
+                      </>
+                    )}
+                  </button>
+                </article>
+
+                {/* Feedback Messages */}
+                {error && (
+                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-3 text-red-400" role="alert" aria-live="assertive">
+                    <AlertCircle size={20} aria-hidden="true" />
+                    <p>{error}</p>
+                  </div>
+                )}
+
+                {success && (
+                  <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center gap-3 text-green-400" role="status" aria-live="polite">
+                    <CheckCircle size={20} aria-hidden="true" />
+                    <p>{success}</p>
+                  </div>
+                )}
               </div>
-              <div>
-                <h3 className="font-medium text-text-main">Telegram</h3>
-                <p className="text-sm text-text-muted">Recibe alertas instantáneas a través de nuestro bot</p>
-              </div>
-            </div>
-            
-            <button
-              onClick={handleConnectTelegram}
-              disabled={loading}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <>
-                  <Loader2 size={18} className="animate-spin" />
-                  <span>Conectando...</span>
-                </>
-              ) : (
-                <>
-                  <Send size={18} />
-                  <span>Conectar Telegram</span>
-                </>
-              )}
-            </button>
+            </section>
           </div>
-
-          {/* Feedback Messages */}
-          {error && (
-            <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-3 text-red-400">
-              <AlertCircle size={20} />
-              <p>{error}</p>
-            </div>
-          )}
-
-          {success && (
-            <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center gap-3 text-green-400">
-              <CheckCircle size={20} />
-              <p>{success}</p>
-            </div>
-          )}
         </div>
       </div>
     </div>

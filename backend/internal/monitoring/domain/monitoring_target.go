@@ -11,6 +11,7 @@ type MonitoringTarget struct {
 	targetId         TargetId
 	name             string
 	url              string
+	isActive         bool
 	previousStatus   TargetStatus
 	currentStatus    TargetStatus
 	createdAt        time.Time
@@ -25,6 +26,7 @@ func NewMinimalMonitoringTarget(name string, url string, targetType TargetType, 
 		userId:         userId,
 		name:           name,
 		url:            url,
+		isActive:       true,
 		previousStatus: TargetStatusUnknown,
 		currentStatus:  TargetStatusUnknown,
 		createdAt:      time.Now(),
@@ -45,13 +47,14 @@ func NewMonitoringTarget(name string, url string, targetType TargetType) *Monito
 }
 func NewFullMonitoringTarget(id TargetId, userId domain.UserId,
 	name string, url string, targetType TargetType,
-	config *CheckConfiguration, previousStatus TargetStatus,
+	config *CheckConfiguration, isActive bool, previousStatus TargetStatus,
 	currentStatus TargetStatus, createdAt time.Time, lastCheckedAt time.Time) *MonitoringTarget {
 	return &MonitoringTarget{
 		targetId:       id,
 		userId:         userId,
 		name:           name,
 		url:            url,
+		isActive:       isActive,
 		previousStatus: previousStatus,
 		currentStatus:  currentStatus,
 		targetType:     targetType,
@@ -104,6 +107,10 @@ func (m *MonitoringTarget) PreviousStatus() TargetStatus {
 
 func (m *MonitoringTarget) CurrentStatus() TargetStatus {
 	return m.currentStatus
+}
+
+func (m *MonitoringTarget) IsActive() bool {
+	return m.isActive
 }
 
 // Business methods
@@ -214,4 +221,8 @@ func (m *MonitoringTarget) AssignId(newId TargetId) error {
 	}
 	m.targetId = newId
 	return nil
+}
+
+func (m *MonitoringTarget) SetActive(isActive bool) {
+	m.isActive = isActive
 }

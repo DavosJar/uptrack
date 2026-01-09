@@ -49,6 +49,99 @@ func (s *MonitoringApplicationService) CreateTarget(cmd CreateTargetCommand) (*M
 	return &dto, nil
 }
 
+// DeleteTarget - Elimina un target de monitoreo
+func (s *MonitoringApplicationService) DeleteTarget(cmd DeleteTargetCommand) error {
+	// Verificar existencia primero
+	target, err := s.targetRepo.GetByID(cmd.TargetID)
+	if err != nil {
+		return fmt.Errorf("target not found: %w", err)
+	}
+
+	// Verificar permisos (Ownership)
+	if cmd.Role != "ADMIN" && target.UserId() != cmd.UserID {
+		return fmt.Errorf("unauthorized: user does not own this target")
+	}
+
+	// Ejecutar eliminación
+	if err := s.targetRepo.Delete(cmd.TargetID); err != nil {
+		return fmt.Errorf("failed to delete target: %w", err)
+	}
+
+	return nil
+}
+
+// ToggleActive - Activa o desactiva un target de monitoreo
+func (s *MonitoringApplicationService) ToggleActive(cmd ToggleActiveCommand) error {
+	// Verificar existencia primero
+	target, err := s.targetRepo.GetByID(cmd.TargetID)
+	if err != nil {
+		return fmt.Errorf("target not found: %w", err)
+	}
+
+	// Verificar permisos (Ownership)
+	if cmd.Role != "ADMIN" && target.UserId() != cmd.UserID {
+		return fmt.Errorf("unauthorized: user does not own this target")
+	}
+
+	// Ejecutar toggle
+	if err := s.targetRepo.ToggleActive(cmd.TargetID, cmd.IsActive); err != nil {
+		return fmt.Errorf("failed to toggle target active status: %w", err)
+	}
+
+	return nil
+}
+
+// UpdateConfiguration - Actualiza la configuración de un target
+func (s *MonitoringApplicationService) UpdateConfiguration(cmd UpdateConfigurationCommand) (*MonitoringTargetDetailDTO, error) {
+	// Verificar existencia primero
+	target, err := s.targetRepo.GetByID(cmd.TargetID)
+	if err != nil {
+		return nil, fmt.Errorf("target not found: %w", err)
+	}
+
+	// Verificar permisos (Ownership)
+	if cmd.Role != "ADMIN" && target.UserId() != cmd.UserID {
+		return nil, fmt.Errorf("unauthorized: user does not own this target")
+	}
+
+	// Crear nueva configuración
+	newConfig := domain.NewCheckConfiguration(
+		cmd.TimeoutSeconds,
+		cmd.RetryCount,
+		cmd.RetryDelaySeconds,
+		cmd.CheckIntervalSeconds,
+	)
+
+	// Establecer alertas
+	if cmd.AlertOnFailure {
+		newConfig.EnableFailureAlerts()
+	} else {
+		newConfig.DisableFailureAlerts()
+	}
+
+	if cmd.AlertOnRecovery {
+		newConfig.EnableRecoveryAlerts()
+	} else {
+		newConfig.DisableRecoveryAlerts()
+	}
+
+	// Actualizar configuración del target
+	if err := target.UpdateConfiguration(newConfig); err != nil {
+		return nil, fmt.Errorf("failed to update configuration: %w", err)
+	}
+
+	// Guardar cambios
+	if _, err := s.targetRepo.Save(target); err != nil {
+		return nil, fmt.Errorf("failed to save target: %w", err)
+	}
+
+	// Retornar DTO actualizado
+	dto := ToMonitoringTargetDetailDTO(target)
+	return &dto, nil
+}
+
+// ==================== QUERIES (Lectura) ====================
+
 // UpdateTargetName - Actualiza el nombre de un target
 // Retorna Detail DTO, NO entidad de dominio
 func (s *MonitoringApplicationService) UpdateTargetName(cmd UpdateTargetCommand) (*MonitoringTargetDetailDTO, error) {
@@ -77,25 +170,6 @@ func (s *MonitoringApplicationService) UpdateTargetName(cmd UpdateTargetCommand)
 	// Mapear a Detail DTO antes de retornar
 	dto := ToMonitoringTargetDetailDTO(updatedTarget)
 	return &dto, nil
-}
-
-// DeleteTarget - Elimina un target (soft delete en el futuro)
-func (s *MonitoringApplicationService) DeleteTarget(cmd DeleteTargetCommand) error {
-	// Obtener target
-	target, err := s.targetRepo.GetByID(cmd.TargetID)
-	if err != nil {
-		return fmt.Errorf("target not found: %w", err)
-	}
-
-	// Verificar ownership
-	if target.UserId() != cmd.UserID {
-		return fmt.Errorf("unauthorized: user does not own this target")
-	}
-
-	// TODO: Implementar soft delete cuando esté la columna deleted_at
-	// Por ahora no hacemos nada (o retornar error not implemented)
-
-	return fmt.Errorf("delete not implemented yet")
 }
 
 // ==================== QUERIES (Lectura) ====================

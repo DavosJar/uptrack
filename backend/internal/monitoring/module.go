@@ -98,7 +98,7 @@ func (m *Module) StartScheduler() {
 	m.Orchestrator.Start()
 
 	// Intervalo de ejecución del scheduler
-	const SchedulerInterval = 1 * time.Minute
+	const SchedulerInterval = 15 * time.Second
 	ticker := time.NewTicker(SchedulerInterval)
 	defer ticker.Stop()
 

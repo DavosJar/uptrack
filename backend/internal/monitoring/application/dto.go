@@ -12,6 +12,7 @@ type MonitoringTargetSummaryDTO struct {
 	Name             string `json:"name"`
 	URL              string `json:"url"`
 	TargetType       string `json:"target_type"`
+	IsActive         bool   `json:"is_active"`
 	CurrentStatus    string `json:"current_status"`
 	LastCheckedAt    string `json:"last_checked_at,omitempty"`
 	LastResponseTime int    `json:"last_response_time,omitempty"`
@@ -29,6 +30,7 @@ func ToMonitoringTargetSummaryDTO(target *domain.MonitoringTarget, stats *domain
 		Name:          target.Name(),
 		URL:           target.Url(),
 		TargetType:    target.TargetType().String(),
+		IsActive:      target.IsActive(),
 		CurrentStatus: target.CurrentStatus().String(),
 		LastCheckedAt: func() string {
 			if !target.LastCheckedAt().IsZero() {
@@ -47,6 +49,7 @@ type MonitoringTargetDetailDTO struct {
 	Name             string                 `json:"name"`
 	URL              string                 `json:"url"`
 	TargetType       string                 `json:"target_type"`
+	IsActive         bool                   `json:"is_active"`
 	PreviousStatus   string                 `json:"previous_status"`
 	CurrentStatus    string                 `json:"current_status"`
 	CreatedAt        string                 `json:"created_at"`
@@ -61,6 +64,7 @@ func ToMonitoringTargetDetailDTO(target *domain.MonitoringTarget) MonitoringTarg
 		Name:           target.Name(),
 		URL:            target.Url(),
 		TargetType:     target.TargetType().String(),
+		IsActive:       target.IsActive(),
 		PreviousStatus: target.PreviousStatus().String(),
 		CurrentStatus:  target.CurrentStatus().String(),
 		CreatedAt:      target.CreatedAt().Format(time.RFC3339),

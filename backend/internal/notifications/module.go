@@ -72,7 +72,7 @@ func NewModule(db *gorm.DB) *Module {
 	}
 
 	// 4. Setup Handlers
-	configHandler := presentation.NewNotificationConfigHandler(channelRepo)
+	configHandler := presentation.NewNotificationConfigHandler(channelRepo, notificationRepo)
 	linkingHandler := presentation.NewTelegramLinkingHandler(linkingService)
 	webhookHandler := presentation.NewTelegramWebhookHandler(linkingService, channelRepo, telegramSender)
 

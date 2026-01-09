@@ -94,15 +94,15 @@ const Profile: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-        <p className="text-white">Cargando perfil...</p>
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center" role="status" aria-live="polite">
+        <p className="text-text-main">Cargando perfil...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center" role="alert" aria-live="assertive">
         <p className="text-red-400">{error}</p>
       </div>
     );
@@ -110,8 +110,8 @@ const Profile: React.FC = () => {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-        <p className="text-white">No se encontró el perfil</p>
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center" role="status">
+        <p className="text-text-main">No se encontró el perfil</p>
       </div>
     );
   }
@@ -126,14 +126,14 @@ const Profile: React.FC = () => {
           />
 
           {error && (
-            <div className="mb-6 p-4 bg-red-900/20 border border-red-500 rounded-lg">
+            <div className="mb-6 p-4 bg-red-900/20 border border-red-500 rounded-lg" role="alert" aria-live="assertive">
               <p className="text-red-400">{error}</p>
             </div>
           )}
 
-          <div className="bg-gray-800/40 border border-gray-600 rounded-lg p-8">
+          <section className="bg-background-card border border-border-dark rounded-lg p-8" aria-label="Información del perfil">
             {isEditing ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" aria-label="Editar perfil">
                 <FormField
                   label="Nombre Completo"
                   name="full_name"
@@ -154,14 +154,14 @@ const Profile: React.FC = () => {
                 />
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-300">
+                  <label className="block text-sm font-medium text-text-muted">
                     Zona Horaria
                   </label>
                   <select
                     name="timezone"
                     value={formData.timezone}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-600 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-border-dark rounded-lg bg-background-input text-text-main focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   >
                     <option value="">Selecciona una zona horaria</option>
@@ -175,14 +175,14 @@ const Profile: React.FC = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-300">
+                  <label className="block text-sm font-medium text-text-muted">
                     Idioma
                   </label>
                   <select
                     name="language"
                     value={formData.language}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-600 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-border-dark rounded-lg bg-background-input text-text-main focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   >
                     <option value="">Selecciona un idioma</option>
@@ -218,24 +218,24 @@ const Profile: React.FC = () => {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
-                    <p className="text-white">{profile?.email}</p>
+                    <label className="block text-sm font-medium text-text-muted mb-1">Email</label>
+                    <p className="text-text-main">{profile?.email}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Nombre Completo</label>
-                    <p className="text-white">{profile?.full_name || 'No especificado'}</p>
+                    <label className="block text-sm font-medium text-text-muted mb-1">Nombre Completo</label>
+                    <p className="text-text-main">{profile?.full_name || 'No especificado'}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Zona Horaria</label>
-                    <p className="text-white">{profile?.timezone || 'No especificado'}</p>
+                    <label className="block text-sm font-medium text-text-muted mb-1">Zona Horaria</label>
+                    <p className="text-text-main">{profile?.timezone || 'No especificado'}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Idioma</label>
-                    <p className="text-white">{profile?.language || 'No especificado'}</p>
+                    <label className="block text-sm font-medium text-text-muted mb-1">Idioma</label>
+                    <p className="text-text-main">{profile?.language || 'No especificado'}</p>
                   </div>
                   {profile?.avatar_url && (
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-1">Avatar</label>
+                      <label className="block text-sm font-medium text-text-muted mb-1">Avatar</label>
                       <img src={profile.avatar_url} alt="Avatar" className="w-16 h-16 rounded-full" />
                     </div>
                   )}
@@ -248,7 +248,7 @@ const Profile: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>
+          </section>
         </div>
       </div>
     </div>

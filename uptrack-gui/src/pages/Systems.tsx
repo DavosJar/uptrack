@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
-import { Settings, Trash2, Play } from 'lucide-react';
+import Modal from '../components/ui/Modal';
+import { Settings, Trash2, Play, Pause, AlertTriangle } from 'lucide-react';
 import { fetchWithAuth } from '../api/fetch';
 
 interface Target {
@@ -9,6 +10,7 @@ interface Target {
   name: string;
   url: string;
   target_type: string;
+  is_active: boolean;
   current_status: string;
   last_checked_at: string | null;
   avg_response_time: number;
@@ -19,6 +21,27 @@ const Systems: React.FC = () => {
   const [targets, setTargets] = useState<Target[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  
+  // Modal states
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [targetToDelete, setTargetToDelete] = useState<Target | null>(null);
+  const [showToggleModal, setShowToggleModal] = useState(false);
+  const [targetToToggle, setTargetToToggle] = useState<Target | null>(null);
+  const [showConfigModal, setShowConfigModal] = useState(false);
+  const [targetToConfig, setTargetToConfig] = useState<Target | null>(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isToggling, setIsToggling] = useState(false);
+  const [isUpdatingConfig, setIsUpdatingConfig] = useState(false);
+  const [configForm, setConfigForm] = useState({
+    timeout_seconds: 10,
+    retry_count: 3,
+    retry_delay_seconds: 1,
+    check_interval_seconds: 300,
+    alert_on_failure: true,
+    alert_on_recovery: true
+  });
 
   useEffect(() => {
     const fetchTargets = async () => {
@@ -37,6 +60,7 @@ const Systems: React.FC = () => {
               name: "Google",
               url: "https://www.google.com",
               target_type: "WEB",
+              is_active: true,
               current_status: "UP",
               last_checked_at: "2025-12-04T22:29:35-05:00",
               avg_response_time: 215
@@ -46,6 +70,7 @@ const Systems: React.FC = () => {
               name: "GitHub",
               url: "https://github.com",
               target_type: "WEB",
+              is_active: true,
               current_status: "DOWN",
               last_checked_at: "2025-12-04T22:28:15-05:00",
               avg_response_time: 1250
@@ -55,6 +80,7 @@ const Systems: React.FC = () => {
               name: "API Interna",
               url: "https://api.interna.com/health",
               target_type: "API",
+              is_active: false,
               current_status: "DEGRADED",
               last_checked_at: "2025-12-04T22:27:45-05:00",
               avg_response_time: 850
@@ -71,6 +97,7 @@ const Systems: React.FC = () => {
             name: "Google",
             url: "https://www.google.com",
             target_type: "WEB",
+            is_active: true,
             current_status: "UP",
             last_checked_at: "2025-12-04T22:29:35-05:00",
             avg_response_time: 215
@@ -80,6 +107,7 @@ const Systems: React.FC = () => {
             name: "GitHub",
             url: "https://github.com",
             target_type: "WEB",
+            is_active: true,
             current_status: "DOWN",
             last_checked_at: "2025-12-04T22:28:15-05:00",
             avg_response_time: 1250
@@ -117,19 +145,150 @@ const Systems: React.FC = () => {
     }
   };
 
-  const handleConfigure = (targetId: string) => {
-    // TODO: Implement configure functionality
-    console.log('Configure target:', targetId);
+  const handleConfigure = async (targetId: string) => {
+    const target = targets.find(t => t.id === targetId);
+    if (!target) return;
+
+    try {
+      // Obtener configuración completa del target
+      const response = await fetchWithAuth(`/api/v1/targets/${targetId}`);
+      if (response.ok) {
+        const data = await response.json();
+        const targetDetail = data.data;
+        
+        setConfigForm({
+          timeout_seconds: targetDetail.configuration.timeout_seconds || 10,
+          retry_count: targetDetail.configuration.retry_count || 3,
+          retry_delay_seconds: targetDetail.configuration.retry_delay_seconds || 1,
+          check_interval_seconds: targetDetail.configuration.check_interval_seconds || 300,
+          alert_on_failure: targetDetail.configuration.alert_on_failure !== false,
+          alert_on_recovery: targetDetail.configuration.alert_on_recovery !== false
+        });
+        setTargetToConfig(target);
+        setShowConfigModal(true);
+      }
+    } catch (error) {
+      console.error('Error loading configuration:', error);
+      setErrorMessage('Error al cargar la configuración del sistema');
+      setShowErrorModal(true);
+    }
   };
 
   const handleToggleActive = (targetId: string) => {
-    // TODO: Implement toggle active/inactive
-    console.log('Toggle active for target:', targetId);
+    const target = targets.find(t => t.id === targetId);
+    if (target) {
+      setTargetToToggle(target);
+      setShowToggleModal(true);
+    }
   };
 
-  const handleDelete = (targetId: string) => {
-    // TODO: Implement delete functionality
-    console.log('Delete target:', targetId);
+  const confirmToggle = async () => {
+    if (!targetToToggle) return;
+
+    setIsToggling(true);
+    const newActiveState = !targetToToggle.is_active;
+    
+    try {
+        const response = await fetchWithAuth(`/api/v1/targets/${targetToToggle.id}/toggle`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ is_active: newActiveState })
+        });
+
+        if (response.ok) {
+            setTargets(prev => prev.map(t => 
+                t.id === targetToToggle.id ? { ...t, is_active: newActiveState } : t
+            ));
+            setShowToggleModal(false);
+            setTargetToToggle(null);
+        } else {
+            const errorText = await response.text();
+            console.error('Error toggling target:', errorText);
+            setErrorMessage('Error al cambiar el estado del sistema. Por favor, intenta de nuevo.');
+            setShowToggleModal(false);
+            setShowErrorModal(true);
+        }
+    } catch (error) {
+        console.error("Failed to toggle target", error);
+        setErrorMessage('Error al conectar con el servidor. Por favor, verifica tu conexión.');
+        setShowToggleModal(false);
+        setShowErrorModal(true);
+    } finally {
+        setIsToggling(false);
+    }
+  };
+
+  const confirmUpdateConfig = async () => {
+    if (!targetToConfig) return;
+
+    setIsUpdatingConfig(true);
+    try {
+      const response = await fetchWithAuth(`/api/v1/targets/${targetToConfig.id}/configuration`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(configForm)
+      });
+
+      if (response.ok) {
+        setShowConfigModal(false);
+        setTargetToConfig(null);
+      } else {
+        const errorText = await response.text();
+        console.error('Error updating configuration:', errorText);
+        setErrorMessage('Error al actualizar la configuración. Por favor, intenta de nuevo.');
+        setShowConfigModal(false);
+        setShowErrorModal(true);
+      }
+    } catch (error) {
+      console.error("Failed to update configuration", error);
+      setErrorMessage('Error al conectar con el servidor. Por favor, verifica tu conexión.');
+      setShowConfigModal(false);
+      setShowErrorModal(true);
+    } finally {
+      setIsUpdatingConfig(false);
+    }
+  };
+
+  const handleDelete = async (targetId: string) => {
+    const target = targets.find(t => t.id === targetId);
+    if (target) {
+      setTargetToDelete(target);
+      setShowDeleteModal(true);
+    }
+  };
+
+  const confirmDelete = async () => {
+    if (!targetToDelete) return;
+
+    setIsDeleting(true);
+    try {
+        const response = await fetchWithAuth(`/api/v1/targets/${targetToDelete.id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            setTargets(prev => prev.filter(t => t.id !== targetToDelete.id));
+            setShowDeleteModal(false);
+            setTargetToDelete(null);
+        } else {
+            const errorText = await response.text();
+            console.error('Error deleting target:', errorText);
+            setErrorMessage('Error al eliminar el sistema. Por favor, intenta de nuevo.');
+            setShowDeleteModal(false);
+            setShowErrorModal(true);
+        }
+    } catch (error) {
+        console.error("Failed to delete target", error);
+        setErrorMessage('Error al conectar con el servidor. Por favor, verifica tu conexión.');
+        setShowDeleteModal(false);
+        setShowErrorModal(true);
+    } finally {
+        setIsDeleting(false);
+    }
   };
 
   return (
@@ -138,26 +297,26 @@ const Systems: React.FC = () => {
         <div className="max-w-[95%] lg:max-w-[75%] mx-auto px-4 md:px-0">
           {/* Custom Header Layout */}
           <div className="mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Gestión de Sistemas</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-text-main mb-2">Gestión de Sistemas</h1>
             <p className="text-text-muted">Administra el ciclo de vida de tus sistemas monitoreados.</p>
           </div>
 
           {loading ? (
-            <div className="text-center py-8">
-              <p className="text-white">Cargando sistemas...</p>
+            <div className="text-center py-8" role="status" aria-live="polite">
+              <p className="text-text-main">Cargando sistemas...</p>
             </div>
           ) : error ? (
-            <div className="text-center py-8">
+            <div className="text-center py-8" role="alert" aria-live="assertive">
               <p className="text-red-400">{error}</p>
             </div>
           ) : targets.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-white">No hay sistemas configurados. Usa el botón del navbar para agregar uno.</p>
+            <div className="text-center py-8" role="status">
+              <p className="text-text-main">No hay sistemas configurados. Usa el botón del navbar para agregar uno.</p>
             </div>
           ) : (
-            <div className="space-y-6">
+            <section aria-label="Lista de sistemas" className="space-y-6">
               {/* Header Card - Hidden on mobile */}
-              <div className="hidden md:block bg-background-card border border-border-dark rounded-lg p-4">
+              <div className="hidden md:block bg-background-card border border-border-dark rounded-lg p-4" role="row" aria-label="Encabezados de columnas">
                 <div className="grid grid-cols-12 gap-4 text-sm font-medium text-text-muted">
                   <div className="col-span-3">Sistema</div>
                   <div className="col-span-2">Tipo</div>
@@ -168,29 +327,36 @@ const Systems: React.FC = () => {
               </div>
 
               {/* Systems List */}
-              <div className="space-y-4">
+              <ul role="list" className="space-y-4">
                 {targets.map((target) => (
-                  <div key={target.id} className="bg-background-card border border-border-dark rounded-lg overflow-hidden hover:border-primary/50 transition-colors">
+                  <li key={target.id} className="bg-background-card border border-border-dark rounded-lg overflow-hidden hover:border-primary/50 transition-colors" role="listitem">
                     {/* Desktop: Table-like layout */}
                     <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:p-4 md:items-center">
                       <div className="md:col-span-3">
-                        <h3 className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/target/${target.id}`)}>
+                        <h3 
+                          className="text-lg font-bold text-text-main cursor-pointer hover:text-primary transition-colors" 
+                          onClick={() => navigate(`/target/${target.id}`)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/target/${target.id}`); }}
+                          aria-label={`Ver detalles de ${target.name}`}
+                        >
                           {target.name}
                         </h3>
                       </div>
                       <div className="md:col-span-2">
-                        <span className="text-sm text-gray-300">{target.target_type}</span>
+                        <span className="text-sm text-text-muted">{target.target_type}</span>
                       </div>
                       <div className="md:col-span-3">
-                        <p className="text-sm text-gray-300 truncate">{target.url}</p>
+                        <p className="text-sm text-text-muted truncate">{target.url}</p>
                       </div>
                       <div className="md:col-span-2">
-                        <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`}>
+                        <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`} aria-label={`Estado: ${getStatusText(target.current_status)}`}>
                           {getStatusText(target.current_status)}
                         </span>
                       </div>
                       <div className="md:col-span-2">
-                        <span className="text-sm text-gray-300">
+                        <span className="text-sm text-text-muted">
                           {target.avg_response_time ? `${target.avg_response_time} ms` : 'N/A'}
                         </span>
                       </div>
@@ -199,14 +365,21 @@ const Systems: React.FC = () => {
                     {/* Mobile: Card-like layout similar to dashboard */}
                     <div className="md:hidden p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-lg font-bold text-white cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(`/target/${target.id}`)}>
+                        <h3 
+                          className="text-lg font-bold text-text-main cursor-pointer hover:text-primary transition-colors" 
+                          onClick={() => navigate(`/target/${target.id}`)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/target/${target.id}`); }}
+                          aria-label={`Ver detalles de ${target.name}`}
+                        >
                           {target.name}
                         </h3>
-                        <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`}>
+                        <span className={`text-sm font-medium px-2 py-1 rounded ${getStatusColor(target.current_status)} bg-gray-700`} aria-label={`Estado: ${getStatusText(target.current_status)}`}>
                           {getStatusText(target.current_status)}
                         </span>
                       </div>
-                      <div className="space-y-2 text-sm text-gray-300 mb-4">
+                      <div className="space-y-2 text-sm text-text-muted mb-4">
                         <p><span className="font-medium">Tipo:</span> {target.target_type}</p>
                         <p><span className="font-medium">URL:</span> {target.url}</p>
                         <p><span className="font-medium">Tiempo promedio:</span> {target.avg_response_time ? `${target.avg_response_time} ms` : 'N/A'}</p>
@@ -217,53 +390,359 @@ const Systems: React.FC = () => {
                     </div>
 
                     {/* Subtle vertical dividers - Desktop only */}
-                    <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:px-4 md:pb-4">
-                      <div className="col-span-3 border-r border-gray-600/50 h-1"></div>
-                      <div className="col-span-2 border-r border-gray-600/50 h-1"></div>
-                      <div className="col-span-3 border-r border-gray-600/50 h-1"></div>
-                      <div className="col-span-2 border-r border-gray-600/50 h-1"></div>
+                    <div className="hidden md:grid md:grid-cols-12 md:gap-4 md:px-4 md:pb-4" aria-hidden="true">
+                      <div className="col-span-3 border-r border-border-dark h-1"></div>
+                      <div className="col-span-2 border-r border-border-dark h-1"></div>
+                      <div className="col-span-3 border-r border-border-dark h-1"></div>
+                      <div className="col-span-2 border-r border-border-dark h-1"></div>
                       <div className="col-span-2 h-1"></div>
                     </div>
 
                     {/* Action Buttons Area */}
-                    <div className="bg-gray-700/30 px-4 py-3 border-t border-gray-600/50">
-                      <div className="flex gap-2 md:gap-3 justify-end flex-wrap">
+                    <div className="bg-background-hover px-4 py-3 border-t border-border-dark">
+                      <div role="group" aria-label="Acciones del sistema" className="flex gap-2 md:gap-3 justify-end flex-wrap">
                         <Button
                           onClick={() => handleConfigure(target.id)}
                           variant="secondary"
                           className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm"
+                          aria-label={`Configurar ${target.name}`}
                         >
-                          <Settings className="w-3 h-3 md:w-4 md:h-4" />
+                          <Settings className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
                           <span className="hidden sm:inline">Configurar</span>
                           <span className="sm:hidden">Config</span>
                         </Button>
                         <Button
                           onClick={() => handleToggleActive(target.id)}
                           variant="secondary"
-                          className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm"
+                          className={`flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm ${
+                            target.is_active 
+                              ? 'bg-yellow-600 hover:bg-yellow-700 text-white' 
+                              : 'bg-green-600 hover:bg-green-700 text-white'
+                          }`}
+                          aria-label={`${target.is_active ? 'Desactivar' : 'Activar'} ${target.name}`}
                         >
-                          <Play className="w-3 h-3 md:w-4 md:h-4" />
-                          <span className="hidden sm:inline">Activar</span>
-                          <span className="sm:hidden">On/Off</span>
+                          {target.is_active ? (
+                            <>
+                              <Pause className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
+                              <span className="hidden sm:inline">Desactivar</span>
+                              <span className="sm:hidden">Off</span>
+                            </>
+                          ) : (
+                            <>
+                              <Play className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
+                              <span className="hidden sm:inline">Activar</span>
+                              <span className="sm:hidden">On</span>
+                            </>
+                          )}
                         </Button>
                         <Button
                           onClick={() => handleDelete(target.id)}
                           variant="secondary"
                           className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm bg-red-600 hover:bg-red-700 text-white"
+                          aria-label={`Eliminar ${target.name}`}
                         >
-                          <Trash2 className="w-3 h-3 md:w-4 md:h-4" />
+                          <Trash2 className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
                           <span className="hidden sm:inline">Eliminar</span>
                           <span className="sm:hidden">Borrar</span>
                         </Button>
                       </div>
                     </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => !isDeleting && setShowDeleteModal(false)}
+        title="Confirmar Eliminación"
+        borderColor="border-red-500"
+      >
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2 rounded-full bg-red-500/20 text-red-500">
+              <AlertTriangle size={24} />
+            </div>
+            <div>
+              <p className="text-text-main font-medium">
+                ¿Estás seguro de que deseas eliminar este sistema?
+              </p>
+              {targetToDelete && (
+                <p className="text-text-muted mt-2">
+                  <span className="font-semibold">{targetToDelete.name}</span>
+                  <br />
+                  <span className="text-sm">{targetToDelete.url}</span>
+                </p>
+              )}
+              <p className="text-red-400 mt-3 text-sm">
+                Esta acción no se puede deshacer. Se eliminarán todos los datos históricos asociados.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            <button
+              onClick={() => setShowDeleteModal(false)}
+              disabled={isDeleting}
+              className="px-4 py-2 bg-background-hover hover:bg-border-dark text-text-main rounded-lg transition-colors disabled:opacity-50"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={confirmDelete}
+              disabled={isDeleting}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2"
+            >
+              {isDeleting ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  Eliminando...
+                </>
+              ) : (
+                <>
+                  <Trash2 size={16} />
+                  Eliminar
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Toggle Active Modal */}
+      <Modal
+        isOpen={showToggleModal}
+        onClose={() => !isToggling && setShowToggleModal(false)}
+        title={targetToToggle?.is_active ? "Desactivar Sistema" : "Activar Sistema"}
+        borderColor={targetToToggle?.is_active ? "border-yellow-500" : "border-green-500"}
+      >
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <div className={`p-2 rounded-full ${targetToToggle?.is_active ? 'bg-yellow-500/20 text-yellow-500' : 'bg-green-500/20 text-green-500'}`}>
+              {targetToToggle?.is_active ? <Pause size={24} /> : <Play size={24} />}
+            </div>
+            <div>
+              <p className="text-text-main font-medium">
+                {targetToToggle?.is_active 
+                  ? '¿Estás seguro de que deseas desactivar el monitoreo de este sistema?' 
+                  : '¿Estás seguro de que deseas activar el monitoreo de este sistema?'}
+              </p>
+              {targetToToggle && (
+                <p className="text-text-muted mt-2">
+                  <span className="font-semibold">{targetToToggle.name}</span>
+                  <br />
+                  <span className="text-sm">{targetToToggle.url}</span>
+                </p>
+              )}
+              <p className="text-text-muted mt-3 text-sm">
+                {targetToToggle?.is_active 
+                  ? 'El sistema dejará de ser monitoreado y no recibirás alertas.'
+                  : 'El sistema comenzará a ser monitoreado y recibirás alertas según la configuración.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            <button
+              onClick={() => setShowToggleModal(false)}
+              disabled={isToggling}
+              className="px-4 py-2 bg-background-hover hover:bg-border-dark text-text-main rounded-lg transition-colors disabled:opacity-50"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={confirmToggle}
+              disabled={isToggling}
+              className={`px-4 py-2 ${targetToToggle?.is_active ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-green-600 hover:bg-green-700'} text-white rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2`}
+            >
+              {isToggling ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  Procesando...
+                </>
+              ) : (
+                <>
+                  {targetToToggle?.is_active ? <Pause size={16} /> : <Play size={16} />}
+                  {targetToToggle?.is_active ? 'Desactivar' : 'Activar'}
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Configuration Modal */}
+      <Modal
+        isOpen={showConfigModal}
+        onClose={() => !isUpdatingConfig && setShowConfigModal(false)}
+        title="Configuración del Sistema"
+        size="lg"
+        borderColor="border-blue-500"
+      >
+        <div className="space-y-4">
+          {targetToConfig && (
+            <div className="mb-4">
+              <p className="text-text-main font-semibold">{targetToConfig.name}</p>
+              <p className="text-text-muted text-sm">{targetToConfig.url}</p>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-text-main mb-2">
+                Timeout (segundos)
+              </label>
+              <input
+                type="number"
+                min="1"
+                max="60"
+                value={configForm.timeout_seconds}
+                onChange={(e) => setConfigForm({ ...configForm, timeout_seconds: parseInt(e.target.value) || 10 })}
+                disabled={isUpdatingConfig}
+                className="w-full px-3 py-2 bg-background-card border border-border-dark rounded-lg text-text-main focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+              />
+              <p className="text-text-muted text-xs mt-1">Tiempo máximo de espera para la respuesta</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-text-main mb-2">
+                Reintentos
+              </label>
+              <input
+                type="number"
+                min="0"
+                max="10"
+                value={configForm.retry_count}
+                onChange={(e) => setConfigForm({ ...configForm, retry_count: parseInt(e.target.value) || 3 })}
+                disabled={isUpdatingConfig}
+                className="w-full px-3 py-2 bg-background-card border border-border-dark rounded-lg text-text-main focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+              />
+              <p className="text-text-muted text-xs mt-1">Número de reintentos en caso de fallo</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-text-main mb-2">
+                Retardo entre reintentos (segundos)
+              </label>
+              <input
+                type="number"
+                min="1"
+                max="60"
+                value={configForm.retry_delay_seconds}
+                onChange={(e) => setConfigForm({ ...configForm, retry_delay_seconds: parseInt(e.target.value) || 1 })}
+                disabled={isUpdatingConfig}
+                className="w-full px-3 py-2 bg-background-card border border-border-dark rounded-lg text-text-main focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+              />
+              <p className="text-text-muted text-xs mt-1">Tiempo de espera entre reintentos</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-text-main mb-2">
+                Intervalo de verificación (segundos)
+              </label>
+              <input
+                type="number"
+                min="30"
+                max="3600"
+                value={configForm.check_interval_seconds}
+                onChange={(e) => setConfigForm({ ...configForm, check_interval_seconds: parseInt(e.target.value) || 300 })}
+                disabled={isUpdatingConfig}
+                className="w-full px-3 py-2 bg-background-card border border-border-dark rounded-lg text-text-main focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+              />
+              <p className="text-text-muted text-xs mt-1">Frecuencia de monitoreo (mínimo 30s)</p>
+            </div>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="alert_on_failure"
+                checked={configForm.alert_on_failure}
+                onChange={(e) => setConfigForm({ ...configForm, alert_on_failure: e.target.checked })}
+                disabled={isUpdatingConfig}
+                className="w-4 h-4 text-primary bg-background-card border-border-dark rounded focus:ring-primary focus:ring-2 disabled:opacity-50"
+              />
+              <label htmlFor="alert_on_failure" className="ml-2 text-sm text-text-main">
+                Alertar cuando el sistema falle
+              </label>
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="alert_on_recovery"
+                checked={configForm.alert_on_recovery}
+                onChange={(e) => setConfigForm({ ...configForm, alert_on_recovery: e.target.checked })}
+                disabled={isUpdatingConfig}
+                className="w-4 h-4 text-primary bg-background-card border-border-dark rounded focus:ring-primary focus:ring-2 disabled:opacity-50"
+              />
+              <label htmlFor="alert_on_recovery" className="ml-2 text-sm text-text-main">
+                Alertar cuando el sistema se recupere
+              </label>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4 border-t border-border-dark">
+            <button
+              onClick={() => setShowConfigModal(false)}
+              disabled={isUpdatingConfig}
+              className="px-4 py-2 bg-background-hover hover:bg-border-dark text-text-main rounded-lg transition-colors disabled:opacity-50"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={confirmUpdateConfig}
+              disabled={isUpdatingConfig}
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2"
+            >
+              {isUpdatingConfig ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  Guardando...
+                </>
+              ) : (
+                <>
+                  <Settings size={16} />
+                  Guardar Configuración
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Error Modal */}
+      <Modal
+        isOpen={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        title="Error"
+        borderColor="border-red-500"
+      >
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2 rounded-full bg-red-500/20 text-red-500">
+              <AlertTriangle size={24} />
+            </div>
+            <div>
+              <p className="text-text-main">{errorMessage}</p>
+            </div>
+          </div>
+
+          <div className="flex justify-end pt-4">
+            <button
+              onClick={() => setShowErrorModal(false)}
+              className="px-4 py-2 bg-background-hover hover:bg-border-dark text-text-main rounded-lg transition-colors"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

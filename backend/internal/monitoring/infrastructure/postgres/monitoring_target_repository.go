@@ -85,6 +85,22 @@ func (r *PostgresMonitoringTargetRepository) GetByID(id domain.TargetId) (*domai
 	return r.toDomain(&entity)
 }
 
+func (r *PostgresMonitoringTargetRepository) Delete(id domain.TargetId) error {
+	targetUUID, err := uuid.Parse(string(id))
+	if err != nil {
+		return err
+	}
+	return r.db.Delete(&MonitoringTargetEntity{}, "id = ?", targetUUID).Error
+}
+
+func (r *PostgresMonitoringTargetRepository) ToggleActive(id domain.TargetId, isActive bool) error {
+	targetUUID, err := uuid.Parse(string(id))
+	if err != nil {
+		return err
+	}
+	return r.db.Model(&MonitoringTargetEntity{}).Where("id = ?", targetUUID).Update("is_active", isActive).Error
+}
+
 // --- MAPPERS (privados, dentro del mismo archivo) ---
 
 func (r *PostgresMonitoringTargetRepository) toEntity(target *domain.MonitoringTarget) *MonitoringTargetEntity {
@@ -98,6 +114,7 @@ func (r *PostgresMonitoringTargetRepository) toEntity(target *domain.MonitoringT
 		Name:              target.Name(),
 		URL:               target.Url(),
 		TargetType:        string(target.TargetType()),
+		IsActive:          target.IsActive(),
 		PreviousStatus:    string(target.PreviousStatus()),
 		CurrentStatus:     string(target.CurrentStatus()),
 		TimeoutSeconds:    target.Configuration().TimeoutSeconds(),
@@ -150,6 +167,7 @@ func (r *PostgresMonitoringTargetRepository) toDomain(entity *MonitoringTargetEn
 		entity.URL,
 		domain.TargetType(entity.TargetType),
 		config,
+		entity.IsActive,
 		previousStatus,
 		currentStatus,
 		entity.CreatedAt,

@@ -40,55 +40,62 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-4">
+    <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-4" role="main">
       <div className="w-full max-w-md space-y-8 bg-card p-8 rounded-2xl border border-border shadow-2xl">
-        <div className="text-center">
+        <header className="text-center">
           <div className="flex justify-center mb-6">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/20">
-              <Monitor className="w-7 h-7 text-white" />
+              <Monitor className="w-7 h-7 text-white" aria-hidden="true" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white">Crear Cuenta</h1>
-          <p className="text-white mt-2">Empieza a monitorear tus sistemas hoy.</p>
-        </div>
-        <form onSubmit={handleSubmit} className="space-y-5">
+          <h1 className="text-3xl font-bold text-text-main">Crear Cuenta</h1>
+          <p className="text-text-muted mt-2">Empieza a monitorear tus sistemas hoy.</p>
+        </header>
+        <form onSubmit={handleSubmit} className="space-y-5" aria-label="Formulario de registro">
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-white">Correo electrónico</label>
+            <label htmlFor="register-email" className="text-sm font-medium text-text-main">Correo electrónico</label>
             <input
+              id="register-email"
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="tu@email.com"
-              className="w-full bg-background border border-border rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+              className="w-full bg-background border border-border rounded-lg h-11 px-4 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
               required
+              aria-required="true"
+              autoComplete="email"
             />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-white">Contraseña</label>
+            <label htmlFor="register-password" className="text-sm font-medium text-text-main">Contraseña</label>
             <input
+              id="register-password"
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full bg-background border border-border rounded-lg h-11 px-4 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+              className="w-full bg-background border border-border rounded-lg h-11 px-4 text-text-main placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
               required
+              aria-required="true"
+              autoComplete="new-password"
             />
           </div>
-          {error && <p className="text-destructive text-sm">{error}</p>}
-          {success && <p className="text-green-500 text-sm">Registration successful! Redirecting...</p>}
+          {error && <p role="alert" aria-live="assertive" className="text-destructive text-sm">{error}</p>}
+          {success && <p role="status" aria-live="polite" className="text-green-500 text-sm">Registration successful! Redirecting...</p>}
           <button
             type="submit"
             disabled={loading}
+            aria-busy={loading}
             className="w-full bg-primary hover:bg-primary-hover h-11 rounded-lg font-bold text-white shadow-lg shadow-primary/20 transition-all mt-2 active:scale-[0.98]"
           >
             {loading ? 'Registrando...' : 'Registrarse'}
           </button>
         </form>
-        <div className="text-center text-sm text-white">
+        <footer className="text-center text-sm text-text-muted">
           ¿Ya tienes cuenta? <a href="/login" className="text-primary font-medium hover:underline">Inicia sesión</a>
-        </div>
+        </footer>
       </div>
     </div>
   );
