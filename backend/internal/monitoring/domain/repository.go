@@ -8,6 +8,8 @@ type MonitoringTargetRepository interface {
 	List() ([]*MonitoringTarget, error)
 	ListByUserAndRole(userID userdomain.UserId, role string) ([]*MonitoringTarget, error)
 	GetByID(id TargetId) (*MonitoringTarget, error)
+	Delete(id TargetId) error
+	ToggleActive(id TargetId, isActive bool) error
 }
 
 type CheckResultRepository interface {

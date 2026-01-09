@@ -23,4 +23,12 @@ type UpdateTargetCommand struct {
 type DeleteTargetCommand struct {
 	TargetID domain.TargetId
 	UserID   userdomain.UserId
+	Role     string
+}
+
+type ToggleActiveCommand struct {
+	TargetID domain.TargetId
+	UserID   userdomain.UserId
+	Role     string
+	IsActive bool
 }

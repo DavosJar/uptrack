@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
-import { Settings, Trash2, Play } from 'lucide-react';
+import Modal from '../components/ui/Modal';
+import { Settings, Trash2, Play, Pause, AlertTriangle } from 'lucide-react';
 import { fetchWithAuth } from '../api/fetch';
 
 interface Target {
@@ -9,6 +10,7 @@ interface Target {
   name: string;
   url: string;
   target_type: string;
+  is_active: boolean;
   current_status: string;
   last_checked_at: string | null;
   avg_response_time: number;
@@ -19,6 +21,16 @@ const Systems: React.FC = () => {
   const [targets, setTargets] = useState<Target[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  
+  // Modal states
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [targetToDelete, setTargetToDelete] = useState<Target | null>(null);
+  const [showToggleModal, setShowToggleModal] = useState(false);
+  const [targetToToggle, setTargetToToggle] = useState<Target | null>(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isToggling, setIsToggling] = useState(false);
 
   useEffect(() => {
     const fetchTargets = async () => {
@@ -37,6 +49,7 @@ const Systems: React.FC = () => {
               name: "Google",
               url: "https://www.google.com",
               target_type: "WEB",
+              is_active: true,
               current_status: "UP",
               last_checked_at: "2025-12-04T22:29:35-05:00",
               avg_response_time: 215
@@ -46,6 +59,7 @@ const Systems: React.FC = () => {
               name: "GitHub",
               url: "https://github.com",
               target_type: "WEB",
+              is_active: true,
               current_status: "DOWN",
               last_checked_at: "2025-12-04T22:28:15-05:00",
               avg_response_time: 1250
@@ -55,6 +69,7 @@ const Systems: React.FC = () => {
               name: "API Interna",
               url: "https://api.interna.com/health",
               target_type: "API",
+              is_active: false,
               current_status: "DEGRADED",
               last_checked_at: "2025-12-04T22:27:45-05:00",
               avg_response_time: 850
@@ -71,6 +86,7 @@ const Systems: React.FC = () => {
             name: "Google",
             url: "https://www.google.com",
             target_type: "WEB",
+            is_active: true,
             current_status: "UP",
             last_checked_at: "2025-12-04T22:29:35-05:00",
             avg_response_time: 215
@@ -80,6 +96,7 @@ const Systems: React.FC = () => {
             name: "GitHub",
             url: "https://github.com",
             target_type: "WEB",
+            is_active: true,
             current_status: "DOWN",
             last_checked_at: "2025-12-04T22:28:15-05:00",
             avg_response_time: 1250
@@ -123,13 +140,87 @@ const Systems: React.FC = () => {
   };
 
   const handleToggleActive = (targetId: string) => {
-    // TODO: Implement toggle active/inactive
-    console.log('Toggle active for target:', targetId);
+    const target = targets.find(t => t.id === targetId);
+    if (target) {
+      setTargetToToggle(target);
+      setShowToggleModal(true);
+    }
   };
 
-  const handleDelete = (targetId: string) => {
-    // TODO: Implement delete functionality
-    console.log('Delete target:', targetId);
+  const confirmToggle = async () => {
+    if (!targetToToggle) return;
+
+    setIsToggling(true);
+    const newActiveState = !targetToToggle.is_active;
+    
+    try {
+        const response = await fetchWithAuth(`/api/v1/targets/${targetToToggle.id}/toggle`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ is_active: newActiveState })
+        });
+
+        if (response.ok) {
+            setTargets(prev => prev.map(t => 
+                t.id === targetToToggle.id ? { ...t, is_active: newActiveState } : t
+            ));
+            setShowToggleModal(false);
+            setTargetToToggle(null);
+        } else {
+            const errorText = await response.text();
+            console.error('Error toggling target:', errorText);
+            setErrorMessage('Error al cambiar el estado del sistema. Por favor, intenta de nuevo.');
+            setShowToggleModal(false);
+            setShowErrorModal(true);
+        }
+    } catch (error) {
+        console.error("Failed to toggle target", error);
+        setErrorMessage('Error al conectar con el servidor. Por favor, verifica tu conexión.');
+        setShowToggleModal(false);
+        setShowErrorModal(true);
+    } finally {
+        setIsToggling(false);
+    }
+  };
+
+  const handleDelete = async (targetId: string) => {
+    const target = targets.find(t => t.id === targetId);
+    if (target) {
+      setTargetToDelete(target);
+      setShowDeleteModal(true);
+    }
+  };
+
+  const confirmDelete = async () => {
+    if (!targetToDelete) return;
+
+    setIsDeleting(true);
+    try {
+        const response = await fetchWithAuth(`/api/v1/targets/${targetToDelete.id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            setTargets(prev => prev.filter(t => t.id !== targetToDelete.id));
+            setShowDeleteModal(false);
+            setTargetToDelete(null);
+        } else {
+            const errorText = await response.text();
+            console.error('Error deleting target:', errorText);
+            setErrorMessage('Error al eliminar el sistema. Por favor, intenta de nuevo.');
+            setShowDeleteModal(false);
+            setShowErrorModal(true);
+        }
+    } catch (error) {
+        console.error("Failed to delete target", error);
+        setErrorMessage('Error al conectar con el servidor. Por favor, verifica tu conexión.');
+        setShowDeleteModal(false);
+        setShowErrorModal(true);
+    } finally {
+        setIsDeleting(false);
+    }
   };
 
   return (
@@ -255,12 +346,26 @@ const Systems: React.FC = () => {
                         <Button
                           onClick={() => handleToggleActive(target.id)}
                           variant="secondary"
-                          className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm"
-                          aria-label={`Activar/Desactivar ${target.name}`}
+                          className={`flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 text-xs md:text-sm ${
+                            target.is_active 
+                              ? 'bg-yellow-600 hover:bg-yellow-700 text-white' 
+                              : 'bg-green-600 hover:bg-green-700 text-white'
+                          }`}
+                          aria-label={`${target.is_active ? 'Desactivar' : 'Activar'} ${target.name}`}
                         >
-                          <Play className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
-                          <span className="hidden sm:inline">Activar</span>
-                          <span className="sm:hidden">On/Off</span>
+                          {target.is_active ? (
+                            <>
+                              <Pause className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
+                              <span className="hidden sm:inline">Desactivar</span>
+                              <span className="sm:hidden">Off</span>
+                            </>
+                          ) : (
+                            <>
+                              <Play className="w-3 h-3 md:w-4 md:h-4" aria-hidden="true" />
+                              <span className="hidden sm:inline">Activar</span>
+                              <span className="sm:hidden">On</span>
+                            </>
+                          )}
                         </Button>
                         <Button
                           onClick={() => handleDelete(target.id)}
@@ -281,6 +386,154 @@ const Systems: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => !isDeleting && setShowDeleteModal(false)}
+        title="Confirmar Eliminación"
+        borderColor="border-red-500"
+      >
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2 rounded-full bg-red-500/20 text-red-500">
+              <AlertTriangle size={24} />
+            </div>
+            <div>
+              <p className="text-text-main font-medium">
+                ¿Estás seguro de que deseas eliminar este sistema?
+              </p>
+              {targetToDelete && (
+                <p className="text-text-muted mt-2">
+                  <span className="font-semibold">{targetToDelete.name}</span>
+                  <br />
+                  <span className="text-sm">{targetToDelete.url}</span>
+                </p>
+              )}
+              <p className="text-red-400 mt-3 text-sm">
+                Esta acción no se puede deshacer. Se eliminarán todos los datos históricos asociados.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            <button
+              onClick={() => setShowDeleteModal(false)}
+              disabled={isDeleting}
+              className="px-4 py-2 bg-background-hover hover:bg-border-dark text-text-main rounded-lg transition-colors disabled:opacity-50"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={confirmDelete}
+              disabled={isDeleting}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2"
+            >
+              {isDeleting ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  Eliminando...
+                </>
+              ) : (
+                <>
+                  <Trash2 size={16} />
+                  Eliminar
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Toggle Active Modal */}
+      <Modal
+        isOpen={showToggleModal}
+        onClose={() => !isToggling && setShowToggleModal(false)}
+        title={targetToToggle?.is_active ? "Desactivar Sistema" : "Activar Sistema"}
+        borderColor={targetToToggle?.is_active ? "border-yellow-500" : "border-green-500"}
+      >
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <div className={`p-2 rounded-full ${targetToToggle?.is_active ? 'bg-yellow-500/20 text-yellow-500' : 'bg-green-500/20 text-green-500'}`}>
+              {targetToToggle?.is_active ? <Pause size={24} /> : <Play size={24} />}
+            </div>
+            <div>
+              <p className="text-text-main font-medium">
+                {targetToToggle?.is_active 
+                  ? '¿Estás seguro de que deseas desactivar el monitoreo de este sistema?' 
+                  : '¿Estás seguro de que deseas activar el monitoreo de este sistema?'}
+              </p>
+              {targetToToggle && (
+                <p className="text-text-muted mt-2">
+                  <span className="font-semibold">{targetToToggle.name}</span>
+                  <br />
+                  <span className="text-sm">{targetToToggle.url}</span>
+                </p>
+              )}
+              <p className="text-text-muted mt-3 text-sm">
+                {targetToToggle?.is_active 
+                  ? 'El sistema dejará de ser monitoreado y no recibirás alertas.'
+                  : 'El sistema comenzará a ser monitoreado y recibirás alertas según la configuración.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            <button
+              onClick={() => setShowToggleModal(false)}
+              disabled={isToggling}
+              className="px-4 py-2 bg-background-hover hover:bg-border-dark text-text-main rounded-lg transition-colors disabled:opacity-50"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={confirmToggle}
+              disabled={isToggling}
+              className={`px-4 py-2 ${targetToToggle?.is_active ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-green-600 hover:bg-green-700'} text-white rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2`}
+            >
+              {isToggling ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  Procesando...
+                </>
+              ) : (
+                <>
+                  {targetToToggle?.is_active ? <Pause size={16} /> : <Play size={16} />}
+                  {targetToToggle?.is_active ? 'Desactivar' : 'Activar'}
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Error Modal */}
+      <Modal
+        isOpen={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        title="Error"
+        borderColor="border-red-500"
+      >
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2 rounded-full bg-red-500/20 text-red-500">
+              <AlertTriangle size={24} />
+            </div>
+            <div>
+              <p className="text-text-main">{errorMessage}</p>
+            </div>
+          </div>
+
+          <div className="flex justify-end pt-4">
+            <button
+              onClick={() => setShowErrorModal(false)}
+              className="px-4 py-2 bg-background-hover hover:bg-border-dark text-text-main rounded-lg transition-colors"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
