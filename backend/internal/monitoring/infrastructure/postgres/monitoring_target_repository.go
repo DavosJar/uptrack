@@ -1,6 +1,7 @@
 package postgres
 
 import (
+	"errors"
 	domain "uptrackai/internal/monitoring/domain"
 	userdomain "uptrackai/internal/user/domain"
 
@@ -79,6 +80,34 @@ func (r *PostgresMonitoringTargetRepository) GetByID(id domain.TargetId) (*domai
 	targetUUID := uuid.MustParse(string(id))
 
 	if err := r.db.Where("id = ?", targetUUID).First(&entity).Error; err != nil {
+		return nil, err
+	}
+
+	return r.toDomain(&entity)
+}
+
+func (r *PostgresMonitoringTargetRepository) GetByURLAndUser(url string, userID userdomain.UserId) (*domain.MonitoringTarget, error) {
+	var entity MonitoringTargetEntity
+	userUUID := uuid.MustParse(string(userID))
+
+	if err := r.db.Where("url = ? AND user_id = ?", url, userUUID).First(&entity).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, domain.ErrTargetNotFound
+		}
+		return nil, err
+	}
+
+	return r.toDomain(&entity)
+}
+
+func (r *PostgresMonitoringTargetRepository) GetByNameAndUser(name string, userID userdomain.UserId) (*domain.MonitoringTarget, error) {
+	var entity MonitoringTargetEntity
+	userUUID := uuid.MustParse(string(userID))
+
+	if err := r.db.Where("name = ? AND user_id = ?", name, userUUID).First(&entity).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, domain.ErrTargetNotFound
+		}
 		return nil, err
 	}
 

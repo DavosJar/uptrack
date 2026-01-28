@@ -1,6 +1,7 @@
 package application
 
 import (
+	"errors"
 	"fmt"
 	"uptrackai/internal/monitoring/domain"
 )
@@ -33,7 +34,25 @@ func NewMonitoringApplicationService(
 // CreateTarget - Crea un nuevo target de monitoreo
 // Retorna Detail DTO, NO entidad de dominio
 func (s *MonitoringApplicationService) CreateTarget(cmd CreateTargetCommand) (*MonitoringTargetDetailDTO, error) {
-	// Validación de negocio (en el futuro: verificar límites del plan, URL duplicada, etc.)
+	// Validación de negocio: Verificar duplicados
+
+	// 1. Verificar si ya existe un target con la misma URL para este usuario
+	existingByUrl, err := s.targetRepo.GetByURLAndUser(cmd.URL, cmd.UserID)
+	if err != nil && !errors.Is(err, domain.ErrTargetNotFound) {
+		return nil, fmt.Errorf("error checking URL duplicates: %w", err)
+	}
+	if existingByUrl != nil {
+		return nil, fmt.Errorf("objetivo duplicado: ya tienes un monitor para la URL %s", cmd.URL)
+	}
+
+	// 2. Verificar si ya existe un target con el mismo nombre para este usuario
+	existingByName, err := s.targetRepo.GetByNameAndUser(cmd.Name, cmd.UserID)
+	if err != nil && !errors.Is(err, domain.ErrTargetNotFound) {
+		return nil, fmt.Errorf("error revisando duplicados de nombre: %w", err)
+	}
+	if existingByName != nil {
+		return nil, fmt.Errorf("objetivo duplicado: ya tienes un monitor llamado '%s'", cmd.Name)
+	}
 
 	// Crear entidad de dominio
 	target := domain.NewMinimalMonitoringTarget(cmd.Name, cmd.URL, cmd.TargetType, cmd.UserID)
