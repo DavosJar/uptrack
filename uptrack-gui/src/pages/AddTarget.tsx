@@ -28,11 +28,14 @@ const AddTarget: React.FC = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    navigate('/dashboard');
+    if (modalType === 'success') {
+      navigate('/dashboard');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Submitting form...");
     setLoading(true);
     setError('');
 
@@ -44,6 +47,7 @@ const AddTarget: React.FC = () => {
     }
 
     try {
+      console.log("Sending request to /api/v1/targets");
       const response = await fetchWithAuth('/api/v1/targets', {
         method: 'POST',
         headers: {
@@ -56,19 +60,32 @@ const AddTarget: React.FC = () => {
         }),
       });
 
+      console.log("Response status:", response.status);
+
       if (response.ok) {
         setModalTitle('Éxito');
         setModalMessage('Sistema agregado correctamente');
         setModalType('success');
         setIsModalOpen(true);
       } else {
-        const data = await response.json();
+        let errorMsg = 'Error al crear el sistema';
+        try {
+            const data = await response.json();
+            console.log("Error data:", data);
+            errorMsg = data.error || data.message || errorMsg;
+        } catch (jsonError) {
+            console.error("Error parsing JSON:", jsonError);
+        }
+        
+        console.log("Opening modal with error:", errorMsg);
         setModalTitle('Error');
-        setModalMessage(data.message || 'Error al crear el sistema');
+        setModalMessage(errorMsg);
         setModalType('error');
         setIsModalOpen(true);
       }
     } catch (err) {
+      console.error("Fetch error:", err);
+      console.log("Opening modal with network error");
       setModalTitle('Error');
       setModalMessage('Error de red');
       setModalType('error');

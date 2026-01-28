@@ -52,6 +52,24 @@ func (m *MockTargetRepository) ListByUserAndRole(userID userdomain.UserId, role 
 	return result, nil
 }
 
+func (m *MockTargetRepository) GetByURLAndUser(url string, userID userdomain.UserId) (*domain.MonitoringTarget, error) {
+	for _, t := range m.targets {
+		if t.Url() == url && t.UserId() == userID {
+			return t, nil
+		}
+	}
+	return nil, domain.ErrTargetNotFound
+}
+
+func (m *MockTargetRepository) GetByNameAndUser(name string, userID userdomain.UserId) (*domain.MonitoringTarget, error) {
+	for _, t := range m.targets {
+		if t.Name() == name && t.UserId() == userID {
+			return t, nil
+		}
+	}
+	return nil, domain.ErrTargetNotFound
+}
+
 func (m *MockTargetRepository) Delete(id domain.TargetId) error {
 	delete(m.targets, string(id))
 	return nil
