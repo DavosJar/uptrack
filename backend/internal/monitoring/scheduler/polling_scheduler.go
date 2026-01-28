@@ -2,6 +2,7 @@ package scheduler
 
 import (
 	"log"
+	"net/http"
 	"sync"
 	"time"
 	"uptrackai/internal/monitoring/domain"
@@ -12,6 +13,15 @@ type PollingScheduler struct {
 	orchestrator *Orchestrator
 	inFlight     sync.Map
 	stopChan     chan struct{}
+}
+
+// verifyConnectivity checkea si *nosotros* tenemos internet
+func (s *PollingScheduler) verifyConnectivity() bool {
+	// Ping simple a DNS fiable (Google/Cloudflare/OpenDNS)
+	// Timeout corto para no bloquear
+	client := http.Client{Timeout: 2 * time.Second}
+	_, err := client.Get("https://1.1.1.1") // Cloudflare
+	return err == nil
 }
 
 func NewPollingScheduler(
@@ -65,6 +75,12 @@ func (s *PollingScheduler) runLoop() {
 }
 
 func (s *PollingScheduler) processDueTargets() {
+	// 0. SELF-CHECK: Verificar conectividad propia
+	if !s.verifyConnectivity() {
+		log.Println("🛑 SELF-DOWN DETECTADO: Sin conexión a internet. Pausando monitoreo para evitar falsos positivos.")
+		return
+	}
+
 	// Optimización: Usamos GetDueTargets que filtra por SQL (NextCheckAt <= Now)
 	dueTargetsFromDB, err := s.targetRepo.GetDueTargets()
 	if err != nil {

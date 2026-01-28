@@ -1,0 +1,47 @@
+@startuml actividad_agente_pull
+!theme plain
+title Diagrama de Actividad: Monitoreo White-box (Agente Rust PULL)
+
+|#LightGray|Infraestructura del Cliente|
+start
+:Agente Rust inicia en background;
+:Abre puerto TCP 9100;
+note right: Esperando conexiones entrantes...
+
+|#White|UpTrackAI Backend (Scraper)|
+:Cronjob de Scraping (Cada 30s);
+:Obtener IP y Token del Cliente;
+
+if (¿Puerto 9100 Accesible?) then (Sí)
+    :Enviar Request GET /metrics;
+    note right: Header: Authorization Bearer <TOKEN>
+    
+    |Infraestructura del Cliente|
+    :Agente recibe Request;
+    
+    if (¿Token Válido?) then (Sí)
+        :Leer Métricas del SO (Syscalls);
+        note right: CPU, RAM, Disk, Network
+        :Responder JSON con datos;
+        
+        |UpTrackAI Backend (Scraper)|
+        :Recibir Payload JSON;
+        :Guardar en Base de Datos TimeSeries;
+        :Analizar Anomalías (Trigger Alertas);
+        
+    else (No - Token Incorrecto)
+        :Responder 401 Unauthorized;
+        
+        |UpTrackAI Backend (Scraper)|
+        :Loguear Error de Autenticación;
+        note right: Posible ataque o mala config
+    endif
+    
+else (No - Conexión Rechazada)
+    :Marcar "Agente Inaccesible";
+    :Generar Alerta de Conectividad;
+    note right: Posible Firewall bloqueando o Agente caído
+endif
+
+stop
+@enduml
