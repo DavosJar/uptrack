@@ -93,6 +93,21 @@ func (m *MonitoringTarget) TargetType() TargetType {
 	return m.targetType
 }
 
+// NextCheckAt calculates when the next check should be performed
+func (m *MonitoringTarget) NextCheckAt() time.Time {
+	// If never checked, it's due immediately (or use createdAt)
+	if m.lastCheckedAt.IsZero() {
+		return m.createdAt
+	}
+
+	interval := m.configuration.checkIntervalSeconds
+	if interval <= 0 {
+		interval = 300 // Default 5 mins safe fallback
+	}
+
+	return m.lastCheckedAt.Add(time.Duration(interval) * time.Second)
+}
+
 func (m *MonitoringTarget) Configuration() *CheckConfiguration {
 	return m.configuration
 }

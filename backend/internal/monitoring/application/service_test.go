@@ -84,6 +84,16 @@ func (m *MockTargetRepository) ToggleActive(id domain.TargetId, isActive bool) e
 	return nil
 }
 
+// GetDueTargets - Mock implementation for interface compatibility
+func (m *MockTargetRepository) GetDueTargets() ([]*domain.MonitoringTarget, error) {
+	// For testing, return all targets (or filter as needed)
+	result := make([]*domain.MonitoringTarget, 0, len(m.targets))
+	for _, t := range m.targets {
+		result = append(result, t)
+	}
+	return result, nil
+}
+
 // MockStatsRepository - Mock simplificado
 type MockStatsRepository struct{}
 
