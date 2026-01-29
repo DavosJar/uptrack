@@ -1,6 +1,8 @@
 package postgres
 
 import (
+	"errors"
+	"time"
 	domain "uptrackai/internal/monitoring/domain"
 	userdomain "uptrackai/internal/user/domain"
 
@@ -27,9 +29,12 @@ func (r *PostgresMonitoringTargetRepository) Save(target *domain.MonitoringTarge
 	entity := r.toEntity(target)
 
 	// Debug log para verificar qué se está guardando
-	// log.Printf("💾 Saving Target: %s | Status: %s", entity.Name, entity.CurrentStatus)
+	// log.Printf("💾 Saving Target: %s | Status: %s | NextCheck: %v", entity.Name, entity.CurrentStatus, entity.NextCheckAt)
 
-	if err := r.db.Save(entity).Error; err != nil {
+	// UPDATE EXPLÍCITO para asegurar persistencia de campos de scheduling
+	// Usamos map para evitar problemas con Zero Values de GORM si fuera necesario,
+	// pero con struct y Select aseguramos que se envíen.
+	if err := r.db.Model(entity).Select("*").Save(entity).Error; err != nil {
 		return nil, err
 	}
 
@@ -85,6 +90,58 @@ func (r *PostgresMonitoringTargetRepository) GetByID(id domain.TargetId) (*domai
 	return r.toDomain(&entity)
 }
 
+func (r *PostgresMonitoringTargetRepository) GetByURLAndUser(url string, userID userdomain.UserId) (*domain.MonitoringTarget, error) {
+	var entity MonitoringTargetEntity
+	userUUID := uuid.MustParse(string(userID))
+
+	if err := r.db.Where("url = ? AND user_id = ?", url, userUUID).First(&entity).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, domain.ErrTargetNotFound
+		}
+		return nil, err
+	}
+
+	return r.toDomain(&entity)
+}
+
+func (r *PostgresMonitoringTargetRepository) GetByNameAndUser(name string, userID userdomain.UserId) (*domain.MonitoringTarget, error) {
+	var entity MonitoringTargetEntity
+	userUUID := uuid.MustParse(string(userID))
+
+	if err := r.db.Where("name = ? AND user_id = ?", name, userUUID).First(&entity).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, domain.ErrTargetNotFound
+		}
+		return nil, err
+	}
+
+	return r.toDomain(&entity)
+}
+
+// GetDueTargets obtiene los targets que necesitan ser chequeados (Active AND NextCheckAt <= Now)
+func (r *PostgresMonitoringTargetRepository) GetDueTargets() ([]*domain.MonitoringTarget, error) {
+	var entities []MonitoringTargetEntity
+	now := time.Now()
+
+	// Consulta optimizada usando el índice en next_check_at
+	// También traemos los que nunca han sido checado (NextCheckAt es nulo o zero)
+	if err := r.db.Where("is_active = ? AND (next_check_at <= ? OR next_check_at IS NULL)", true, now).Find(&entities).Error; err != nil {
+		return nil, err
+	}
+
+	if len(entities) > 0 {
+		// Loguear muestreo para debug
+		// log.Printf("🔍 DB fetch: %d due targets. Sample[0].ID: %s | NextCheck: %v", len(entities), entities[0].ID, entities[0].NextCheckAt)
+	}
+
+	targets := make([]*domain.MonitoringTarget, 0, len(entities))
+	for _, e := range entities {
+		target, _ := r.toDomain(&e)
+		targets = append(targets, target)
+	}
+	return targets, nil
+}
+
 func (r *PostgresMonitoringTargetRepository) Delete(id domain.TargetId) error {
 	targetUUID, err := uuid.Parse(string(id))
 	if err != nil {
@@ -109,17 +166,19 @@ func (r *PostgresMonitoringTargetRepository) toEntity(target *domain.MonitoringT
 	userIdUUID := uuid.MustParse(target.UserId().String())
 
 	entity := &MonitoringTargetEntity{
-		ID:                targetIdUUID,
-		UserID:            userIdUUID,
-		Name:              target.Name(),
-		URL:               target.Url(),
-		TargetType:        string(target.TargetType()),
-		IsActive:          target.IsActive(),
-		PreviousStatus:    string(target.PreviousStatus()),
-		CurrentStatus:     string(target.CurrentStatus()),
-		TimeoutSeconds:    target.Configuration().TimeoutSeconds(),
-		RetryCount:        target.Configuration().RetryCount(),
-		RetryDelaySeconds: target.Configuration().RetryDelaySeconds(),
+		ID:                   targetIdUUID,
+		UserID:               userIdUUID,
+		Name:                 target.Name(),
+		URL:                  target.Url(),
+		TargetType:           string(target.TargetType()),
+		IsActive:             target.IsActive(),
+		PreviousStatus:       string(target.PreviousStatus()),
+		CurrentStatus:        string(target.CurrentStatus()),
+		CheckIntervalSeconds: target.Configuration().CheckIntervalSeconds(),
+		TimeoutSeconds:       target.Configuration().TimeoutSeconds(),
+		RetryCount:           target.Configuration().RetryCount(),
+		RetryDelaySeconds:    target.Configuration().RetryDelaySeconds(),
+		NextCheckAt:          target.NextCheckAt(), // IMPORTANTE: Guardar el próximo chequeo calculado
 	}
 
 	// Solo mapear CreatedAt si ya existe (update), no en create
@@ -127,9 +186,9 @@ func (r *PostgresMonitoringTargetRepository) toEntity(target *domain.MonitoringT
 		entity.CreatedAt = target.CreatedAt()
 	}
 
-	// Siempre mapear UpdatedAt (LastCheckedAt)
+	// Mapear métricas de ejecución explícitas
 	if !target.LastCheckedAt().IsZero() {
-		entity.UpdatedAt = target.LastCheckedAt()
+		entity.LastCheckedAt = target.LastCheckedAt()
 	}
 
 	return entity
@@ -149,16 +208,27 @@ func (r *PostgresMonitoringTargetRepository) toDomain(entity *MonitoringTargetEn
 	if err != nil {
 		return nil, err
 	}
+	// Usar valor guardado o default si es 0
+	interval := entity.CheckIntervalSeconds
+	if interval <= 0 {
+		interval = 300
+	}
 
 	config := domain.NewCheckConfiguration(
 		entity.TimeoutSeconds,
 		entity.RetryCount,
 		entity.RetryDelaySeconds,
-		300, // Default check interval
+		interval,
 	)
 
 	previousStatus := domain.TargetStatus(entity.PreviousStatus)
 	currentStatus := domain.TargetStatus(entity.CurrentStatus)
+
+	// Preferir LastCheckedAt explícito, fallback a UpdatedAt si es antiguo
+	lastChecked := entity.LastCheckedAt
+	if lastChecked.IsZero() && !entity.UpdatedAt.IsZero() {
+		lastChecked = entity.UpdatedAt
+	}
 
 	return domain.NewFullMonitoringTarget(
 		targetId,
@@ -171,6 +241,6 @@ func (r *PostgresMonitoringTargetRepository) toDomain(entity *MonitoringTargetEn
 		previousStatus,
 		currentStatus,
 		entity.CreatedAt,
-		entity.UpdatedAt,
+		lastChecked,
 	), nil
 }

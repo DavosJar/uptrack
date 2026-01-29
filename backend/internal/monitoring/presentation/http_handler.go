@@ -3,6 +3,7 @@ package presentation
 import (
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 	"uptrackai/internal/app"
 	"uptrackai/internal/monitoring/application"
@@ -142,7 +143,11 @@ func (h *MonitoringHandler) CreateTarget(c *gin.Context) {
 	}
 	dto, err := h.appService.CreateTarget(cmd)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create target"})
+		if strings.Contains(err.Error(), "objetivo duplicado") {
+			c.JSON(http.StatusConflict, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al crear el objetivo: " + err.Error()})
 		return
 	}
 

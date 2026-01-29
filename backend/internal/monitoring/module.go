@@ -2,7 +2,6 @@ package monitoring
 
 import (
 	"log"
-	"time"
 	"uptrackai/internal/monitoring/application"
 	"uptrackai/internal/monitoring/domain"
 	"uptrackai/internal/monitoring/infrastructure/postgres"
@@ -94,36 +93,10 @@ func (m *Module) StartScheduler() {
 		notificationChecker,
 	)
 
-	// Iniciar workers una vez
-	m.Orchestrator.Start()
+	// Iniciar Polling Scheduler
+	pollingScheduler := scheduler.NewPollingScheduler(m.targetRepo, m.Orchestrator)
+	pollingScheduler.Start() // Non-blocking
 
-	// Intervalo de ejecución del scheduler
-	const SchedulerInterval = 15 * time.Second
-	ticker := time.NewTicker(SchedulerInterval)
-	defer ticker.Stop()
-
-	// Primera ejecución inmediata
-	m.scheduleBatch()
-
-	// Luego cada intervalo
-	for range ticker.C {
-		m.scheduleBatch()
-	}
-}
-
-func (m *Module) scheduleBatch() {
-	targets, err := m.targetRepo.List()
-	if err != nil {
-		log.Printf("❌ Error fetching targets: %v", err)
-		return
-	}
-
-	if len(targets) == 0 {
-		log.Println("ℹ️  No targets to monitor")
-		return
-	}
-
-	// Enviar targets al orchestrator persistente (procesamiento asíncrono)
-	m.Orchestrator.Schedule(targets)
-	log.Printf("📤 Scheduled %d targets for monitoring", len(targets))
+	// Bloquear main goroutine
+	select {}
 }
