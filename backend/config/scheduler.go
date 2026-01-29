@@ -2,38 +2,41 @@ package config
 
 import (
 	"log"
-	"time"
 	"uptrackai/internal/monitoring/scheduler"
 )
 
-// RunScheduler ejecuta el scheduler oficial periódicamente
-// El scheduler real debe ejecutarse cada 5 minutos (intervalo de monitoreo en producción)
+// RunScheduler ejecuta el sistema de monitoreo (Coordinator & Scheduler)
 func RunScheduler(repos *Repositories) {
-	ticker := time.NewTicker(5 * time.Minute)
-	defer ticker.Stop()
+	log.Println("⚙️  Configurando Sistema de Monitoreo...")
 
-	// Primera ejecución inmediata
-	executeScheduler(repos)
+	// 1. Configurar Dispatcher de Notificaciones
+	dispatcher := scheduler.NewNotificationDispatcher(100)
+	// TODO: Iniciar aquí también el worker que consume del dispatcher
 
-	// Luego cada 5 minutos
-	for range ticker.C {
-		executeScheduler(repos)
-	}
-}
-
-func executeScheduler(repos *Repositories) {
-	targets, err := repos.TargetRepo.List()
-	if err != nil {
-		log.Printf("❌ Error fetching targets: %v", err)
-		return
+	// 2. Configurar Orchestrator (Worker Pool)
+	orchConfig := scheduler.OrchestratorConfig{
+		WorkerCount: 10,  // Podemos ajustar según CPU
+		BufferSize:  100, // Buffer de trabajos pendientes
 	}
 
-	s := scheduler.NewScheduler(
-		targets,
-		repos.CheckRepo,
-		repos.MetricsRepo,
+	orchestrator := scheduler.NewOrchestrator(
+		orchConfig,
 		repos.TargetRepo,
+		repos.MetricsRepo,
+		repos.CheckRepo,
 		repos.StatsRepo,
+		dispatcher,
+		nil, // TODO: Inyectar NotificationChecker real
 	)
-	s.Start()
+
+	// 3. Iniciar Polling Scheduler (La parte que "tickea" cada 10s)
+	pollingScheduler := scheduler.NewPollingScheduler(repos.TargetRepo, orchestrator)
+
+	// Start es no-bloqueante (lanza goroutines)
+	pollingScheduler.Start()
+
+	log.Println("✅ Sistema de Monitoreo corriendo.")
+
+	// Mantener el hilo principal vivo (si este método se corre como goroutine en main, esto bloquea esa goroutine)
+	select {}
 }

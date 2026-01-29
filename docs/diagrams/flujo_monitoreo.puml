@@ -1,47 +1,77 @@
 @startuml Flujo de Monitoreo - UpTrackAI
-title Flujo de Ejecución de Monitoreo y Alertas
+title Flujo de Ejecución de Monitoreo y Alertas (Arquitectura Polling)
 
 start
 
-:Scheduler Orchestrator;
-note right: Se ejecuta periódicamente
-
-:Enviar Target a Cola de Trabajos;
-
-fork
-    :Worker 1;
-fork again
-    :Worker 2;
-fork again
-    :Worker N;
-end fork
-
-:Ejecutar HealthChecker;
-
-if (¿Status UP?) then (Sí)
-    :Calcular Métricas;
-    note right: Latencia, uptime, SSL, etc.
-else (No)
-    note right: Error de conexión, Timeout, 5xx
-endif
-
-:Analizar Resultados;
-
-if (¿Cambio de Estado?) then (Sí)
-    :Actualizar Estado en BD;
-    :Guardar Historial de Eventos;
+partition "Polling Scheduler (Master Loop)" {
+    :Ticker (Cada 10s);
     
-    if (¿Cambio de Severidad?) then (Sí)
-        :Evento de Alerta -> Canal;
-        :Worker de Notificación;
-        :API Telegram/Slack (Asíncrono);
-    else (No)
-        :Sin Notificación;
+    // --- NUEVO: AUTO-DIAGNÓSTICO PREVIO ---
+    if (¿Tengo acceso a Internet?) then (No / Network Error)
+        :Loguear "SELF-DOWN: Sin Ping a Google/Cloudflare";
+        :Pausar Scheduling (Abortar Ciclo);
+        note right #Red
+            CIRCUIT BREAKER:
+            Evitar falsos positivos masivos.
+            Si yo estoy mal, no juzgo a los demás.
+        end note
+        stop
+    else (Sí / Conectado)
+        :Continuar...;
     endif
-else (No)
-    :Actualizar Último Chequeo;
-    :Guardar Solo Métricas;
-endif
+    // --------------------------------------
+
+    :Query DB: Obtener Targets Vencidos;
+    note right
+        SELECT WHERE next_check_at <= NOW()
+    end note
+    
+    :Filtro de Memoria (In-Flight Map);
+    note right
+        Ignorar si el target ya está siendo
+        procesado actualmente
+    end note
+    
+    :Encolar Trabajo en WorkerPool;
+}
+
+partition "Worker Execution (Thread Pool)" {
+    :Recibir Target del Queue;
+    
+    :Ejecutar Health Check;
+    note right: HTTP Request / Ping ICMP
+
+    :Calcular Métricas;
+    :Analizar Cambio de Estado;
+    
+    if (¿Estado cambió?) then (Sí)
+        note right: Transición Detectada (ej. UP -> DOWN)
+        
+        fork
+            partition "Notificación (Prioridad)" {
+                :Generar Evento de Alerta;
+                :Despachar al Bus de Eventos (Async);
+                note right
+                    No bloquea la persistencia.
+                    Sale inmediato.
+                end note
+            }
+        fork again
+            partition "Persistencia (DB)" {
+                :Actualizar Target (Status, NextCheck);
+                :Registrar CheckResult (Historial);
+                :Guardar Métricas (TimeSeries);
+            }
+        end fork
+        
+    else (No / Estable)
+        :Actualizar LastCheckedAt;
+        :Guardar solo Métricas;
+    endif
+    
+    :Invocar Callback (ProcessingComplete);
+    :Liberar Lock en Scheduler;
+}
 
 stop
 
