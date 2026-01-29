@@ -2,7 +2,7 @@ package scheduler
 
 import (
 	"log"
-	"net/http"
+	"net"
 	"sync"
 	"time"
 	"uptrackai/internal/monitoring/domain"
@@ -15,13 +15,26 @@ type PollingScheduler struct {
 	stopChan     chan struct{}
 }
 
-// verifyConnectivity checkea si *nosotros* tenemos internet
-func (s *PollingScheduler) verifyConnectivity() bool {
-	// Ping simple a DNS fiable (Google/Cloudflare/OpenDNS)
-	// Timeout corto para no bloquear
-	client := http.Client{Timeout: 2 * time.Second}
-	_, err := client.Get("https://1.1.1.1") // Cloudflare
-	return err == nil
+// TriggerImmediateCheck schedules a target for immediate execution
+func (s *PollingScheduler) TriggerImmediateCheck(target *domain.MonitoringTarget) {
+	// Verificar si ya está siendo procesado
+	if _, loading := s.inFlight.LoadOrStore(target.ID(), true); loading {
+		log.Printf("⚠️ Skip Immediate Check for %s (Already in flight)", target.Name())
+		return
+	}
+
+	// Double check connectivity before submitting
+	if !s.verifyConnectivity() {
+		s.inFlight.Delete(target.ID()) // Liberar lock
+		log.Printf("⚠️ Skip Immediate Check for %s (No Internet)", target.Name())
+		return
+	}
+
+	log.Printf("⚡ Immediate Check Triggered for target: %s", target.Name())
+
+	// Enviar al orquestador (Worker Pool)
+	// Como el WorkerPool acepta batch, le pasamos un slice de 1.
+	s.orchestrator.Schedule([]*domain.MonitoringTarget{target})
 }
 
 func NewPollingScheduler(
@@ -114,4 +127,14 @@ func (s *PollingScheduler) processDueTargets() {
 		log.Printf("📅 Scheduling %d targets (Total Due DB: %d)...", len(finalDueTargets), len(dueTargetsFromDB))
 		s.orchestrator.Schedule(finalDueTargets)
 	}
+}
+
+func (s *PollingScheduler) verifyConnectivity() bool {
+	// Ping Google DNS as a simple connectivity check
+	conn, err := net.DialTimeout("tcp", "8.8.8.8:53", 2*time.Second)
+	if err != nil {
+		return false
+	}
+	conn.Close()
+	return true
 }

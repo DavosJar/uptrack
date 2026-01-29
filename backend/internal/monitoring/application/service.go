@@ -8,11 +8,16 @@ import (
 
 // MonitoringApplicationService - Capa de aplicación que orquesta casos de uso
 // NO conoce infraestructura, solo interfaces del dominio
+type SchedulerInterface interface {
+	TriggerImmediateCheck(target *domain.MonitoringTarget)
+}
+
 type MonitoringApplicationService struct {
 	targetRepo  domain.MonitoringTargetRepository
 	metricsRepo domain.MetricsRepository
 	checkRepo   domain.CheckResultRepository
 	statsRepo   domain.TargetStatisticsRepository
+	scheduler   SchedulerInterface // Optional dependency for immediate checks
 }
 
 func NewMonitoringApplicationService(
@@ -27,6 +32,10 @@ func NewMonitoringApplicationService(
 		checkRepo:   checkRepo,
 		statsRepo:   statsRepo,
 	}
+}
+
+func (s *MonitoringApplicationService) SetScheduler(scheduler SchedulerInterface) {
+	s.scheduler = scheduler
 }
 
 // ==================== COMMANDS (Escritura) ====================
@@ -61,6 +70,11 @@ func (s *MonitoringApplicationService) CreateTarget(cmd CreateTargetCommand) (*M
 	savedTarget, err := s.targetRepo.Save(target)
 	if err != nil {
 		return nil, fmt.Errorf("failed to save target: %w", err)
+	}
+
+	// Trigger immediate check in background if scheduler is available
+	if s.scheduler != nil {
+		go s.scheduler.TriggerImmediateCheck(savedTarget)
 	}
 
 	// Mapear a Detail DTO antes de retornar

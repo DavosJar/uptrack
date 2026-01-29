@@ -95,6 +95,10 @@ func (m *Module) StartScheduler() {
 
 	// Iniciar Polling Scheduler
 	pollingScheduler := scheduler.NewPollingScheduler(m.targetRepo, m.Orchestrator)
+
+	// Inject Scheduler into Application Service for "TriggerImmediateCheck"
+	m.Service.SetScheduler(pollingScheduler)
+
 	pollingScheduler.Start() // Non-blocking
 
 	// Bloquear main goroutine

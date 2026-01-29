@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type PostgresMonitoringTargetRepository struct {
@@ -20,21 +21,35 @@ func NewPostgresMonitoringTargetRepository(db *gorm.DB) *PostgresMonitoringTarge
 
 // Implementación de métodos del repositorio (Save, List, etc.)
 func (r *PostgresMonitoringTargetRepository) Save(target *domain.MonitoringTarget) (*domain.MonitoringTarget, error) {
-	// Si no tiene ID, es nuevo → asignar UUID v7
-	if target.ID() == "" {
+	// Verificar si es nuevo ANTES de asignar ID (simple check: si venía vacío, es Create)
+	// Pero target.ID() es un value object, string vacío significa "nuevo" en este dominio
+	isNew := target.ID() == ""
+
+	if isNew {
 		newId := uuid.Must(uuid.NewV7())
 		target.AssignId(domain.TargetId(newId.String()))
 	}
 
 	entity := r.toEntity(target)
 
-	// Debug log para verificar qué se está guardando
-	// log.Printf("💾 Saving Target: %s | Status: %s | NextCheck: %v", entity.Name, entity.CurrentStatus, entity.NextCheckAt)
+	var err error
+	if isNew {
+		// CREATE explícito para nuevos registros con ID manual
+		err = r.db.Create(entity).Error
+	} else {
+		// SAVE (Update) para existentes
+		// Usamos Claúsula OnConflict para Upsert robusto si fuera necesario,
+		// pero aquí Save estándar con ID existente = Update
 
-	// UPDATE EXPLÍCITO para asegurar persistencia de campos de scheduling
-	// Usamos map para evitar problemas con Zero Values de GORM si fuera necesario,
-	// pero con struct y Select aseguramos que se envíen.
-	if err := r.db.Model(entity).Select("*").Save(entity).Error; err != nil {
+		// ⚠️ GORM Save con ID existente hace UPDATE.
+		// Si el registro no existiera (caso raro de race condition o borrado manual), Save daría 0 rows affected pero no error.
+		// Para robustez usamos Clauses(clause.OnConflict{UpdateAll: true}) que hace "INSERT ... ON CONFLICT UPDATE"
+		err = r.db.Clauses(clause.OnConflict{
+			UpdateAll: true,
+		}).Create(entity).Error
+	}
+
+	if err != nil {
 		return nil, err
 	}
 
