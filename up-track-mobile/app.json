@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "up-track-mobile",
+    "name": "UpTrack",
     "slug": "up-track-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,21 +10,46 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0F172A"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.uptrack.mobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#0F172A"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "package": "com.uptrack.mobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "SystemStatusWidget",
+              "label": "UpTrack - Estado del Sistema",
+              "minWidth": "250dp",
+              "minHeight": "100dp",
+              "description": "Muestra el estado de un sistema monitoreado",
+              "updatePeriodMillis": 1800000,
+              "resizeMode": "horizontal|vertical",
+              "widgetFeatures": "reconfigurable"
+            }
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "8d73980d-03ed-4f00-bb62-4947d46a6ae8"
+      }
     }
   }
 }
