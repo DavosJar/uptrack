@@ -49,14 +49,25 @@ func main() {
 	config.RunMigrations(db)
 	//config.SeedMonitoringTargets(db) // Seed temporal para testing
 
-	// 2. Inicializar Módulos (Application & Infrastructure)
+	// 2. Inicializar Telemetría (observabilidad)
+	telemetry, err := config.InitTelemetry()
+	if err != nil {
+		log.Printf("⚠️ Telemetry initialization failed: %v (continuing without telemetry)", err)
+	}
+	defer func() {
+		if telemetry != nil {
+			telemetry.Close()
+		}
+	}()
+
+	// 3. Inicializar Módulos (Application & Infrastructure)
 	notificationsModule := notifications.NewModule(db)
 	monitoringModule := monitoring.NewModule(db, notificationsModule.Service)
 	securityModule := security.NewModule(db)
 	userModule := user.NewModule(db)
 
-	// 3. HTTP Server en goroutine separada
-	go config.StartHTTPServer("8080",
+	// 4. HTTP Server en goroutine separada
+	go config.StartHTTPServer("8080", telemetry,
 		monitoringModule.Handler,
 		securityModule.Handler,
 		userModule.Handler,
@@ -65,6 +76,6 @@ func main() {
 		notificationsModule.WebhookHandler,
 	)
 
-	// 4. Scheduler bloquea el main thread
+	// 5. Scheduler bloquea el main thread
 	monitoringModule.StartScheduler()
 }
