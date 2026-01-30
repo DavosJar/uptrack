@@ -81,6 +81,15 @@ const MonitorIcon = ({ size = 24, color = colors.textMuted }: { size?: number; c
   </Svg>
 );
 
+const WidgetIcon = ({ size = 24, color = colors.textMuted }: { size?: number; color?: string }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <Rect x="3" y="3" width="7" height="7" rx="1" />
+    <Rect x="14" y="3" width="7" height="7" rx="1" />
+    <Rect x="14" y="14" width="7" height="7" rx="1" />
+    <Rect x="3" y="14" width="7" height="7" rx="1" />
+  </Svg>
+);
+
 // Interfaces
 interface UserProfile {
   id: string;
@@ -128,9 +137,10 @@ const SettingsItem: React.FC<SettingsItemProps> = ({
 
 interface SettingsScreenProps {
   onNavigateToNotifications?: () => void;
+  onNavigateToWidgetConfig?: () => void;
 }
 
-const SettingsScreen: React.FC<SettingsScreenProps> = ({ onNavigateToNotifications }) => {
+const SettingsScreen: React.FC<SettingsScreenProps> = ({ onNavigateToNotifications, onNavigateToWidgetConfig }) => {
   const { logout } = useAuth();
 
   // Estado para logout
@@ -291,10 +301,10 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onNavigateToNotificatio
             />
             <View style={styles.separator} />
             <SettingsItem
-              icon={<ShieldIcon size={20} color={colors.statusSuccess} />}
-              title="Seguridad"
-              subtitle="Contraseña y autenticación"
-              onPress={handleSecurity}
+              icon={<WidgetIcon size={20} color={colors.primary} />}
+              title="Widget"
+              subtitle="Configurar widget de pantalla"
+              onPress={() => onNavigateToWidgetConfig?.()}
             />
           </View>
         </View>

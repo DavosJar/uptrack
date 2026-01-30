@@ -8,10 +8,11 @@ import SystemsScreen from '../screens/SystemsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TargetDetailsScreen from '../screens/TargetDetailsScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
+import WidgetConfigScreen from '../screens/WidgetConfigScreen';
 import BottomTabBar, { TabScreen } from '../components/BottomTabBar';
 import { colors } from '../theme/colors';
 
-type Screen = TabScreen | 'addTarget' | 'targetDetails' | 'notifications';
+type Screen = TabScreen | 'addTarget' | 'targetDetails' | 'notifications' | 'widgetConfig';
 
 const AppNavigator: React.FC = () => {
   const { isLoggedIn, loading } = useAuth();
@@ -84,10 +85,17 @@ const AppNavigator: React.FC = () => {
             onBack={() => setCurrentScreen('settings')}
           />
         );
+      case 'widgetConfig':
+        return (
+          <WidgetConfigScreen
+            onBack={() => setCurrentScreen('settings')}
+          />
+        );
       case 'settings':
         return (
           <SettingsScreen
             onNavigateToNotifications={() => setCurrentScreen('notifications')}
+            onNavigateToWidgetConfig={() => setCurrentScreen('widgetConfig')}
           />
         );
       case 'dashboard':
@@ -101,8 +109,8 @@ const AppNavigator: React.FC = () => {
     }
   };
 
-  // Ocultar barra inferior en AddTarget, TargetDetails y Notifications
-  const showBottomBar = currentScreen !== 'addTarget' && currentScreen !== 'targetDetails' && currentScreen !== 'notifications';
+  // Ocultar barra inferior en AddTarget, TargetDetails, Notifications y WidgetConfig
+  const showBottomBar = currentScreen !== 'addTarget' && currentScreen !== 'targetDetails' && currentScreen !== 'notifications' && currentScreen !== 'widgetConfig';
 
   return (
     <View style={styles.container}>
