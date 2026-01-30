@@ -96,10 +96,13 @@ func (r *PostgresMonitoringTargetRepository) ListByUserAndRole(userID userdomain
 
 func (r *PostgresMonitoringTargetRepository) GetByID(id domain.TargetId) (*domain.MonitoringTarget, error) {
 	var entity MonitoringTargetEntity
-	targetUUID := uuid.MustParse(string(id))
+	targetUUID, err := uuid.Parse(string(id))
+	if err != nil {
+		return nil, domain.ErrTargetNotFound // UUID inválido = no existe
+	}
 
 	if err := r.db.Where("id = ?", targetUUID).First(&entity).Error; err != nil {
-		return nil, err
+		return nil, domain.ErrTargetNotFound
 	}
 
 	return r.toDomain(&entity)

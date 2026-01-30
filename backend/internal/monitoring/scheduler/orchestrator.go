@@ -145,7 +145,9 @@ func (o *Orchestrator) processTarget(target *domain.MonitoringTarget) {
 	_ = o.statsRepo.Save(historical)
 
 	// 7. Notificar si es necesario
-	if o.notificationChecker != nil && o.notificationChecker.HasActiveChannel(target.UserId().String()) {
+	// Eliminamos la verificación de canales activos aqu para permitir que se generen
+	// alertas internas (historial frontend) incluso si no hay Telegram/Email configurado.
+	if o.notificationChecker != nil {
 		newSeverity := o.severityMapper.Map(string(newStatus))
 		prevSeverity := o.severityMapper.Map(string(previousStatus))
 

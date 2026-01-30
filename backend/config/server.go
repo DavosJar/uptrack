@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"uptrackai/internal/observability"
 	"uptrackai/internal/security/presentation"
 
 	"uptrackai/internal/security/infrastructure/jwt"
@@ -19,11 +20,15 @@ type HTTPHandler interface {
 
 // StartHTTPServer inicia el servidor HTTP con Gin en modo release
 // NO recibe Repositories - handlers ya tienen sus dependencias inyectadas
-func StartHTTPServer(port string, handlers ...HTTPHandler) {
+func StartHTTPServer(port string, telemetry *observability.Telemetry, handlers ...HTTPHandler) {
 	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.New()
 	router.Use(gin.Recovery())
+
+	// Telemetry middleware (primero, para capturar todo)
+	// Es no-op si telemetry está deshabilitado
+	router.Use(observability.GinTelemetryMiddleware(telemetry))
 
 	// CORS middleware - PERMITE TODO
 	router.Use(func(c *gin.Context) {
