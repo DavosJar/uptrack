@@ -10,9 +10,11 @@ book:
     - index.qmd
     - part: "Arquitectura del Sistema"
       chapters:
+        - arquitectura/index.qmd
         - arquitectura/overview.qmd
         - arquitectura/backend.qmd
         - arquitectura/frontend.qmd
+        - arquitectura/mobile.qmd
         - arquitectura/database.qmd
 
 format:
@@ -26,3 +28,18 @@ format:
     mermaid:
       theme: default
     include-in-header: header.html
+  
+  pdf:
+    documentclass: scrreprt
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    colorlinks: true
+    papersize: a4
+    fontsize: 11pt
+    geometry:
+      - margin=1in
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}

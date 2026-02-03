@@ -3,6 +3,7 @@ package scheduler
 import (
 	"log"
 	"net"
+	"os"
 	"sync"
 	"time"
 	"uptrackai/internal/monitoring/domain"
@@ -130,8 +131,15 @@ func (s *PollingScheduler) processDueTargets() {
 }
 
 func (s *PollingScheduler) verifyConnectivity() bool {
+	// Si SKIP_CONNECTIVITY_CHECK está habilitado, no hacer la comprobación
+	if os.Getenv("SKIP_CONNECTIVITY_CHECK") == "true" {
+		log.Println("⚠️ SKIP_CONNECTIVITY_CHECK habilitado: Omitiendo verificación de conectividad.")
+		return true // No comprobar, continuar sin verificación
+	}
+
 	// Ping Google DNS as a simple connectivity check
 	conn, err := net.DialTimeout("tcp", "8.8.8.8:53", 2*time.Second)
+	log.Printf("🌐 Conectividad verificada: %v", err == nil)
 	if err != nil {
 		return false
 	}

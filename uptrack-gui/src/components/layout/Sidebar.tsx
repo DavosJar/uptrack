@@ -12,11 +12,11 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isDesktopOpen, setIsDesktopOpen, isMobileOpen, setIsMobileOpen }) => {
   const navigate = useNavigate();
   const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
-    { icon: Monitor, label: 'Systems', path: '/systems' },
-    { icon: BarChart, label: 'Reports', path: '/reports' },
-    { icon: User, label: 'Profile', path: '/profile' },
-    { icon: Settings, label: 'Settings', path: '/settings' },
+    { icon: LayoutDashboard, label: 'Panel', path: '/dashboard' },
+    { icon: Monitor, label: 'Sistemas', path: '/systems' },
+    { icon: BarChart, label: 'Reportes', path: '/reports' },
+    { icon: User, label: 'Perfil', path: '/profile' },
+    { icon: Settings, label: 'Configuración', path: '/settings' },
   ];
 
   return (
@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isDesktopOpen, setIsDesktopOpen, isMo
               aria-label="Cerrar sesión"
             >
               <LogOut size={20} aria-hidden="true" />
-              <span>Logout</span>
+              <span>Cerrar sesión</span>
             </button>
           </div>
         </div>

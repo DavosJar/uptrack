@@ -58,7 +58,7 @@ const Reports: React.FC = () => {
 
   const generateReport = async () => {
     if (!selectedTargetId) {
-      setError('Please select a target');
+      setError('Por favor seleccione un sistema');
       return;
     }
     
@@ -254,7 +254,7 @@ const Reports: React.FC = () => {
 
     } catch (err) {
       console.error(err);
-      setError('Failed to generate report. Please try again.');
+      setError('Error al generar el reporte. Por favor intente de nuevo.');
     } finally {
       setLoading(false);
     }
@@ -270,12 +270,12 @@ const Reports: React.FC = () => {
       <section className="print:hidden bg-background-card rounded-xl border border-border-dark p-6 mb-8 shadow-lg" aria-label="Generador de reportes">
         <h1 className="text-2xl font-bold text-text-main mb-6 flex items-center gap-2">
           <FileText className="text-primary" aria-hidden="true" />
-          Generate Performance Report
+          Generar Reporte de Rendimiento
         </h1>
         
         <form className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end" onSubmit={(e) => { e.preventDefault(); generateReport(); }} aria-label="Formulario para generar reporte">
           <div className="space-y-2">
-            <label htmlFor="target-select" className="text-sm font-medium text-text-muted">Select Target</label>
+            <label htmlFor="target-select" className="text-sm font-medium text-text-muted">Seleccionar Sistema</label>
             <select 
               id="target-select"
               className="w-full bg-background border border-border-dark rounded-lg px-4 py-2.5 text-text-main focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
@@ -283,7 +283,7 @@ const Reports: React.FC = () => {
               onChange={(e) => setSelectedTargetId(e.target.value)}
               aria-required="true"
             >
-              <option value="">-- Select a System --</option>
+              <option value="">-- Seleccione un Sistema --</option>
               {targets.map(t => (
                 <option key={t.id} value={t.id}>{t.name} ({t.url})</option>
               ))}
@@ -291,7 +291,7 @@ const Reports: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="start-date" className="text-sm font-medium text-text-muted">Start Date</label>
+            <label htmlFor="start-date" className="text-sm font-medium text-text-muted">Fecha Inicio</label>
             <div className="relative">
               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4" aria-hidden="true" />
               <input 
@@ -306,7 +306,7 @@ const Reports: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="end-date" className="text-sm font-medium text-text-muted">End Date</label>
+            <label htmlFor="end-date" className="text-sm font-medium text-text-muted">Fecha Fin</label>
             <div className="relative">
               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4" aria-hidden="true" />
               <input 
@@ -332,7 +332,7 @@ const Reports: React.FC = () => {
             ) : (
               <>
                 <BarChart2 size={18} aria-hidden="true" />
-                Generate Report
+                Generar Reporte
               </>
             )}
           </button>
@@ -356,7 +356,7 @@ const Reports: React.FC = () => {
               aria-label="Guardar reporte como PDF"
             >
               <Download size={18} aria-hidden="true" />
-              Save as PDF
+              Guardar como PDF
             </button>
           </div>
 
@@ -366,48 +366,48 @@ const Reports: React.FC = () => {
             {/* Document Header */}
             <div className="border-b-2 border-black pb-4 mb-8 flex justify-between items-end">
               <div>
-                <h1 className="text-3xl font-serif font-bold text-black mb-1">SERVICE LEVEL REPORT</h1>
-                <p className="text-gray-600 font-serif italic">UpTrack AI Monitoring System</p>
+                <h1 className="text-3xl font-serif font-bold text-black mb-1">REPORTE DE NIVEL DE SERVICIO</h1>
+                <p className="text-gray-600 font-serif italic">Sistema de Monitoreo UpTrack AI</p>
               </div>
               <div className="text-right">
-                <div className="text-sm text-gray-600 font-serif">Generated on: {reportData.generatedAt.toLocaleDateString()}</div>
+                <div className="text-sm text-gray-600 font-serif">Generado el: {reportData.generatedAt.toLocaleDateString()}</div>
                 <div className="text-sm text-gray-600 font-serif">Ref: {reportData.target.id ? reportData.target.id.slice(0, 8).toUpperCase() : 'N/A'}</div>
               </div>
             </div>
 
             {/* Executive Summary Table */}
             <div className="mb-8">
-              <h2 className="text-lg font-bold uppercase border-b border-black mb-4 pb-1 font-serif">1. Executive Summary</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-black mb-4 pb-1 font-serif">1. Resumen Ejecutivo</h2>
               <table className="w-full border-collapse border border-black text-sm font-serif">
                 <tbody>
                   <tr>
-                    <td className="border border-black p-2 bg-gray-100 font-bold w-1/4">System Name</td>
+                    <td className="border border-black p-2 bg-gray-100 font-bold w-1/4">Nombre del Sistema</td>
                     <td className="border border-black p-2 w-1/4">{reportData.target.name}</td>
-                    <td className="border border-black p-2 bg-gray-100 font-bold w-1/4">Target URL</td>
+                    <td className="border border-black p-2 bg-gray-100 font-bold w-1/4">URL del Servicio</td>
                     <td className="border border-black p-2 w-1/4 font-mono text-xs">{reportData.target.url}</td>
                   </tr>
                   <tr>
-                    <td className="border border-black p-2 bg-gray-100 font-bold">Reporting Period</td>
+                    <td className="border border-black p-2 bg-gray-100 font-bold">Período del Reporte</td>
                     <td className="border border-black p-2" colSpan={3}>
-                      {new Date(reportData.dateRange.start).toLocaleDateString()} to {new Date(reportData.dateRange.end).toLocaleDateString()}
+                      {new Date(reportData.dateRange.start).toLocaleDateString()} a {new Date(reportData.dateRange.end).toLocaleDateString()}
                     </td>
                   </tr>
                   <tr>
-                    <td className="border border-black p-2 bg-gray-100 font-bold">Overall Uptime</td>
+                    <td className="border border-black p-2 bg-gray-100 font-bold">Disponibilidad Total</td>
                     <td className="border border-black p-2">
                       {reportData.calculatedUptime !== undefined ? `${reportData.calculatedUptime.toFixed(2)}%` : 'N/A'}
                     </td>
-                    <td className="border border-black p-2 bg-gray-100 font-bold">Avg Response Time</td>
+                    <td className="border border-black p-2 bg-gray-100 font-bold">Tiempo de Respuesta Prom.</td>
                     <td className="border border-black p-2">
                       {reportData.calculatedAvgResponseTime !== undefined ? `${Math.round(reportData.calculatedAvgResponseTime)}ms` : 'N/A'}
                     </td>
                   </tr>
                   <tr>
-                    <td className="border border-black p-2 bg-gray-100 font-bold">Total Checks</td>
+                    <td className="border border-black p-2 bg-gray-100 font-bold">Total de Verificaciones</td>
                     <td className="border border-black p-2">
                       {reportData.metrics.length}
                     </td>
-                    <td className="border border-black p-2 bg-gray-100 font-bold">Total Incidents</td>
+                    <td className="border border-black p-2 bg-gray-100 font-bold">Total de Incidentes</td>
                     <td className="border border-black p-2">
                       {reportData.history.filter((h: any) => h.status !== 'UP').length}
                     </td>
@@ -418,7 +418,7 @@ const Reports: React.FC = () => {
 
             {/* Daily Performance Chart */}
             <div className="mb-8 break-inside-avoid">
-              <h2 className="text-lg font-bold uppercase border-b border-black mb-4 pb-1 font-serif">2. Daily Performance Metrics</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-black mb-4 pb-1 font-serif">2. Métricas de Rendimiento Diario</h2>
               <div className="h-64 w-full border border-black p-2 print:h-[8cm] print:block">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={reportData.dailyStats}>
@@ -453,19 +453,19 @@ const Reports: React.FC = () => {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-              <p className="text-xs text-gray-500 mt-2 font-serif italic text-center">Figure 1: Daily uptime percentage vs average response time.</p>
+              <p className="text-xs text-gray-500 mt-2 font-serif italic text-center">Figura 1: Porcentaje de disponibilidad diaria vs tiempo de respuesta promedio.</p>
             </div>
 
             {/* Incident History Table */}
             <div className="break-inside-avoid">
-              <h2 className="text-lg font-bold uppercase border-b border-black mb-4 pb-1 font-serif">3. Incident History</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-black mb-4 pb-1 font-serif">3. Historial de Incidentes</h2>
               {reportData.history.length > 0 ? (
                 <table className="w-full text-xs font-serif border border-black">
                   <thead className="bg-gray-100 border-b border-black">
                     <tr>
-                      <th className="px-4 py-2 border-r border-black font-bold text-black w-1/4">Timestamp</th>
-                      <th className="px-4 py-2 border-r border-black font-bold text-black w-1/4">Event Type</th>
-                      <th className="px-4 py-2 font-bold text-black w-1/2">Description</th>
+                      <th className="px-4 py-2 border-r border-black font-bold text-black w-1/4">Fecha y Hora</th>
+                      <th className="px-4 py-2 border-r border-black font-bold text-black w-1/4">Tipo de Evento</th>
+                      <th className="px-4 py-2 font-bold text-black w-1/2">Descripción</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-black">
@@ -478,7 +478,7 @@ const Reports: React.FC = () => {
                           {event.status}
                         </td>
                         <td className="px-4 py-2">
-                          {event.status === 'UP' ? 'System recovered and operational.' : 'System unreachable or returned error.'}
+                          {event.status === 'UP' ? 'Sistema recuperado y operativo.' : 'Sistema inalcanzable o con error.'}
                         </td>
                       </tr>
                     ))}
@@ -486,19 +486,19 @@ const Reports: React.FC = () => {
                 </table>
               ) : (
                 <div className="border border-black p-4 text-center italic text-gray-600 text-sm">
-                  No incidents recorded during this period.
+                  No se registraron incidentes durante este período.
                 </div>
               )}
               {reportData.history.length > 15 && (
                 <p className="text-xs text-gray-500 mt-2 italic text-right">
-                  * Showing first 15 incidents only.
+                  * Mostrando solo los primeros 15 incidentes.
                 </p>
               )}
             </div>
 
             {/* Footer */}
             <div className="mt-16 pt-4 border-t-2 border-black text-center text-xs font-serif">
-              <p>CONFIDENTIAL - Generated by UpTrack AI</p>
+              <p>CONFIDENCIAL - Generado por UpTrack AI</p>
             </div>
 
           </div>

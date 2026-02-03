@@ -1,33 +1,118 @@
 # Arquitectura del Sistema
 
-Esta sección describe la arquitectura de UpTrackAI.
+Esta sección describe en detalle la arquitectura técnica de UpTrackAI, desde la visión de alto nivel hasta los detalles de implementación de cada componente.
 
-## Resumen
+## Resumen Ejecutivo
 
-UpTrackAI sigue los principios de Clean Architecture con las siguientes capas:
+UpTrackAI es un sistema de monitoreo de disponibilidad construido siguiendo los principios de **Clean Architecture**, lo que garantiza:
 
-- **Dominio**: Lógica de negocio central y entidades
-- **Aplicación**: Casos de uso y servicios de aplicación
-- **Infraestructura**: Preocupaciones externas (base de datos, APIs, etc.)
-- **Presentación**: Manejadores HTTP y respuestas de API
+- **Testabilidad**: Cada capa puede probarse de forma aislada
+- **Mantenibilidad**: Cambios en infraestructura no afectan lógica de negocio
+- **Extensibilidad**: Nuevos canales de notificación o tipos de checks sin modificar el core
 
-## Componentes
+## Capas de la Arquitectura
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   PRESENTACIÓN                              │
+│  • HTTP Handlers (Gin)                                      │
+│  • Request/Response DTOs                                    │
+│  • Middleware (Auth, CORS, Logging)                         │
+│  • Swagger Documentation                                    │
+├─────────────────────────────────────────────────────────────┤
+│                   APLICACIÓN                                │
+│  • Casos de Uso (Commands/Queries)                          │
+│  • Application Services                                     │
+│  • DTOs de transferencia                                    │
+│  • Orquestación de dominio                                  │
+├─────────────────────────────────────────────────────────────┤
+│                   DOMINIO                                   │
+│  • Entidades (MonitoringTarget, User, etc.)                 │
+│  • Value Objects (TargetId, Email, etc.)                    │
+│  • Interfaces de Repositorio                                │
+│  • Reglas de negocio y validaciones                         │
+├─────────────────────────────────────────────────────────────┤
+│                 INFRAESTRUCTURA                             │
+│  • PostgreSQL Repositories (GORM)                           │
+│  • Telegram API Client                                      │
+│  • JWT Token Service                                        │
+│  • HTTP Health Checker                                      │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Módulos del Sistema
+
+El backend está organizado en módulos independientes, cada uno con su propia estructura Clean Architecture:
+
+| Módulo | Responsabilidad | Dependencias |
+|--------|----------------|--------------|
+| **Monitoring** | Gestión de targets, ejecución de health checks, métricas | Notifications (alertas) |
+| **Notifications** | Envío de alertas, canales, vinculación Telegram | - |
+| **Security** | Autenticación JWT, hashing de contraseñas | User |
+| **User** | Perfil de usuario, preferencias | - |
+
+### Inicialización de Módulos
+
+```go
+// main.go - Composición de dependencias
+notificationsModule := notifications.NewModule(db)
+monitoringModule := monitoring.NewModule(db, notificationsModule.Service)
+securityModule := security.NewModule(db)
+userModule := user.NewModule(db)
+```
+
+## Componentes Clave
 
 ### Backend (Go)
 
-- **Módulo de Monitoreo**: Maneja objetivos de monitoreo y verificaciones de salud
-- **Módulo de Notificaciones**: Gestiona notificaciones asíncronas vía Telegram
-- **Módulo de Usuario**: Gestión de usuarios y autenticación
-- **Módulo de Seguridad**: Seguridad y autorización
+- **API REST (Gin)**: Punto de entrada para clientes Web y Móviles
+- **Scheduler (Worker Pool)**: Orquestador que gestiona la ejecución periódica de health checks
+- **Monitoring Module**: Núcleo de lógica de negocio que ejecuta las verificaciones
+- **Notification Module**: Gestiona canales y envío de alertas asíncronas
+- **Security Module**: Autenticación JWT y autorización basada en roles
 
 ### Frontend (React/TypeScript)
 
-- **Dashboard**: Interfaz principal de monitoreo
-- **Gestión de Objetivos**: Agregar y configurar objetivos de monitoreo
-- **Perfil de Usuario**: Configuraciones de usuario y vinculación con Telegram
+- **Dashboard**: Vista principal con estadísticas y alertas activas
+- **Systems**: Lista completa de targets monitoreados
+- **Target Detail**: Métricas detalladas, gráficos de latencia, heatmap
+- **Profile**: Configuración de usuario y vinculación con Telegram
 
 ### Base de Datos (PostgreSQL)
 
-- **Datos de Monitoreo**: Objetivos, resultados de verificaciones, métricas
-- **Datos de Usuario**: Usuarios, canales de notificación
-- **Datos del Sistema**: Configuraciones y migraciones
+- **Datos de Monitoreo**: `monitoring_targets`, `check_results`, `metrics`, `target_statistics`
+- **Datos de Usuario**: `users`, `credentials`
+- **Datos de Notificaciones**: `notification_channels`, `telegram_linking_tokens`
+
+## Flujos Principales
+
+### 1. Flujo de Health Check
+
+```
+Scheduler (10s) → GetDueTargets → WorkerPool → HealthChecker 
+    → ResultAnalyzer → StateUpdater → NotificationDispatcher
+```
+
+### 2. Flujo de Autenticación
+
+```
+Login Request → Validate Credentials → Generate JWT 
+    → Return Token → Client stores in localStorage
+```
+
+### 3. Flujo de Vinculación Telegram
+
+```
+User clicks "Connect" → Generate Magic Link Token 
+    → Redirect to Telegram → Bot receives /start TOKEN 
+    → Backend validates → Associate ChatID with User
+```
+
+## Documentación Detallada
+
+Continúe con las siguientes secciones para información específica:
+
+- [Visión General](overview.qmd) - Contexto, patrones de diseño, modelo de estados
+- [Backend](backend.qmd) - Módulos Go, API REST, Scheduler, autenticación
+- [Frontend](frontend.qmd) - React, componentes, integración, despliegue
+- [Base de Datos](database.qmd) - Modelo de datos, esquema, índices, migraciones

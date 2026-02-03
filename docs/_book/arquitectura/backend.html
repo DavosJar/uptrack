@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Backend y Servicios – Documentación Técnica de UpTrackAI</title>
+<title>4&nbsp; Backend y Servicios – Documentación Técnica de UpTrackAI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/overview.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/backend.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/index.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/backend.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -167,26 +167,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../arquitectura/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Arquitectura del Sistema</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../arquitectura/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visión General del Sistema</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visión General del Sistema</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../arquitectura/backend.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../arquitectura/frontend.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../arquitectura/mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Aplicación Móvil</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../arquitectura/database.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></span></a>
   </div>
 </li>
       </ul>
@@ -201,24 +213,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#arquitectura-de-componentes-c4-nivel-3" id="toc-arquitectura-de-componentes-c4-nivel-3" class="nav-link active" data-scroll-target="#arquitectura-de-componentes-c4-nivel-3"><span class="header-section-number">3.1</span> Arquitectura de Componentes (C4 Nivel 3)</a>
+  <li><a href="#arquitectura-de-componentes-c4-nivel-3" id="toc-arquitectura-de-componentes-c4-nivel-3" class="nav-link active" data-scroll-target="#arquitectura-de-componentes-c4-nivel-3"><span class="header-section-number">4.1</span> Arquitectura de Componentes (C4 Nivel 3)</a></li>
+  <li><a href="#arquitectura-de-módulos" id="toc-arquitectura-de-módulos" class="nav-link" data-scroll-target="#arquitectura-de-módulos"><span class="header-section-number">4.2</span> Arquitectura de Módulos</a>
   <ul class="collapse">
-  <li><a href="#módulos-principales" id="toc-módulos-principales" class="nav-link" data-scroll-target="#módulos-principales"><span class="header-section-number">3.1.1</span> Módulos Principales</a></li>
+  <li><a href="#estructura-de-directorios" id="toc-estructura-de-directorios" class="nav-link" data-scroll-target="#estructura-de-directorios"><span class="header-section-number">4.2.1</span> Estructura de Directorios</a></li>
   </ul></li>
-  <li><a href="#flujo-de-monitoreo" id="toc-flujo-de-monitoreo" class="nav-link" data-scroll-target="#flujo-de-monitoreo"><span class="header-section-number">3.2</span> Flujo de Monitoreo</a></li>
-  <li><a href="#estructura-clean-architecture" id="toc-estructura-clean-architecture" class="nav-link" data-scroll-target="#estructura-clean-architecture"><span class="header-section-number">3.3</span> Estructura Clean Architecture</a></li>
-  <li><a href="#stack-tecnológico" id="toc-stack-tecnológico" class="nav-link" data-scroll-target="#stack-tecnológico"><span class="header-section-number">3.4</span> Stack Tecnológico</a></li>
-  <li><a href="#estructura-de-módulos" id="toc-estructura-de-módulos" class="nav-link" data-scroll-target="#estructura-de-módulos"><span class="header-section-number">3.5</span> Estructura de Módulos</a></li>
-  <li><a href="#manejo-de-errores" id="toc-manejo-de-errores" class="nav-link" data-scroll-target="#manejo-de-errores"><span class="header-section-number">3.6</span> Manejo de Errores</a></li>
+  <li><a href="#módulo-de-monitoreo" id="toc-módulo-de-monitoreo" class="nav-link" data-scroll-target="#módulo-de-monitoreo"><span class="header-section-number">4.3</span> Módulo de Monitoreo</a>
+  <ul class="collapse">
+  <li><a href="#entidades-de-dominio" id="toc-entidades-de-dominio" class="nav-link" data-scroll-target="#entidades-de-dominio"><span class="header-section-number">4.3.1</span> Entidades de Dominio</a></li>
+  <li><a href="#value-objects" id="toc-value-objects" class="nav-link" data-scroll-target="#value-objects"><span class="header-section-number">4.3.2</span> Value Objects</a></li>
+  <li><a href="#scheduler-y-orquestador" id="toc-scheduler-y-orquestador" class="nav-link" data-scroll-target="#scheduler-y-orquestador"><span class="header-section-number">4.3.3</span> Scheduler y Orquestador</a></li>
+  <li><a href="#algoritmo-de-detección-de-estado" id="toc-algoritmo-de-detección-de-estado" class="nav-link" data-scroll-target="#algoritmo-de-detección-de-estado"><span class="header-section-number">4.3.4</span> Algoritmo de Detección de Estado</a></li>
+  </ul></li>
+  <li><a href="#módulo-de-notificaciones" id="toc-módulo-de-notificaciones" class="nav-link" data-scroll-target="#módulo-de-notificaciones"><span class="header-section-number">4.4</span> Módulo de Notificaciones</a>
+  <ul class="collapse">
+  <li><a href="#sistema-de-alertas" id="toc-sistema-de-alertas" class="nav-link" data-scroll-target="#sistema-de-alertas"><span class="header-section-number">4.4.1</span> Sistema de Alertas</a></li>
+  <li><a href="#magic-link-para-telegram" id="toc-magic-link-para-telegram" class="nav-link" data-scroll-target="#magic-link-para-telegram"><span class="header-section-number">4.4.2</span> Magic Link para Telegram</a></li>
+  </ul></li>
+  <li><a href="#módulo-de-seguridad" id="toc-módulo-de-seguridad" class="nav-link" data-scroll-target="#módulo-de-seguridad"><span class="header-section-number">4.5</span> Módulo de Seguridad</a>
+  <ul class="collapse">
+  <li><a href="#autenticación-jwt" id="toc-autenticación-jwt" class="nav-link" data-scroll-target="#autenticación-jwt"><span class="header-section-number">4.5.1</span> Autenticación JWT</a></li>
+  <li><a href="#seguridad-de-contraseñas" id="toc-seguridad-de-contraseñas" class="nav-link" data-scroll-target="#seguridad-de-contraseñas"><span class="header-section-number">4.5.2</span> Seguridad de Contraseñas</a></li>
+  </ul></li>
+  <li><a href="#api-rest" id="toc-api-rest" class="nav-link" data-scroll-target="#api-rest"><span class="header-section-number">4.6</span> API REST</a>
+  <ul class="collapse">
+  <li><a href="#estándar-de-respuestas" id="toc-estándar-de-respuestas" class="nav-link" data-scroll-target="#estándar-de-respuestas"><span class="header-section-number">4.6.1</span> Estándar de Respuestas</a></li>
+  <li><a href="#endpoints-principales" id="toc-endpoints-principales" class="nav-link" data-scroll-target="#endpoints-principales"><span class="header-section-number">4.6.2</span> Endpoints Principales</a></li>
+  <li><a href="#documentación-swagger" id="toc-documentación-swagger" class="nav-link" data-scroll-target="#documentación-swagger"><span class="header-section-number">4.6.3</span> Documentación Swagger</a></li>
+  </ul></li>
+  <li><a href="#stack-tecnológico" id="toc-stack-tecnológico" class="nav-link" data-scroll-target="#stack-tecnológico"><span class="header-section-number">4.7</span> Stack Tecnológico</a></li>
+  <li><a href="#ejecución-local" id="toc-ejecución-local" class="nav-link" data-scroll-target="#ejecución-local"><span class="header-section-number">4.8</span> Ejecución Local</a>
+  <ul class="collapse">
+  <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos"><span class="header-section-number">4.8.1</span> Requisitos</a></li>
+  <li><a href="#comandos" id="toc-comandos" class="nav-link" data-scroll-target="#comandos"><span class="header-section-number">4.8.2</span> Comandos</a></li>
+  <li><a href="#configuración-mínima-.env" id="toc-configuración-mínima-.env" class="nav-link" data-scroll-target="#configuración-mínima-.env"><span class="header-section-number">4.8.3</span> Configuración Mínima (.env)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/overview.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/backend.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/index.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/backend.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -235,9 +273,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>El backend de UpTrackAI está construido en Go, priorizando el rendimiento y la concurrencia.</p>
-<section id="arquitectura-de-componentes-c4-nivel-3" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="arquitectura-de-componentes-c4-nivel-3"><span class="header-section-number">3.1</span> Arquitectura de Componentes (C4 Nivel 3)</h2>
+<p>El backend de UpTrackAI está construido en Go 1.21+, aprovechando su modelo de concurrencia nativo para ejecutar health checks en paralelo de manera eficiente.</p>
+<section id="arquitectura-de-componentes-c4-nivel-3" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="arquitectura-de-componentes-c4-nivel-3"><span class="header-section-number">4.1</span> Arquitectura de Componentes (C4 Nivel 3)</h2>
 <p>El siguiente diagrama detalla los módulos internos del Backend API y sus interacciones.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -245,84 +283,507 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Diagrama de Componentes</figcaption>
 </figure>
 </div>
-<section id="módulos-principales" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="módulos-principales"><span class="header-section-number">3.1.1</span> Módulos Principales</h3>
-<ul>
-<li><strong>API REST (Gin):</strong> Punto de entrada para clientes Web y Móviles.</li>
-<li><strong>Scheduler:</strong> Orquestador que gestiona la ejecución periódica de chequeos.</li>
-<li><strong>Monitoring Module:</strong> Núcleo de lógica de negocio que ejecuta los health checks.</li>
-<li><strong>Notification Module:</strong> Gestiona canales y envío de alertas.</li>
-<li><strong>Security Module:</strong> Autenticación y autorización (JWT).</li>
-</ul>
 </section>
-</section>
-<section id="flujo-de-monitoreo" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="flujo-de-monitoreo"><span class="header-section-number">3.2</span> Flujo de Monitoreo</h2>
-<p>El proceso de verificación de un objetivo sigue un flujo estricto para determinar el estado y la necesidad de alertar.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../diagrams/img/Flujo de Monitoreo - UpTrackAI.png" class="img-fluid figure-img"></p>
-<figcaption>Flujo de Monitoreo</figcaption>
-</figure>
-</div>
-<ol type="1">
-<li><strong>Scheduler:</strong> Desencadena el trabajo.</li>
-<li><strong>Worker:</strong> Ejecuta el chequeo HTTP/TCP.</li>
-<li><strong>Analyzer:</strong> Evalúa si el resultado implica un cambio de estado (UP -&gt; DOWN).</li>
-<li><strong>Notifier:</strong> Si la severidad cambia, se despacha una alerta asíncrona.</li>
-</ol>
-</section>
-<section id="estructura-clean-architecture" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="estructura-clean-architecture"><span class="header-section-number">3.3</span> Estructura Clean Architecture</h2>
+<section id="arquitectura-de-módulos" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="arquitectura-de-módulos"><span class="header-section-number">4.2</span> Arquitectura de Módulos</h2>
+<p>El sistema está organizado en módulos independientes, cada uno siguiendo Clean Architecture internamente.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../diagrams/img/arquitectura_clean.png" class="img-fluid figure-img"></p>
 <figcaption>Arquitectura Clean</figcaption>
 </figure>
 </div>
-<p>La implementación respeta las capas de Clean Architecture, asegurando que la lógica de dominio permanezca agnóstica a frameworks externos como Gin o GORM.</p>
+<section id="estructura-de-directorios" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="estructura-de-directorios"><span class="header-section-number">4.2.1</span> Estructura de Directorios</h3>
+<pre><code>backend/
+├── main.go                 # Punto de entrada
+├── config/                 # Configuración de infraestructura
+│   ├── database.go        # Conexión PostgreSQL
+│   ├── migrations.go      # Auto-migraciones GORM
+│   ├── server.go          # Configuración HTTP
+│   └── telemetry.go       # Observabilidad
+├── internal/
+│   ├── app/               # Utilidades compartidas (APIResponse)
+│   ├── monitoring/        # Módulo de monitoreo
+│   │   ├── domain/        # Entidades y reglas de negocio
+│   │   ├── application/   # Casos de uso y DTOs
+│   │   ├── infrastructure/# Repositorios PostgreSQL
+│   │   ├── presentation/  # Handlers HTTP
+│   │   └── scheduler/     # Orquestador de health checks
+│   ├── notifications/     # Módulo de notificaciones
+│   │   ├── domain/        # AlertEvent, Channels, Senders
+│   │   ├── application/   # NotificationService, Linking
+│   │   ├── infrastructure/# Telegram API, Repos
+│   │   └── presentation/  # Webhooks y handlers
+│   ├── security/          # Autenticación y autorización
+│   │   ├── domain/        # Credentials, Tokens
+│   │   ├── application/   # AuthService
+│   │   ├── infrastructure/# JWT, Bcrypt
+│   │   └── presentation/  # Login/Register handlers
+│   ├── user/              # Gestión de usuarios
+│   └── server/            # Middleware compartido
+└── docs/                  # Swagger generado</code></pre>
 </section>
-<section id="stack-tecnológico" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="stack-tecnológico"><span class="header-section-number">3.4</span> Stack Tecnológico</h2>
+</section>
+<section id="módulo-de-monitoreo" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="módulo-de-monitoreo"><span class="header-section-number">4.3</span> Módulo de Monitoreo</h2>
+<section id="entidades-de-dominio" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="entidades-de-dominio"><span class="header-section-number">4.3.1</span> Entidades de Dominio</h3>
+<p><strong>MonitoringTarget</strong> - Representa un servicio a monitorear:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> MonitoringTarget <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    userId           UserId</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    targetId         TargetId</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    name             <span class="dt">string</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    url              <span class="dt">string</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    isActive         <span class="dt">bool</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    previousStatus   TargetStatus  <span class="co">// Para detectar cambios</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    currentStatus    TargetStatus</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    createdAt        time<span class="op">.</span>Time</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    lastCheckedAt    time<span class="op">.</span>Time</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    lastResponseTime <span class="dt">int</span>           <span class="co">// ms</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    targetType       TargetType    <span class="co">// API | WEB</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    configuration    <span class="op">*</span>CheckConfiguration</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>CheckResult</strong> - Resultado de una verificación individual:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> CheckResult <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    id             CheckResultId</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    targetId       TargetId</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    timestamp      time<span class="op">.</span>Time</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    responseTimeMs <span class="dt">int</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    reachable      <span class="dt">bool</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    status         TargetStatus</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    errorMessage   <span class="dt">string</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>TargetStatistics</strong> - Métricas agregadas históricas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> TargetStatistics <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    targetId          TargetId</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    avgResponseTimeMs <span class="dt">int</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    totalChecksCount  <span class="dt">int</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    lastUpdatedAt     time<span class="op">.</span>Time</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="value-objects" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="value-objects"><span class="header-section-number">4.3.2</span> Value Objects</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 18%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Value Object</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>TargetId</code></td>
+<td><code>string</code></td>
+<td>UUID v7 del target</td>
+</tr>
+<tr class="even">
+<td><code>TargetStatus</code></td>
+<td><code>enum</code></td>
+<td>UP, DOWN, DEGRADED, FLAPPING, UNSTABLE, UNKNOWN</td>
+</tr>
+<tr class="odd">
+<td><code>TargetType</code></td>
+<td><code>enum</code></td>
+<td>API, WEB</td>
+</tr>
+<tr class="even">
+<td><code>CheckConfiguration</code></td>
+<td><code>struct</code></td>
+<td>Intervalo, timeout, umbral de latencia</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scheduler-y-orquestador" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="scheduler-y-orquestador"><span class="header-section-number">4.3.3</span> Scheduler y Orquestador</h3>
+<p>El sistema de scheduling ejecuta health checks de manera periódica y concurrente.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="diagramas/Flujo de Monitoreo - UpTrackAI .png" class="img-fluid figure-img"></p>
+<figcaption>Flujo de Monitoreo</figcaption>
+</figure>
+</div>
+<p><strong>Componentes del Scheduler:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th>Responsabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>PollingScheduler</code></td>
+<td>Loop principal cada 10s, coordina ejecución</td>
+</tr>
+<tr class="even">
+<td><code>Orchestrator</code></td>
+<td>Orquesta el pipeline completo de un target</td>
+</tr>
+<tr class="odd">
+<td><code>WorkerPool</code></td>
+<td>Pool de 4 goroutines procesando en paralelo</td>
+</tr>
+<tr class="even">
+<td><code>HealthChecker</code></td>
+<td>Ejecuta HTTP requests y determina estado</td>
+</tr>
+<tr class="odd">
+<td><code>ResultAnalyzer</code></td>
+<td>Analiza sesión de pings para determinar estado final</td>
+</tr>
+<tr class="even">
+<td><code>StateUpdater</code></td>
+<td>Persiste cambios en base de datos</td>
+</tr>
+<tr class="odd">
+<td><code>NotificationDispatcher</code></td>
+<td>Cola asíncrona de alertas (buffer 100)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="algoritmo-de-detección-de-estado" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="algoritmo-de-detección-de-estado"><span class="header-section-number">4.3.4</span> Algoritmo de Detección de Estado</h3>
+<p>El sistema realiza hasta 12 pings por sesión para determinar el estado:</p>
+<pre><code>1. Ejecutar ping HTTP HEAD/GET
+2. Repetir hasta conseguir 3 resultados consecutivos iguales
+3. Si se logra en ≤4 intentos → Estado estable (UP/DOWN)
+4. Si se logra en 5-9 intentos → UNSTABLE
+5. Si no se logra en 12 intentos → FLAPPING</code></pre>
+</section>
+</section>
+<section id="módulo-de-notificaciones" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="módulo-de-notificaciones"><span class="header-section-number">4.4</span> Módulo de Notificaciones</h2>
+<section id="sistema-de-alertas" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="sistema-de-alertas"><span class="header-section-number">4.4.1</span> Sistema de Alertas</h3>
+<p>El módulo de notificaciones gestiona el envío de alertas a través de múltiples canales.</p>
+<p><strong>AlertEvent</strong> - Evento de alerta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> AlertEvent <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    userId       <span class="dt">string</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    title        <span class="dt">string</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    message      <span class="dt">string</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    severity     Severity      <span class="co">// CRITICAL, </span><span class="al">WARNING</span><span class="co">, INFO, RESOLVED</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    prevSeverity Severity</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    source       <span class="dt">string</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    alertType    AlertType     <span class="co">// MONITORING, SYSTEM</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    metadata     <span class="kw">map</span><span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="dt">string</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    timestamp    time<span class="op">.</span>Time</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>ShouldNotify()</strong> determina si la alerta debe enviarse:</p>
 <ul>
-<li><strong>Lenguaje</strong>: Go 1.21+</li>
-<li><strong>Framework</strong>: Gin (enrutador HTTP)</li>
-<li><strong>Base de Datos</strong>: PostgreSQL con GORM</li>
-<li><strong>Migraciones</strong>: GORM AutoMigrate</li>
-<li><strong>Configuración</strong>: Variables de entorno</li>
-<li><strong>Logging</strong>: Logging estructurado con contexto</li>
+<li>Cambio de severidad (ej: WARNING → CRITICAL)</li>
+<li>Nueva alerta CRITICAL o WARNING</li>
+<li>Resolución de un problema previo</li>
 </ul>
 </section>
-<section id="estructura-de-módulos" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="estructura-de-módulos"><span class="header-section-number">3.5</span> Estructura de Módulos</h2>
-<pre><code>internal/
-├── monitoring/          # Objetivos de monitoreo y verificaciones
-├── notifications/       # Sistema de notificaciones asíncronas
-├── user/               # Gestión de usuarios
-├── security/           # Autenticación y autorización
-├── server/             # Servidor HTTP y middleware
-└── repository/         # Interfaces de repositorio compartidas</code></pre>
-<p>API RESTful con respuestas JSON:</p>
+<section id="magic-link-para-telegram" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="magic-link-para-telegram"><span class="header-section-number">4.4.2</span> Magic Link para Telegram</h3>
+<p>El sistema implementa vinculación sin fricción de cuentas de Telegram:</p>
+<ol type="1">
+<li>Usuario hace click en “Conectar Telegram” en el Frontend</li>
+<li>Backend genera un token único con TTL de 15 minutos</li>
+<li>Frontend redirige al usuario a Telegram con deep link</li>
+<li>Usuario envía <code>/start TOKEN</code> al bot</li>
+<li>Bot valida el token y asocia el ChatID al usuario</li>
+<li>Confirmación de vinculación exitosa</li>
+</ol>
+</section>
+</section>
+<section id="módulo-de-seguridad" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="módulo-de-seguridad"><span class="header-section-number">4.5</span> Módulo de Seguridad</h2>
+<section id="autenticación-jwt" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="autenticación-jwt"><span class="header-section-number">4.5.1</span> Autenticación JWT</h3>
+<p>El sistema utiliza JWT (JSON Web Tokens) para autenticación stateless:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Estructura del token</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Claims <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    UserID <span class="dt">string</span> <span class="st">`json:"user_id"`</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    Email  <span class="dt">string</span> <span class="st">`json:"email"`</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    Role   <span class="dt">string</span> <span class="st">`json:"role"`</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    jwt<span class="op">.</span>RegisteredClaims</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Endpoints de Autenticación:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Método</th>
+<th>Ruta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>POST</code></td>
+<td><code>/api/v1/register</code></td>
+<td>Registro de usuario</td>
+</tr>
+<tr class="even">
+<td><code>POST</code></td>
+<td><code>/api/v1/login</code></td>
+<td>Login, retorna JWT</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Middleware de Extracción:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> ExtractUserID<span class="op">(</span>tokenService TokenGenerator<span class="op">)</span> gin<span class="op">.</span>HandlerFunc <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">func</span><span class="op">(</span>c <span class="op">*</span>gin<span class="op">.</span>Context<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Extrae token del header Authorization: Bearer &lt;token&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Valida firma y expiración</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Inyecta userID y role en el contexto</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="seguridad-de-contraseñas" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="seguridad-de-contraseñas"><span class="header-section-number">4.5.2</span> Seguridad de Contraseñas</h3>
 <ul>
-<li><code>GET /api/targets</code> - Listar objetivos de monitoreo</li>
-<li><code>POST /api/targets</code> - Crear nuevo objetivo</li>
-<li><code>GET /api/targets/{id}</code> - Obtener detalles del objetivo</li>
-<li><code>PUT /api/targets/{id}</code> - Actualizar objetivo</li>
-<li><code>DELETE /api/targets/{id}</code> - Eliminar objetivo</li>
+<li>Hashing con <strong>bcrypt</strong> (cost factor 10)</li>
+<li>Validación de longitud mínima (8 caracteres)</li>
+<li>No se almacenan contraseñas en texto plano</li>
 </ul>
 </section>
-<section id="manejo-de-errores" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="manejo-de-errores"><span class="header-section-number">3.6</span> Manejo de Errores</h2>
+</section>
+<section id="api-rest" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="api-rest"><span class="header-section-number">4.6</span> API REST</h2>
+<section id="estándar-de-respuestas" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="estándar-de-respuestas"><span class="header-section-number">4.6.1</span> Estándar de Respuestas</h3>
+<p>Todas las respuestas siguen el formato <code>APIResponse</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"success"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"message"</span><span class="fu">:</span> <span class="st">"targets_retrieved"</span><span class="fu">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"data"</span><span class="fu">:</span> <span class="ot">[</span><span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"links"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"self"</span><span class="fu">:</span> <span class="st">"/api/v1/targets"</span><span class="fu">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"next"</span><span class="fu">:</span> <span class="st">"/api/v1/targets?page=2"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"meta"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"page"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"limit"</span><span class="fu">:</span> <span class="dv">20</span><span class="fu">,</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"total"</span><span class="fu">:</span> <span class="dv">45</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="endpoints-principales" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="endpoints-principales"><span class="header-section-number">4.6.2</span> Endpoints Principales</h3>
+<p><strong>Monitoreo:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Método</th>
+<th>Ruta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>GET</code></td>
+<td><code>/api/v1/targets</code></td>
+<td>Listar targets del usuario</td>
+</tr>
+<tr class="even">
+<td><code>POST</code></td>
+<td><code>/api/v1/targets</code></td>
+<td>Crear nuevo target</td>
+</tr>
+<tr class="odd">
+<td><code>GET</code></td>
+<td><code>/api/v1/targets/:id</code></td>
+<td>Detalle de un target</td>
+</tr>
+<tr class="even">
+<td><code>DELETE</code></td>
+<td><code>/api/v1/targets/:id</code></td>
+<td>Eliminar target</td>
+</tr>
+<tr class="odd">
+<td><code>PATCH</code></td>
+<td><code>/api/v1/targets/:id/toggle</code></td>
+<td>Activar/desactivar</td>
+</tr>
+<tr class="even">
+<td><code>PUT</code></td>
+<td><code>/api/v1/targets/:id/configuration</code></td>
+<td>Actualizar config</td>
+</tr>
+<tr class="odd">
+<td><code>GET</code></td>
+<td><code>/api/v1/targets/:id/metrics</code></td>
+<td>Métricas del target</td>
+</tr>
+<tr class="even">
+<td><code>GET</code></td>
+<td><code>/api/v1/targets/:id/history</code></td>
+<td>Historial de checks</td>
+</tr>
+<tr class="odd">
+<td><code>GET</code></td>
+<td><code>/api/v1/targets/:id/statistics</code></td>
+<td>Estadísticas agregadas</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notificaciones:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Método</th>
+<th>Ruta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>GET</code></td>
+<td><code>/api/v1/notifications/channels</code></td>
+<td>Canales configurados</td>
+</tr>
+<tr class="even">
+<td><code>POST</code></td>
+<td><code>/api/v1/telegram/link</code></td>
+<td>Iniciar vinculación Telegram</td>
+</tr>
+<tr class="odd">
+<td><code>POST</code></td>
+<td><code>/api/webhooks/telegram</code></td>
+<td>Webhook para Telegram</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Autenticación:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Método</th>
+<th>Ruta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>POST</code></td>
+<td><code>/api/v1/register</code></td>
+<td>Registrar usuario</td>
+</tr>
+<tr class="even">
+<td><code>POST</code></td>
+<td><code>/api/v1/login</code></td>
+<td>Obtener token JWT</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="documentación-swagger" class="level3" data-number="4.6.3">
+<h3 data-number="4.6.3" class="anchored" data-anchor-id="documentación-swagger"><span class="header-section-number">4.6.3</span> Documentación Swagger</h3>
+<p>La API está documentada con Swagger/OpenAPI. Accesible en:</p>
+<pre><code>http://localhost:8080/swagger/index.html</code></pre>
+</section>
+</section>
+<section id="stack-tecnológico" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="stack-tecnológico"><span class="header-section-number">4.7</span> Stack Tecnológico</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Categoría</th>
+<th>Tecnología</th>
+<th>Versión</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lenguaje</td>
+<td>Go</td>
+<td>1.21+</td>
+</tr>
+<tr class="even">
+<td>Framework HTTP</td>
+<td>Gin</td>
+<td>1.9+</td>
+</tr>
+<tr class="odd">
+<td>ORM</td>
+<td>GORM</td>
+<td>1.25+</td>
+</tr>
+<tr class="even">
+<td>Base de Datos</td>
+<td>PostgreSQL</td>
+<td>15+</td>
+</tr>
+<tr class="odd">
+<td>Autenticación</td>
+<td>JWT (golang-jwt)</td>
+<td>v5</td>
+</tr>
+<tr class="even">
+<td>Hashing</td>
+<td>bcrypt</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>Documentación</td>
+<td>Swaggo</td>
+<td>1.16+</td>
+</tr>
+<tr class="even">
+<td>Variables de entorno</td>
+<td>godotenv</td>
+<td>1.5+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ejecución-local" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="ejecución-local"><span class="header-section-number">4.8</span> Ejecución Local</h2>
+<section id="requisitos" class="level3" data-number="4.8.1">
+<h3 data-number="4.8.1" class="anchored" data-anchor-id="requisitos"><span class="header-section-number">4.8.1</span> Requisitos</h3>
 <ul>
-<li><strong>Errores de Dominio</strong>: Validación de lógica de negocio</li>
-<li><strong>Errores de Infraestructura</strong>: Fallos de servicios externos</li>
-<li><strong>Errores HTTP</strong>: Códigos de estado y mensajes apropiados</li>
-<li><strong>Logging</strong>: Reporte estructurado de errores</li>
+<li>Go 1.21+</li>
+<li>PostgreSQL 15+</li>
+<li>Variables de entorno configuradas</li>
 </ul>
+</section>
+<section id="comandos" class="level3" data-number="4.8.2">
+<h3 data-number="4.8.2" class="anchored" data-anchor-id="comandos"><span class="header-section-number">4.8.2</span> Comandos</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar dependencias</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> mod download</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en modo desarrollo</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> run .</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compilar binario</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> build <span class="at">-o</span> uptrack-api .</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar tests</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> test ./...</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar documentación Swagger</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="ex">swag</span> init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configuración-mínima-.env" class="level3" data-number="4.8.3">
+<h3 data-number="4.8.3" class="anchored" data-anchor-id="configuración-mínima-.env"><span class="header-section-number">4.8.3</span> Configuración Mínima (.env)</h3>
+<pre class="properties"><code>DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=password
+DB_NAME=uptrackai_db
+DB_SSLMODE=disable
+PORT=8080
+GIN_MODE=debug</code></pre>
 
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -780,85 +1241,345 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../arquitectura/overview.html" class="pagination-link" aria-label="Visión General del Sistema">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visión General del Sistema</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visión General del Sistema</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../arquitectura/frontend.html" class="pagination-link" aria-label="Frontend y Experiencia de Usuario">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Backend y Servicios</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>El backend de UpTrackAI está construido en Go, priorizando el rendimiento y la concurrencia.</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Arquitectura de Componentes (C4 Nivel 3)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>El siguiente diagrama detalla los módulos internos del Backend API y sus interacciones.</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="al">![Diagrama de Componentes](../diagrams/img/Diagrama de Componentes C4 - Backend UpTrackAI.png)</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### Módulos Principales</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**API REST (Gin):** Punto de entrada para clientes Web y Móviles.</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Scheduler:** Orquestador que gestiona la ejecución periódica de chequeos.</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Monitoring Module:** Núcleo de lógica de negocio que ejecuta los health checks.</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Notification Module:** Gestiona canales y envío de alertas.</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Security Module:** Autenticación y autorización (JWT).</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Flujo de Monitoreo</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>El proceso de verificación de un objetivo sigue un flujo estricto para determinar el estado y la necesidad de alertar.</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="al">![Flujo de Monitoreo](../diagrams/img/Flujo de Monitoreo - UpTrackAI.png)</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Scheduler:** Desencadena el trabajo.</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Worker:** Ejecuta el chequeo HTTP/TCP.</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Analyzer:** Evalúa si el resultado implica un cambio de estado (UP -&gt; DOWN).</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Notifier:** Si la severidad cambia, se despacha una alerta asíncrona.</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estructura Clean Architecture</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="al">![Arquitectura Clean](../diagrams/img/arquitectura_clean.png)</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>La implementación respeta las capas de Clean Architecture, asegurando que la lógica de dominio permanezca agnóstica a frameworks externos como Gin o GORM.</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stack Tecnológico</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lenguaje**: Go 1.21+</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Framework**: Gin (enrutador HTTP)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Base de Datos**: PostgreSQL con GORM</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Migraciones**: GORM AutoMigrate</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Configuración**: Variables de entorno</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Logging**: Logging estructurado con contexto</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estructura de Módulos</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="in">internal/</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="in">├── monitoring/          # Objetivos de monitoreo y verificaciones</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="in">├── notifications/       # Sistema de notificaciones asíncronas</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="in">├── user/               # Gestión de usuarios</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="in">├── security/           # Autenticación y autorización</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="in">├── server/             # Servidor HTTP y middleware</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="in">└── repository/         # Interfaces de repositorio compartidas</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>API RESTful con respuestas JSON:</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`GET /api/targets`</span> - Listar objetivos de monitoreo</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`POST /api/targets`</span> - Crear nuevo objetivo</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`GET /api/targets/{id}`</span> - Obtener detalles del objetivo</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`PUT /api/targets/{id}`</span> - Actualizar objetivo</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`DELETE /api/targets/{id}`</span> - Eliminar objetivo</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manejo de Errores</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Errores de Dominio**: Validación de lógica de negocio</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Errores de Infraestructura**: Fallos de servicios externos</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Errores HTTP**: Códigos de estado y mensajes apropiados</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Logging**: Reporte estructurado de errores</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Backend y Servicios</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>El backend de UpTrackAI está construido en Go 1.21+, aprovechando su modelo de concurrencia nativo para ejecutar health checks en paralelo de manera eficiente.</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Arquitectura de Componentes (C4 Nivel 3)</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>El siguiente diagrama detalla los módulos internos del Backend API y sus interacciones.</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="al">![Diagrama de Componentes](../diagrams/img/Diagrama de Componentes C4 - Backend UpTrackAI.png)</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Arquitectura de Módulos</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>El sistema está organizado en módulos independientes, cada uno siguiendo Clean Architecture internamente.</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="al">![Arquitectura Clean](../diagrams/img/arquitectura_clean.png)</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estructura de Directorios</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="in">backend/</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="in">├── main.go                 # Punto de entrada</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="in">├── config/                 # Configuración de infraestructura</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── database.go        # Conexión PostgreSQL</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── migrations.go      # Auto-migraciones GORM</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── server.go          # Configuración HTTP</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="in">│   └── telemetry.go       # Observabilidad</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="in">├── internal/</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── app/               # Utilidades compartidas (APIResponse)</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── monitoring/        # Módulo de monitoreo</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── domain/        # Entidades y reglas de negocio</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── application/   # Casos de uso y DTOs</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── infrastructure/# Repositorios PostgreSQL</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── presentation/  # Handlers HTTP</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   └── scheduler/     # Orquestador de health checks</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── notifications/     # Módulo de notificaciones</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── domain/        # AlertEvent, Channels, Senders</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── application/   # NotificationService, Linking</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── infrastructure/# Telegram API, Repos</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   └── presentation/  # Webhooks y handlers</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── security/          # Autenticación y autorización</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── domain/        # Credentials, Tokens</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── application/   # AuthService</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   ├── infrastructure/# JWT, Bcrypt</span></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="in">│   │   └── presentation/  # Login/Register handlers</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── user/              # Gestión de usuarios</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="in">│   └── server/            # Middleware compartido</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="in">└── docs/                  # Swagger generado</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Módulo de Monitoreo</span></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="fu">### Entidades de Dominio</span></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>**MonitoringTarget** - Representa un servicio a monitorear:</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> MonitoringTarget <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>    userId           UserId</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>    targetId         TargetId</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>    name             <span class="dt">string</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>    url              <span class="dt">string</span></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>    isActive         <span class="dt">bool</span></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>    previousStatus   TargetStatus  <span class="co">// Para detectar cambios</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>    currentStatus    TargetStatus</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>    createdAt        time<span class="op">.</span>Time</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>    lastCheckedAt    time<span class="op">.</span>Time</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>    lastResponseTime <span class="dt">int</span>           <span class="co">// ms</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>    targetType       TargetType    <span class="co">// API | WEB</span></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>    configuration    <span class="op">*</span>CheckConfiguration</span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>**CheckResult** - Resultado de una verificación individual:</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> CheckResult <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>    id             CheckResultId</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>    targetId       TargetId</span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>    timestamp      time<span class="op">.</span>Time</span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>    responseTimeMs <span class="dt">int</span></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>    reachable      <span class="dt">bool</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>    status         TargetStatus</span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>    errorMessage   <span class="dt">string</span></span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>**TargetStatistics** - Métricas agregadas históricas:</span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> TargetStatistics <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>    targetId          TargetId</span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>    avgResponseTimeMs <span class="dt">int</span></span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>    totalChecksCount  <span class="dt">int</span></span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>    lastUpdatedAt     time<span class="op">.</span>Time</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### Value Objects</span></span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Value Object <span class="pp">|</span> Tipo <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------|------|-------------|</span></span>
+<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`TargetId`</span> <span class="pp">|</span> <span class="in">`string`</span> <span class="pp">|</span> UUID v7 del target <span class="pp">|</span></span>
+<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`TargetStatus`</span> <span class="pp">|</span> <span class="in">`enum`</span> <span class="pp">|</span> UP, DOWN, DEGRADED, FLAPPING, UNSTABLE, UNKNOWN <span class="pp">|</span></span>
+<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`TargetType`</span> <span class="pp">|</span> <span class="in">`enum`</span> <span class="pp">|</span> API, WEB <span class="pp">|</span></span>
+<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`CheckConfiguration`</span> <span class="pp">|</span> <span class="in">`struct`</span> <span class="pp">|</span> Intervalo, timeout, umbral de latencia <span class="pp">|</span></span>
+<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scheduler y Orquestador</span></span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a>El sistema de scheduling ejecuta health checks de manera periódica y concurrente.</span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a><span class="al">![Flujo de Monitoreo](diagramas/Flujo de Monitoreo - UpTrackAI .png)</span></span>
+<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a>**Componentes del Scheduler:**</span>
+<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Componente <span class="pp">|</span> Responsabilidad <span class="pp">|</span></span>
+<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|-----------------|</span></span>
+<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`PollingScheduler`</span> <span class="pp">|</span> Loop principal cada 10s, coordina ejecución <span class="pp">|</span></span>
+<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Orchestrator`</span> <span class="pp">|</span> Orquesta el pipeline completo de un target <span class="pp">|</span></span>
+<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WorkerPool`</span> <span class="pp">|</span> Pool de 4 goroutines procesando en paralelo <span class="pp">|</span></span>
+<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`HealthChecker`</span> <span class="pp">|</span> Ejecuta HTTP requests y determina estado <span class="pp">|</span></span>
+<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`ResultAnalyzer`</span> <span class="pp">|</span> Analiza sesión de pings para determinar estado final <span class="pp">|</span></span>
+<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`StateUpdater`</span> <span class="pp">|</span> Persiste cambios en base de datos <span class="pp">|</span></span>
+<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`NotificationDispatcher`</span> <span class="pp">|</span> Cola asíncrona de alertas (buffer 100) <span class="pp">|</span></span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Algoritmo de Detección de Estado</span></span>
+<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a>El sistema realiza hasta 12 pings por sesión para determinar el estado:</span>
+<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a><span class="in">1. Ejecutar ping HTTP HEAD/GET</span></span>
+<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a><span class="in">2. Repetir hasta conseguir 3 resultados consecutivos iguales</span></span>
+<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a><span class="in">3. Si se logra en ≤4 intentos → Estado estable (UP/DOWN)</span></span>
+<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a><span class="in">4. Si se logra en 5-9 intentos → UNSTABLE</span></span>
+<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a><span class="in">5. Si no se logra en 12 intentos → FLAPPING</span></span>
+<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Módulo de Notificaciones</span></span>
+<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sistema de Alertas</span></span>
+<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a>El módulo de notificaciones gestiona el envío de alertas a través de múltiples canales.</span>
+<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a>**AlertEvent** - Evento de alerta:</span>
+<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> AlertEvent <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a>    userId       <span class="dt">string</span></span>
+<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a>    title        <span class="dt">string</span></span>
+<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a>    message      <span class="dt">string</span></span>
+<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a>    severity     Severity      <span class="co">// CRITICAL, </span><span class="al">WARNING</span><span class="co">, INFO, RESOLVED</span></span>
+<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a>    prevSeverity Severity</span>
+<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a>    source       <span class="dt">string</span></span>
+<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a>    alertType    AlertType     <span class="co">// MONITORING, SYSTEM</span></span>
+<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a>    metadata     <span class="kw">map</span><span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="dt">string</span></span>
+<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a>    timestamp    time<span class="op">.</span>Time</span>
+<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a>**ShouldNotify()** determina si la alerta debe enviarse:</span>
+<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cambio de severidad (ej: WARNING → CRITICAL)</span>
+<span id="cb13-162"><a href="#cb13-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nueva alerta CRITICAL o WARNING</span>
+<span id="cb13-163"><a href="#cb13-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Resolución de un problema previo</span>
+<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### Magic Link para Telegram</span></span>
+<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a>El sistema implementa vinculación sin fricción de cuentas de Telegram:</span>
+<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-169"><a href="#cb13-169" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Usuario hace click en "Conectar Telegram" en el Frontend</span>
+<span id="cb13-170"><a href="#cb13-170" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Backend genera un token único con TTL de 15 minutos</span>
+<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Frontend redirige al usuario a Telegram con deep link</span>
+<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Usuario envía <span class="in">`/start TOKEN`</span> al bot</span>
+<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Bot valida el token y asocia el ChatID al usuario</span>
+<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Confirmación de vinculación exitosa</span>
+<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## Módulo de Seguridad</span></span>
+<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a><span class="fu">### Autenticación JWT</span></span>
+<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a>El sistema utiliza JWT (JSON Web Tokens) para autenticación stateless:</span>
+<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a><span class="co">// Estructura del token</span></span>
+<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Claims <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a>    UserID <span class="dt">string</span> <span class="st">`json:"user_id"`</span></span>
+<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a>    Email  <span class="dt">string</span> <span class="st">`json:"email"`</span></span>
+<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a>    Role   <span class="dt">string</span> <span class="st">`json:"role"`</span></span>
+<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a>    jwt<span class="op">.</span>RegisteredClaims</span>
+<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-190"><a href="#cb13-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-191"><a href="#cb13-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a>**Endpoints de Autenticación:**</span>
+<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Método <span class="pp">|</span> Ruta <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------|-------------|</span></span>
+<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`POST`</span> <span class="pp">|</span> <span class="in">`/api/v1/register`</span> <span class="pp">|</span> Registro de usuario <span class="pp">|</span></span>
+<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`POST`</span> <span class="pp">|</span> <span class="in">`/api/v1/login`</span> <span class="pp">|</span> Login, retorna JWT <span class="pp">|</span></span>
+<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a>**Middleware de Extracción:**</span>
+<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> ExtractUserID<span class="op">(</span>tokenService TokenGenerator<span class="op">)</span> gin<span class="op">.</span>HandlerFunc <span class="op">{</span></span>
+<span id="cb13-203"><a href="#cb13-203" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">func</span><span class="op">(</span>c <span class="op">*</span>gin<span class="op">.</span>Context<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-204"><a href="#cb13-204" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Extrae token del header Authorization: Bearer &lt;token&gt;</span></span>
+<span id="cb13-205"><a href="#cb13-205" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Valida firma y expiración</span></span>
+<span id="cb13-206"><a href="#cb13-206" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Inyecta userID y role en el contexto</span></span>
+<span id="cb13-207"><a href="#cb13-207" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-208"><a href="#cb13-208" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-209"><a href="#cb13-209" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-210"><a href="#cb13-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-211"><a href="#cb13-211" aria-hidden="true" tabindex="-1"></a><span class="fu">### Seguridad de Contraseñas</span></span>
+<span id="cb13-212"><a href="#cb13-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hashing con **bcrypt** (cost factor 10)</span>
+<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Validación de longitud mínima (8 caracteres)</span>
+<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No se almacenan contraseñas en texto plano</span>
+<span id="cb13-216"><a href="#cb13-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-217"><a href="#cb13-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## API REST</span></span>
+<span id="cb13-218"><a href="#cb13-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estándar de Respuestas</span></span>
+<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a>Todas las respuestas siguen el formato <span class="in">`APIResponse`</span>:</span>
+<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a>  <span class="st">"success"</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb13-226"><a href="#cb13-226" aria-hidden="true" tabindex="-1"></a>  <span class="st">"message"</span><span class="op">:</span> <span class="st">"targets_retrieved"</span><span class="op">,</span></span>
+<span id="cb13-227"><a href="#cb13-227" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data"</span><span class="op">:</span> [<span class="op">...</span>]<span class="op">,</span></span>
+<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a>  <span class="st">"links"</span><span class="op">:</span> {</span>
+<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a>    <span class="st">"self"</span><span class="op">:</span> <span class="st">"/api/v1/targets"</span><span class="op">,</span></span>
+<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a>    <span class="st">"next"</span><span class="op">:</span> <span class="st">"/api/v1/targets?page=2"</span></span>
+<span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a>  <span class="st">"meta"</span><span class="op">:</span> {</span>
+<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a>    <span class="st">"page"</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a>    <span class="st">"limit"</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total"</span><span class="op">:</span> <span class="dv">45</span></span>
+<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-237"><a href="#cb13-237" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-238"><a href="#cb13-238" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-239"><a href="#cb13-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-240"><a href="#cb13-240" aria-hidden="true" tabindex="-1"></a><span class="fu">### Endpoints Principales</span></span>
+<span id="cb13-241"><a href="#cb13-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-242"><a href="#cb13-242" aria-hidden="true" tabindex="-1"></a>**Monitoreo:**</span>
+<span id="cb13-243"><a href="#cb13-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-244"><a href="#cb13-244" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Método <span class="pp">|</span> Ruta <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb13-245"><a href="#cb13-245" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------|-------------|</span></span>
+<span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`GET`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets`</span> <span class="pp">|</span> Listar targets del usuario <span class="pp">|</span></span>
+<span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`POST`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets`</span> <span class="pp">|</span> Crear nuevo target <span class="pp">|</span></span>
+<span id="cb13-248"><a href="#cb13-248" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`GET`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets/:id`</span> <span class="pp">|</span> Detalle de un target <span class="pp">|</span></span>
+<span id="cb13-249"><a href="#cb13-249" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`DELETE`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets/:id`</span> <span class="pp">|</span> Eliminar target <span class="pp">|</span></span>
+<span id="cb13-250"><a href="#cb13-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`PATCH`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets/:id/toggle`</span> <span class="pp">|</span> Activar/desactivar <span class="pp">|</span></span>
+<span id="cb13-251"><a href="#cb13-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`PUT`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets/:id/configuration`</span> <span class="pp">|</span> Actualizar config <span class="pp">|</span></span>
+<span id="cb13-252"><a href="#cb13-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`GET`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets/:id/metrics`</span> <span class="pp">|</span> Métricas del target <span class="pp">|</span></span>
+<span id="cb13-253"><a href="#cb13-253" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`GET`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets/:id/history`</span> <span class="pp">|</span> Historial de checks <span class="pp">|</span></span>
+<span id="cb13-254"><a href="#cb13-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`GET`</span> <span class="pp">|</span> <span class="in">`/api/v1/targets/:id/statistics`</span> <span class="pp">|</span> Estadísticas agregadas <span class="pp">|</span></span>
+<span id="cb13-255"><a href="#cb13-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-256"><a href="#cb13-256" aria-hidden="true" tabindex="-1"></a>**Notificaciones:**</span>
+<span id="cb13-257"><a href="#cb13-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-258"><a href="#cb13-258" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Método <span class="pp">|</span> Ruta <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb13-259"><a href="#cb13-259" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------|-------------|</span></span>
+<span id="cb13-260"><a href="#cb13-260" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`GET`</span> <span class="pp">|</span> <span class="in">`/api/v1/notifications/channels`</span> <span class="pp">|</span> Canales configurados <span class="pp">|</span></span>
+<span id="cb13-261"><a href="#cb13-261" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`POST`</span> <span class="pp">|</span> <span class="in">`/api/v1/telegram/link`</span> <span class="pp">|</span> Iniciar vinculación Telegram <span class="pp">|</span></span>
+<span id="cb13-262"><a href="#cb13-262" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`POST`</span> <span class="pp">|</span> <span class="in">`/api/webhooks/telegram`</span> <span class="pp">|</span> Webhook para Telegram <span class="pp">|</span></span>
+<span id="cb13-263"><a href="#cb13-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-264"><a href="#cb13-264" aria-hidden="true" tabindex="-1"></a>**Autenticación:**</span>
+<span id="cb13-265"><a href="#cb13-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-266"><a href="#cb13-266" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Método <span class="pp">|</span> Ruta <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb13-267"><a href="#cb13-267" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------|-------------|</span></span>
+<span id="cb13-268"><a href="#cb13-268" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`POST`</span> <span class="pp">|</span> <span class="in">`/api/v1/register`</span> <span class="pp">|</span> Registrar usuario <span class="pp">|</span></span>
+<span id="cb13-269"><a href="#cb13-269" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`POST`</span> <span class="pp">|</span> <span class="in">`/api/v1/login`</span> <span class="pp">|</span> Obtener token JWT <span class="pp">|</span></span>
+<span id="cb13-270"><a href="#cb13-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-271"><a href="#cb13-271" aria-hidden="true" tabindex="-1"></a><span class="fu">### Documentación Swagger</span></span>
+<span id="cb13-272"><a href="#cb13-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-273"><a href="#cb13-273" aria-hidden="true" tabindex="-1"></a>La API está documentada con Swagger/OpenAPI. Accesible en:</span>
+<span id="cb13-274"><a href="#cb13-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-275"><a href="#cb13-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-276"><a href="#cb13-276" aria-hidden="true" tabindex="-1"></a><span class="in">http://localhost:8080/swagger/index.html</span></span>
+<span id="cb13-277"><a href="#cb13-277" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-278"><a href="#cb13-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-279"><a href="#cb13-279" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stack Tecnológico</span></span>
+<span id="cb13-280"><a href="#cb13-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-281"><a href="#cb13-281" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Categoría <span class="pp">|</span> Tecnología <span class="pp">|</span> Versión <span class="pp">|</span></span>
+<span id="cb13-282"><a href="#cb13-282" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|-----------|---------|</span></span>
+<span id="cb13-283"><a href="#cb13-283" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Lenguaje <span class="pp">|</span> Go <span class="pp">|</span> 1.21+ <span class="pp">|</span></span>
+<span id="cb13-284"><a href="#cb13-284" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Framework HTTP <span class="pp">|</span> Gin <span class="pp">|</span> 1.9+ <span class="pp">|</span></span>
+<span id="cb13-285"><a href="#cb13-285" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ORM <span class="pp">|</span> GORM <span class="pp">|</span> 1.25+ <span class="pp">|</span></span>
+<span id="cb13-286"><a href="#cb13-286" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Base de Datos <span class="pp">|</span> PostgreSQL <span class="pp">|</span> 15+ <span class="pp">|</span></span>
+<span id="cb13-287"><a href="#cb13-287" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Autenticación <span class="pp">|</span> JWT (golang-jwt) <span class="pp">|</span> v5 <span class="pp">|</span></span>
+<span id="cb13-288"><a href="#cb13-288" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Hashing <span class="pp">|</span> bcrypt <span class="pp">|</span> - <span class="pp">|</span></span>
+<span id="cb13-289"><a href="#cb13-289" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Documentación <span class="pp">|</span> Swaggo <span class="pp">|</span> 1.16+ <span class="pp">|</span></span>
+<span id="cb13-290"><a href="#cb13-290" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variables de entorno <span class="pp">|</span> godotenv <span class="pp">|</span> 1.5+ <span class="pp">|</span></span>
+<span id="cb13-291"><a href="#cb13-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-292"><a href="#cb13-292" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ejecución Local</span></span>
+<span id="cb13-293"><a href="#cb13-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-294"><a href="#cb13-294" aria-hidden="true" tabindex="-1"></a><span class="fu">### Requisitos</span></span>
+<span id="cb13-295"><a href="#cb13-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-296"><a href="#cb13-296" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Go 1.21+</span>
+<span id="cb13-297"><a href="#cb13-297" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PostgreSQL 15+</span>
+<span id="cb13-298"><a href="#cb13-298" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Variables de entorno configuradas</span>
+<span id="cb13-299"><a href="#cb13-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-300"><a href="#cb13-300" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comandos</span></span>
+<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar dependencias</span></span>
+<span id="cb13-304"><a href="#cb13-304" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> mod download</span>
+<span id="cb13-305"><a href="#cb13-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-306"><a href="#cb13-306" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en modo desarrollo</span></span>
+<span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> run .</span>
+<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-309"><a href="#cb13-309" aria-hidden="true" tabindex="-1"></a><span class="co"># Compilar binario</span></span>
+<span id="cb13-310"><a href="#cb13-310" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> build <span class="at">-o</span> uptrack-api .</span>
+<span id="cb13-311"><a href="#cb13-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-312"><a href="#cb13-312" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar tests</span></span>
+<span id="cb13-313"><a href="#cb13-313" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> test ./...</span>
+<span id="cb13-314"><a href="#cb13-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-315"><a href="#cb13-315" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar documentación Swagger</span></span>
+<span id="cb13-316"><a href="#cb13-316" aria-hidden="true" tabindex="-1"></a><span class="ex">swag</span> init</span>
+<span id="cb13-317"><a href="#cb13-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-318"><a href="#cb13-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-319"><a href="#cb13-319" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configuración Mínima (.env)</span></span>
+<span id="cb13-320"><a href="#cb13-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-321"><a href="#cb13-321" aria-hidden="true" tabindex="-1"></a><span class="in">```properties</span></span>
+<span id="cb13-322"><a href="#cb13-322" aria-hidden="true" tabindex="-1"></a><span class="in">DB_HOST=localhost</span></span>
+<span id="cb13-323"><a href="#cb13-323" aria-hidden="true" tabindex="-1"></a><span class="in">DB_PORT=5432</span></span>
+<span id="cb13-324"><a href="#cb13-324" aria-hidden="true" tabindex="-1"></a><span class="in">DB_USER=postgres</span></span>
+<span id="cb13-325"><a href="#cb13-325" aria-hidden="true" tabindex="-1"></a><span class="in">DB_PASSWORD=password</span></span>
+<span id="cb13-326"><a href="#cb13-326" aria-hidden="true" tabindex="-1"></a><span class="in">DB_NAME=uptrackai_db</span></span>
+<span id="cb13-327"><a href="#cb13-327" aria-hidden="true" tabindex="-1"></a><span class="in">DB_SSLMODE=disable</span></span>
+<span id="cb13-328"><a href="#cb13-328" aria-hidden="true" tabindex="-1"></a><span class="in">PORT=8080</span></span>
+<span id="cb13-329"><a href="#cb13-329" aria-hidden="true" tabindex="-1"></a><span class="in">GIN_MODE=debug</span></span>
+<span id="cb13-330"><a href="#cb13-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

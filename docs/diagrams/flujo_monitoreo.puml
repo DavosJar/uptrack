@@ -6,9 +6,8 @@ start
 partition "Polling Scheduler (Master Loop)" {
     :Ticker (Cada 10s);
     
-    // --- NUEVO: AUTO-DIAGNÓSTICO PREVIO ---
     if (¿Tengo acceso a Internet?) then (No / Network Error)
-        :Loguear "SELF-DOWN: Sin Ping a Google/Cloudflare";
+        :Loguear "SELF-DOWN: Sin Ping a Google/Cloudflare;
         :Pausar Scheduling (Abortar Ciclo);
         note right #Red
             CIRCUIT BREAKER:
@@ -19,7 +18,6 @@ partition "Polling Scheduler (Master Loop)" {
     else (Sí / Conectado)
         :Continuar...;
     endif
-    // --------------------------------------
 
     :Query DB: Obtener Targets Vencidos;
     note right

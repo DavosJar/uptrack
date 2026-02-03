@@ -1,22 +1,125 @@
 # Bienvenido a UpTrackAI
 
-**UpTrackAI** es una plataforma SaaS moderna diseñada para el monitoreo inteligente de sistemas, APIs y servicios web. Esta documentación técnica detalla la arquitectura, componentes y flujos de trabajo del sistema.
+**UpTrackAI** es una plataforma SaaS de monitoreo de disponibilidad diseñada para verificar el estado de APIs, sitios web y servicios en tiempo real. Esta documentación técnica detalla la arquitectura, componentes y flujos de trabajo del sistema.
 
 ## Objetivo del Sistema
 
 Proporcionar a desarrolladores y administradores de sistemas una herramienta robusta para:
-- Monitorear la disponibilidad (uptime) y latencia de servicios.
-- Recibir alertas en tiempo real vía Telegram, Slack, etc.
-- Analizar métricas históricas y estadísticas de rendimiento.
-- Gestionar notificaciones y equipos de trabajo.
+
+- **Monitorear disponibilidad**: Verificar que servicios críticos estén accesibles mediante health checks HTTP/TCP periódicos
+- **Detectar anomalías**: Identificar patrones de comportamiento como degradación, inestabilidad o caídas
+- **Alertar en tiempo real**: Notificar cambios de estado a través de Telegram (con soporte futuro para Email, Slack, etc.)
+- **Analizar métricas**: Visualizar historial de latencia, uptime y tendencias de rendimiento
+- **Gestionar equipos**: Permitir que múltiples usuarios administren sus propios objetivos de monitoreo
+
+## Características Principales
+
+| Característica | Descripción |
+|---------------|-------------|
+| **Multi-tenant** | Cada usuario gestiona sus propios targets de forma aislada |
+| **Detección inteligente** | 6 estados posibles (UP, DOWN, DEGRADED, UNSTABLE, FLAPPING, UNKNOWN) |
+| **Alta frecuencia** | Verificaciones configurables desde 1 minuto hasta 24 horas |
+| **Notificaciones instantáneas** | Integración con Telegram mediante Magic Link sin fricción |
+| **Dashboard interactivo** | Visualización de métricas con gráficos de latencia y heatmaps |
+| **API REST documentada** | Swagger/OpenAPI para integraciones externas |
+
+## Stack Tecnológico
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      FRONTEND                               │
+│  React 19 │ TypeScript │ Vite │ Tailwind CSS │ Recharts    │
+├─────────────────────────────────────────────────────────────┤
+│                      BACKEND                                │
+│  Go 1.21+ │ Gin │ GORM │ JWT │ Worker Pool                  │
+├─────────────────────────────────────────────────────────────┤
+│                    PERSISTENCIA                             │
+│  PostgreSQL 15+ │ UUID v7 │ Índices optimizados            │
+├─────────────────────────────────────────────────────────────┤
+│                   INTEGRACIONES                             │
+│  Telegram Bot API │ HTTP/TCP Health Checks                  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Arquitectura de Alto Nivel
+
+El sistema sigue Clean Architecture con separación clara de responsabilidades:
+
+- **Presentación**: API REST (Gin), Handlers HTTP, Respuestas JSON estandarizadas
+- **Aplicación**: Casos de uso, DTOs, Commands/Queries (CQRS simplificado)
+- **Dominio**: Entidades, Value Objects, Reglas de negocio, Interfaces de repositorio
+- **Infraestructura**: PostgreSQL (GORM), Telegram API, JWT, HTTP Client
 
 ## Estructura de la Documentación
 
 La documentación está organizada en las siguientes secciones:
 
-- **Visión General:** Contexto del sistema y alcance.
-- **Backend:** Arquitectura interna, microservicios lógicos y flujos de monitoreo.
-- **Frontend:** Aplicaciones de usuario (Web y Móvil) e integraciones.
-- **Base de Datos:** Modelo de datos y persistencia.
+| Sección | Contenido |
+|---------|-----------|
+| [Visión General](arquitectura/overview.qmd) | Contexto del sistema, patrones de diseño, modelo de estados |
+| [Backend](arquitectura/backend.qmd) | Módulos Go, Scheduler, API REST, autenticación |
+| [Frontend Web](arquitectura/frontend.qmd) | React, componentes, integración API, despliegue |
+| [App Móvil](arquitectura/mobile.qmd) | React Native, Expo, Widget Android, navegación |
+| [Base de Datos](arquitectura/database.qmd) | Modelo de datos, esquema SQL, índices, migraciones |
 
-Comience explorando la [Visión General](arquitectura/overview.qmd).
+## Requisitos del Sistema
+
+### Desarrollo Local
+
+| Componente | Versión Mínima |
+|-----------|----------------|
+| Go | 1.21+ |
+| Node.js | 18+ |
+| PostgreSQL | 15+ |
+| pnpm | 8+ (recomendado) |
+
+### Variables de Entorno Esenciales
+
+```properties
+# Base de datos
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=password
+DB_NAME=uptrackai_db
+
+# Servidor
+PORT=8080
+GIN_MODE=debug
+
+# Telegram (opcional)
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_BOT_NAME=Uptrackapp_bot
+```
+
+## Inicio Rápido
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/your-org/uptrack.git
+cd uptrack
+
+# 2. Iniciar base de datos (Docker)
+docker run -d --name postgres \
+  -e POSTGRES_PASSWORD=password \
+  -e POSTGRES_DB=uptrackai_db \
+  -p 5432:5432 postgres:15
+
+# 3. Iniciar backend
+cd backend
+cp .env.example .env
+go run .
+
+# 4. Iniciar frontend (en otra terminal)
+cd uptrack-gui
+pnpm install
+echo "VITE_API_BASE_URL=http://localhost:8080" > .env
+pnpm dev
+```
+
+Acceder a:
+- **Frontend**: http://localhost:5173
+- **API**: http://localhost:8080
+- **Swagger**: http://localhost:8080/swagger/index.html
+
+Comience explorando la [Visión General](arquitectura/overview.qmd) para entender la arquitectura del sistema.

@@ -1,6 +1,6 @@
 # Modelo de Datos
 
-La persistencia de datos se maneja en PostgreSQL, utilizando GORM como ORM para la interacción desde Go.
+La persistencia de UpTrackAI se gestiona en PostgreSQL utilizando GORM como ORM. El esquema está diseñado para soportar alta frecuencia de escritura (health checks) y consultas eficientes de historial.
 
 ## Diagrama de Clases / Entidades
 
@@ -8,108 +8,282 @@ El siguiente diagrama ilustra las entidades principales del dominio y sus relaci
 
 ![Diagrama de Clases](../diagrams/img/Diagrama de Clases - UpTrackAI.png)
 
-### Entidades Principales
+## Tablas del Sistema
 
-- **User:** Propietario de la cuenta y los monitoreos.
-- **MonitoringTarget:** URL o servicio específico a monitorear (ej. `https://api.miempresa.com`).
-- **CheckResult:** Resultado individual de una ejecución de monitoreo (Status, Latencia, Timestamp).
-- **NotificationChannel:** Configuración de un canal de alerta (ej. un chat de Telegram).
-- **AlertEvent:** Registro de una alerta enviada.
+### users
+
+Almacena información de perfil de los usuarios registrados.
+
+| Columna | Tipo | Restricciones | Descripción |
+|---------|------|---------------|-------------|
+| `id` | `uuid` | PK | Identificador único (UUID v7) |
+| `email` | `varchar(254)` | UNIQUE, NOT NULL | Correo electrónico |
+| `full_name` | `varchar(255)` | - | Nombre completo |
+| `avatar_url` | `varchar(500)` | - | URL de avatar |
+| `timezone` | `varchar(50)` | DEFAULT 'UTC' | Zona horaria |
+| `language` | `varchar(10)` | DEFAULT 'en' | Idioma preferido |
+| `created_at` | `timestamp` | AUTO | Fecha de creación |
+| `updated_at` | `timestamp` | AUTO | Última actualización |
+
+### credentials
+
+Almacena credenciales de autenticación separadas del perfil (seguridad).
+
+| Columna | Tipo | Restricciones | Descripción |
+|---------|------|---------------|-------------|
+| `id` | `uuid` | PK | Identificador único |
+| `user_id` | `uuid` | FK, UNIQUE | Referencia al usuario |
+| `password_hash` | `varchar(255)` | NOT NULL | Hash bcrypt de la contraseña |
+| `last_login_at` | `timestamp` | - | Último inicio de sesión |
+| `login_attempts` | `int` | DEFAULT 0 | Intentos fallidos consecutivos |
+| `locked_until` | `timestamp` | - | Bloqueo temporal por intentos |
+| `password_changed_at` | `timestamp` | NOT NULL | Última cambio de contraseña |
+| `requires_password_change` | `boolean` | DEFAULT false | Forzar cambio en próximo login |
+
+### monitoring_targets
+
+Tabla principal de objetivos de monitoreo.
+
+| Columna | Tipo | Restricciones | Descripción |
+|---------|------|---------------|-------------|
+| `id` | `uuid` | PK | Identificador único (UUID v7) |
+| `user_id` | `uuid` | FK, NOT NULL | Propietario del target |
+| `name` | `varchar(255)` | NOT NULL | Nombre descriptivo |
+| `url` | `text` | NOT NULL | URL a monitorear |
+| `target_type` | `varchar(50)` | NOT NULL | Tipo: 'API' o 'WEB' |
+| `is_active` | `boolean` | DEFAULT true | ¿Monitoreo activo? |
+| `previous_status` | `varchar(50)` | DEFAULT 'UNKNOWN' | Estado anterior (para transiciones) |
+| `current_status` | `varchar(50)` | DEFAULT 'UNKNOWN' | Estado actual |
+| `check_interval_seconds` | `int` | DEFAULT 300 | Frecuencia de verificación (5 min) |
+| `timeout_seconds` | `int` | DEFAULT 10 | Timeout de conexión |
+| `retry_count` | `int` | DEFAULT 3 | Reintentos antes de fallar |
+| `retry_delay_seconds` | `int` | DEFAULT 1 | Pausa entre reintentos |
+| `last_checked_at` | `timestamp` | - | Última verificación |
+| `next_check_at` | `timestamp` | INDEX | Próxima verificación programada |
+
+**Índices:**
+
+- `idx_monitoring_targets_next_check_at` en `next_check_at` (polling eficiente)
+
+### check_results
+
+Almacena resultados de verificaciones con cambios de estado (alertas).
+
+| Columna | Tipo | Restricciones | Descripción |
+|---------|------|---------------|-------------|
+| `id` | `uuid` | PK | Identificador único |
+| `monitoring_target_id` | `uuid` | FK, NOT NULL | Target verificado |
+| `timestamp` | `timestamp` | NOT NULL | Momento de la verificación |
+| `status` | `varchar(50)` | NOT NULL | Estado determinado |
+| `avg_response_time_ms` | `int` | NOT NULL | Tiempo de respuesta promedio |
+| `error_message` | `text` | - | Mensaje de error (si aplica) |
+
+**Índices:**
+
+- `idx_target_timestamp` en `(monitoring_target_id, timestamp)` compuesto
+
+### metrics
+
+Serie temporal de métricas de rendimiento (solo checks exitosos).
+
+| Columna | Tipo | Restricciones | Descripción |
+|---------|------|---------------|-------------|
+| `monitoring_target_id` | `uuid` | FK, NOT NULL | Target monitoreado |
+| `timestamp` | `timestamp` | NOT NULL | Momento de la medición |
+| `response_time_ms` | `int` | NOT NULL | Latencia en milisegundos |
+
+**Índices:**
+
+- `idx_metric_target_time` en `(monitoring_target_id, timestamp)` compuesto
+
+### target_statistics
+
+Estadísticas agregadas calculadas para cada target.
+
+| Columna | Tipo | Restricciones | Descripción |
+|---------|------|---------------|-------------|
+| `target_id` | `uuid` | PK, FK | Referencia al target |
+| `avg_response_time_ms` | `int` | DEFAULT 0 | Promedio de latencia histórico |
+| `total_checks_count` | `int` | DEFAULT 0 | Total de verificaciones |
+| `last_updated_at` | `timestamp` | AUTO | Última actualización |
+
+### notification_channels
+
+Canales de notificación configurados por usuarios.
+
+| Columna | Tipo | Restricciones | Descripción |
+|---------|------|---------------|-------------|
+| `id` | `varchar(100)` | PK | ID del canal (ej: Telegram Chat ID) |
+| `user_id` | `varchar(36)` | FK, NOT NULL, INDEX | Propietario |
+| `type` | `varchar(20)` | NOT NULL | Tipo: 'telegram', 'email', etc. |
+| `value` | `text` | NOT NULL | Configuración (JSON o string) |
+| `priority` | `int` | DEFAULT 0 | Prioridad de envío |
+| `is_active` | `boolean` | DEFAULT true | ¿Canal activo? |
+
+### telegram_linking_tokens
+
+Tokens temporales para vinculación de cuentas Telegram (Magic Link).
+
+| Columna | Tipo | Restricciones | Descripción |
+|---------|------|---------------|-------------|
+| `token` | `varchar(64)` | PK | Token único generado |
+| `user_id` | `varchar(36)` | FK, NOT NULL, INDEX | Usuario solicitante |
+| `expires_at` | `timestamp` | NOT NULL, INDEX | Fecha de expiración (15 min) |
+| `used` | `boolean` | DEFAULT false | ¿Token ya utilizado? |
+
+## Migraciones
+
+Las migraciones se ejecutan automáticamente al iniciar la aplicación mediante GORM AutoMigrate:
+
+```go
+// config/migrations.go
+func RunMigrations(db *gorm.DB) {
+    db.AutoMigrate(
+        // User module
+        &userpostgres.UserEntity{},
+        
+        // Security module
+        &securitypostgres.CredentialEntity{},
+        
+        // Monitoring module
+        &monitoringpostgres.MonitoringTargetEntity{},
+        &monitoringpostgres.CheckResultEntity{},
+        &monitoringpostgres.MetricEntity{},
+        &monitoringpostgres.TargetStatisticsEntity{},
+        
+        // Notifications module
+        &notifpostgres.NotificationChannelEntity{},
+        &notifpostgres.TelegramLinkingToken{},
+    )
+}
+```
+
+**Características:**
+
+- Creación automática de tablas si no existen
+- Adición de columnas nuevas
+- No elimina columnas existentes (seguro)
+- No modifica tipos de columnas existentes
 
 ## Consideraciones de Diseño
 
-- **Relaciones:** Un usuario tiene múltiples targets. Un target tiene múltiples resultados históricos.
-- **Índices:** Se utilizan índices en columnas de búsqueda frecuente como `target_id` y `timestamp` para optimizar consultas de historial.
+### Separación de Datos Calientes/Fríos
 
-## Diseño de Base de Datos
+| Tabla | Tipo | Frecuencia | Retención |
+|-------|------|-----------|-----------|
+| `metrics` | Caliente | Alta escritura (cada check) | 7-30 días |
+| `check_results` | Templada | Solo cambios de estado | 90 días |
+| `target_statistics` | Fría | Actualización periódica | Indefinida |
 
-Base de datos relacional PostgreSQL con las siguientes tablas clave:
+### Estrategia de Índices
 
-### Tablas de Monitoreo Core
+```sql
+-- Consultas frecuentes optimizadas:
 
-- **monitoring_targets**: Configuraciones de objetivos
-  - id (UUID, PK)
-  - name (varchar)
-  - url (varchar)
-  - check_interval (int)
-  - timeout (int)
-  - expected_status (int)
-  - created_at, updated_at (timestamp)
+-- 1. Polling del scheduler (cada 10s)
+SELECT * FROM monitoring_targets 
+WHERE is_active = true 
+  AND (next_check_at <= NOW() OR next_check_at IS NULL);
+-- Índice: idx_monitoring_targets_next_check_at
 
-- **check_results**: Resultados individuales de verificaciones
-  - id (UUID, PK)
-  - target_id (UUID, FK)
-  - status (enum: UP, DOWN, etc.)
-  - response_time (int)
-  - status_code (int)
-  - error_message (text)
-  - checked_at (timestamp)
+-- 2. Historial de un target (dashboard)
+SELECT * FROM check_results 
+WHERE monitoring_target_id = ? 
+ORDER BY timestamp DESC 
+LIMIT 50;
+-- Índice compuesto: idx_target_timestamp
 
-- **target_metrics**: Datos de rendimiento agregados
-  - id (UUID, PK)
-  - target_id (UUID, FK)
-  - uptime_percentage (decimal)
-  - avg_response_time (int)
-  - total_checks (int)
-  - period_start, period_end (timestamp)
+-- 3. Métricas para gráficos
+SELECT * FROM metrics 
+WHERE monitoring_target_id = ? 
+  AND timestamp > NOW() - INTERVAL '7 days'
+ORDER BY timestamp;
+-- Índice compuesto: idx_metric_target_time
+```
 
-### Tablas de Notificaciones
+### UUID v7 como Primary Key
 
-- **notification_channels**: Preferencias de notificación de usuario
-  - id (varchar(100), PK) - ID de canal de Telegram
-  - user_id (UUID, FK)
-  - platform (enum: telegram)
-  - enabled (boolean)
-  - created_at, updated_at (timestamp)
+Se utiliza UUID v7 en lugar de auto-increment por:
 
-- **linking_tokens**: Tokens de magic link
-  - id (UUID, PK)
-  - token (varchar, unique)
-  - user_id (UUID, FK)
-  - expires_at (timestamp)
-  - used (boolean)
+- **Ordenamiento temporal**: UUID v7 incluye timestamp, preserva orden de inserción
+- **Distribución**: No hay colisiones en sistemas distribuidos
+- **Seguridad**: No expone información sobre cantidad de registros
 
-### Tablas de Gestión de Usuarios
+```go
+// Generación en GORM hooks
+func (e *Entity) BeforeCreate(tx *gorm.DB) error {
+    if e.ID == uuid.Nil {
+        e.ID = uuid.Must(uuid.NewV7())
+    }
+    return nil
+}
+```
 
-- **users**: Cuentas de usuario
-  - id (UUID, PK)
-  - email (varchar, unique)
-  - password_hash (varchar)
-  - created_at, updated_at (timestamp)
+## Conexión y Pool
 
-## Evolución del Esquema
+La conexión se configura mediante variables de entorno:
 
-Migraciones de base de datos manejadas a través de GORM AutoMigrate:
+```go
+// config/database.go
+dsn := fmt.Sprintf(
+    "host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+    os.Getenv("DB_HOST"),
+    os.Getenv("DB_PORT"),
+    os.Getenv("DB_USER"),
+    os.Getenv("DB_PASSWORD"),
+    os.Getenv("DB_NAME"),
+    os.Getenv("DB_SSLMODE"),
+)
 
-- **Automáticas**: Actualizaciones de esquema al inicio de la aplicación
-- **Versionadas**: Archivos de migración para cambios complejos
-- **Transaccionales**: Rollback seguro en fallos
+db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+```
 
-## Optimizaciones de Rendimiento
+**Configuración del Pool (recomendada para producción):**
 
-### Índices
-- Claves primarias en todas las tablas
-- Índices de claves foráneas
-- Índices compuestos en columnas consultadas frecuentemente
-- Índices basados en tiempo para datos históricos
+```go
+sqlDB, _ := db.DB()
+sqlDB.SetMaxIdleConns(10)
+sqlDB.SetMaxOpenConns(100)
+sqlDB.SetConnMaxLifetime(time.Hour)
+```
 
-### Optimización de Consultas
-- Operaciones JOIN eficientes
-- Uso apropiado de EXPLAIN ANALYZE
-- Pooling de conexiones con driver pgx
-- Sentencias preparadas para consultas repetidas
+## Backup y Recuperación
 
-## Retención de Datos
+### Estrategia Recomendada
 
-Políticas de retención de datos configurables:
+| Tipo | Frecuencia | Herramienta | Retención |
+|------|-----------|-------------|-----------|
+| Full Backup | Diario | pg_dump | 7 días |
+| WAL Archiving | Continuo | pg_basebackup | 24 horas |
+| Snapshot | Semanal | Cloud Provider | 30 días |
 
-- **Resultados de Verificaciones**: Ventana rodante de 30 días
-- **Métricas**: Datos históricos de 1 año
-- **Notificaciones**: Registro de auditoría de 90 días
+### Comandos de Backup
 
-## Estrategia de Backup
+```bash
+# Backup completo
+pg_dump -h localhost -U postgres -d uptrackai_db -F c -f backup.dump
 
-- **Backups Automatizados**: Instantáneas diarias
-- **Recuperación Point-in-Time**: Archivado WAL
-- **Almacenamiento Offsite**: Almacenamiento de backup en la nube
-- **Pruebas**: Pruebas regulares de restauración
+# Restauración
+pg_restore -h localhost -U postgres -d uptrackai_db -c backup.dump
+
+# Backup solo datos (sin esquema)
+pg_dump -h localhost -U postgres -d uptrackai_db --data-only > data.sql
+```
+
+## Limpieza de Datos
+
+Script recomendado para mantenimiento (ejecutar semanalmente):
+
+```sql
+-- Eliminar métricas antiguas (> 30 días)
+DELETE FROM metrics 
+WHERE timestamp < NOW() - INTERVAL '30 days';
+
+-- Eliminar tokens de linking expirados
+DELETE FROM telegram_linking_tokens 
+WHERE expires_at < NOW();
+
+-- Vacuum para recuperar espacio
+VACUUM ANALYZE metrics;
+VACUUM ANALYZE check_results;
+```

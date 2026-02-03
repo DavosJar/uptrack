@@ -21,7 +21,7 @@ ContainerDb(db, "Base de Datos", "PostgreSQL", "Almacena usuarios, targets, resu
 
 Container_Ext(spa, "SPA Web", "React", "Interfaz web de usuario")
 
-Container_Ext(mobile, "App Móvil", "Kotlin", "Aplicación móvil")
+Container_Ext(mobile, "App Móvil", "React Native", "Aplicación móvil")
 
 System_Ext(telegram, "Telegram API", "Webhook", "Servicio de mensajería Telegram")
 

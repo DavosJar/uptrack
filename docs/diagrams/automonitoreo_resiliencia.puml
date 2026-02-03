@@ -20,7 +20,6 @@ cloud "External Watchdog" {
     [UptimeRobot / K8s Probe] as External
 }
 
-== Flujo Normal ==
 Main -> Diag: Reportar Estado
 Diag -> Runtime: Leer Goroutines/RAM
 Diag -> DBPool: Check Open Connections
@@ -29,7 +28,6 @@ External -> Healthz: GET /healthz
 Healthz -> Diag: Collect Metrics
 Healthz --> External: 200 OK + JSON\n{goroutines: 45, db: "OK", ram: "12MB"}
 
-== Flujo de Auto-Recuperación (Resiliencia) ==
 note right of Main: CRASH repentino (Bug en Worker)
 
 Main -[#red]-> Recover: PANIC DETECTED!
