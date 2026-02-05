@@ -16,6 +16,9 @@ book:
         - arquitectura/frontend.qmd
         - arquitectura/mobile.qmd
         - arquitectura/database.qmd
+    - part: "Diagramas"
+      chapters:
+        - diagrams.qmd
 
 format:
   html:

@@ -221,7 +221,7 @@ func (h *MonitoringHandler) DeleteTarget(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "Target ID"
-// @Param body body object true "Toggle request body with is_active field"
+// @Param body body ToggleActiveRequest true "Toggle request body"
 // @Success 200 {object} app.APIResponse "Target status toggled successfully"
 // @Failure 400 {object} app.APIResponse "Bad request"
 // @Failure 401 {object} app.APIResponse "Unauthorized"
@@ -289,8 +289,8 @@ func (h *MonitoringHandler) ToggleActive(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "Target ID"
-// @Param body body object true "Configuration update body"
-// @Success 200 {object} app.APIResponse "Configuration updated successfully"
+// @Param body body UpdateConfigurationRequest true "Configuration update body"
+// @Success 200 {object} app.APIResponse{data=TargetDetailResponse} "Configuration updated successfully"
 // @Failure 400 {object} app.APIResponse "Bad request"
 // @Failure 401 {object} app.APIResponse "Unauthorized"
 // @Failure 403 {object} app.APIResponse "Forbidden"
