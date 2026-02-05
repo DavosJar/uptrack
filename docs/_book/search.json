@@ -727,5 +727,60 @@
       "Arquitectura del Sistema",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Modelo de Datos</span>"
     ]
+  },
+  {
+    "objectID": "diagrams.html",
+    "href": "diagrams.html",
+    "title": "8  Diagramas del Sistema",
+    "section": "",
+    "text": "8.1 Modelo C4 - Arquitectura del Sistema\nEsta sección contiene los diagramas arquitectónicos del sistema UpTrackAI.\nEl modelo C4 proporciona una forma jerárquica de visualizar la arquitectura del software en diferentes niveles de abstracción.",
+    "crumbs": [
+      "Diagramas",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Diagramas del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "diagrams.html#modelo-c4---arquitectura-del-sistema",
+    "href": "diagrams.html#modelo-c4---arquitectura-del-sistema",
+    "title": "8  Diagramas del Sistema",
+    "section": "",
+    "text": "8.1.1 Nivel 1 - Diagrama de Contexto\nMuestra el sistema UpTrackAI y cómo se relaciona con usuarios y sistemas externos.\n\n\n\nDiagrama de Contexto C4 - UpTrackAI\n\n\n\n\n8.1.2 Nivel 2 - Diagrama de Contenedores\nMuestra los contenedores (aplicaciones, bases de datos, etc.) que componen el sistema.\n\n\n\nDiagrama de Contenedores C4 - UpTrackAI\n\n\n\n\n8.1.3 Nivel 3 - Diagrama de Componentes\nMuestra los componentes internos del backend y sus responsabilidades.\n\n\n\nDiagrama de Componentes C4 - Backend UpTrackAI",
+    "crumbs": [
+      "Diagramas",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Diagramas del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "diagrams.html#diagrama-de-clases",
+    "href": "diagrams.html#diagrama-de-clases",
+    "title": "8  Diagramas del Sistema",
+    "section": "8.2 Diagrama de Clases",
+    "text": "8.2 Diagrama de Clases\n\n\n\nDiagrama de Clases - UpTrackAI",
+    "crumbs": [
+      "Diagramas",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Diagramas del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "diagrams.html#diagrama-de-flujo-de-monitoreo",
+    "href": "diagrams.html#diagrama-de-flujo-de-monitoreo",
+    "title": "8  Diagramas del Sistema",
+    "section": "8.3 Diagrama de Flujo de Monitoreo",
+    "text": "8.3 Diagrama de Flujo de Monitoreo\n\n\n\nFlujo de Monitoreo - UpTrackAI",
+    "crumbs": [
+      "Diagramas",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Diagramas del Sistema</span>"
+    ]
+  },
+  {
+    "objectID": "diagrams.html#arquitectura-clean",
+    "href": "diagrams.html#arquitectura-clean",
+    "title": "8  Diagramas del Sistema",
+    "section": "8.4 Arquitectura Clean",
+    "text": "8.4 Arquitectura Clean\n\n\n\nArquitectura Clean",
+    "crumbs": [
+      "Diagramas",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Diagramas del Sistema</span>"
+    ]
   }
 ]

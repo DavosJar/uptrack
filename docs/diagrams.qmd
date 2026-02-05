@@ -2,6 +2,36 @@
 
 Esta sección contiene los diagramas arquitectónicos del sistema UpTrackAI.
 
+## Modelo C4 - Arquitectura del Sistema
+
+El modelo C4 proporciona una forma jerárquica de visualizar la arquitectura del software en diferentes niveles de abstracción.
+
+### Nivel 1 - Diagrama de Contexto
+
+Muestra el sistema UpTrackAI y cómo se relaciona con usuarios y sistemas externos.
+
+![Diagrama de Contexto C4 - UpTrackAI](diagrams/img/Diagrama de Contexto C4 - UpTrackAI.png)
+
+### Nivel 2 - Diagrama de Contenedores
+
+Muestra los contenedores (aplicaciones, bases de datos, etc.) que componen el sistema.
+
+![Diagrama de Contenedores C4 - UpTrackAI](diagrams/img/Diagrama de Contenedores C4 - UpTrackAI.png)
+
+### Nivel 3 - Diagrama de Componentes
+
+Muestra los componentes internos del backend y sus responsabilidades.
+
+![Diagrama de Componentes C4 - Backend UpTrackAI](diagrams/img/Diagrama de Componentes C4 - Backend UpTrackAI.png)
+
 ## Diagrama de Clases
 
 ![Diagrama de Clases - UpTrackAI](diagrams/img/Diagrama de Clases - UpTrackAI.png)
+
+## Diagrama de Flujo de Monitoreo
+
+![Flujo de Monitoreo - UpTrackAI](diagrams/img/Flujo de Monitoreo - UpTrackAI.png)
+
+## Arquitectura Clean
+
+![Arquitectura Clean](diagrams/img/arquitectura_clean.png)

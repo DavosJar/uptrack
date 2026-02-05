@@ -40,6 +40,16 @@ func (h *NotificationConfigHandler) RegisterRoutes(router *gin.RouterGroup) {
 }
 
 // GetNotificationMethods retorna la lista de métodos de notificación del usuario
+// @Summary Get notification methods
+// @Description Retrieve the list of notification methods configured by the authenticated user
+// @Tags notifications
+// @Accept json
+// @Produce json
+// @Success 200 {object} app.APIResponse{data=[]NotificationMethodResponse} "Notification methods retrieved"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 500 {object} app.APIResponse "Internal server error"
+// @Security BearerAuth
+// @Router /notifications/methods [get]
 func (h *NotificationConfigHandler) GetNotificationMethods(c *gin.Context) {
 	// Validar autenticación
 	_, exists := middleware.GetUserID(c)
@@ -81,6 +91,17 @@ func (h *NotificationConfigHandler) GetNotificationMethods(c *gin.Context) {
 }
 
 // GetNotificationMethod retorna un método de notificación específico
+// @Summary Get notification method by ID
+// @Description Retrieve a specific notification method by its ID
+// @Tags notifications
+// @Accept json
+// @Produce json
+// @Param id path string true "Notification Method ID"
+// @Success 200 {object} app.APIResponse{data=NotificationMethodResponse} "Notification method retrieved"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 404 {object} app.APIResponse "Notification method not found"
+// @Security BearerAuth
+// @Router /notifications/methods/{id} [get]
 func (h *NotificationConfigHandler) GetNotificationMethod(c *gin.Context) {
 	id := c.Param("id")
 
@@ -102,6 +123,18 @@ func (h *NotificationConfigHandler) GetNotificationMethod(c *gin.Context) {
 }
 
 // CreateNotificationMethod crea un nuevo método de notificación
+// @Summary Create notification method
+// @Description Create a new notification method (Telegram, Slack, etc.) for the authenticated user
+// @Tags notifications
+// @Accept json
+// @Produce json
+// @Param request body CreateNotificationMethodRequest true "Notification method data"
+// @Success 201 {object} app.APIResponse{data=NotificationMethodResponse} "Notification method created"
+// @Failure 400 {object} app.APIResponse "Invalid request"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 500 {object} app.APIResponse "Internal server error"
+// @Security BearerAuth
+// @Router /notifications/methods [post]
 func (h *NotificationConfigHandler) CreateNotificationMethod(c *gin.Context) {
 	var req CreateNotificationMethodRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -127,6 +160,16 @@ func (h *NotificationConfigHandler) CreateNotificationMethod(c *gin.Context) {
 }
 
 // GetNotificationChannels retorna los canales de notificación del usuario
+// @Summary Get notification channels
+// @Description Retrieve all active notification channels for the authenticated user
+// @Tags notifications
+// @Accept json
+// @Produce json
+// @Success 200 {object} app.APIResponse{data=[]NotificationChannelResponse} "Notification channels retrieved"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 500 {object} app.APIResponse "Internal server error"
+// @Security BearerAuth
+// @Router /notifications/channels [get]
 func (h *NotificationConfigHandler) GetNotificationChannels(c *gin.Context) {
 	// Validar autenticación
 	userID, exists := middleware.GetUserID(c)
@@ -164,6 +207,16 @@ func (h *NotificationConfigHandler) GetNotificationChannels(c *gin.Context) {
 }
 
 // GetNotifications returns the history of notifications for the user
+// @Summary Get notification history
+// @Description Retrieve the history of all notifications sent to the authenticated user
+// @Tags notifications
+// @Accept json
+// @Produce json
+// @Success 200 {object} app.APIResponse{data=[]NotificationResponse} "Notifications retrieved"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 500 {object} app.APIResponse "Internal server error"
+// @Security BearerAuth
+// @Router /notifications/history [get]
 func (h *NotificationConfigHandler) GetNotifications(c *gin.Context) {
 	userID, exists := middleware.GetUserID(c)
 	if !exists {
@@ -199,6 +252,20 @@ func (h *NotificationConfigHandler) GetNotifications(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// GetNotification retrieves a specific notification by ID
+// @Summary Get notification by ID
+// @Description Retrieve a specific notification by its ID
+// @Tags notifications
+// @Accept json
+// @Produce json
+// @Param id path string true "Notification ID"
+// @Success 200 {object} app.APIResponse{data=NotificationResponse} "Notification retrieved"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 403 {object} app.APIResponse "Forbidden"
+// @Failure 404 {object} app.APIResponse "Notification not found"
+// @Failure 500 {object} app.APIResponse "Internal server error"
+// @Security BearerAuth
+// @Router /notifications/history/{id} [get]
 func (h *NotificationConfigHandler) GetNotification(c *gin.Context) {
 	id := c.Param("id")
 	userID, exists := middleware.GetUserID(c)
@@ -236,6 +303,18 @@ func (h *NotificationConfigHandler) GetNotification(c *gin.Context) {
 }
 
 // MarkAsRead marks a notification as read
+// @Summary Mark notification as read
+// @Description Mark a specific notification as read by its ID
+// @Tags notifications
+// @Accept json
+// @Produce json
+// @Param id path string true "Notification ID"
+// @Success 200 {object} app.APIResponse "Notification marked as read"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 404 {object} app.APIResponse "Notification not found"
+// @Failure 500 {object} app.APIResponse "Internal server error"
+// @Security BearerAuth
+// @Router /notifications/{id}/read [put]
 func (h *NotificationConfigHandler) MarkAsRead(c *gin.Context) {
 	id := c.Param("id")
 

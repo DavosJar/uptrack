@@ -61,3 +61,18 @@ type StatisticsResponse struct {
 	AvgResponseTimeMs int     `json:"avg_response_time_ms"`
 	SuccessRate       float64 `json:"success_rate"`
 }
+
+// ToggleActiveRequest representa la petición para activar/desactivar un target
+type ToggleActiveRequest struct {
+	IsActive bool `json:"is_active" binding:"required" example:"true"`
+}
+
+// UpdateConfigurationRequest representa la petición para actualizar la configuración de un target
+type UpdateConfigurationRequest struct {
+	TimeoutSeconds       int  `json:"timeout_seconds" binding:"required,min=1,max=60" example:"30"`
+	RetryCount           int  `json:"retry_count" binding:"required,min=0,max=10" example:"3"`
+	RetryDelaySeconds    int  `json:"retry_delay_seconds" binding:"required,min=1,max=60" example:"5"`
+	CheckIntervalSeconds int  `json:"check_interval_seconds" binding:"required,min=30,max=3600" example:"60"`
+	AlertOnFailure       bool `json:"alert_on_failure" example:"true"`
+	AlertOnRecovery      bool `json:"alert_on_recovery" example:"true"`
+}
