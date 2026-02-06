@@ -9,6 +9,10 @@
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![ReactNative](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Expo](https://img.shields.io/badge/expo-1C1E21.svg?style=for-the-badge&logo=expo&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Ngrok](https://img.shields.io/badge/ngrok-1F1E37?style=for-the-badge&logo=ngrok&logoColor=white)
 
 </div>
 
@@ -31,6 +35,13 @@ Sistema de monitoreo inteligente diseñado para detectar cambios de estado reale
 - **Lenguaje:** TypeScript
 - **Estilos:** Tailwind CSS
 - **Gráficos:** Recharts
+
+### Mobile App
+- **Framework:** React Native (Expo)
+- **Lenguaje:** TypeScript
+- **Notificaciones:** Expo Notifications
+- **Widgets:** Android Widgets support
+- **Conectividad:** Ngrok (Tunneling)
 
 ### Infraestructura & Docs
 - **Contenedores:** Docker & Docker Compose
