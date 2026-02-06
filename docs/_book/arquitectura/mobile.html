@@ -141,6 +141,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Documentación Técnica de UpTrackAI</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DavosJar/uptrack" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -233,32 +236,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#características-principales" id="toc-características-principales" class="nav-link active" data-scroll-target="#características-principales"><span class="header-section-number">6.1</span> Características Principales</a></li>
   <li><a href="#stack-tecnológico" id="toc-stack-tecnológico" class="nav-link" data-scroll-target="#stack-tecnológico"><span class="header-section-number">6.2</span> Stack Tecnológico</a></li>
   <li><a href="#estructura-del-proyecto" id="toc-estructura-del-proyecto" class="nav-link" data-scroll-target="#estructura-del-proyecto"><span class="header-section-number">6.3</span> Estructura del Proyecto</a></li>
-  <li><a href="#sistema-de-navegación" id="toc-sistema-de-navegación" class="nav-link" data-scroll-target="#sistema-de-navegación"><span class="header-section-number">6.4</span> Sistema de Navegación</a>
+  <li><a href="#arquitectura-de-comunicación" id="toc-arquitectura-de-comunicación" class="nav-link" data-scroll-target="#arquitectura-de-comunicación"><span class="header-section-number">6.4</span> Arquitectura de Comunicación</a></li>
+  <li><a href="#sistema-de-navegación" id="toc-sistema-de-navegación" class="nav-link" data-scroll-target="#sistema-de-navegación"><span class="header-section-number">6.5</span> Sistema de Navegación</a>
   <ul class="collapse">
-  <li><a href="#pantallas-disponibles" id="toc-pantallas-disponibles" class="nav-link" data-scroll-target="#pantallas-disponibles"><span class="header-section-number">6.4.1</span> Pantallas Disponibles</a></li>
+  <li><a href="#pantallas-disponibles" id="toc-pantallas-disponibles" class="nav-link" data-scroll-target="#pantallas-disponibles"><span class="header-section-number">6.5.1</span> Pantallas Disponibles</a></li>
   </ul></li>
-  <li><a href="#cliente-api" id="toc-cliente-api" class="nav-link" data-scroll-target="#cliente-api"><span class="header-section-number">6.5</span> Cliente API</a></li>
-  <li><a href="#contexto-de-autenticación" id="toc-contexto-de-autenticación" class="nav-link" data-scroll-target="#contexto-de-autenticación"><span class="header-section-number">6.6</span> Contexto de Autenticación</a></li>
-  <li><a href="#widget-android" id="toc-widget-android" class="nav-link" data-scroll-target="#widget-android"><span class="header-section-number">6.7</span> Widget Android</a>
+  <li><a href="#cliente-api" id="toc-cliente-api" class="nav-link" data-scroll-target="#cliente-api"><span class="header-section-number">6.6</span> Cliente API</a></li>
+  <li><a href="#contexto-de-autenticación" id="toc-contexto-de-autenticación" class="nav-link" data-scroll-target="#contexto-de-autenticación"><span class="header-section-number">6.7</span> Contexto de Autenticación</a></li>
+  <li><a href="#widget-android" id="toc-widget-android" class="nav-link" data-scroll-target="#widget-android"><span class="header-section-number">6.8</span> Widget Android</a>
   <ul class="collapse">
-  <li><a href="#características-del-widget" id="toc-características-del-widget" class="nav-link" data-scroll-target="#características-del-widget"><span class="header-section-number">6.7.1</span> Características del Widget</a></li>
+  <li><a href="#características-del-widget" id="toc-características-del-widget" class="nav-link" data-scroll-target="#características-del-widget"><span class="header-section-number">6.8.1</span> Características del Widget</a></li>
   </ul></li>
-  <li><a href="#tema-y-colores" id="toc-tema-y-colores" class="nav-link" data-scroll-target="#tema-y-colores"><span class="header-section-number">6.8</span> Tema y Colores</a></li>
-  <li><a href="#configuración-de-expo" id="toc-configuración-de-expo" class="nav-link" data-scroll-target="#configuración-de-expo"><span class="header-section-number">6.9</span> Configuración de Expo</a></li>
-  <li><a href="#desarrollo-local" id="toc-desarrollo-local" class="nav-link" data-scroll-target="#desarrollo-local"><span class="header-section-number">6.10</span> Desarrollo Local</a>
+  <li><a href="#tema-y-colores" id="toc-tema-y-colores" class="nav-link" data-scroll-target="#tema-y-colores"><span class="header-section-number">6.9</span> Tema y Colores</a></li>
+  <li><a href="#configuración-de-expo" id="toc-configuración-de-expo" class="nav-link" data-scroll-target="#configuración-de-expo"><span class="header-section-number">6.10</span> Configuración de Expo</a></li>
+  <li><a href="#desarrollo-local" id="toc-desarrollo-local" class="nav-link" data-scroll-target="#desarrollo-local"><span class="header-section-number">6.11</span> Desarrollo Local</a>
   <ul class="collapse">
-  <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos"><span class="header-section-number">6.10.1</span> Requisitos</a></li>
-  <li><a href="#instalación-y-ejecución" id="toc-instalación-y-ejecución" class="nav-link" data-scroll-target="#instalación-y-ejecución"><span class="header-section-number">6.10.2</span> Instalación y Ejecución</a></li>
-  <li><a href="#configuración-del-api" id="toc-configuración-del-api" class="nav-link" data-scroll-target="#configuración-del-api"><span class="header-section-number">6.10.3</span> Configuración del API</a></li>
+  <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos"><span class="header-section-number">6.11.1</span> Requisitos</a></li>
+  <li><a href="#instalación-y-ejecución" id="toc-instalación-y-ejecución" class="nav-link" data-scroll-target="#instalación-y-ejecución"><span class="header-section-number">6.11.2</span> Instalación y Ejecución</a></li>
+  <li><a href="#configuración-del-api" id="toc-configuración-del-api" class="nav-link" data-scroll-target="#configuración-del-api"><span class="header-section-number">6.11.3</span> Configuración del API</a></li>
   </ul></li>
-  <li><a href="#build-de-producción" id="toc-build-de-producción" class="nav-link" data-scroll-target="#build-de-producción"><span class="header-section-number">6.11</span> Build de Producción</a>
+  <li><a href="#build-de-producción" id="toc-build-de-producción" class="nav-link" data-scroll-target="#build-de-producción"><span class="header-section-number">6.12</span> Build de Producción</a>
   <ul class="collapse">
-  <li><a href="#eas-build-recomendado" id="toc-eas-build-recomendado" class="nav-link" data-scroll-target="#eas-build-recomendado"><span class="header-section-number">6.11.1</span> EAS Build (Recomendado)</a></li>
-  <li><a href="#configuración-eas-eas.json" id="toc-configuración-eas-eas.json" class="nav-link" data-scroll-target="#configuración-eas-eas.json"><span class="header-section-number">6.11.2</span> Configuración EAS (eas.json)</a></li>
+  <li><a href="#eas-build-recomendado" id="toc-eas-build-recomendado" class="nav-link" data-scroll-target="#eas-build-recomendado"><span class="header-section-number">6.12.1</span> EAS Build (Recomendado)</a></li>
+  <li><a href="#configuración-eas-eas.json" id="toc-configuración-eas-eas.json" class="nav-link" data-scroll-target="#configuración-eas-eas.json"><span class="header-section-number">6.12.2</span> Configuración EAS (eas.json)</a></li>
   </ul></li>
-  <li><a href="#funcionalidades-futuras" id="toc-funcionalidades-futuras" class="nav-link" data-scroll-target="#funcionalidades-futuras"><span class="header-section-number">6.12</span> Funcionalidades Futuras</a></li>
+  <li><a href="#funcionalidades-futuras" id="toc-funcionalidades-futuras" class="nav-link" data-scroll-target="#funcionalidades-futuras"><span class="header-section-number">6.13</span> Funcionalidades Futuras</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/DavosJar/uptrack/blob/main/arquitectura/mobile.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/DavosJar/uptrack/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -405,8 +409,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         ├── SystemStatusWidget.tsx
         └── widget-task-handler.tsx</code></pre>
 </section>
-<section id="sistema-de-navegación" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="sistema-de-navegación"><span class="header-section-number">6.4</span> Sistema de Navegación</h2>
+<section id="arquitectura-de-comunicación" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="arquitectura-de-comunicación"><span class="header-section-number">6.4</span> Arquitectura de Comunicación</h2>
+<p>El siguiente diagrama ilustra la arquitectura de comunicación entre la aplicación móvil y el backend:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./diagramas/Arquitectura-mobile-backend.png" class="img-fluid figure-img"></p>
+<figcaption>Arquitectura Mobile-Backend</figcaption>
+</figure>
+</div>
+</section>
+<section id="sistema-de-navegación" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="sistema-de-navegación"><span class="header-section-number">6.5</span> Sistema de Navegación</h2>
 <p>La aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):</p>
 <pre class="tsx"><code>// AppNavigator.tsx
 type Screen = TabScreen | 'addTarget' | 'targetDetails' | 'notifications' | 'widgetConfig';
@@ -430,8 +444,8 @@ const AppNavigator: React.FC = () =&gt; {
     // ...
   }
 };</code></pre>
-<section id="pantallas-disponibles" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="pantallas-disponibles"><span class="header-section-number">6.4.1</span> Pantallas Disponibles</h3>
+<section id="pantallas-disponibles" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="pantallas-disponibles"><span class="header-section-number">6.5.1</span> Pantallas Disponibles</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -485,8 +499,8 @@ const AppNavigator: React.FC = () =&gt; {
 </table>
 </section>
 </section>
-<section id="cliente-api" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="cliente-api"><span class="header-section-number">6.5</span> Cliente API</h2>
+<section id="cliente-api" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="cliente-api"><span class="header-section-number">6.6</span> Cliente API</h2>
 <p>El cliente HTTP centraliza la autenticación usando AsyncStorage:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode typescript code-with-copy"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// api/fetch.ts</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fu">fetchWithAuth</span>(url<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> options<span class="op">:</span> RequestInit <span class="op">=</span> {}) {</span>
@@ -518,8 +532,8 @@ const AppNavigator: React.FC = () =&gt; {
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> response<span class="op">;</span></span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="contexto-de-autenticación" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="contexto-de-autenticación"><span class="header-section-number">6.6</span> Contexto de Autenticación</h2>
+<section id="contexto-de-autenticación" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="contexto-de-autenticación"><span class="header-section-number">6.7</span> Contexto de Autenticación</h2>
 <p>Gestión de sesión mediante React Context y AsyncStorage:</p>
 <pre class="tsx"><code>// context/AuthContext.tsx
 interface AuthContextType {
@@ -559,8 +573,8 @@ export const AuthProvider: React.FC&lt;{ children: ReactNode }&gt; = ({ children
   };
 };</code></pre>
 </section>
-<section id="widget-android" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="widget-android"><span class="header-section-number">6.7</span> Widget Android</h2>
+<section id="widget-android" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="widget-android"><span class="header-section-number">6.8</span> Widget Android</h2>
 <p>La aplicación incluye un widget nativo para Android que muestra el estado de un sistema seleccionado:</p>
 <pre class="tsx"><code>// widgets/SystemStatusWidget.tsx
 interface SystemStatusWidgetProps {
@@ -597,8 +611,8 @@ export function SystemStatusWidget({
     &lt;/FlexWidget&gt;
   );
 }</code></pre>
-<section id="características-del-widget" class="level3" data-number="6.7.1">
-<h3 data-number="6.7.1" class="anchored" data-anchor-id="características-del-widget"><span class="header-section-number">6.7.1</span> Características del Widget</h3>
+<section id="características-del-widget" class="level3" data-number="6.8.1">
+<h3 data-number="6.8.1" class="anchored" data-anchor-id="características-del-widget"><span class="header-section-number">6.8.1</span> Características del Widget</h3>
 <ul>
 <li><strong>Tamaño</strong>: 2x1 celdas mínimo</li>
 <li><strong>Actualización</strong>: Periódica o por evento</li>
@@ -607,8 +621,8 @@ export function SystemStatusWidget({
 </ul>
 </section>
 </section>
-<section id="tema-y-colores" class="level2" data-number="6.8">
-<h2 data-number="6.8" class="anchored" data-anchor-id="tema-y-colores"><span class="header-section-number">6.8</span> Tema y Colores</h2>
+<section id="tema-y-colores" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="tema-y-colores"><span class="header-section-number">6.9</span> Tema y Colores</h2>
 <p>Paleta de colores consistente con la versión web:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode typescript code-with-copy"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// theme/colors.ts</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> colors <span class="op">=</span> {</span>
@@ -632,8 +646,8 @@ export function SystemStatusWidget({
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  border<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="configuración-de-expo" class="level2" data-number="6.9">
-<h2 data-number="6.9" class="anchored" data-anchor-id="configuración-de-expo"><span class="header-section-number">6.9</span> Configuración de Expo</h2>
+<section id="configuración-de-expo" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="configuración-de-expo"><span class="header-section-number">6.10</span> Configuración de Expo</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">app.json</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"expo"</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -660,10 +674,10 @@ export function SystemStatusWidget({
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="desarrollo-local" class="level2" data-number="6.10">
-<h2 data-number="6.10" class="anchored" data-anchor-id="desarrollo-local"><span class="header-section-number">6.10</span> Desarrollo Local</h2>
-<section id="requisitos" class="level3" data-number="6.10.1">
-<h3 data-number="6.10.1" class="anchored" data-anchor-id="requisitos"><span class="header-section-number">6.10.1</span> Requisitos</h3>
+<section id="desarrollo-local" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="desarrollo-local"><span class="header-section-number">6.11</span> Desarrollo Local</h2>
+<section id="requisitos" class="level3" data-number="6.11.1">
+<h3 data-number="6.11.1" class="anchored" data-anchor-id="requisitos"><span class="header-section-number">6.11.1</span> Requisitos</h3>
 <ul>
 <li>Node.js 18+</li>
 <li>pnpm (recomendado)</li>
@@ -672,8 +686,8 @@ export function SystemStatusWidget({
 <li>Expo Go app (para dispositivo físico)</li>
 </ul>
 </section>
-<section id="instalación-y-ejecución" class="level3" data-number="6.10.2">
-<h3 data-number="6.10.2" class="anchored" data-anchor-id="instalación-y-ejecución"><span class="header-section-number">6.10.2</span> Instalación y Ejecución</h3>
+<section id="instalación-y-ejecución" class="level3" data-number="6.11.2">
+<h3 data-number="6.11.2" class="anchored" data-anchor-id="instalación-y-ejecución"><span class="header-section-number">6.11.2</span> Instalación y Ejecución</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar dependencias</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> up-track-mobile</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> install</span>
@@ -690,23 +704,40 @@ export function SystemStatusWidget({
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en navegador web</span></span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> web</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="configuración-del-api" class="level3" data-number="6.10.3">
-<h3 data-number="6.10.3" class="anchored" data-anchor-id="configuración-del-api"><span class="header-section-number">6.10.3</span> Configuración del API</h3>
-<p>Editar <code>src/api/config.ts</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode typescript code-with-copy"><code class="sourceCode typescript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Para desarrollo local con dispositivo físico</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'http://192.168.1.X:8080'</span><span class="op">;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Para emulador Android</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'http://10.0.2.2:8080'</span><span class="op">;</span></span>
+<section id="configuración-del-api" class="level3" data-number="6.11.3">
+<h3 data-number="6.11.3" class="anchored" data-anchor-id="configuración-del-api"><span class="header-section-number">6.11.3</span> Configuración del API</h3>
+<p>La aplicación requiere configurar la URL base del backend en <code>src/api/config.ts</code>. Debido a las restricciones de seguridad de Android/iOS (que bloquean http plano por defecto) y para facilitar las pruebas en dispositivos físicos, se recomienda encarecidamente el uso de <strong>ngrok</strong>.</p>
+<section id="uso-de-ngrok-recomendado" class="level4" data-number="6.11.3.1">
+<h4 data-number="6.11.3.1" class="anchored" data-anchor-id="uso-de-ngrok-recomendado"><span class="header-section-number">6.11.3.1</span> Uso de Ngrok (Recomendado)</h4>
+<p>Ngrok crea un túnel seguro (HTTPS) desde internet hacia tu servidor local, permitiendo que el dispositivo móvil acceda al backend sin problemas de red o certificados.</p>
+<ol type="1">
+<li><strong>Iniciar Backend:</strong> Asegúrate que tu backend corre en el puerto 8080.</li>
+<li><strong>Iniciar Ngrok:</strong> Ejecuta el siguiente comando en una terminal: <code>bash     ngrok http 8080</code></li>
+<li><strong>Configurar App:</strong> Copia la URL HTTPS generada (ej. <code>https://xxxx-xxxx.ngrok-free.app</code>) en <code>src/api/config.ts</code>:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode typescript code-with-copy"><code class="sourceCode typescript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// src/api/config.ts</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">// RECOMENDADO: URL de Ngrok (http &amp; https tunnels)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Permite testing en dispositivo físico sin configurar Cleartext Traffic</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'https://tu-id-ngrok.ngrok-free.app'</span><span class="op">;</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Para producción</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'https://api.uptrack.example.com'</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* Otras configuraciones:</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Localhost (Solo Emulador Android)</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">// export const API_BASE_URL = 'http://10.0.2.2:8080';</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">// IP Local (Requiere estar en la misma red WiFi)</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">// export const API_BASE_URL = 'http://192.168.1.X:8080';</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Nota:</strong> La versión gratuita de ngrok cambia la URL cada vez que se reinicia. Recuerda actualizar <code>config.ts</code> al obtener una nueva URL.</p>
+</blockquote>
 </section>
 </section>
-<section id="build-de-producción" class="level2" data-number="6.11">
-<h2 data-number="6.11" class="anchored" data-anchor-id="build-de-producción"><span class="header-section-number">6.11</span> Build de Producción</h2>
-<section id="eas-build-recomendado" class="level3" data-number="6.11.1">
-<h3 data-number="6.11.1" class="anchored" data-anchor-id="eas-build-recomendado"><span class="header-section-number">6.11.1</span> EAS Build (Recomendado)</h3>
+</section>
+<section id="build-de-producción" class="level2" data-number="6.12">
+<h2 data-number="6.12" class="anchored" data-anchor-id="build-de-producción"><span class="header-section-number">6.12</span> Build de Producción</h2>
+<section id="eas-build-recomendado" class="level3" data-number="6.12.1">
+<h3 data-number="6.12.1" class="anchored" data-anchor-id="eas-build-recomendado"><span class="header-section-number">6.12.1</span> EAS Build (Recomendado)</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar EAS CLI</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> eas-cli</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -722,8 +753,8 @@ export function SystemStatusWidget({
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Build de producción</span></span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> all <span class="at">--profile</span> production</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="configuración-eas-eas.json" class="level3" data-number="6.11.2">
-<h3 data-number="6.11.2" class="anchored" data-anchor-id="configuración-eas-eas.json"><span class="header-section-number">6.11.2</span> Configuración EAS (eas.json)</h3>
+<section id="configuración-eas-eas.json" class="level3" data-number="6.12.2">
+<h3 data-number="6.12.2" class="anchored" data-anchor-id="configuración-eas-eas.json"><span class="header-section-number">6.12.2</span> Configuración EAS (eas.json)</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"build"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"preview"</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -741,8 +772,8 @@ export function SystemStatusWidget({
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="funcionalidades-futuras" class="level2" data-number="6.12">
-<h2 data-number="6.12" class="anchored" data-anchor-id="funcionalidades-futuras"><span class="header-section-number">6.12</span> Funcionalidades Futuras</h2>
+<section id="funcionalidades-futuras" class="level2" data-number="6.13">
+<h2 data-number="6.13" class="anchored" data-anchor-id="funcionalidades-futuras"><span class="header-section-number">6.13</span> Funcionalidades Futuras</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -1319,334 +1350,358 @@ export function SystemStatusWidget({
 <span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a><span class="in">        └── widget-task-handler.tsx</span></span>
 <span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sistema de Navegación</span></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Arquitectura de Comunicación</span></span>
 <span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>La aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):</span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>El siguiente diagrama ilustra la arquitectura de comunicación entre la aplicación móvil y el backend:</span>
 <span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a><span class="co">// AppNavigator.tsx</span></span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>type Screen <span class="op">=</span> TabScreen <span class="op">|</span> <span class="st">'addTarget'</span> <span class="op">|</span> <span class="st">'targetDetails'</span> <span class="op">|</span> <span class="st">'notifications'</span> <span class="op">|</span> <span class="st">'widgetConfig'</span><span class="op">;</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="al">![Arquitectura Mobile-Backend](./diagramas/Arquitectura-mobile-backend.png)</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sistema de Navegación</span></span>
 <span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> AppNavigator<span class="op">:</span> React<span class="op">.</span><span class="at">FC</span> <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { isLoggedIn<span class="op">,</span> loading } <span class="op">=</span> <span class="fu">useAuth</span>()<span class="op">;</span></span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [currentScreen<span class="op">,</span> setCurrentScreen] <span class="op">=</span> useState<span class="op">&lt;</span>Screen<span class="op">&gt;</span>(<span class="st">'dashboard'</span>)<span class="op">;</span></span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [selectedTargetId<span class="op">,</span> setSelectedTargetId] <span class="op">=</span> useState<span class="op">&lt;</span>string <span class="op">|</span> <span class="kw">null</span><span class="op">&gt;</span>(<span class="kw">null</span>)<span class="op">;</span></span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Navegación condicional basada en autenticación</span></span>
-<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>isLoggedIn) {</span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return </span><span class="fu">&lt;LoginScreen</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Renderizado de pantalla actual</span></span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> (currentScreen) {</span>
-<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">'dashboard'</span><span class="op">:</span></span>
-<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return </span><span class="fu">&lt;DashboardScreen</span> <span class="ot">onNavigateToDetails</span><span class="op">=</span><span class="va">{</span>navigateToDetails<span class="va">}</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
-<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">'systems'</span><span class="op">:</span></span>
-<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return </span><span class="fu">&lt;SystemsScreen</span> <span class="ot">onNavigateToDetails</span><span class="op">=</span><span class="va">{</span>navigateToDetails<span class="va">}</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
-<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
-<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
-<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pantallas Disponibles</span></span>
-<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pantalla <span class="pp">|</span> Tab <span class="pp">|</span> Descripción <span class="pp">|</span></span>
-<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|-----|-------------|</span></span>
-<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`LoginScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Autenticación de usuario <span class="pp">|</span></span>
-<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`DashboardScreen`</span> <span class="pp">|</span> 🏠 <span class="pp">|</span> Estadísticas y alertas activas <span class="pp">|</span></span>
-<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SystemsScreen`</span> <span class="pp">|</span> 📊 <span class="pp">|</span> Lista completa de targets <span class="pp">|</span></span>
-<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`TargetDetailsScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Detalle con métricas de un target <span class="pp">|</span></span>
-<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`AddTargetScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Formulario para crear target <span class="pp">|</span></span>
-<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SettingsScreen`</span> <span class="pp">|</span> ⚙️ <span class="pp">|</span> Configuración de la app <span class="pp">|</span></span>
-<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`NotificationsScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Preferencias de notificaciones <span class="pp">|</span></span>
-<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WidgetConfigScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Configuración del widget <span class="pp">|</span></span>
-<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cliente API</span></span>
-<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>El cliente HTTP centraliza la autenticación usando AsyncStorage:</span>
-<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
-<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a><span class="co">// api/fetch.ts</span></span>
-<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fu">fetchWithAuth</span>(url<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> options<span class="op">:</span> RequestInit <span class="op">=</span> {}) {</span>
-<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> token <span class="op">=</span> <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">getItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
-<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Cache busting para peticiones GET</span></span>
-<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> method <span class="op">=</span> options<span class="op">.</span><span class="at">method</span><span class="op">?.</span><span class="fu">toUpperCase</span>() <span class="op">||</span> <span class="st">'GET'</span><span class="op">;</span></span>
-<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> finalUrl <span class="op">=</span> url<span class="op">;</span></span>
-<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="op">===</span> <span class="st">'GET'</span>) {</span>
-<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> separator <span class="op">=</span> url<span class="op">.</span><span class="fu">includes</span>(<span class="st">'?'</span>) <span class="op">?</span> <span class="st">'&amp;'</span> <span class="op">:</span> <span class="st">'?'</span><span class="op">;</span></span>
-<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>    finalUrl <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>url<span class="sc">}${</span>separator<span class="sc">}</span><span class="vs">_t=</span><span class="sc">${</span><span class="bu">Date</span><span class="op">.</span><span class="fu">now</span>()<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
-<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`</span><span class="sc">${</span>API_BASE_URL<span class="sc">}${</span>finalUrl<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> {</span>
-<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>options<span class="op">,</span></span>
-<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">:</span> {</span>
-<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>options<span class="op">.</span><span class="at">headers</span><span class="op">,</span></span>
-<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Authorization'</span><span class="op">:</span> <span class="vs">`Bearer </span><span class="sc">${</span>token<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
-<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Logout automático si el token expiró</span></span>
-<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (response<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="dv">401</span>) {</span>
-<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">removeItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
-<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="st">'Unauthorized'</span>)<span class="op">;</span></span>
-<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>La aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="co">// AppNavigator.tsx</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>type Screen <span class="op">=</span> TabScreen <span class="op">|</span> <span class="st">'addTarget'</span> <span class="op">|</span> <span class="st">'targetDetails'</span> <span class="op">|</span> <span class="st">'notifications'</span> <span class="op">|</span> <span class="st">'widgetConfig'</span><span class="op">;</span></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> AppNavigator<span class="op">:</span> React<span class="op">.</span><span class="at">FC</span> <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { isLoggedIn<span class="op">,</span> loading } <span class="op">=</span> <span class="fu">useAuth</span>()<span class="op">;</span></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [currentScreen<span class="op">,</span> setCurrentScreen] <span class="op">=</span> useState<span class="op">&lt;</span>Screen<span class="op">&gt;</span>(<span class="st">'dashboard'</span>)<span class="op">;</span></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [selectedTargetId<span class="op">,</span> setSelectedTargetId] <span class="op">=</span> useState<span class="op">&lt;</span>string <span class="op">|</span> <span class="kw">null</span><span class="op">&gt;</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Navegación condicional basada en autenticación</span></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>isLoggedIn) {</span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return </span><span class="fu">&lt;LoginScreen</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Renderizado de pantalla actual</span></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> (currentScreen) {</span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">'dashboard'</span><span class="op">:</span></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return </span><span class="fu">&lt;DashboardScreen</span> <span class="ot">onNavigateToDetails</span><span class="op">=</span><span class="va">{</span>navigateToDetails<span class="va">}</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">'systems'</span><span class="op">:</span></span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return </span><span class="fu">&lt;SystemsScreen</span> <span class="ot">onNavigateToDetails</span><span class="op">=</span><span class="va">{</span>navigateToDetails<span class="va">}</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pantallas Disponibles</span></span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pantalla <span class="pp">|</span> Tab <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|-----|-------------|</span></span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`LoginScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Autenticación de usuario <span class="pp">|</span></span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`DashboardScreen`</span> <span class="pp">|</span> 🏠 <span class="pp">|</span> Estadísticas y alertas activas <span class="pp">|</span></span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SystemsScreen`</span> <span class="pp">|</span> 📊 <span class="pp">|</span> Lista completa de targets <span class="pp">|</span></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`TargetDetailsScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Detalle con métricas de un target <span class="pp">|</span></span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`AddTargetScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Formulario para crear target <span class="pp">|</span></span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SettingsScreen`</span> <span class="pp">|</span> ⚙️ <span class="pp">|</span> Configuración de la app <span class="pp">|</span></span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`NotificationsScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Preferencias de notificaciones <span class="pp">|</span></span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WidgetConfigScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Configuración del widget <span class="pp">|</span></span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cliente API</span></span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>El cliente HTTP centraliza la autenticación usando AsyncStorage:</span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a><span class="co">// api/fetch.ts</span></span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fu">fetchWithAuth</span>(url<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> options<span class="op">:</span> RequestInit <span class="op">=</span> {}) {</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> token <span class="op">=</span> <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">getItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Cache busting para peticiones GET</span></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> method <span class="op">=</span> options<span class="op">.</span><span class="at">method</span><span class="op">?.</span><span class="fu">toUpperCase</span>() <span class="op">||</span> <span class="st">'GET'</span><span class="op">;</span></span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> finalUrl <span class="op">=</span> url<span class="op">;</span></span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="op">===</span> <span class="st">'GET'</span>) {</span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> separator <span class="op">=</span> url<span class="op">.</span><span class="fu">includes</span>(<span class="st">'?'</span>) <span class="op">?</span> <span class="st">'&amp;'</span> <span class="op">:</span> <span class="st">'?'</span><span class="op">;</span></span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a>    finalUrl <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>url<span class="sc">}${</span>separator<span class="sc">}</span><span class="vs">_t=</span><span class="sc">${</span><span class="bu">Date</span><span class="op">.</span><span class="fu">now</span>()<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`</span><span class="sc">${</span>API_BASE_URL<span class="sc">}${</span>finalUrl<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> {</span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>options<span class="op">,</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">:</span> {</span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>options<span class="op">.</span><span class="at">headers</span><span class="op">,</span></span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Authorization'</span><span class="op">:</span> <span class="vs">`Bearer </span><span class="sc">${</span>token<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
 <span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> response<span class="op">;</span></span>
-<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contexto de Autenticación</span></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Logout automático si el token expiró</span></span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (response<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="dv">401</span>) {</span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">removeItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="st">'Unauthorized'</span>)<span class="op">;</span></span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>Gestión de sesión mediante React Context y AsyncStorage:</span>
-<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
-<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a><span class="co">// context/AuthContext.tsx</span></span>
-<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> AuthContextType {</span>
-<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a>  <span class="dt">isLoggedIn</span><span class="op">:</span> boolean<span class="op">;</span></span>
-<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>  <span class="dt">token</span><span class="op">:</span> string <span class="op">|</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>  <span class="dt">loading</span><span class="op">:</span> boolean<span class="op">;</span></span>
-<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>  <span class="dt">login</span><span class="op">:</span> (<span class="dt">token</span><span class="op">:</span> string) <span class="kw">=&gt;</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="kw">void</span><span class="op">&gt;;</span></span>
-<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a>  <span class="dt">logout</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="kw">void</span><span class="op">&gt;;</span></span>
-<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> AuthProvider<span class="op">:</span> React<span class="op">.</span><span class="at">FC</span><span class="op">&lt;</span>{ <span class="dt">children</span><span class="op">:</span> ReactNode }<span class="op">&gt;</span> <span class="op">=</span> ({ children }) <span class="kw">=&gt;</span> {</span>
-<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [isLoggedIn<span class="op">,</span> setIsLoggedIn] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">false</span>)<span class="op">;</span></span>
-<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [token<span class="op">,</span> setToken] <span class="op">=</span> useState<span class="op">&lt;</span>string <span class="op">|</span> <span class="kw">null</span><span class="op">&gt;</span>(<span class="kw">null</span>)<span class="op">;</span></span>
-<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Verificar token almacenado al iniciar</span></span>
-<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">useEffect</span>(() <span class="kw">=&gt;</span> {</span>
-<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> checkAuth <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> storedToken <span class="op">=</span> <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">getItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
-<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (storedToken) {</span>
-<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setToken</span>(storedToken)<span class="op">;</span></span>
-<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setIsLoggedIn</span>(<span class="kw">true</span>)<span class="op">;</span></span>
-<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
-<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>    <span class="fu">checkAuth</span>()<span class="op">;</span></span>
-<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span> [])<span class="op">;</span></span>
-<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> login <span class="op">=</span> <span class="kw">async</span> (<span class="dt">newToken</span><span class="op">:</span> string) <span class="kw">=&gt;</span> {</span>
-<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">setItem</span>(<span class="st">'token'</span><span class="op">,</span> newToken)<span class="op">;</span></span>
-<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setToken</span>(newToken)<span class="op">;</span></span>
-<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setIsLoggedIn</span>(<span class="kw">true</span>)<span class="op">;</span></span>
-<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> response<span class="op">;</span></span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contexto de Autenticación</span></span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>Gestión de sesión mediante React Context y AsyncStorage:</span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a><span class="co">// context/AuthContext.tsx</span></span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> AuthContextType {</span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a>  <span class="dt">isLoggedIn</span><span class="op">:</span> boolean<span class="op">;</span></span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>  <span class="dt">token</span><span class="op">:</span> string <span class="op">|</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>  <span class="dt">loading</span><span class="op">:</span> boolean<span class="op">;</span></span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>  <span class="dt">login</span><span class="op">:</span> (<span class="dt">token</span><span class="op">:</span> string) <span class="kw">=&gt;</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="kw">void</span><span class="op">&gt;;</span></span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>  <span class="dt">logout</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="kw">void</span><span class="op">&gt;;</span></span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> AuthProvider<span class="op">:</span> React<span class="op">.</span><span class="at">FC</span><span class="op">&lt;</span>{ <span class="dt">children</span><span class="op">:</span> ReactNode }<span class="op">&gt;</span> <span class="op">=</span> ({ children }) <span class="kw">=&gt;</span> {</span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [isLoggedIn<span class="op">,</span> setIsLoggedIn] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [token<span class="op">,</span> setToken] <span class="op">=</span> useState<span class="op">&lt;</span>string <span class="op">|</span> <span class="kw">null</span><span class="op">&gt;</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Verificar token almacenado al iniciar</span></span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">useEffect</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> checkAuth <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> storedToken <span class="op">=</span> <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">getItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (storedToken) {</span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setToken</span>(storedToken)<span class="op">;</span></span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setIsLoggedIn</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">checkAuth</span>()<span class="op">;</span></span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span> [])<span class="op">;</span></span>
 <span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> logout <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">removeItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
-<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setToken</span>(<span class="kw">null</span>)<span class="op">;</span></span>
-<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setIsLoggedIn</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> login <span class="op">=</span> <span class="kw">async</span> (<span class="dt">newToken</span><span class="op">:</span> string) <span class="kw">=&gt;</span> {</span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">setItem</span>(<span class="st">'token'</span><span class="op">,</span> newToken)<span class="op">;</span></span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setToken</span>(newToken)<span class="op">;</span></span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setIsLoggedIn</span>(<span class="kw">true</span>)<span class="op">;</span></span>
 <span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
-<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a><span class="fu">## Widget Android</span></span>
-<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a>La aplicación incluye un widget nativo para Android que muestra el estado de un sistema seleccionado:</span>
-<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
-<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a><span class="co">// widgets/SystemStatusWidget.tsx</span></span>
-<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SystemStatusWidgetProps {</span>
-<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a>  <span class="dt">systemName</span><span class="op">:</span> string<span class="op">;</span></span>
-<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a>  <span class="dt">status</span><span class="op">:</span> <span class="st">'UP'</span> <span class="op">|</span> <span class="st">'DOWN'</span> <span class="op">|</span> <span class="st">'PENDING'</span> <span class="op">|</span> <span class="st">'UNKNOWN'</span><span class="op">;</span></span>
-<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a>  <span class="dt">lastChecked</span><span class="op">:</span> string<span class="op">;</span></span>
-<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a>  <span class="dt">responseTime</span><span class="op">:</span> number <span class="op">|</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">SystemStatusWidget</span>({</span>
-<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a>  systemName<span class="op">,</span></span>
-<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>  status<span class="op">,</span></span>
-<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a>  lastChecked<span class="op">,</span></span>
-<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>  responseTime<span class="op">,</span></span>
-<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a>}<span class="op">:</span> SystemStatusWidgetProps) {</span>
-<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
-<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;FlexWidget</span></span>
-<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a>      <span class="ot">style</span><span class="op">=</span><span class="va">{</span>{</span>
-<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a>        <span class="dt">backgroundColor</span><span class="op">:</span> <span class="st">'#1E293B'</span><span class="op">,</span></span>
-<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>        <span class="dt">borderRadius</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
-<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a>        <span class="dt">padding</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
-<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a>      }<span class="va">}</span></span>
-<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a>      <span class="ot">clickAction</span><span class="op">=</span><span class="st">"OPEN_APP"</span></span>
-<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&gt;</span></span>
-<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span>systemName<span class="va">}</span> <span class="fu">/&gt;</span></span>
-<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> </span>
-<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a>        <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="fu">getStatusText</span>(status)<span class="va">}</span> </span>
-<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a>        <span class="ot">style</span><span class="op">=</span><span class="va">{</span>{ <span class="dt">color</span><span class="op">:</span> <span class="fu">getStatusColor</span>(status) }<span class="va">}</span></span>
-<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a>      <span class="fu">/&gt;</span></span>
-<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="vs">`Último check: </span><span class="sc">${</span>lastChecked<span class="sc">}</span><span class="vs">`</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
-<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a>      <span class="va">{</span>responseTime <span class="op">&amp;&amp;</span> (</span>
-<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a>        <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="vs">`</span><span class="sc">${</span>responseTime<span class="sc">}</span><span class="vs">ms`</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
-<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a>      )<span class="va">}</span></span>
-<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;/FlexWidget&gt;</span></span>
-<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a><span class="fu">### Características del Widget</span></span>
-<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tamaño**: 2x1 celdas mínimo</span>
-<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Actualización**: Periódica o por evento</span>
-<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Acción**: Abre la app al tocar</span>
-<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tema**: Oscuro para mejor visibilidad</span>
-<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema y Colores</span></span>
-<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a>Paleta de colores consistente con la versión web:</span>
-<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
-<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a><span class="co">// theme/colors.ts</span></span>
-<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> colors <span class="op">=</span> {</span>
-<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Backgrounds</span></span>
-<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a>  background<span class="op">:</span> <span class="st">'#0F172A'</span><span class="op">,</span></span>
-<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a>  backgroundCard<span class="op">:</span> <span class="st">'#1E293B'</span><span class="op">,</span></span>
-<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a>  backgroundInput<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
-<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Text</span></span>
-<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a>  textMain<span class="op">:</span> <span class="st">'#F8FAFC'</span><span class="op">,</span></span>
-<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a>  textMuted<span class="op">:</span> <span class="st">'#94A3B8'</span><span class="op">,</span></span>
-<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Status</span></span>
-<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>  statusSuccess<span class="op">:</span> <span class="st">'#22C55E'</span><span class="op">,</span>  <span class="co">// UP - Verde</span></span>
-<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a>  statusDanger<span class="op">:</span> <span class="st">'#EF4444'</span><span class="op">,</span>   <span class="co">// DOWN - Rojo</span></span>
-<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a>  statusWarning<span class="op">:</span> <span class="st">'#F59E0B'</span><span class="op">,</span>  <span class="co">// DEGRADED - Amarillo</span></span>
-<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a>  statusInfo<span class="op">:</span> <span class="st">'#3B82F6'</span><span class="op">,</span>     <span class="co">// Primary - Azul</span></span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> logout <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">removeItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setToken</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setIsLoggedIn</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## Widget Android</span></span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a>La aplicación incluye un widget nativo para Android que muestra el estado de un sistema seleccionado:</span>
+<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a><span class="co">// widgets/SystemStatusWidget.tsx</span></span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SystemStatusWidgetProps {</span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a>  <span class="dt">systemName</span><span class="op">:</span> string<span class="op">;</span></span>
+<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a>  <span class="dt">status</span><span class="op">:</span> <span class="st">'UP'</span> <span class="op">|</span> <span class="st">'DOWN'</span> <span class="op">|</span> <span class="st">'PENDING'</span> <span class="op">|</span> <span class="st">'UNKNOWN'</span><span class="op">;</span></span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>  <span class="dt">lastChecked</span><span class="op">:</span> string<span class="op">;</span></span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a>  <span class="dt">responseTime</span><span class="op">:</span> number <span class="op">|</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">SystemStatusWidget</span>({</span>
+<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a>  systemName<span class="op">,</span></span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a>  status<span class="op">,</span></span>
+<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a>  lastChecked<span class="op">,</span></span>
+<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>  responseTime<span class="op">,</span></span>
+<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a>}<span class="op">:</span> SystemStatusWidgetProps) {</span>
+<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;FlexWidget</span></span>
+<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a>      <span class="ot">style</span><span class="op">=</span><span class="va">{</span>{</span>
+<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a>        <span class="dt">backgroundColor</span><span class="op">:</span> <span class="st">'#1E293B'</span><span class="op">,</span></span>
+<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a>        <span class="dt">borderRadius</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a>        <span class="dt">padding</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a>      }<span class="va">}</span></span>
+<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a>      <span class="ot">clickAction</span><span class="op">=</span><span class="st">"OPEN_APP"</span></span>
+<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&gt;</span></span>
+<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span>systemName<span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> </span>
+<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a>        <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="fu">getStatusText</span>(status)<span class="va">}</span> </span>
+<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a>        <span class="ot">style</span><span class="op">=</span><span class="va">{</span>{ <span class="dt">color</span><span class="op">:</span> <span class="fu">getStatusColor</span>(status) }<span class="va">}</span></span>
+<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a>      <span class="fu">/&gt;</span></span>
+<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="vs">`Último check: </span><span class="sc">${</span>lastChecked<span class="sc">}</span><span class="vs">`</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a>      <span class="va">{</span>responseTime <span class="op">&amp;&amp;</span> (</span>
+<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a>        <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="vs">`</span><span class="sc">${</span>responseTime<span class="sc">}</span><span class="vs">ms`</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a>      )<span class="va">}</span></span>
+<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;/FlexWidget&gt;</span></span>
+<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a><span class="fu">### Características del Widget</span></span>
+<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tamaño**: 2x1 celdas mínimo</span>
+<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Actualización**: Periódica o por evento</span>
+<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Acción**: Abre la app al tocar</span>
+<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tema**: Oscuro para mejor visibilidad</span>
+<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema y Colores</span></span>
+<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a>Paleta de colores consistente con la versión web:</span>
+<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
+<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a><span class="co">// theme/colors.ts</span></span>
+<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> colors <span class="op">=</span> {</span>
+<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Backgrounds</span></span>
+<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a>  background<span class="op">:</span> <span class="st">'#0F172A'</span><span class="op">,</span></span>
+<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a>  backgroundCard<span class="op">:</span> <span class="st">'#1E293B'</span><span class="op">,</span></span>
+<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a>  backgroundInput<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
+<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Text</span></span>
+<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a>  textMain<span class="op">:</span> <span class="st">'#F8FAFC'</span><span class="op">,</span></span>
+<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a>  textMuted<span class="op">:</span> <span class="st">'#94A3B8'</span><span class="op">,</span></span>
 <span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a>  <span class="co">// UI</span></span>
-<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a>  primary<span class="op">:</span> <span class="st">'#3B82F6'</span><span class="op">,</span></span>
-<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a>  border<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
-<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
-<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a><span class="fu">## Configuración de Expo</span></span>
-<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
-<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a><span class="co">// app.json</span></span>
-<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a>  <span class="st">"expo"</span><span class="op">:</span> {</span>
-<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span><span class="op">:</span> <span class="st">"UpTrack"</span><span class="op">,</span></span>
-<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a>    <span class="st">"slug"</span><span class="op">:</span> <span class="st">"up-track-mobile"</span><span class="op">,</span></span>
-<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a>    <span class="st">"version"</span><span class="op">:</span> <span class="st">"1.0.0"</span><span class="op">,</span></span>
-<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orientation"</span><span class="op">:</span> <span class="st">"portrait"</span><span class="op">,</span></span>
-<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a>    <span class="st">"icon"</span><span class="op">:</span> <span class="st">"./assets/icon.png"</span><span class="op">,</span></span>
-<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a>    <span class="st">"splash"</span><span class="op">:</span> {</span>
-<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a>      <span class="st">"image"</span><span class="op">:</span> <span class="st">"./assets/splash-icon.png"</span><span class="op">,</span></span>
-<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a>      <span class="st">"backgroundColor"</span><span class="op">:</span> <span class="st">"#0F172A"</span></span>
-<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ios"</span><span class="op">:</span> {</span>
-<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a>      <span class="st">"supportsTablet"</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a>      <span class="st">"bundleIdentifier"</span><span class="op">:</span> <span class="st">"com.uptrack.mobile"</span></span>
-<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a>    <span class="st">"android"</span><span class="op">:</span> {</span>
-<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a>      <span class="st">"adaptiveIcon"</span><span class="op">:</span> {</span>
-<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>        <span class="st">"foregroundImage"</span><span class="op">:</span> <span class="st">"./assets/adaptive-icon.png"</span><span class="op">,</span></span>
-<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a>        <span class="st">"backgroundColor"</span><span class="op">:</span> <span class="st">"#0F172A"</span></span>
-<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
-<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a>      <span class="st">"package"</span><span class="op">:</span> <span class="st">"com.uptrack.mobile"</span></span>
-<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a><span class="fu">## Desarrollo Local</span></span>
-<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a><span class="fu">### Requisitos</span></span>
-<span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Node.js 18+</span>
-<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>pnpm (recomendado)</span>
-<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expo CLI</span>
-<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Android Studio / Xcode (para emuladores)</span>
-<span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expo Go app (para dispositivo físico)</span>
+<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Status</span></span>
+<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a>  statusSuccess<span class="op">:</span> <span class="st">'#22C55E'</span><span class="op">,</span>  <span class="co">// UP - Verde</span></span>
+<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a>  statusDanger<span class="op">:</span> <span class="st">'#EF4444'</span><span class="op">,</span>   <span class="co">// DOWN - Rojo</span></span>
+<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>  statusWarning<span class="op">:</span> <span class="st">'#F59E0B'</span><span class="op">,</span>  <span class="co">// DEGRADED - Amarillo</span></span>
+<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a>  statusInfo<span class="op">:</span> <span class="st">'#3B82F6'</span><span class="op">,</span>     <span class="co">// Primary - Azul</span></span>
+<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a>  <span class="co">// UI</span></span>
+<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a>  primary<span class="op">:</span> <span class="st">'#3B82F6'</span><span class="op">,</span></span>
+<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a>  border<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
+<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a><span class="fu">## Configuración de Expo</span></span>
+<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a><span class="co">// app.json</span></span>
+<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a>  <span class="st">"expo"</span><span class="op">:</span> {</span>
+<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span><span class="op">:</span> <span class="st">"UpTrack"</span><span class="op">,</span></span>
+<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a>    <span class="st">"slug"</span><span class="op">:</span> <span class="st">"up-track-mobile"</span><span class="op">,</span></span>
+<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a>    <span class="st">"version"</span><span class="op">:</span> <span class="st">"1.0.0"</span><span class="op">,</span></span>
+<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orientation"</span><span class="op">:</span> <span class="st">"portrait"</span><span class="op">,</span></span>
+<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a>    <span class="st">"icon"</span><span class="op">:</span> <span class="st">"./assets/icon.png"</span><span class="op">,</span></span>
+<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a>    <span class="st">"splash"</span><span class="op">:</span> {</span>
+<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a>      <span class="st">"image"</span><span class="op">:</span> <span class="st">"./assets/splash-icon.png"</span><span class="op">,</span></span>
+<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a>      <span class="st">"backgroundColor"</span><span class="op">:</span> <span class="st">"#0F172A"</span></span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ios"</span><span class="op">:</span> {</span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a>      <span class="st">"supportsTablet"</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a>      <span class="st">"bundleIdentifier"</span><span class="op">:</span> <span class="st">"com.uptrack.mobile"</span></span>
+<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a>    <span class="st">"android"</span><span class="op">:</span> {</span>
+<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a>      <span class="st">"adaptiveIcon"</span><span class="op">:</span> {</span>
+<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a>        <span class="st">"foregroundImage"</span><span class="op">:</span> <span class="st">"./assets/adaptive-icon.png"</span><span class="op">,</span></span>
+<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a>        <span class="st">"backgroundColor"</span><span class="op">:</span> <span class="st">"#0F172A"</span></span>
+<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a>      <span class="st">"package"</span><span class="op">:</span> <span class="st">"com.uptrack.mobile"</span></span>
+<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a><span class="fu">## Desarrollo Local</span></span>
+<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a><span class="fu">### Requisitos</span></span>
 <span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a><span class="fu">### Instalación y Ejecución</span></span>
-<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar dependencias</span></span>
-<span id="cb12-309"><a href="#cb12-309" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> up-track-mobile</span>
-<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> install</span>
-<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a><span class="co"># Iniciar servidor de desarrollo</span></span>
-<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> start</span>
-<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-315"><a href="#cb12-315" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en Android</span></span>
-<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> android</span>
+<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Node.js 18+</span>
+<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>pnpm (recomendado)</span>
+<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expo CLI</span>
+<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Android Studio / Xcode (para emuladores)</span>
+<span id="cb12-309"><a href="#cb12-309" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expo Go app (para dispositivo físico)</span>
+<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a><span class="fu">### Instalación y Ejecución</span></span>
+<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar dependencias</span></span>
+<span id="cb12-315"><a href="#cb12-315" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> up-track-mobile</span>
+<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> install</span>
 <span id="cb12-317"><a href="#cb12-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-318"><a href="#cb12-318" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en iOS</span></span>
-<span id="cb12-319"><a href="#cb12-319" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> ios</span>
+<span id="cb12-318"><a href="#cb12-318" aria-hidden="true" tabindex="-1"></a><span class="co"># Iniciar servidor de desarrollo</span></span>
+<span id="cb12-319"><a href="#cb12-319" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> start</span>
 <span id="cb12-320"><a href="#cb12-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-321"><a href="#cb12-321" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en navegador web</span></span>
-<span id="cb12-322"><a href="#cb12-322" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> web</span>
-<span id="cb12-323"><a href="#cb12-323" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-324"><a href="#cb12-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-325"><a href="#cb12-325" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configuración del API</span></span>
+<span id="cb12-321"><a href="#cb12-321" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en Android</span></span>
+<span id="cb12-322"><a href="#cb12-322" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> android</span>
+<span id="cb12-323"><a href="#cb12-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-324"><a href="#cb12-324" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en iOS</span></span>
+<span id="cb12-325"><a href="#cb12-325" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> ios</span>
 <span id="cb12-326"><a href="#cb12-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-327"><a href="#cb12-327" aria-hidden="true" tabindex="-1"></a>Editar <span class="in">`src/api/config.ts`</span>:</span>
-<span id="cb12-328"><a href="#cb12-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-329"><a href="#cb12-329" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
-<span id="cb12-330"><a href="#cb12-330" aria-hidden="true" tabindex="-1"></a><span class="co">// Para desarrollo local con dispositivo físico</span></span>
-<span id="cb12-331"><a href="#cb12-331" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'http://192.168.1.X:8080'</span><span class="op">;</span></span>
+<span id="cb12-327"><a href="#cb12-327" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en navegador web</span></span>
+<span id="cb12-328"><a href="#cb12-328" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> web</span>
+<span id="cb12-329"><a href="#cb12-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-330"><a href="#cb12-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-331"><a href="#cb12-331" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configuración del API</span></span>
 <span id="cb12-332"><a href="#cb12-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-333"><a href="#cb12-333" aria-hidden="true" tabindex="-1"></a><span class="co">// Para emulador Android</span></span>
-<span id="cb12-334"><a href="#cb12-334" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'http://10.0.2.2:8080'</span><span class="op">;</span></span>
-<span id="cb12-335"><a href="#cb12-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-336"><a href="#cb12-336" aria-hidden="true" tabindex="-1"></a><span class="co">// Para producción</span></span>
-<span id="cb12-337"><a href="#cb12-337" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'https://api.uptrack.example.com'</span><span class="op">;</span></span>
-<span id="cb12-338"><a href="#cb12-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-339"><a href="#cb12-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-340"><a href="#cb12-340" aria-hidden="true" tabindex="-1"></a><span class="fu">## Build de Producción</span></span>
-<span id="cb12-341"><a href="#cb12-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-342"><a href="#cb12-342" aria-hidden="true" tabindex="-1"></a><span class="fu">### EAS Build (Recomendado)</span></span>
-<span id="cb12-343"><a href="#cb12-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-344"><a href="#cb12-344" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb12-345"><a href="#cb12-345" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar EAS CLI</span></span>
-<span id="cb12-346"><a href="#cb12-346" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> eas-cli</span>
-<span id="cb12-347"><a href="#cb12-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-348"><a href="#cb12-348" aria-hidden="true" tabindex="-1"></a><span class="co"># Login en Expo</span></span>
-<span id="cb12-349"><a href="#cb12-349" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> login</span>
-<span id="cb12-350"><a href="#cb12-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-351"><a href="#cb12-351" aria-hidden="true" tabindex="-1"></a><span class="co"># Build para Android (APK)</span></span>
-<span id="cb12-352"><a href="#cb12-352" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> android <span class="at">--profile</span> preview</span>
-<span id="cb12-353"><a href="#cb12-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-354"><a href="#cb12-354" aria-hidden="true" tabindex="-1"></a><span class="co"># Build para iOS</span></span>
-<span id="cb12-355"><a href="#cb12-355" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> ios <span class="at">--profile</span> preview</span>
+<span id="cb12-333"><a href="#cb12-333" aria-hidden="true" tabindex="-1"></a>La aplicación requiere configurar la URL base del backend en <span class="in">`src/api/config.ts`</span>. Debido a las restricciones de seguridad de Android/iOS (que bloquean http plano por defecto) y para facilitar las pruebas en dispositivos físicos, se recomienda encarecidamente el uso de **ngrok**.</span>
+<span id="cb12-334"><a href="#cb12-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-335"><a href="#cb12-335" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Uso de Ngrok (Recomendado)</span></span>
+<span id="cb12-336"><a href="#cb12-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-337"><a href="#cb12-337" aria-hidden="true" tabindex="-1"></a>Ngrok crea un túnel seguro (HTTPS) desde internet hacia tu servidor local, permitiendo que el dispositivo móvil acceda al backend sin problemas de red o certificados.</span>
+<span id="cb12-338"><a href="#cb12-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-339"><a href="#cb12-339" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Iniciar Backend:** Asegúrate que tu backend corre en el puerto 8080.</span>
+<span id="cb12-340"><a href="#cb12-340" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Iniciar Ngrok:** Ejecuta el siguiente comando en una terminal:</span>
+<span id="cb12-341"><a href="#cb12-341" aria-hidden="true" tabindex="-1"></a>    <span class="in">```bash</span></span>
+<span id="cb12-342"><a href="#cb12-342" aria-hidden="true" tabindex="-1"></a>    <span class="ex">ngrok</span> http 8080</span>
+<span id="cb12-343"><a href="#cb12-343" aria-hidden="true" tabindex="-1"></a>    <span class="in">```</span></span>
+<span id="cb12-344"><a href="#cb12-344" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Configurar App:** Copia la URL HTTPS generada (ej. <span class="in">`https://xxxx-xxxx.ngrok-free.app`</span>) en <span class="in">`src/api/config.ts`</span>:</span>
+<span id="cb12-345"><a href="#cb12-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-346"><a href="#cb12-346" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
+<span id="cb12-347"><a href="#cb12-347" aria-hidden="true" tabindex="-1"></a><span class="co">// src/api/config.ts</span></span>
+<span id="cb12-348"><a href="#cb12-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-349"><a href="#cb12-349" aria-hidden="true" tabindex="-1"></a><span class="co">// RECOMENDADO: URL de Ngrok (http &amp; https tunnels)</span></span>
+<span id="cb12-350"><a href="#cb12-350" aria-hidden="true" tabindex="-1"></a><span class="co">// Permite testing en dispositivo físico sin configurar Cleartext Traffic</span></span>
+<span id="cb12-351"><a href="#cb12-351" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'https://tu-id-ngrok.ngrok-free.app'</span><span class="op">;</span></span>
+<span id="cb12-352"><a href="#cb12-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-353"><a href="#cb12-353" aria-hidden="true" tabindex="-1"></a><span class="co">/* Otras configuraciones:</span></span>
+<span id="cb12-354"><a href="#cb12-354" aria-hidden="true" tabindex="-1"></a><span class="co">// Localhost (Solo Emulador Android)</span></span>
+<span id="cb12-355"><a href="#cb12-355" aria-hidden="true" tabindex="-1"></a><span class="co">// export const API_BASE_URL = 'http://10.0.2.2:8080';</span></span>
 <span id="cb12-356"><a href="#cb12-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-357"><a href="#cb12-357" aria-hidden="true" tabindex="-1"></a><span class="co"># Build de producción</span></span>
-<span id="cb12-358"><a href="#cb12-358" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> all <span class="at">--profile</span> production</span>
-<span id="cb12-359"><a href="#cb12-359" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-360"><a href="#cb12-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-361"><a href="#cb12-361" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configuración EAS (eas.json)</span></span>
-<span id="cb12-362"><a href="#cb12-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-363"><a href="#cb12-363" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
-<span id="cb12-364"><a href="#cb12-364" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb12-365"><a href="#cb12-365" aria-hidden="true" tabindex="-1"></a>  <span class="st">"build"</span><span class="op">:</span> {</span>
-<span id="cb12-366"><a href="#cb12-366" aria-hidden="true" tabindex="-1"></a>    <span class="st">"preview"</span><span class="op">:</span> {</span>
-<span id="cb12-367"><a href="#cb12-367" aria-hidden="true" tabindex="-1"></a>      <span class="st">"distribution"</span><span class="op">:</span> <span class="st">"internal"</span><span class="op">,</span></span>
-<span id="cb12-368"><a href="#cb12-368" aria-hidden="true" tabindex="-1"></a>      <span class="st">"android"</span><span class="op">:</span> {</span>
-<span id="cb12-369"><a href="#cb12-369" aria-hidden="true" tabindex="-1"></a>        <span class="st">"buildType"</span><span class="op">:</span> <span class="st">"apk"</span></span>
-<span id="cb12-370"><a href="#cb12-370" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb12-371"><a href="#cb12-371" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb12-372"><a href="#cb12-372" aria-hidden="true" tabindex="-1"></a>    <span class="st">"production"</span><span class="op">:</span> {</span>
-<span id="cb12-373"><a href="#cb12-373" aria-hidden="true" tabindex="-1"></a>      <span class="st">"android"</span><span class="op">:</span> {</span>
-<span id="cb12-374"><a href="#cb12-374" aria-hidden="true" tabindex="-1"></a>        <span class="st">"buildType"</span><span class="op">:</span> <span class="st">"app-bundle"</span></span>
-<span id="cb12-375"><a href="#cb12-375" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb12-376"><a href="#cb12-376" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb12-377"><a href="#cb12-377" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-378"><a href="#cb12-378" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-379"><a href="#cb12-379" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-357"><a href="#cb12-357" aria-hidden="true" tabindex="-1"></a><span class="co">// IP Local (Requiere estar en la misma red WiFi)</span></span>
+<span id="cb12-358"><a href="#cb12-358" aria-hidden="true" tabindex="-1"></a><span class="co">// export const API_BASE_URL = 'http://192.168.1.X:8080';</span></span>
+<span id="cb12-359"><a href="#cb12-359" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb12-360"><a href="#cb12-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-361"><a href="#cb12-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-362"><a href="#cb12-362" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Nota:** La versión gratuita de ngrok cambia la URL cada vez que se reinicia. Recuerda actualizar </span><span class="in">`config.ts`</span><span class="at"> al obtener una nueva URL.</span></span>
+<span id="cb12-363"><a href="#cb12-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-364"><a href="#cb12-364" aria-hidden="true" tabindex="-1"></a><span class="fu">## Build de Producción</span></span>
+<span id="cb12-365"><a href="#cb12-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-366"><a href="#cb12-366" aria-hidden="true" tabindex="-1"></a><span class="fu">### EAS Build (Recomendado)</span></span>
+<span id="cb12-367"><a href="#cb12-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-368"><a href="#cb12-368" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb12-369"><a href="#cb12-369" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar EAS CLI</span></span>
+<span id="cb12-370"><a href="#cb12-370" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> eas-cli</span>
+<span id="cb12-371"><a href="#cb12-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-372"><a href="#cb12-372" aria-hidden="true" tabindex="-1"></a><span class="co"># Login en Expo</span></span>
+<span id="cb12-373"><a href="#cb12-373" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> login</span>
+<span id="cb12-374"><a href="#cb12-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-375"><a href="#cb12-375" aria-hidden="true" tabindex="-1"></a><span class="co"># Build para Android (APK)</span></span>
+<span id="cb12-376"><a href="#cb12-376" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> android <span class="at">--profile</span> preview</span>
+<span id="cb12-377"><a href="#cb12-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-378"><a href="#cb12-378" aria-hidden="true" tabindex="-1"></a><span class="co"># Build para iOS</span></span>
+<span id="cb12-379"><a href="#cb12-379" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> ios <span class="at">--profile</span> preview</span>
 <span id="cb12-380"><a href="#cb12-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-381"><a href="#cb12-381" aria-hidden="true" tabindex="-1"></a><span class="fu">## Funcionalidades Futuras</span></span>
-<span id="cb12-382"><a href="#cb12-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-383"><a href="#cb12-383" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Funcionalidad <span class="pp">|</span> Estado <span class="pp">|</span> Descripción <span class="pp">|</span></span>
-<span id="cb12-384"><a href="#cb12-384" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------|--------|-------------|</span></span>
-<span id="cb12-385"><a href="#cb12-385" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Push Notifications <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Alertas en tiempo real vía Firebase/APNs <span class="pp">|</span></span>
-<span id="cb12-386"><a href="#cb12-386" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Widget iOS <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Widget para pantalla de inicio iOS <span class="pp">|</span></span>
-<span id="cb12-387"><a href="#cb12-387" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Modo Offline <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Caché completo con sincronización <span class="pp">|</span></span>
-<span id="cb12-388"><a href="#cb12-388" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Biometría <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Autenticación con huella/Face ID <span class="pp">|</span></span>
-<span id="cb12-389"><a href="#cb12-389" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Deep Links <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Abrir target específico desde notificación <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb12-381"><a href="#cb12-381" aria-hidden="true" tabindex="-1"></a><span class="co"># Build de producción</span></span>
+<span id="cb12-382"><a href="#cb12-382" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> all <span class="at">--profile</span> production</span>
+<span id="cb12-383"><a href="#cb12-383" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-384"><a href="#cb12-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-385"><a href="#cb12-385" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configuración EAS (eas.json)</span></span>
+<span id="cb12-386"><a href="#cb12-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-387"><a href="#cb12-387" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb12-388"><a href="#cb12-388" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-389"><a href="#cb12-389" aria-hidden="true" tabindex="-1"></a>  <span class="st">"build"</span><span class="op">:</span> {</span>
+<span id="cb12-390"><a href="#cb12-390" aria-hidden="true" tabindex="-1"></a>    <span class="st">"preview"</span><span class="op">:</span> {</span>
+<span id="cb12-391"><a href="#cb12-391" aria-hidden="true" tabindex="-1"></a>      <span class="st">"distribution"</span><span class="op">:</span> <span class="st">"internal"</span><span class="op">,</span></span>
+<span id="cb12-392"><a href="#cb12-392" aria-hidden="true" tabindex="-1"></a>      <span class="st">"android"</span><span class="op">:</span> {</span>
+<span id="cb12-393"><a href="#cb12-393" aria-hidden="true" tabindex="-1"></a>        <span class="st">"buildType"</span><span class="op">:</span> <span class="st">"apk"</span></span>
+<span id="cb12-394"><a href="#cb12-394" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-395"><a href="#cb12-395" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-396"><a href="#cb12-396" aria-hidden="true" tabindex="-1"></a>    <span class="st">"production"</span><span class="op">:</span> {</span>
+<span id="cb12-397"><a href="#cb12-397" aria-hidden="true" tabindex="-1"></a>      <span class="st">"android"</span><span class="op">:</span> {</span>
+<span id="cb12-398"><a href="#cb12-398" aria-hidden="true" tabindex="-1"></a>        <span class="st">"buildType"</span><span class="op">:</span> <span class="st">"app-bundle"</span></span>
+<span id="cb12-399"><a href="#cb12-399" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-400"><a href="#cb12-400" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-401"><a href="#cb12-401" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-402"><a href="#cb12-402" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-403"><a href="#cb12-403" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-404"><a href="#cb12-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-405"><a href="#cb12-405" aria-hidden="true" tabindex="-1"></a><span class="fu">## Funcionalidades Futuras</span></span>
+<span id="cb12-406"><a href="#cb12-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-407"><a href="#cb12-407" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Funcionalidad <span class="pp">|</span> Estado <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb12-408"><a href="#cb12-408" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------|--------|-------------|</span></span>
+<span id="cb12-409"><a href="#cb12-409" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Push Notifications <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Alertas en tiempo real vía Firebase/APNs <span class="pp">|</span></span>
+<span id="cb12-410"><a href="#cb12-410" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Widget iOS <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Widget para pantalla de inicio iOS <span class="pp">|</span></span>
+<span id="cb12-411"><a href="#cb12-411" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Modo Offline <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Caché completo con sincronización <span class="pp">|</span></span>
+<span id="cb12-412"><a href="#cb12-412" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Biometría <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Autenticación con huella/Face ID <span class="pp">|</span></span>
+<span id="cb12-413"><a href="#cb12-413" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Deep Links <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Abrir target específico desde notificación <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DavosJar/uptrack/blob/main/arquitectura/mobile.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/DavosJar/uptrack/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

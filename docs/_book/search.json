@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Documentación Técnica de UpTrackAI",
     "section": "",
-    "text": "1 Bienvenido a UpTrackAI\nUpTrackAI es una plataforma SaaS de monitoreo de disponibilidad diseñada para verificar el estado de APIs, sitios web y servicios en tiempo real. Esta documentación técnica detalla la arquitectura, componentes y flujos de trabajo del sistema.",
+    "text": "1 Bienvenido a UpTrackAI\nRepositorio: https://github.com/DavosJar/uptrack\nUpTrackAI es una plataforma SaaS de monitoreo de disponibilidad diseñada para verificar el estado de APIs, sitios web y servicios en tiempo real. Esta documentación técnica detalla la arquitectura, componentes y flujos de trabajo del sistema.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Bienvenido a UpTrackAI</span>"
     ]
@@ -74,7 +74,7 @@
     "href": "index.html#inicio-rápido",
     "title": "Documentación Técnica de UpTrackAI",
     "section": "1.7 Inicio Rápido",
-    "text": "1.7 Inicio Rápido\n# 1. Clonar el repositorio\ngit clone https://github.com/your-org/uptrack.git\ncd uptrack\n\n# 2. Iniciar base de datos (Docker)\ndocker run -d --name postgres \\\n  -e POSTGRES_PASSWORD=password \\\n  -e POSTGRES_DB=uptrackai_db \\\n  -p 5432:5432 postgres:15\n\n# 3. Iniciar backend\ncd backend\ncp .env.example .env\ngo run .\n\n# 4. Iniciar frontend (en otra terminal)\ncd uptrack-gui\npnpm install\necho \"VITE_API_BASE_URL=http://localhost:8080\" &gt; .env\npnpm dev\nAcceder a: - Frontend: http://localhost:5173 - API: http://localhost:8080 - Swagger: http://localhost:8080/swagger/index.html\nComience explorando la Visión General para entender la arquitectura del sistema.",
+    "text": "1.7 Inicio Rápido\n# 1. Clonar el repositorio\ngit clone https://github.com/DavosJar/uptrack.git\ncd uptrack\n\n# 2. Iniciar base de datos (Docker)\ndocker run -d --name postgres \\\n  -e POSTGRES_PASSWORD=password \\\n  -e POSTGRES_DB=uptrackai_db \\\n  -p 5432:5432 postgres:15\n\n# 3. Iniciar backend\ncd backend\ncp .env.example .env\ngo run .\n\n# 4. Iniciar frontend (en otra terminal)\ncd uptrack-gui\npnpm install\necho \"VITE_API_BASE_URL=http://localhost:8080\" &gt; .env\npnpm dev\nAcceder a: - Frontend: http://localhost:5173 - API: http://localhost:8080 - Swagger: http://localhost:8080/swagger/index.html\nComience explorando la Visión General para entender la arquitectura del sistema.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Bienvenido a UpTrackAI</span>"
     ]
@@ -542,11 +542,22 @@
     ]
   },
   {
+    "objectID": "arquitectura/mobile.html#arquitectura-de-comunicación",
+    "href": "arquitectura/mobile.html#arquitectura-de-comunicación",
+    "title": "6  Aplicación Móvil",
+    "section": "6.4 Arquitectura de Comunicación",
+    "text": "6.4 Arquitectura de Comunicación\nEl siguiente diagrama ilustra la arquitectura de comunicación entre la aplicación móvil y el backend:\n\n\n\nArquitectura Mobile-Backend",
+    "crumbs": [
+      "Arquitectura del Sistema",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
+    ]
+  },
+  {
     "objectID": "arquitectura/mobile.html#sistema-de-navegación",
     "href": "arquitectura/mobile.html#sistema-de-navegación",
     "title": "6  Aplicación Móvil",
-    "section": "6.4 Sistema de Navegación",
-    "text": "6.4 Sistema de Navegación\nLa aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):\n// AppNavigator.tsx\ntype Screen = TabScreen | 'addTarget' | 'targetDetails' | 'notifications' | 'widgetConfig';\n\nconst AppNavigator: React.FC = () =&gt; {\n  const { isLoggedIn, loading } = useAuth();\n  const [currentScreen, setCurrentScreen] = useState&lt;Screen&gt;('dashboard');\n  const [selectedTargetId, setSelectedTargetId] = useState&lt;string | null&gt;(null);\n\n  // Navegación condicional basada en autenticación\n  if (!isLoggedIn) {\n    return &lt;LoginScreen /&gt;;\n  }\n\n  // Renderizado de pantalla actual\n  switch (currentScreen) {\n    case 'dashboard':\n      return &lt;DashboardScreen onNavigateToDetails={navigateToDetails} /&gt;;\n    case 'systems':\n      return &lt;SystemsScreen onNavigateToDetails={navigateToDetails} /&gt;;\n    // ...\n  }\n};\n\n6.4.1 Pantallas Disponibles\n\n\n\nPantalla\nTab\nDescripción\n\n\n\n\nLoginScreen\n-\nAutenticación de usuario\n\n\nDashboardScreen\n🏠\nEstadísticas y alertas activas\n\n\nSystemsScreen\n📊\nLista completa de targets\n\n\nTargetDetailsScreen\n-\nDetalle con métricas de un target\n\n\nAddTargetScreen\n-\nFormulario para crear target\n\n\nSettingsScreen\n⚙️\nConfiguración de la app\n\n\nNotificationsScreen\n-\nPreferencias de notificaciones\n\n\nWidgetConfigScreen\n-\nConfiguración del widget",
+    "section": "6.5 Sistema de Navegación",
+    "text": "6.5 Sistema de Navegación\nLa aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):\n// AppNavigator.tsx\ntype Screen = TabScreen | 'addTarget' | 'targetDetails' | 'notifications' | 'widgetConfig';\n\nconst AppNavigator: React.FC = () =&gt; {\n  const { isLoggedIn, loading } = useAuth();\n  const [currentScreen, setCurrentScreen] = useState&lt;Screen&gt;('dashboard');\n  const [selectedTargetId, setSelectedTargetId] = useState&lt;string | null&gt;(null);\n\n  // Navegación condicional basada en autenticación\n  if (!isLoggedIn) {\n    return &lt;LoginScreen /&gt;;\n  }\n\n  // Renderizado de pantalla actual\n  switch (currentScreen) {\n    case 'dashboard':\n      return &lt;DashboardScreen onNavigateToDetails={navigateToDetails} /&gt;;\n    case 'systems':\n      return &lt;SystemsScreen onNavigateToDetails={navigateToDetails} /&gt;;\n    // ...\n  }\n};\n\n6.5.1 Pantallas Disponibles\n\n\n\nPantalla\nTab\nDescripción\n\n\n\n\nLoginScreen\n-\nAutenticación de usuario\n\n\nDashboardScreen\n🏠\nEstadísticas y alertas activas\n\n\nSystemsScreen\n📊\nLista completa de targets\n\n\nTargetDetailsScreen\n-\nDetalle con métricas de un target\n\n\nAddTargetScreen\n-\nFormulario para crear target\n\n\nSettingsScreen\n⚙️\nConfiguración de la app\n\n\nNotificationsScreen\n-\nPreferencias de notificaciones\n\n\nWidgetConfigScreen\n-\nConfiguración del widget",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
@@ -556,8 +567,8 @@
     "objectID": "arquitectura/mobile.html#cliente-api",
     "href": "arquitectura/mobile.html#cliente-api",
     "title": "6  Aplicación Móvil",
-    "section": "6.5 Cliente API",
-    "text": "6.5 Cliente API\nEl cliente HTTP centraliza la autenticación usando AsyncStorage:\n// api/fetch.ts\nexport async function fetchWithAuth(url: string, options: RequestInit = {}) {\n  const token = await AsyncStorage.getItem('token');\n  \n  // Cache busting para peticiones GET\n  const method = options.method?.toUpperCase() || 'GET';\n  let finalUrl = url;\n  \n  if (method === 'GET') {\n    const separator = url.includes('?') ? '&' : '?';\n    finalUrl = `${url}${separator}_t=${Date.now()}`;\n  }\n\n  const response = await fetch(`${API_BASE_URL}${finalUrl}`, {\n    ...options,\n    headers: {\n      ...options.headers,\n      'Authorization': `Bearer ${token}`,\n    },\n  });\n\n  // Logout automático si el token expiró\n  if (response.status === 401) {\n    await AsyncStorage.removeItem('token');\n    throw new Error('Unauthorized');\n  }\n\n  return response;\n}",
+    "section": "6.6 Cliente API",
+    "text": "6.6 Cliente API\nEl cliente HTTP centraliza la autenticación usando AsyncStorage:\n// api/fetch.ts\nexport async function fetchWithAuth(url: string, options: RequestInit = {}) {\n  const token = await AsyncStorage.getItem('token');\n  \n  // Cache busting para peticiones GET\n  const method = options.method?.toUpperCase() || 'GET';\n  let finalUrl = url;\n  \n  if (method === 'GET') {\n    const separator = url.includes('?') ? '&' : '?';\n    finalUrl = `${url}${separator}_t=${Date.now()}`;\n  }\n\n  const response = await fetch(`${API_BASE_URL}${finalUrl}`, {\n    ...options,\n    headers: {\n      ...options.headers,\n      'Authorization': `Bearer ${token}`,\n    },\n  });\n\n  // Logout automático si el token expiró\n  if (response.status === 401) {\n    await AsyncStorage.removeItem('token');\n    throw new Error('Unauthorized');\n  }\n\n  return response;\n}",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
@@ -567,8 +578,8 @@
     "objectID": "arquitectura/mobile.html#contexto-de-autenticación",
     "href": "arquitectura/mobile.html#contexto-de-autenticación",
     "title": "6  Aplicación Móvil",
-    "section": "6.6 Contexto de Autenticación",
-    "text": "6.6 Contexto de Autenticación\nGestión de sesión mediante React Context y AsyncStorage:\n// context/AuthContext.tsx\ninterface AuthContextType {\n  isLoggedIn: boolean;\n  token: string | null;\n  loading: boolean;\n  login: (token: string) =&gt; Promise&lt;void&gt;;\n  logout: () =&gt; Promise&lt;void&gt;;\n}\n\nexport const AuthProvider: React.FC&lt;{ children: ReactNode }&gt; = ({ children }) =&gt; {\n  const [isLoggedIn, setIsLoggedIn] = useState(false);\n  const [token, setToken] = useState&lt;string | null&gt;(null);\n\n  // Verificar token almacenado al iniciar\n  useEffect(() =&gt; {\n    const checkAuth = async () =&gt; {\n      const storedToken = await AsyncStorage.getItem('token');\n      if (storedToken) {\n        setToken(storedToken);\n        setIsLoggedIn(true);\n      }\n    };\n    checkAuth();\n  }, []);\n\n  const login = async (newToken: string) =&gt; {\n    await AsyncStorage.setItem('token', newToken);\n    setToken(newToken);\n    setIsLoggedIn(true);\n  };\n\n  const logout = async () =&gt; {\n    await AsyncStorage.removeItem('token');\n    setToken(null);\n    setIsLoggedIn(false);\n  };\n};",
+    "section": "6.7 Contexto de Autenticación",
+    "text": "6.7 Contexto de Autenticación\nGestión de sesión mediante React Context y AsyncStorage:\n// context/AuthContext.tsx\ninterface AuthContextType {\n  isLoggedIn: boolean;\n  token: string | null;\n  loading: boolean;\n  login: (token: string) =&gt; Promise&lt;void&gt;;\n  logout: () =&gt; Promise&lt;void&gt;;\n}\n\nexport const AuthProvider: React.FC&lt;{ children: ReactNode }&gt; = ({ children }) =&gt; {\n  const [isLoggedIn, setIsLoggedIn] = useState(false);\n  const [token, setToken] = useState&lt;string | null&gt;(null);\n\n  // Verificar token almacenado al iniciar\n  useEffect(() =&gt; {\n    const checkAuth = async () =&gt; {\n      const storedToken = await AsyncStorage.getItem('token');\n      if (storedToken) {\n        setToken(storedToken);\n        setIsLoggedIn(true);\n      }\n    };\n    checkAuth();\n  }, []);\n\n  const login = async (newToken: string) =&gt; {\n    await AsyncStorage.setItem('token', newToken);\n    setToken(newToken);\n    setIsLoggedIn(true);\n  };\n\n  const logout = async () =&gt; {\n    await AsyncStorage.removeItem('token');\n    setToken(null);\n    setIsLoggedIn(false);\n  };\n};",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
@@ -578,8 +589,8 @@
     "objectID": "arquitectura/mobile.html#widget-android",
     "href": "arquitectura/mobile.html#widget-android",
     "title": "6  Aplicación Móvil",
-    "section": "6.7 Widget Android",
-    "text": "6.7 Widget Android\nLa aplicación incluye un widget nativo para Android que muestra el estado de un sistema seleccionado:\n// widgets/SystemStatusWidget.tsx\ninterface SystemStatusWidgetProps {\n  systemName: string;\n  status: 'UP' | 'DOWN' | 'PENDING' | 'UNKNOWN';\n  lastChecked: string;\n  responseTime: number | null;\n}\n\nexport function SystemStatusWidget({\n  systemName,\n  status,\n  lastChecked,\n  responseTime,\n}: SystemStatusWidgetProps) {\n  return (\n    &lt;FlexWidget\n      style={{\n        backgroundColor: '#1E293B',\n        borderRadius: 16,\n        padding: 16,\n      }}\n      clickAction=\"OPEN_APP\"\n    &gt;\n      &lt;TextWidget text={systemName} /&gt;\n      &lt;TextWidget \n        text={getStatusText(status)} \n        style={{ color: getStatusColor(status) }}\n      /&gt;\n      &lt;TextWidget text={`Último check: ${lastChecked}`} /&gt;\n      {responseTime && (\n        &lt;TextWidget text={`${responseTime}ms`} /&gt;\n      )}\n    &lt;/FlexWidget&gt;\n  );\n}\n\n6.7.1 Características del Widget\n\nTamaño: 2x1 celdas mínimo\nActualización: Periódica o por evento\nAcción: Abre la app al tocar\nTema: Oscuro para mejor visibilidad",
+    "section": "6.8 Widget Android",
+    "text": "6.8 Widget Android\nLa aplicación incluye un widget nativo para Android que muestra el estado de un sistema seleccionado:\n// widgets/SystemStatusWidget.tsx\ninterface SystemStatusWidgetProps {\n  systemName: string;\n  status: 'UP' | 'DOWN' | 'PENDING' | 'UNKNOWN';\n  lastChecked: string;\n  responseTime: number | null;\n}\n\nexport function SystemStatusWidget({\n  systemName,\n  status,\n  lastChecked,\n  responseTime,\n}: SystemStatusWidgetProps) {\n  return (\n    &lt;FlexWidget\n      style={{\n        backgroundColor: '#1E293B',\n        borderRadius: 16,\n        padding: 16,\n      }}\n      clickAction=\"OPEN_APP\"\n    &gt;\n      &lt;TextWidget text={systemName} /&gt;\n      &lt;TextWidget \n        text={getStatusText(status)} \n        style={{ color: getStatusColor(status) }}\n      /&gt;\n      &lt;TextWidget text={`Último check: ${lastChecked}`} /&gt;\n      {responseTime && (\n        &lt;TextWidget text={`${responseTime}ms`} /&gt;\n      )}\n    &lt;/FlexWidget&gt;\n  );\n}\n\n6.8.1 Características del Widget\n\nTamaño: 2x1 celdas mínimo\nActualización: Periódica o por evento\nAcción: Abre la app al tocar\nTema: Oscuro para mejor visibilidad",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
@@ -589,8 +600,8 @@
     "objectID": "arquitectura/mobile.html#tema-y-colores",
     "href": "arquitectura/mobile.html#tema-y-colores",
     "title": "6  Aplicación Móvil",
-    "section": "6.8 Tema y Colores",
-    "text": "6.8 Tema y Colores\nPaleta de colores consistente con la versión web:\n// theme/colors.ts\nexport const colors = {\n  // Backgrounds\n  background: '#0F172A',\n  backgroundCard: '#1E293B',\n  backgroundInput: '#334155',\n  \n  // Text\n  textMain: '#F8FAFC',\n  textMuted: '#94A3B8',\n  \n  // Status\n  statusSuccess: '#22C55E',  // UP - Verde\n  statusDanger: '#EF4444',   // DOWN - Rojo\n  statusWarning: '#F59E0B',  // DEGRADED - Amarillo\n  statusInfo: '#3B82F6',     // Primary - Azul\n  \n  // UI\n  primary: '#3B82F6',\n  border: '#334155',\n};",
+    "section": "6.9 Tema y Colores",
+    "text": "6.9 Tema y Colores\nPaleta de colores consistente con la versión web:\n// theme/colors.ts\nexport const colors = {\n  // Backgrounds\n  background: '#0F172A',\n  backgroundCard: '#1E293B',\n  backgroundInput: '#334155',\n  \n  // Text\n  textMain: '#F8FAFC',\n  textMuted: '#94A3B8',\n  \n  // Status\n  statusSuccess: '#22C55E',  // UP - Verde\n  statusDanger: '#EF4444',   // DOWN - Rojo\n  statusWarning: '#F59E0B',  // DEGRADED - Amarillo\n  statusInfo: '#3B82F6',     // Primary - Azul\n  \n  // UI\n  primary: '#3B82F6',\n  border: '#334155',\n};",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
@@ -600,8 +611,8 @@
     "objectID": "arquitectura/mobile.html#configuración-de-expo",
     "href": "arquitectura/mobile.html#configuración-de-expo",
     "title": "6  Aplicación Móvil",
-    "section": "6.9 Configuración de Expo",
-    "text": "6.9 Configuración de Expo\n// app.json\n{\n  \"expo\": {\n    \"name\": \"UpTrack\",\n    \"slug\": \"up-track-mobile\",\n    \"version\": \"1.0.0\",\n    \"orientation\": \"portrait\",\n    \"icon\": \"./assets/icon.png\",\n    \"splash\": {\n      \"image\": \"./assets/splash-icon.png\",\n      \"backgroundColor\": \"#0F172A\"\n    },\n    \"ios\": {\n      \"supportsTablet\": true,\n      \"bundleIdentifier\": \"com.uptrack.mobile\"\n    },\n    \"android\": {\n      \"adaptiveIcon\": {\n        \"foregroundImage\": \"./assets/adaptive-icon.png\",\n        \"backgroundColor\": \"#0F172A\"\n      },\n      \"package\": \"com.uptrack.mobile\"\n    }\n  }\n}",
+    "section": "6.10 Configuración de Expo",
+    "text": "6.10 Configuración de Expo\n// app.json\n{\n  \"expo\": {\n    \"name\": \"UpTrack\",\n    \"slug\": \"up-track-mobile\",\n    \"version\": \"1.0.0\",\n    \"orientation\": \"portrait\",\n    \"icon\": \"./assets/icon.png\",\n    \"splash\": {\n      \"image\": \"./assets/splash-icon.png\",\n      \"backgroundColor\": \"#0F172A\"\n    },\n    \"ios\": {\n      \"supportsTablet\": true,\n      \"bundleIdentifier\": \"com.uptrack.mobile\"\n    },\n    \"android\": {\n      \"adaptiveIcon\": {\n        \"foregroundImage\": \"./assets/adaptive-icon.png\",\n        \"backgroundColor\": \"#0F172A\"\n      },\n      \"package\": \"com.uptrack.mobile\"\n    }\n  }\n}",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
@@ -611,8 +622,8 @@
     "objectID": "arquitectura/mobile.html#desarrollo-local",
     "href": "arquitectura/mobile.html#desarrollo-local",
     "title": "6  Aplicación Móvil",
-    "section": "6.10 Desarrollo Local",
-    "text": "6.10 Desarrollo Local\n\n6.10.1 Requisitos\n\nNode.js 18+\npnpm (recomendado)\nExpo CLI\nAndroid Studio / Xcode (para emuladores)\nExpo Go app (para dispositivo físico)\n\n\n\n6.10.2 Instalación y Ejecución\n# Instalar dependencias\ncd up-track-mobile\npnpm install\n\n# Iniciar servidor de desarrollo\npnpm start\n\n# Ejecutar en Android\npnpm android\n\n# Ejecutar en iOS\npnpm ios\n\n# Ejecutar en navegador web\npnpm web\n\n\n6.10.3 Configuración del API\nEditar src/api/config.ts:\n// Para desarrollo local con dispositivo físico\nexport const API_BASE_URL = 'http://192.168.1.X:8080';\n\n// Para emulador Android\nexport const API_BASE_URL = 'http://10.0.2.2:8080';\n\n// Para producción\nexport const API_BASE_URL = 'https://api.uptrack.example.com';",
+    "section": "6.11 Desarrollo Local",
+    "text": "6.11 Desarrollo Local\n\n6.11.1 Requisitos\n\nNode.js 18+\npnpm (recomendado)\nExpo CLI\nAndroid Studio / Xcode (para emuladores)\nExpo Go app (para dispositivo físico)\n\n\n\n6.11.2 Instalación y Ejecución\n# Instalar dependencias\ncd up-track-mobile\npnpm install\n\n# Iniciar servidor de desarrollo\npnpm start\n\n# Ejecutar en Android\npnpm android\n\n# Ejecutar en iOS\npnpm ios\n\n# Ejecutar en navegador web\npnpm web\n\n\n6.11.3 Configuración del API\nLa aplicación requiere configurar la URL base del backend en src/api/config.ts. Debido a las restricciones de seguridad de Android/iOS (que bloquean http plano por defecto) y para facilitar las pruebas en dispositivos físicos, se recomienda encarecidamente el uso de ngrok.\n\n6.11.3.1 Uso de Ngrok (Recomendado)\nNgrok crea un túnel seguro (HTTPS) desde internet hacia tu servidor local, permitiendo que el dispositivo móvil acceda al backend sin problemas de red o certificados.\n\nIniciar Backend: Asegúrate que tu backend corre en el puerto 8080.\nIniciar Ngrok: Ejecuta el siguiente comando en una terminal: bash     ngrok http 8080\nConfigurar App: Copia la URL HTTPS generada (ej. https://xxxx-xxxx.ngrok-free.app) en src/api/config.ts:\n\n// src/api/config.ts\n\n// RECOMENDADO: URL de Ngrok (http & https tunnels)\n// Permite testing en dispositivo físico sin configurar Cleartext Traffic\nexport const API_BASE_URL = 'https://tu-id-ngrok.ngrok-free.app';\n\n/* Otras configuraciones:\n// Localhost (Solo Emulador Android)\n// export const API_BASE_URL = 'http://10.0.2.2:8080';\n\n// IP Local (Requiere estar en la misma red WiFi)\n// export const API_BASE_URL = 'http://192.168.1.X:8080';\n*/\n\nNota: La versión gratuita de ngrok cambia la URL cada vez que se reinicia. Recuerda actualizar config.ts al obtener una nueva URL.",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
@@ -622,8 +633,8 @@
     "objectID": "arquitectura/mobile.html#build-de-producción",
     "href": "arquitectura/mobile.html#build-de-producción",
     "title": "6  Aplicación Móvil",
-    "section": "6.11 Build de Producción",
-    "text": "6.11 Build de Producción\n\n6.11.1 EAS Build (Recomendado)\n# Instalar EAS CLI\nnpm install -g eas-cli\n\n# Login en Expo\neas login\n\n# Build para Android (APK)\neas build --platform android --profile preview\n\n# Build para iOS\neas build --platform ios --profile preview\n\n# Build de producción\neas build --platform all --profile production\n\n\n6.11.2 Configuración EAS (eas.json)\n{\n  \"build\": {\n    \"preview\": {\n      \"distribution\": \"internal\",\n      \"android\": {\n        \"buildType\": \"apk\"\n      }\n    },\n    \"production\": {\n      \"android\": {\n        \"buildType\": \"app-bundle\"\n      }\n    }\n  }\n}",
+    "section": "6.12 Build de Producción",
+    "text": "6.12 Build de Producción\n\n6.12.1 EAS Build (Recomendado)\n# Instalar EAS CLI\nnpm install -g eas-cli\n\n# Login en Expo\neas login\n\n# Build para Android (APK)\neas build --platform android --profile preview\n\n# Build para iOS\neas build --platform ios --profile preview\n\n# Build de producción\neas build --platform all --profile production\n\n\n6.12.2 Configuración EAS (eas.json)\n{\n  \"build\": {\n    \"preview\": {\n      \"distribution\": \"internal\",\n      \"android\": {\n        \"buildType\": \"apk\"\n      }\n    },\n    \"production\": {\n      \"android\": {\n        \"buildType\": \"app-bundle\"\n      }\n    }\n  }\n}",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"
@@ -633,8 +644,8 @@
     "objectID": "arquitectura/mobile.html#funcionalidades-futuras",
     "href": "arquitectura/mobile.html#funcionalidades-futuras",
     "title": "6  Aplicación Móvil",
-    "section": "6.12 Funcionalidades Futuras",
-    "text": "6.12 Funcionalidades Futuras\n\n\n\n\n\n\n\n\nFuncionalidad\nEstado\nDescripción\n\n\n\n\nPush Notifications\n🔜 Planificado\nAlertas en tiempo real vía Firebase/APNs\n\n\nWidget iOS\n🔜 Planificado\nWidget para pantalla de inicio iOS\n\n\nModo Offline\n🔜 Planificado\nCaché completo con sincronización\n\n\nBiometría\n🔜 Planificado\nAutenticación con huella/Face ID\n\n\nDeep Links\n🔜 Planificado\nAbrir target específico desde notificación",
+    "section": "6.13 Funcionalidades Futuras",
+    "text": "6.13 Funcionalidades Futuras\n\n\n\n\n\n\n\n\nFuncionalidad\nEstado\nDescripción\n\n\n\n\nPush Notifications\n🔜 Planificado\nAlertas en tiempo real vía Firebase/APNs\n\n\nWidget iOS\n🔜 Planificado\nWidget para pantalla de inicio iOS\n\n\nModo Offline\n🔜 Planificado\nCaché completo con sincronización\n\n\nBiometría\n🔜 Planificado\nAutenticación con huella/Face ID\n\n\nDeep Links\n🔜 Planificado\nAbrir target específico desde notificación",
     "crumbs": [
       "Arquitectura del Sistema",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Aplicación Móvil</span>"

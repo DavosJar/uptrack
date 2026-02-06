@@ -4,8 +4,12 @@ project:
 
 book:
   title: "Documentación Técnica de UpTrackAI"
-  author: "Equipo UpTrackAI"
+  author: 
+    - "Jara Alexis"
+    - "Lopez Cesar"
   date: today
+  repo-url: https://github.com/DavosJar/uptrack
+  repo-actions: [source, issue]
   chapters:
     - index.qmd
     - part: "Arquitectura del Sistema"

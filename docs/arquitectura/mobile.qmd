@@ -63,6 +63,12 @@ up-track-mobile/
         └── widget-task-handler.tsx
 ```
 
+## Arquitectura de Comunicación
+
+El siguiente diagrama ilustra la arquitectura de comunicación entre la aplicación móvil y el backend:
+
+![Arquitectura Mobile-Backend](./diagramas/Arquitectura-mobile-backend.png)
+
 ## Sistema de Navegación
 
 La aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):
@@ -324,18 +330,36 @@ pnpm web
 
 ### Configuración del API
 
-Editar `src/api/config.ts`:
+La aplicación requiere configurar la URL base del backend en `src/api/config.ts`. Debido a las restricciones de seguridad de Android/iOS (que bloquean http plano por defecto) y para facilitar las pruebas en dispositivos físicos, se recomienda encarecidamente el uso de **ngrok**.
+
+#### Uso de Ngrok (Recomendado)
+
+Ngrok crea un túnel seguro (HTTPS) desde internet hacia tu servidor local, permitiendo que el dispositivo móvil acceda al backend sin problemas de red o certificados.
+
+1.  **Iniciar Backend:** Asegúrate que tu backend corre en el puerto 8080.
+2.  **Iniciar Ngrok:** Ejecuta el siguiente comando en una terminal:
+    ```bash
+    ngrok http 8080
+    ```
+3.  **Configurar App:** Copia la URL HTTPS generada (ej. `https://xxxx-xxxx.ngrok-free.app`) en `src/api/config.ts`:
 
 ```typescript
-// Para desarrollo local con dispositivo físico
-export const API_BASE_URL = 'http://192.168.1.X:8080';
+// src/api/config.ts
 
-// Para emulador Android
-export const API_BASE_URL = 'http://10.0.2.2:8080';
+// RECOMENDADO: URL de Ngrok (http & https tunnels)
+// Permite testing en dispositivo físico sin configurar Cleartext Traffic
+export const API_BASE_URL = 'https://tu-id-ngrok.ngrok-free.app';
 
-// Para producción
-export const API_BASE_URL = 'https://api.uptrack.example.com';
+/* Otras configuraciones:
+// Localhost (Solo Emulador Android)
+// export const API_BASE_URL = 'http://10.0.2.2:8080';
+
+// IP Local (Requiere estar en la misma red WiFi)
+// export const API_BASE_URL = 'http://192.168.1.X:8080';
+*/
 ```
+
+> **Nota:** La versión gratuita de ngrok cambia la URL cada vez que se reinicia. Recuerda actualizar `config.ts` al obtener una nueva URL.
 
 ## Build de Producción
 

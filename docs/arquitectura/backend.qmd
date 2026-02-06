@@ -272,9 +272,7 @@ Todas las respuestas siguen el formato `APIResponse`:
 
 La API está documentada con Swagger/OpenAPI. Accesible en:
 
-```
-http://localhost:8080/swagger/index.html
-```
+[http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
 
 ## Stack Tecnológico
 
