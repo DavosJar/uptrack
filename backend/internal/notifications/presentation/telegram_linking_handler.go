@@ -23,12 +23,14 @@ func (h *TelegramLinkingHandler) RegisterRoutes(router *gin.RouterGroup) {
 
 // GenerateLink creates a magic link for Telegram account linking
 // @Summary Generate Telegram linking URL
-// @Description Creates a secure one-time link for connecting user's Telegram account
+// @Description Creates a secure one-time link for connecting user's Telegram account. The link expires in 15 minutes.
 // @Tags notifications
+// @Accept json
 // @Produce json
-// @Success 200 {object} TelegramLinkResponse
-// @Failure 401 {object} app.ErrorResponse
-// @Failure 500 {object} app.ErrorResponse
+// @Success 200 {object} app.APIResponse{data=TelegramLinkResponse} "Telegram link generated"
+// @Failure 401 {object} app.APIResponse "Unauthorized"
+// @Failure 500 {object} app.APIResponse "Internal server error"
+// @Security BearerAuth
 // @Router /notifications/telegram/link [get]
 func (h *TelegramLinkingHandler) GenerateLink(c *gin.Context) {
 	// Get authenticated user

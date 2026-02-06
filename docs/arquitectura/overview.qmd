@@ -1,6 +1,6 @@
 # Visión General del Sistema
 
-UpTrackAI se integra en un ecosistema empresarial para proporcionar visibilidad sobre la salud de los servicios críticos.
+UpTrackAI es una plataforma SaaS de monitoreo de disponibilidad diseñada para verificar el estado de APIs, sitios web y servicios en tiempo real. El sistema detecta caídas, degradaciones y comportamientos inestables, notificando a los usuarios a través de múltiples canales.
 
 ## Diagrama de Contexto (C4 Nivel 1)
 
@@ -10,61 +10,135 @@ El siguiente diagrama muestra cómo UpTrackAI interactúa con sus usuarios y sis
 
 ### Actores y Sistemas
 
-1.  **Usuario:** Persona que configura los monitoreos y recibe las alertas.
-2.  **UpTrackAI (Sistema):** El núcleo de la solución SaaS.
-3.  **Sistemas Monitoreados:** APIs, sitios web y servidores que son objeto de verificación.
-4.  **Servicio de Mensajería:** Plataformas externas (Telegram, Slack) utilizadas para entregar notificaciones en tiempo real.
+| Actor/Sistema | Descripción | Interacción |
+|--------------|-------------|-------------|
+| **Usuario Final** | Desarrollador o administrador de sistemas que monitorea sus servicios | Configura targets, recibe alertas, consulta métricas |
+| **Administrador** | Usuario con permisos elevados para gestión global | Acceso a todos los targets, gestión de usuarios |
+| **APIs/Sitios Monitoreados** | Endpoints externos que son verificados periódicamente | Reciben requests HTTP HEAD/GET cada N segundos |
+| **Telegram** | Plataforma de mensajería para notificaciones | Recibe alertas de cambio de estado |
+| **PostgreSQL** | Base de datos relacional | Almacena targets, resultados, métricas y usuarios |
 
-## Alcance
+## Alcance Funcional
 
-El sistema abarca desde la recolección de métricas mediante chequeos HTTP/TCP hasta la entrega de alertas y visualización de datos históricos.
+El sistema cubre el ciclo completo de monitoreo:
+
+1. **Configuración**: El usuario registra URLs a monitorear (APIs REST, sitios web)
+2. **Verificación**: El scheduler ejecuta health checks periódicos
+3. **Análisis**: El sistema detecta patrones de comportamiento (estable, degradado, flapping)
+4. **Notificación**: Alertas en tiempo real cuando el estado cambia
+5. **Visualización**: Dashboard con métricas históricas y estadísticas
 
 ## Clean Architecture
 
-UpTrackAI implementa Clean Architecture con clara separación de responsabilidades:
+UpTrackAI implementa Clean Architecture con separación estricta de responsabilidades:
 
 ```
-Capa de Presentación (HTTP, CLI)
-    ↓
-Capa de Aplicación (Casos de Uso, Servicios)
-    ↓
-Capa de Dominio (Entidades, Reglas de Negocio)
-    ↓
-Capa de Infraestructura (Base de Datos, APIs Externas)
+┌─────────────────────────────────────────────────────────────┐
+│                   CAPA DE PRESENTACIÓN                      │
+│  HTTP Handlers (Gin) │ WebSocket │ CLI                      │
+├─────────────────────────────────────────────────────────────┤
+│                   CAPA DE APLICACIÓN                        │
+│  Casos de Uso │ DTOs │ Commands/Queries                     │
+├─────────────────────────────────────────────────────────────┤
+│                   CAPA DE DOMINIO                           │
+│  Entidades │ Value Objects │ Reglas de Negocio │ Interfaces │
+├─────────────────────────────────────────────────────────────┤
+│                 CAPA DE INFRAESTRUCTURA                     │
+│  PostgreSQL (GORM) │ Telegram API │ JWT │ HTTP Client       │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Patrones de Diseño Clave
+**Principios aplicados:**
+
+- **Dependency Inversion**: Las capas internas definen interfaces, las externas las implementan
+- **Single Responsibility**: Cada módulo tiene una única razón de cambio
+- **Open/Closed**: Extensible sin modificar código existente (nuevos senders de notificación)
+
+## Patrones de Diseño Implementados
 
 ### Patrón Repository
-- Abstrae operaciones de acceso a datos
-- Permite pruebas y mocking fáciles
-- Soporta múltiples implementaciones de base de datos
 
-### Inyección de Dependencias
-- Acoplamiento bajo entre componentes
-- Pruebas y mantenimiento más fáciles
-- Configurable en tiempo de ejecución
+Abstrae el acceso a datos permitiendo intercambiar implementaciones:
+
+```go
+// Interfaz en dominio (sin dependencias externas)
+type MonitoringTargetRepository interface {
+    Save(target *MonitoringTarget) (*MonitoringTarget, error)
+    GetByID(id TargetId) (*MonitoringTarget, error)
+    GetDueTargets() ([]*MonitoringTarget, error)
+    Delete(id TargetId) error
+}
+
+// Implementación en infraestructura (conoce GORM)
+type PostgresMonitoringTargetRepository struct {
+    db *gorm.DB
+}
+```
 
 ### Patrón Worker Pool
-- Procesamiento concurrente de objetivos de monitoreo
-- Cantidad de workers configurable según carga del sistema
-- Apagado graceful y gestión de recursos
+
+Procesa múltiples targets concurrentemente con control de recursos:
+
+```go
+type WorkerPool struct {
+    workers    int
+    jobQueue   chan *MonitoringTarget
+    wg         sync.WaitGroup
+    processor  func(*MonitoringTarget)
+}
+```
+
+### Patrón Module (Composición de Dependencias)
+
+Cada dominio se inicializa como un módulo independiente:
+
+```go
+// Cada módulo encapsula sus capas
+monitoringModule := monitoring.NewModule(db, notificationService)
+securityModule := security.NewModule(db)
+userModule := user.NewModule(db)
+```
 
 ## Modelo de Concurrencia
 
-El sistema utiliza goroutines y canales para concurrencia:
+El sistema utiliza goroutines y channels de Go para operaciones paralelas:
 
-- **Worker Pool**: Procesamiento paralelo de objetivos
-- **Notificaciones Asíncronas**: Entrega desacoplada de alertas
-- **Polling de Telegram**: Procesamiento de mensajes en segundo plano
+| Componente | Tipo | Descripción |
+|-----------|------|-------------|
+| **Worker Pool** | Goroutines | 4 workers procesando targets en paralelo |
+| **Notification Dispatcher** | Channel (buffer 100) | Cola asíncrona de alertas |
+| **Telegram Poller** | Goroutine | Escucha mensajes del bot en background |
+| **HTTP Server** | Goroutine | Servidor web en thread separado |
 
 ## Gestión de Estados
 
-Monitoreo inteligente con detección de 6 estados:
+El sistema detecta 6 estados posibles para cada target monitoreado:
 
-- **UP**: El objetivo está saludable
-- **DOWN**: El objetivo es inalcanzable
-- **DEGRADED**: Problemas de rendimiento detectados
-- **UNSTABLE**: Fallos intermitentes
-- **FLAPPING**: Cambios rápidos de estado
-- **UNKNOWN**: Datos insuficientes para determinar
+| Estado | Descripción | Criterio de Detección |
+|--------|-------------|----------------------|
+| `UP` | Servicio saludable | 3 checks consecutivos exitosos en ≤4 intentos |
+| `DOWN` | Servicio inalcanzable | 3 checks consecutivos fallidos |
+| `DEGRADED` | Respuesta lenta | Latencia > umbral configurado |
+| `UNSTABLE` | Fallos intermitentes | 3 iguales en 5-9 intentos |
+| `FLAPPING` | Cambios rápidos | No se logran 3 iguales en 12 intentos |
+| `UNKNOWN` | Sin datos suficientes | Estado inicial o error de medición |
+
+
+
+## Variables de Entorno
+
+El sistema se configura mediante variables de entorno:
+
+| Variable | Descripción | Valor por Defecto |
+|----------|-------------|-------------------|
+| `DB_HOST` | Host de PostgreSQL | `localhost` |
+| `DB_PORT` | Puerto de PostgreSQL | `5432` |
+| `DB_USER` | Usuario de base de datos | `postgres` |
+| `DB_PASSWORD` | Contraseña de base de datos | - |
+| `DB_NAME` | Nombre de la base de datos | `uptrackai_db` |
+| `PORT` | Puerto del servidor HTTP | `8080` |
+| `GIN_MODE` | Modo de Gin (debug/release) | `debug` |
+| `TELEGRAM_BOT_TOKEN` | Token del bot de Telegram | - |
+| `TELEGRAM_BOT_NAME` | Nombre del bot | `Uptrackapp_bot` |
+| `SKIP_CONNECTIVITY_CHECK` | Omitir verificación de red | `false` |
+| `SECURITY_DISABLED` | Desactivar autenticación (dev) | `false` |

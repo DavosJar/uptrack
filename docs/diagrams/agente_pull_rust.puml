@@ -1,0 +1,53 @@
+@startuml agente_pull_rust
+!theme plain
+title Arquitectura White-box: Modelo PULL (Token Auth)
+
+box "Infraestructura del Cliente" #LightGray
+    participant "Rust Agent" as Agent
+    participant "Firewall Cliente" as FW
+end box
+
+box "UpTrackAI Backend" #White
+    participant "Node Scraper" as Scraper
+    database "Metrics DB" as DB
+end box
+
+
+note right of Agent
+    El Agente inicia servidor HTTP en puerto 9100.
+    Configuración: TOKEN="proyecto_uptrack_secret"
+end note
+
+loop Cada 30 segundos (Configurable)
+    Scraper -> Scraper: Obtener IP del Cliente y Token
+    
+    Scraper -> FW: GET /metrics HTTP/1.1\nAuth: Bearer proyecto_uptrack_secret
+    activate FW
+    
+    alt Puerto Abierto (Conexión Exitosa)
+        FW -> Agent: Forward Request (Port 9100)
+        activate Agent
+        
+        Agent -> Agent: Validar Token
+        
+        alt Token Correcto
+            Agent -> Agent: Leer System Stats (CPU, RAM, Disk)
+            Agent --> FW: 200 OK {cpu_usage: 45.2, ram_free: 2048}
+            FW --> Scraper: 200 OK + JSON
+            
+            Scraper -> DB: Guardar Métricas
+            note left: Datos listos para dashboards
+        else Token Incorrecto
+            Agent --> FW: 401 Unauthorized
+            FW --> Scraper: 401 Unauthorized
+            note right: Scraper notifica error de configuración
+        end
+        deactivate Agent
+    else Puerto Cerrado / Timeout
+        FW -x Scraper: Connection Error
+        note left: El cliente debe permitir tráfico en pto 9100
+    end
+    deactivate FW
+end
+
+@enduml

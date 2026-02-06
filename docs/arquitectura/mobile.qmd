@@ -1,0 +1,413 @@
+# Aplicación Móvil
+
+UpTrack Mobile es una aplicación nativa construida con React Native y Expo, diseñada para consulta rápida del estado de los sistemas monitoreados desde dispositivos Android e iOS.
+
+## Características Principales
+
+| Característica | Descripción |
+|---------------|-------------|
+| **Dashboard** | Vista general con estadísticas y alertas activas |
+| **Lista de Sistemas** | Todos los targets con filtros por estado |
+| **Detalle de Target** | Métricas, historial y configuración |
+| **Widget Android** | Widget nativo para pantalla de inicio |
+| **Notificaciones Push** | Alertas en tiempo real (futuro) |
+| **Modo Offline** | Caché local con AsyncStorage |
+
+## Stack Tecnológico
+
+| Categoría | Tecnología | Versión |
+|-----------|-----------|---------|
+| Framework | React Native | 0.81 |
+| Plataforma | Expo | 54 |
+| Lenguaje | TypeScript | 5.9 |
+| UI | React Native SVG | 15.12 |
+| Storage | AsyncStorage | 2.2 |
+| Widgets | react-native-android-widget | 0.20 |
+| Runtime | React | 19.1 |
+
+## Estructura del Proyecto
+
+```
+up-track-mobile/
+├── App.tsx                 # Punto de entrada
+├── app.json               # Configuración Expo
+├── eas.json               # Configuración EAS Build
+├── index.ts               # Registro de la app
+├── package.json           # Dependencias
+├── tsconfig.json          # Configuración TypeScript
+├── assets/                # Iconos y splash screens
+└── src/
+    ├── api/
+    │   ├── config.ts      # URL base del API
+    │   └── fetch.ts       # Cliente HTTP con auth
+    ├── components/
+    │   ├── BottomTabBar.tsx
+    │   └── Layout.tsx
+    ├── context/
+    │   └── AuthContext.tsx # Gestión de sesión
+    ├── navigation/
+    │   └── AppNavigator.tsx # Navegación entre pantallas
+    ├── screens/
+    │   ├── LoginScreen.tsx
+    │   ├── DashboardScreen.tsx
+    │   ├── SystemsScreen.tsx
+    │   ├── TargetDetailsScreen.tsx
+    │   ├── AddTargetScreen.tsx
+    │   ├── SettingsScreen.tsx
+    │   ├── NotificationsScreen.tsx
+    │   └── WidgetConfigScreen.tsx
+    ├── theme/
+    │   └── colors.ts      # Paleta de colores
+    └── widgets/
+        ├── SystemStatusWidget.tsx
+        └── widget-task-handler.tsx
+```
+
+## Arquitectura de Comunicación
+
+El siguiente diagrama ilustra la arquitectura de comunicación entre la aplicación móvil y el backend:
+
+![Arquitectura Mobile-Backend](./diagramas/Arquitectura-mobile-backend.png)
+
+## Sistema de Navegación
+
+La aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):
+
+```tsx
+// AppNavigator.tsx
+type Screen = TabScreen | 'addTarget' | 'targetDetails' | 'notifications' | 'widgetConfig';
+
+const AppNavigator: React.FC = () => {
+  const { isLoggedIn, loading } = useAuth();
+  const [currentScreen, setCurrentScreen] = useState<Screen>('dashboard');
+  const [selectedTargetId, setSelectedTargetId] = useState<string | null>(null);
+
+  // Navegación condicional basada en autenticación
+  if (!isLoggedIn) {
+    return <LoginScreen />;
+  }
+
+  // Renderizado de pantalla actual
+  switch (currentScreen) {
+    case 'dashboard':
+      return <DashboardScreen onNavigateToDetails={navigateToDetails} />;
+    case 'systems':
+      return <SystemsScreen onNavigateToDetails={navigateToDetails} />;
+    // ...
+  }
+};
+```
+
+### Pantallas Disponibles
+
+| Pantalla | Tab | Descripción |
+|----------|-----|-------------|
+| `LoginScreen` | - | Autenticación de usuario |
+| `DashboardScreen` | 🏠 | Estadísticas y alertas activas |
+| `SystemsScreen` | 📊 | Lista completa de targets |
+| `TargetDetailsScreen` | - | Detalle con métricas de un target |
+| `AddTargetScreen` | - | Formulario para crear target |
+| `SettingsScreen` | ⚙️ | Configuración de la app |
+| `NotificationsScreen` | - | Preferencias de notificaciones |
+| `WidgetConfigScreen` | - | Configuración del widget |
+
+## Cliente API
+
+El cliente HTTP centraliza la autenticación usando AsyncStorage:
+
+```typescript
+// api/fetch.ts
+export async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const token = await AsyncStorage.getItem('token');
+  
+  // Cache busting para peticiones GET
+  const method = options.method?.toUpperCase() || 'GET';
+  let finalUrl = url;
+  
+  if (method === 'GET') {
+    const separator = url.includes('?') ? '&' : '?';
+    finalUrl = `${url}${separator}_t=${Date.now()}`;
+  }
+
+  const response = await fetch(`${API_BASE_URL}${finalUrl}`, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  // Logout automático si el token expiró
+  if (response.status === 401) {
+    await AsyncStorage.removeItem('token');
+    throw new Error('Unauthorized');
+  }
+
+  return response;
+}
+```
+
+## Contexto de Autenticación
+
+Gestión de sesión mediante React Context y AsyncStorage:
+
+```tsx
+// context/AuthContext.tsx
+interface AuthContextType {
+  isLoggedIn: boolean;
+  token: string | null;
+  loading: boolean;
+  login: (token: string) => Promise<void>;
+  logout: () => Promise<void>;
+}
+
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  // Verificar token almacenado al iniciar
+  useEffect(() => {
+    const checkAuth = async () => {
+      const storedToken = await AsyncStorage.getItem('token');
+      if (storedToken) {
+        setToken(storedToken);
+        setIsLoggedIn(true);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  const login = async (newToken: string) => {
+    await AsyncStorage.setItem('token', newToken);
+    setToken(newToken);
+    setIsLoggedIn(true);
+  };
+
+  const logout = async () => {
+    await AsyncStorage.removeItem('token');
+    setToken(null);
+    setIsLoggedIn(false);
+  };
+};
+```
+
+## Widget Android
+
+La aplicación incluye un widget nativo para Android que muestra el estado de un sistema seleccionado:
+
+```tsx
+// widgets/SystemStatusWidget.tsx
+interface SystemStatusWidgetProps {
+  systemName: string;
+  status: 'UP' | 'DOWN' | 'PENDING' | 'UNKNOWN';
+  lastChecked: string;
+  responseTime: number | null;
+}
+
+export function SystemStatusWidget({
+  systemName,
+  status,
+  lastChecked,
+  responseTime,
+}: SystemStatusWidgetProps) {
+  return (
+    <FlexWidget
+      style={{
+        backgroundColor: '#1E293B',
+        borderRadius: 16,
+        padding: 16,
+      }}
+      clickAction="OPEN_APP"
+    >
+      <TextWidget text={systemName} />
+      <TextWidget 
+        text={getStatusText(status)} 
+        style={{ color: getStatusColor(status) }}
+      />
+      <TextWidget text={`Último check: ${lastChecked}`} />
+      {responseTime && (
+        <TextWidget text={`${responseTime}ms`} />
+      )}
+    </FlexWidget>
+  );
+}
+```
+
+### Características del Widget
+
+- **Tamaño**: 2x1 celdas mínimo
+- **Actualización**: Periódica o por evento
+- **Acción**: Abre la app al tocar
+- **Tema**: Oscuro para mejor visibilidad
+
+## Tema y Colores
+
+Paleta de colores consistente con la versión web:
+
+```typescript
+// theme/colors.ts
+export const colors = {
+  // Backgrounds
+  background: '#0F172A',
+  backgroundCard: '#1E293B',
+  backgroundInput: '#334155',
+  
+  // Text
+  textMain: '#F8FAFC',
+  textMuted: '#94A3B8',
+  
+  // Status
+  statusSuccess: '#22C55E',  // UP - Verde
+  statusDanger: '#EF4444',   // DOWN - Rojo
+  statusWarning: '#F59E0B',  // DEGRADED - Amarillo
+  statusInfo: '#3B82F6',     // Primary - Azul
+  
+  // UI
+  primary: '#3B82F6',
+  border: '#334155',
+};
+```
+
+## Configuración de Expo
+
+```json
+// app.json
+{
+  "expo": {
+    "name": "UpTrack",
+    "slug": "up-track-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "backgroundColor": "#0F172A"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.uptrack.mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0F172A"
+      },
+      "package": "com.uptrack.mobile"
+    }
+  }
+}
+```
+
+## Desarrollo Local
+
+### Requisitos
+
+- Node.js 18+
+- pnpm (recomendado)
+- Expo CLI
+- Android Studio / Xcode (para emuladores)
+- Expo Go app (para dispositivo físico)
+
+### Instalación y Ejecución
+
+```bash
+# Instalar dependencias
+cd up-track-mobile
+pnpm install
+
+# Iniciar servidor de desarrollo
+pnpm start
+
+# Ejecutar en Android
+pnpm android
+
+# Ejecutar en iOS
+pnpm ios
+
+# Ejecutar en navegador web
+pnpm web
+```
+
+### Configuración del API
+
+La aplicación requiere configurar la URL base del backend en `src/api/config.ts`. Debido a las restricciones de seguridad de Android/iOS (que bloquean http plano por defecto) y para facilitar las pruebas en dispositivos físicos, se recomienda encarecidamente el uso de **ngrok**.
+
+#### Uso de Ngrok (Recomendado)
+
+Ngrok crea un túnel seguro (HTTPS) desde internet hacia tu servidor local, permitiendo que el dispositivo móvil acceda al backend sin problemas de red o certificados.
+
+1.  **Iniciar Backend:** Asegúrate que tu backend corre en el puerto 8080.
+2.  **Iniciar Ngrok:** Ejecuta el siguiente comando en una terminal:
+    ```bash
+    ngrok http 8080
+    ```
+3.  **Configurar App:** Copia la URL HTTPS generada (ej. `https://xxxx-xxxx.ngrok-free.app`) en `src/api/config.ts`:
+
+```typescript
+// src/api/config.ts
+
+// RECOMENDADO: URL de Ngrok (http & https tunnels)
+// Permite testing en dispositivo físico sin configurar Cleartext Traffic
+export const API_BASE_URL = 'https://tu-id-ngrok.ngrok-free.app';
+
+/* Otras configuraciones:
+// Localhost (Solo Emulador Android)
+// export const API_BASE_URL = 'http://10.0.2.2:8080';
+
+// IP Local (Requiere estar en la misma red WiFi)
+// export const API_BASE_URL = 'http://192.168.1.X:8080';
+*/
+```
+
+> **Nota:** La versión gratuita de ngrok cambia la URL cada vez que se reinicia. Recuerda actualizar `config.ts` al obtener una nueva URL.
+
+## Build de Producción
+
+### EAS Build (Recomendado)
+
+```bash
+# Instalar EAS CLI
+npm install -g eas-cli
+
+# Login en Expo
+eas login
+
+# Build para Android (APK)
+eas build --platform android --profile preview
+
+# Build para iOS
+eas build --platform ios --profile preview
+
+# Build de producción
+eas build --platform all --profile production
+```
+
+### Configuración EAS (eas.json)
+
+```json
+{
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  }
+}
+```
+
+## Funcionalidades Futuras
+
+| Funcionalidad | Estado | Descripción |
+|--------------|--------|-------------|
+| Push Notifications | 🔜 Planificado | Alertas en tiempo real vía Firebase/APNs |
+| Widget iOS | 🔜 Planificado | Widget para pantalla de inicio iOS |
+| Modo Offline | 🔜 Planificado | Caché completo con sincronización |
+| Biometría | 🔜 Planificado | Autenticación con huella/Face ID |
+| Deep Links | 🔜 Planificado | Abrir target específico desde notificación |

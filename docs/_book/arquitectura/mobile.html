@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; Aplicación Móvil – Documentación Técnica de UpTrackAI</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../arquitectura/database.html" rel="next">
+<link href="../arquitectura/frontend.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.5/dist/mermaid.min.js"></script>
+
+<script>
+
+  mermaid.initialize({ startOnLoad: true, theme: 'default' });
+
+</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/index.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/mobile.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Aplicación Móvil</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Documentación Técnica de UpTrackAI</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DavosJar/uptrack" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bienvenido a UpTrackAI</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Arquitectura del Sistema</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../arquitectura/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Arquitectura del Sistema</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../arquitectura/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visión General del Sistema</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../arquitectura/backend.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../arquitectura/frontend.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../arquitectura/mobile.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Aplicación Móvil</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../arquitectura/database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Diagramas</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../diagrams.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagramas del Sistema</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#características-principales" id="toc-características-principales" class="nav-link active" data-scroll-target="#características-principales"><span class="header-section-number">6.1</span> Características Principales</a></li>
+  <li><a href="#stack-tecnológico" id="toc-stack-tecnológico" class="nav-link" data-scroll-target="#stack-tecnológico"><span class="header-section-number">6.2</span> Stack Tecnológico</a></li>
+  <li><a href="#estructura-del-proyecto" id="toc-estructura-del-proyecto" class="nav-link" data-scroll-target="#estructura-del-proyecto"><span class="header-section-number">6.3</span> Estructura del Proyecto</a></li>
+  <li><a href="#arquitectura-de-comunicación" id="toc-arquitectura-de-comunicación" class="nav-link" data-scroll-target="#arquitectura-de-comunicación"><span class="header-section-number">6.4</span> Arquitectura de Comunicación</a></li>
+  <li><a href="#sistema-de-navegación" id="toc-sistema-de-navegación" class="nav-link" data-scroll-target="#sistema-de-navegación"><span class="header-section-number">6.5</span> Sistema de Navegación</a>
+  <ul class="collapse">
+  <li><a href="#pantallas-disponibles" id="toc-pantallas-disponibles" class="nav-link" data-scroll-target="#pantallas-disponibles"><span class="header-section-number">6.5.1</span> Pantallas Disponibles</a></li>
+  </ul></li>
+  <li><a href="#cliente-api" id="toc-cliente-api" class="nav-link" data-scroll-target="#cliente-api"><span class="header-section-number">6.6</span> Cliente API</a></li>
+  <li><a href="#contexto-de-autenticación" id="toc-contexto-de-autenticación" class="nav-link" data-scroll-target="#contexto-de-autenticación"><span class="header-section-number">6.7</span> Contexto de Autenticación</a></li>
+  <li><a href="#widget-android" id="toc-widget-android" class="nav-link" data-scroll-target="#widget-android"><span class="header-section-number">6.8</span> Widget Android</a>
+  <ul class="collapse">
+  <li><a href="#características-del-widget" id="toc-características-del-widget" class="nav-link" data-scroll-target="#características-del-widget"><span class="header-section-number">6.8.1</span> Características del Widget</a></li>
+  </ul></li>
+  <li><a href="#tema-y-colores" id="toc-tema-y-colores" class="nav-link" data-scroll-target="#tema-y-colores"><span class="header-section-number">6.9</span> Tema y Colores</a></li>
+  <li><a href="#configuración-de-expo" id="toc-configuración-de-expo" class="nav-link" data-scroll-target="#configuración-de-expo"><span class="header-section-number">6.10</span> Configuración de Expo</a></li>
+  <li><a href="#desarrollo-local" id="toc-desarrollo-local" class="nav-link" data-scroll-target="#desarrollo-local"><span class="header-section-number">6.11</span> Desarrollo Local</a>
+  <ul class="collapse">
+  <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos"><span class="header-section-number">6.11.1</span> Requisitos</a></li>
+  <li><a href="#instalación-y-ejecución" id="toc-instalación-y-ejecución" class="nav-link" data-scroll-target="#instalación-y-ejecución"><span class="header-section-number">6.11.2</span> Instalación y Ejecución</a></li>
+  <li><a href="#configuración-del-api" id="toc-configuración-del-api" class="nav-link" data-scroll-target="#configuración-del-api"><span class="header-section-number">6.11.3</span> Configuración del API</a></li>
+  </ul></li>
+  <li><a href="#build-de-producción" id="toc-build-de-producción" class="nav-link" data-scroll-target="#build-de-producción"><span class="header-section-number">6.12</span> Build de Producción</a>
+  <ul class="collapse">
+  <li><a href="#eas-build-recomendado" id="toc-eas-build-recomendado" class="nav-link" data-scroll-target="#eas-build-recomendado"><span class="header-section-number">6.12.1</span> EAS Build (Recomendado)</a></li>
+  <li><a href="#configuración-eas-eas.json" id="toc-configuración-eas-eas.json" class="nav-link" data-scroll-target="#configuración-eas-eas.json"><span class="header-section-number">6.12.2</span> Configuración EAS (eas.json)</a></li>
+  </ul></li>
+  <li><a href="#funcionalidades-futuras" id="toc-funcionalidades-futuras" class="nav-link" data-scroll-target="#funcionalidades-futuras"><span class="header-section-number">6.13</span> Funcionalidades Futuras</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/DavosJar/uptrack/blob/main/arquitectura/mobile.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/DavosJar/uptrack/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/index.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/mobile.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Aplicación Móvil</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Aplicación Móvil</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>UpTrack Mobile es una aplicación nativa construida con React Native y Expo, diseñada para consulta rápida del estado de los sistemas monitoreados desde dispositivos Android e iOS.</p>
+<section id="características-principales" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="características-principales"><span class="header-section-number">6.1</span> Características Principales</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Dashboard</strong></td>
+<td>Vista general con estadísticas y alertas activas</td>
+</tr>
+<tr class="even">
+<td><strong>Lista de Sistemas</strong></td>
+<td>Todos los targets con filtros por estado</td>
+</tr>
+<tr class="odd">
+<td><strong>Detalle de Target</strong></td>
+<td>Métricas, historial y configuración</td>
+</tr>
+<tr class="even">
+<td><strong>Widget Android</strong></td>
+<td>Widget nativo para pantalla de inicio</td>
+</tr>
+<tr class="odd">
+<td><strong>Notificaciones Push</strong></td>
+<td>Alertas en tiempo real (futuro)</td>
+</tr>
+<tr class="even">
+<td><strong>Modo Offline</strong></td>
+<td>Caché local con AsyncStorage</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="stack-tecnológico" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="stack-tecnológico"><span class="header-section-number">6.2</span> Stack Tecnológico</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Categoría</th>
+<th>Tecnología</th>
+<th>Versión</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Framework</td>
+<td>React Native</td>
+<td>0.81</td>
+</tr>
+<tr class="even">
+<td>Plataforma</td>
+<td>Expo</td>
+<td>54</td>
+</tr>
+<tr class="odd">
+<td>Lenguaje</td>
+<td>TypeScript</td>
+<td>5.9</td>
+</tr>
+<tr class="even">
+<td>UI</td>
+<td>React Native SVG</td>
+<td>15.12</td>
+</tr>
+<tr class="odd">
+<td>Storage</td>
+<td>AsyncStorage</td>
+<td>2.2</td>
+</tr>
+<tr class="even">
+<td>Widgets</td>
+<td>react-native-android-widget</td>
+<td>0.20</td>
+</tr>
+<tr class="odd">
+<td>Runtime</td>
+<td>React</td>
+<td>19.1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="estructura-del-proyecto" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="estructura-del-proyecto"><span class="header-section-number">6.3</span> Estructura del Proyecto</h2>
+<pre><code>up-track-mobile/
+├── App.tsx                 # Punto de entrada
+├── app.json               # Configuración Expo
+├── eas.json               # Configuración EAS Build
+├── index.ts               # Registro de la app
+├── package.json           # Dependencias
+├── tsconfig.json          # Configuración TypeScript
+├── assets/                # Iconos y splash screens
+└── src/
+    ├── api/
+    │   ├── config.ts      # URL base del API
+    │   └── fetch.ts       # Cliente HTTP con auth
+    ├── components/
+    │   ├── BottomTabBar.tsx
+    │   └── Layout.tsx
+    ├── context/
+    │   └── AuthContext.tsx # Gestión de sesión
+    ├── navigation/
+    │   └── AppNavigator.tsx # Navegación entre pantallas
+    ├── screens/
+    │   ├── LoginScreen.tsx
+    │   ├── DashboardScreen.tsx
+    │   ├── SystemsScreen.tsx
+    │   ├── TargetDetailsScreen.tsx
+    │   ├── AddTargetScreen.tsx
+    │   ├── SettingsScreen.tsx
+    │   ├── NotificationsScreen.tsx
+    │   └── WidgetConfigScreen.tsx
+    ├── theme/
+    │   └── colors.ts      # Paleta de colores
+    └── widgets/
+        ├── SystemStatusWidget.tsx
+        └── widget-task-handler.tsx</code></pre>
+</section>
+<section id="arquitectura-de-comunicación" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="arquitectura-de-comunicación"><span class="header-section-number">6.4</span> Arquitectura de Comunicación</h2>
+<p>El siguiente diagrama ilustra la arquitectura de comunicación entre la aplicación móvil y el backend:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./diagramas/Arquitectura-mobile-backend.png" class="img-fluid figure-img"></p>
+<figcaption>Arquitectura Mobile-Backend</figcaption>
+</figure>
+</div>
+</section>
+<section id="sistema-de-navegación" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="sistema-de-navegación"><span class="header-section-number">6.5</span> Sistema de Navegación</h2>
+<p>La aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):</p>
+<pre class="tsx"><code>// AppNavigator.tsx
+type Screen = TabScreen | 'addTarget' | 'targetDetails' | 'notifications' | 'widgetConfig';
+
+const AppNavigator: React.FC = () =&gt; {
+  const { isLoggedIn, loading } = useAuth();
+  const [currentScreen, setCurrentScreen] = useState&lt;Screen&gt;('dashboard');
+  const [selectedTargetId, setSelectedTargetId] = useState&lt;string | null&gt;(null);
+
+  // Navegación condicional basada en autenticación
+  if (!isLoggedIn) {
+    return &lt;LoginScreen /&gt;;
+  }
+
+  // Renderizado de pantalla actual
+  switch (currentScreen) {
+    case 'dashboard':
+      return &lt;DashboardScreen onNavigateToDetails={navigateToDetails} /&gt;;
+    case 'systems':
+      return &lt;SystemsScreen onNavigateToDetails={navigateToDetails} /&gt;;
+    // ...
+  }
+};</code></pre>
+<section id="pantallas-disponibles" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="pantallas-disponibles"><span class="header-section-number">6.5.1</span> Pantallas Disponibles</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pantalla</th>
+<th>Tab</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>LoginScreen</code></td>
+<td>-</td>
+<td>Autenticación de usuario</td>
+</tr>
+<tr class="even">
+<td><code>DashboardScreen</code></td>
+<td>🏠</td>
+<td>Estadísticas y alertas activas</td>
+</tr>
+<tr class="odd">
+<td><code>SystemsScreen</code></td>
+<td>📊</td>
+<td>Lista completa de targets</td>
+</tr>
+<tr class="even">
+<td><code>TargetDetailsScreen</code></td>
+<td>-</td>
+<td>Detalle con métricas de un target</td>
+</tr>
+<tr class="odd">
+<td><code>AddTargetScreen</code></td>
+<td>-</td>
+<td>Formulario para crear target</td>
+</tr>
+<tr class="even">
+<td><code>SettingsScreen</code></td>
+<td>⚙️</td>
+<td>Configuración de la app</td>
+</tr>
+<tr class="odd">
+<td><code>NotificationsScreen</code></td>
+<td>-</td>
+<td>Preferencias de notificaciones</td>
+</tr>
+<tr class="even">
+<td><code>WidgetConfigScreen</code></td>
+<td>-</td>
+<td>Configuración del widget</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="cliente-api" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="cliente-api"><span class="header-section-number">6.6</span> Cliente API</h2>
+<p>El cliente HTTP centraliza la autenticación usando AsyncStorage:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode typescript code-with-copy"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// api/fetch.ts</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fu">fetchWithAuth</span>(url<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> options<span class="op">:</span> RequestInit <span class="op">=</span> {}) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> token <span class="op">=</span> <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">getItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Cache busting para peticiones GET</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> method <span class="op">=</span> options<span class="op">.</span><span class="at">method</span><span class="op">?.</span><span class="fu">toUpperCase</span>() <span class="op">||</span> <span class="st">'GET'</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> finalUrl <span class="op">=</span> url<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="op">===</span> <span class="st">'GET'</span>) {</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> separator <span class="op">=</span> url<span class="op">.</span><span class="fu">includes</span>(<span class="st">'?'</span>) <span class="op">?</span> <span class="st">'&amp;'</span> <span class="op">:</span> <span class="st">'?'</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    finalUrl <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>url<span class="sc">}${</span>separator<span class="sc">}</span><span class="vs">_t=</span><span class="sc">${</span><span class="bu">Date</span><span class="op">.</span><span class="fu">now</span>()<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`</span><span class="sc">${</span>API_BASE_URL<span class="sc">}${</span>finalUrl<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> {</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>options<span class="op">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">:</span> {</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>options<span class="op">.</span><span class="at">headers</span><span class="op">,</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Authorization'</span><span class="op">:</span> <span class="vs">`Bearer </span><span class="sc">${</span>token<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Logout automático si el token expiró</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (response<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="dv">401</span>) {</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">removeItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="st">'Unauthorized'</span>)<span class="op">;</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> response<span class="op">;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="contexto-de-autenticación" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="contexto-de-autenticación"><span class="header-section-number">6.7</span> Contexto de Autenticación</h2>
+<p>Gestión de sesión mediante React Context y AsyncStorage:</p>
+<pre class="tsx"><code>// context/AuthContext.tsx
+interface AuthContextType {
+  isLoggedIn: boolean;
+  token: string | null;
+  loading: boolean;
+  login: (token: string) =&gt; Promise&lt;void&gt;;
+  logout: () =&gt; Promise&lt;void&gt;;
+}
+
+export const AuthProvider: React.FC&lt;{ children: ReactNode }&gt; = ({ children }) =&gt; {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState&lt;string | null&gt;(null);
+
+  // Verificar token almacenado al iniciar
+  useEffect(() =&gt; {
+    const checkAuth = async () =&gt; {
+      const storedToken = await AsyncStorage.getItem('token');
+      if (storedToken) {
+        setToken(storedToken);
+        setIsLoggedIn(true);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  const login = async (newToken: string) =&gt; {
+    await AsyncStorage.setItem('token', newToken);
+    setToken(newToken);
+    setIsLoggedIn(true);
+  };
+
+  const logout = async () =&gt; {
+    await AsyncStorage.removeItem('token');
+    setToken(null);
+    setIsLoggedIn(false);
+  };
+};</code></pre>
+</section>
+<section id="widget-android" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="widget-android"><span class="header-section-number">6.8</span> Widget Android</h2>
+<p>La aplicación incluye un widget nativo para Android que muestra el estado de un sistema seleccionado:</p>
+<pre class="tsx"><code>// widgets/SystemStatusWidget.tsx
+interface SystemStatusWidgetProps {
+  systemName: string;
+  status: 'UP' | 'DOWN' | 'PENDING' | 'UNKNOWN';
+  lastChecked: string;
+  responseTime: number | null;
+}
+
+export function SystemStatusWidget({
+  systemName,
+  status,
+  lastChecked,
+  responseTime,
+}: SystemStatusWidgetProps) {
+  return (
+    &lt;FlexWidget
+      style={{
+        backgroundColor: '#1E293B',
+        borderRadius: 16,
+        padding: 16,
+      }}
+      clickAction="OPEN_APP"
+    &gt;
+      &lt;TextWidget text={systemName} /&gt;
+      &lt;TextWidget 
+        text={getStatusText(status)} 
+        style={{ color: getStatusColor(status) }}
+      /&gt;
+      &lt;TextWidget text={`Último check: ${lastChecked}`} /&gt;
+      {responseTime &amp;&amp; (
+        &lt;TextWidget text={`${responseTime}ms`} /&gt;
+      )}
+    &lt;/FlexWidget&gt;
+  );
+}</code></pre>
+<section id="características-del-widget" class="level3" data-number="6.8.1">
+<h3 data-number="6.8.1" class="anchored" data-anchor-id="características-del-widget"><span class="header-section-number">6.8.1</span> Características del Widget</h3>
+<ul>
+<li><strong>Tamaño</strong>: 2x1 celdas mínimo</li>
+<li><strong>Actualización</strong>: Periódica o por evento</li>
+<li><strong>Acción</strong>: Abre la app al tocar</li>
+<li><strong>Tema</strong>: Oscuro para mejor visibilidad</li>
+</ul>
+</section>
+</section>
+<section id="tema-y-colores" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="tema-y-colores"><span class="header-section-number">6.9</span> Tema y Colores</h2>
+<p>Paleta de colores consistente con la versión web:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode typescript code-with-copy"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// theme/colors.ts</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> colors <span class="op">=</span> {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Backgrounds</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  background<span class="op">:</span> <span class="st">'#0F172A'</span><span class="op">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  backgroundCard<span class="op">:</span> <span class="st">'#1E293B'</span><span class="op">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  backgroundInput<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Text</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  textMain<span class="op">:</span> <span class="st">'#F8FAFC'</span><span class="op">,</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  textMuted<span class="op">:</span> <span class="st">'#94A3B8'</span><span class="op">,</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Status</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  statusSuccess<span class="op">:</span> <span class="st">'#22C55E'</span><span class="op">,</span>  <span class="co">// UP - Verde</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  statusDanger<span class="op">:</span> <span class="st">'#EF4444'</span><span class="op">,</span>   <span class="co">// DOWN - Rojo</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  statusWarning<span class="op">:</span> <span class="st">'#F59E0B'</span><span class="op">,</span>  <span class="co">// DEGRADED - Amarillo</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  statusInfo<span class="op">:</span> <span class="st">'#3B82F6'</span><span class="op">,</span>     <span class="co">// Primary - Azul</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">// UI</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  primary<span class="op">:</span> <span class="st">'#3B82F6'</span><span class="op">,</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  border<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configuración-de-expo" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="configuración-de-expo"><span class="header-section-number">6.10</span> Configuración de Expo</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">app.json</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"expo"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"UpTrack"</span><span class="fu">,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"slug"</span><span class="fu">:</span> <span class="st">"up-track-mobile"</span><span class="fu">,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"version"</span><span class="fu">:</span> <span class="st">"1.0.0"</span><span class="fu">,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"orientation"</span><span class="fu">:</span> <span class="st">"portrait"</span><span class="fu">,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"icon"</span><span class="fu">:</span> <span class="st">"./assets/icon.png"</span><span class="fu">,</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"splash"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"image"</span><span class="fu">:</span> <span class="st">"./assets/splash-icon.png"</span><span class="fu">,</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"backgroundColor"</span><span class="fu">:</span> <span class="st">"#0F172A"</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"ios"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"supportsTablet"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"bundleIdentifier"</span><span class="fu">:</span> <span class="st">"com.uptrack.mobile"</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"android"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"adaptiveIcon"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"foregroundImage"</span><span class="fu">:</span> <span class="st">"./assets/adaptive-icon.png"</span><span class="fu">,</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"backgroundColor"</span><span class="fu">:</span> <span class="st">"#0F172A"</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"package"</span><span class="fu">:</span> <span class="st">"com.uptrack.mobile"</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="desarrollo-local" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="desarrollo-local"><span class="header-section-number">6.11</span> Desarrollo Local</h2>
+<section id="requisitos" class="level3" data-number="6.11.1">
+<h3 data-number="6.11.1" class="anchored" data-anchor-id="requisitos"><span class="header-section-number">6.11.1</span> Requisitos</h3>
+<ul>
+<li>Node.js 18+</li>
+<li>pnpm (recomendado)</li>
+<li>Expo CLI</li>
+<li>Android Studio / Xcode (para emuladores)</li>
+<li>Expo Go app (para dispositivo físico)</li>
+</ul>
+</section>
+<section id="instalación-y-ejecución" class="level3" data-number="6.11.2">
+<h3 data-number="6.11.2" class="anchored" data-anchor-id="instalación-y-ejecución"><span class="header-section-number">6.11.2</span> Instalación y Ejecución</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar dependencias</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> up-track-mobile</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> install</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Iniciar servidor de desarrollo</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> start</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en Android</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> android</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en iOS</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> ios</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en navegador web</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> web</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configuración-del-api" class="level3" data-number="6.11.3">
+<h3 data-number="6.11.3" class="anchored" data-anchor-id="configuración-del-api"><span class="header-section-number">6.11.3</span> Configuración del API</h3>
+<p>La aplicación requiere configurar la URL base del backend en <code>src/api/config.ts</code>. Debido a las restricciones de seguridad de Android/iOS (que bloquean http plano por defecto) y para facilitar las pruebas en dispositivos físicos, se recomienda encarecidamente el uso de <strong>ngrok</strong>.</p>
+<section id="uso-de-ngrok-recomendado" class="level4" data-number="6.11.3.1">
+<h4 data-number="6.11.3.1" class="anchored" data-anchor-id="uso-de-ngrok-recomendado"><span class="header-section-number">6.11.3.1</span> Uso de Ngrok (Recomendado)</h4>
+<p>Ngrok crea un túnel seguro (HTTPS) desde internet hacia tu servidor local, permitiendo que el dispositivo móvil acceda al backend sin problemas de red o certificados.</p>
+<ol type="1">
+<li><strong>Iniciar Backend:</strong> Asegúrate que tu backend corre en el puerto 8080.</li>
+<li><strong>Iniciar Ngrok:</strong> Ejecuta el siguiente comando en una terminal: <code>bash     ngrok http 8080</code></li>
+<li><strong>Configurar App:</strong> Copia la URL HTTPS generada (ej. <code>https://xxxx-xxxx.ngrok-free.app</code>) en <code>src/api/config.ts</code>:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode typescript code-with-copy"><code class="sourceCode typescript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// src/api/config.ts</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">// RECOMENDADO: URL de Ngrok (http &amp; https tunnels)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Permite testing en dispositivo físico sin configurar Cleartext Traffic</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'https://tu-id-ngrok.ngrok-free.app'</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* Otras configuraciones:</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Localhost (Solo Emulador Android)</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">// export const API_BASE_URL = 'http://10.0.2.2:8080';</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">// IP Local (Requiere estar en la misma red WiFi)</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">// export const API_BASE_URL = 'http://192.168.1.X:8080';</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Nota:</strong> La versión gratuita de ngrok cambia la URL cada vez que se reinicia. Recuerda actualizar <code>config.ts</code> al obtener una nueva URL.</p>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="build-de-producción" class="level2" data-number="6.12">
+<h2 data-number="6.12" class="anchored" data-anchor-id="build-de-producción"><span class="header-section-number">6.12</span> Build de Producción</h2>
+<section id="eas-build-recomendado" class="level3" data-number="6.12.1">
+<h3 data-number="6.12.1" class="anchored" data-anchor-id="eas-build-recomendado"><span class="header-section-number">6.12.1</span> EAS Build (Recomendado)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar EAS CLI</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> eas-cli</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Login en Expo</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> login</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Build para Android (APK)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> android <span class="at">--profile</span> preview</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Build para iOS</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> ios <span class="at">--profile</span> preview</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Build de producción</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> all <span class="at">--profile</span> production</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configuración-eas-eas.json" class="level3" data-number="6.12.2">
+<h3 data-number="6.12.2" class="anchored" data-anchor-id="configuración-eas-eas.json"><span class="header-section-number">6.12.2</span> Configuración EAS (eas.json)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"build"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"preview"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"distribution"</span><span class="fu">:</span> <span class="st">"internal"</span><span class="fu">,</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"android"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"buildType"</span><span class="fu">:</span> <span class="st">"apk"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"production"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"android"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"buildType"</span><span class="fu">:</span> <span class="st">"app-bundle"</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="funcionalidades-futuras" class="level2" data-number="6.13">
+<h2 data-number="6.13" class="anchored" data-anchor-id="funcionalidades-futuras"><span class="header-section-number">6.13</span> Funcionalidades Futuras</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 22%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funcionalidad</th>
+<th>Estado</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Push Notifications</td>
+<td>🔜 Planificado</td>
+<td>Alertas en tiempo real vía Firebase/APNs</td>
+</tr>
+<tr class="even">
+<td>Widget iOS</td>
+<td>🔜 Planificado</td>
+<td>Widget para pantalla de inicio iOS</td>
+</tr>
+<tr class="odd">
+<td>Modo Offline</td>
+<td>🔜 Planificado</td>
+<td>Caché completo con sincronización</td>
+</tr>
+<tr class="even">
+<td>Biometría</td>
+<td>🔜 Planificado</td>
+<td>Autenticación con huella/Face ID</td>
+</tr>
+<tr class="odd">
+<td>Deep Links</td>
+<td>🔜 Planificado</td>
+<td>Abrir target específico desde notificación</td>
+</tr>
+</tbody>
+</table>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../arquitectura/frontend.html" class="pagination-link" aria-label="Frontend y Experiencia de Usuario">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../arquitectura/database.html" class="pagination-link" aria-label="Modelo de Datos">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Aplicación Móvil</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>UpTrack Mobile es una aplicación nativa construida con React Native y Expo, diseñada para consulta rápida del estado de los sistemas monitoreados desde dispositivos Android e iOS.</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Características Principales</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Característica <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------|-------------|</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Dashboard** <span class="pp">|</span> Vista general con estadísticas y alertas activas <span class="pp">|</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Lista de Sistemas** <span class="pp">|</span> Todos los targets con filtros por estado <span class="pp">|</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Detalle de Target** <span class="pp">|</span> Métricas, historial y configuración <span class="pp">|</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Widget Android** <span class="pp">|</span> Widget nativo para pantalla de inicio <span class="pp">|</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Notificaciones Push** <span class="pp">|</span> Alertas en tiempo real (futuro) <span class="pp">|</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Modo Offline** <span class="pp">|</span> Caché local con AsyncStorage <span class="pp">|</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stack Tecnológico</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Categoría <span class="pp">|</span> Tecnología <span class="pp">|</span> Versión <span class="pp">|</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|-----------|---------|</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Framework <span class="pp">|</span> React Native <span class="pp">|</span> 0.81 <span class="pp">|</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Plataforma <span class="pp">|</span> Expo <span class="pp">|</span> 54 <span class="pp">|</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Lenguaje <span class="pp">|</span> TypeScript <span class="pp">|</span> 5.9 <span class="pp">|</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> UI <span class="pp">|</span> React Native SVG <span class="pp">|</span> 15.12 <span class="pp">|</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Storage <span class="pp">|</span> AsyncStorage <span class="pp">|</span> 2.2 <span class="pp">|</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Widgets <span class="pp">|</span> react-native-android-widget <span class="pp">|</span> 0.20 <span class="pp">|</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Runtime <span class="pp">|</span> React <span class="pp">|</span> 19.1 <span class="pp">|</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estructura del Proyecto</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="in">up-track-mobile/</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="in">├── App.tsx                 # Punto de entrada</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="in">├── app.json               # Configuración Expo</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="in">├── eas.json               # Configuración EAS Build</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="in">├── index.ts               # Registro de la app</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="in">├── package.json           # Dependencias</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="in">├── tsconfig.json          # Configuración TypeScript</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="in">├── assets/                # Iconos y splash screens</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="in">└── src/</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── api/</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── config.ts      # URL base del API</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="in">    │   └── fetch.ts       # Cliente HTTP con auth</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── components/</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── BottomTabBar.tsx</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="in">    │   └── Layout.tsx</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── context/</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="in">    │   └── AuthContext.tsx # Gestión de sesión</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── navigation/</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="in">    │   └── AppNavigator.tsx # Navegación entre pantallas</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── screens/</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── LoginScreen.tsx</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── DashboardScreen.tsx</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── SystemsScreen.tsx</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── TargetDetailsScreen.tsx</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── AddTargetScreen.tsx</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── SettingsScreen.tsx</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="in">    │   ├── NotificationsScreen.tsx</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="in">    │   └── WidgetConfigScreen.tsx</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── theme/</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a><span class="in">    │   └── colors.ts      # Paleta de colores</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a><span class="in">    └── widgets/</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a><span class="in">        ├── SystemStatusWidget.tsx</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a><span class="in">        └── widget-task-handler.tsx</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Arquitectura de Comunicación</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>El siguiente diagrama ilustra la arquitectura de comunicación entre la aplicación móvil y el backend:</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="al">![Arquitectura Mobile-Backend](./diagramas/Arquitectura-mobile-backend.png)</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sistema de Navegación</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>La aplicación utiliza un sistema de navegación basado en estado (sin React Navigation para mantener el bundle ligero):</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="co">// AppNavigator.tsx</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>type Screen <span class="op">=</span> TabScreen <span class="op">|</span> <span class="st">'addTarget'</span> <span class="op">|</span> <span class="st">'targetDetails'</span> <span class="op">|</span> <span class="st">'notifications'</span> <span class="op">|</span> <span class="st">'widgetConfig'</span><span class="op">;</span></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> AppNavigator<span class="op">:</span> React<span class="op">.</span><span class="at">FC</span> <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { isLoggedIn<span class="op">,</span> loading } <span class="op">=</span> <span class="fu">useAuth</span>()<span class="op">;</span></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [currentScreen<span class="op">,</span> setCurrentScreen] <span class="op">=</span> useState<span class="op">&lt;</span>Screen<span class="op">&gt;</span>(<span class="st">'dashboard'</span>)<span class="op">;</span></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [selectedTargetId<span class="op">,</span> setSelectedTargetId] <span class="op">=</span> useState<span class="op">&lt;</span>string <span class="op">|</span> <span class="kw">null</span><span class="op">&gt;</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Navegación condicional basada en autenticación</span></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>isLoggedIn) {</span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return </span><span class="fu">&lt;LoginScreen</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Renderizado de pantalla actual</span></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> (currentScreen) {</span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">'dashboard'</span><span class="op">:</span></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return </span><span class="fu">&lt;DashboardScreen</span> <span class="ot">onNavigateToDetails</span><span class="op">=</span><span class="va">{</span>navigateToDetails<span class="va">}</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">'systems'</span><span class="op">:</span></span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return </span><span class="fu">&lt;SystemsScreen</span> <span class="ot">onNavigateToDetails</span><span class="op">=</span><span class="va">{</span>navigateToDetails<span class="va">}</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pantallas Disponibles</span></span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pantalla <span class="pp">|</span> Tab <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|-----|-------------|</span></span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`LoginScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Autenticación de usuario <span class="pp">|</span></span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`DashboardScreen`</span> <span class="pp">|</span> 🏠 <span class="pp">|</span> Estadísticas y alertas activas <span class="pp">|</span></span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SystemsScreen`</span> <span class="pp">|</span> 📊 <span class="pp">|</span> Lista completa de targets <span class="pp">|</span></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`TargetDetailsScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Detalle con métricas de un target <span class="pp">|</span></span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`AddTargetScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Formulario para crear target <span class="pp">|</span></span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SettingsScreen`</span> <span class="pp">|</span> ⚙️ <span class="pp">|</span> Configuración de la app <span class="pp">|</span></span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`NotificationsScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Preferencias de notificaciones <span class="pp">|</span></span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WidgetConfigScreen`</span> <span class="pp">|</span> - <span class="pp">|</span> Configuración del widget <span class="pp">|</span></span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cliente API</span></span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>El cliente HTTP centraliza la autenticación usando AsyncStorage:</span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a><span class="co">// api/fetch.ts</span></span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fu">fetchWithAuth</span>(url<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> options<span class="op">:</span> RequestInit <span class="op">=</span> {}) {</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> token <span class="op">=</span> <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">getItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Cache busting para peticiones GET</span></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> method <span class="op">=</span> options<span class="op">.</span><span class="at">method</span><span class="op">?.</span><span class="fu">toUpperCase</span>() <span class="op">||</span> <span class="st">'GET'</span><span class="op">;</span></span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> finalUrl <span class="op">=</span> url<span class="op">;</span></span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="op">===</span> <span class="st">'GET'</span>) {</span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> separator <span class="op">=</span> url<span class="op">.</span><span class="fu">includes</span>(<span class="st">'?'</span>) <span class="op">?</span> <span class="st">'&amp;'</span> <span class="op">:</span> <span class="st">'?'</span><span class="op">;</span></span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a>    finalUrl <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>url<span class="sc">}${</span>separator<span class="sc">}</span><span class="vs">_t=</span><span class="sc">${</span><span class="bu">Date</span><span class="op">.</span><span class="fu">now</span>()<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`</span><span class="sc">${</span>API_BASE_URL<span class="sc">}${</span>finalUrl<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> {</span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>options<span class="op">,</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">:</span> {</span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>options<span class="op">.</span><span class="at">headers</span><span class="op">,</span></span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Authorization'</span><span class="op">:</span> <span class="vs">`Bearer </span><span class="sc">${</span>token<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Logout automático si el token expiró</span></span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (response<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="dv">401</span>) {</span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">removeItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="st">'Unauthorized'</span>)<span class="op">;</span></span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> response<span class="op">;</span></span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contexto de Autenticación</span></span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>Gestión de sesión mediante React Context y AsyncStorage:</span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a><span class="co">// context/AuthContext.tsx</span></span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> AuthContextType {</span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a>  <span class="dt">isLoggedIn</span><span class="op">:</span> boolean<span class="op">;</span></span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>  <span class="dt">token</span><span class="op">:</span> string <span class="op">|</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>  <span class="dt">loading</span><span class="op">:</span> boolean<span class="op">;</span></span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>  <span class="dt">login</span><span class="op">:</span> (<span class="dt">token</span><span class="op">:</span> string) <span class="kw">=&gt;</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="kw">void</span><span class="op">&gt;;</span></span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>  <span class="dt">logout</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="kw">void</span><span class="op">&gt;;</span></span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> AuthProvider<span class="op">:</span> React<span class="op">.</span><span class="at">FC</span><span class="op">&lt;</span>{ <span class="dt">children</span><span class="op">:</span> ReactNode }<span class="op">&gt;</span> <span class="op">=</span> ({ children }) <span class="kw">=&gt;</span> {</span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [isLoggedIn<span class="op">,</span> setIsLoggedIn] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [token<span class="op">,</span> setToken] <span class="op">=</span> useState<span class="op">&lt;</span>string <span class="op">|</span> <span class="kw">null</span><span class="op">&gt;</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Verificar token almacenado al iniciar</span></span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">useEffect</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> checkAuth <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> storedToken <span class="op">=</span> <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">getItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (storedToken) {</span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setToken</span>(storedToken)<span class="op">;</span></span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setIsLoggedIn</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">checkAuth</span>()<span class="op">;</span></span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span> [])<span class="op">;</span></span>
+<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> login <span class="op">=</span> <span class="kw">async</span> (<span class="dt">newToken</span><span class="op">:</span> string) <span class="kw">=&gt;</span> {</span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">setItem</span>(<span class="st">'token'</span><span class="op">,</span> newToken)<span class="op">;</span></span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setToken</span>(newToken)<span class="op">;</span></span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setIsLoggedIn</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> logout <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> AsyncStorage<span class="op">.</span><span class="fu">removeItem</span>(<span class="st">'token'</span>)<span class="op">;</span></span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setToken</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setIsLoggedIn</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## Widget Android</span></span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a>La aplicación incluye un widget nativo para Android que muestra el estado de un sistema seleccionado:</span>
+<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a><span class="in">```tsx</span></span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a><span class="co">// widgets/SystemStatusWidget.tsx</span></span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SystemStatusWidgetProps {</span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a>  <span class="dt">systemName</span><span class="op">:</span> string<span class="op">;</span></span>
+<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a>  <span class="dt">status</span><span class="op">:</span> <span class="st">'UP'</span> <span class="op">|</span> <span class="st">'DOWN'</span> <span class="op">|</span> <span class="st">'PENDING'</span> <span class="op">|</span> <span class="st">'UNKNOWN'</span><span class="op">;</span></span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>  <span class="dt">lastChecked</span><span class="op">:</span> string<span class="op">;</span></span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a>  <span class="dt">responseTime</span><span class="op">:</span> number <span class="op">|</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">SystemStatusWidget</span>({</span>
+<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a>  systemName<span class="op">,</span></span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a>  status<span class="op">,</span></span>
+<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a>  lastChecked<span class="op">,</span></span>
+<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>  responseTime<span class="op">,</span></span>
+<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a>}<span class="op">:</span> SystemStatusWidgetProps) {</span>
+<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;FlexWidget</span></span>
+<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a>      <span class="ot">style</span><span class="op">=</span><span class="va">{</span>{</span>
+<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a>        <span class="dt">backgroundColor</span><span class="op">:</span> <span class="st">'#1E293B'</span><span class="op">,</span></span>
+<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a>        <span class="dt">borderRadius</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a>        <span class="dt">padding</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a>      }<span class="va">}</span></span>
+<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a>      <span class="ot">clickAction</span><span class="op">=</span><span class="st">"OPEN_APP"</span></span>
+<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&gt;</span></span>
+<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span>systemName<span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> </span>
+<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a>        <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="fu">getStatusText</span>(status)<span class="va">}</span> </span>
+<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a>        <span class="ot">style</span><span class="op">=</span><span class="va">{</span>{ <span class="dt">color</span><span class="op">:</span> <span class="fu">getStatusColor</span>(status) }<span class="va">}</span></span>
+<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a>      <span class="fu">/&gt;</span></span>
+<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="vs">`Último check: </span><span class="sc">${</span>lastChecked<span class="sc">}</span><span class="vs">`</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a>      <span class="va">{</span>responseTime <span class="op">&amp;&amp;</span> (</span>
+<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a>        <span class="fu">&lt;TextWidget</span> <span class="ot">text</span><span class="op">=</span><span class="va">{</span><span class="vs">`</span><span class="sc">${</span>responseTime<span class="sc">}</span><span class="vs">ms`</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a>      )<span class="va">}</span></span>
+<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;/FlexWidget&gt;</span></span>
+<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a><span class="fu">### Características del Widget</span></span>
+<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tamaño**: 2x1 celdas mínimo</span>
+<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Actualización**: Periódica o por evento</span>
+<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Acción**: Abre la app al tocar</span>
+<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tema**: Oscuro para mejor visibilidad</span>
+<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tema y Colores</span></span>
+<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a>Paleta de colores consistente con la versión web:</span>
+<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
+<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a><span class="co">// theme/colors.ts</span></span>
+<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> colors <span class="op">=</span> {</span>
+<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Backgrounds</span></span>
+<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a>  background<span class="op">:</span> <span class="st">'#0F172A'</span><span class="op">,</span></span>
+<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a>  backgroundCard<span class="op">:</span> <span class="st">'#1E293B'</span><span class="op">,</span></span>
+<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a>  backgroundInput<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
+<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Text</span></span>
+<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a>  textMain<span class="op">:</span> <span class="st">'#F8FAFC'</span><span class="op">,</span></span>
+<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a>  textMuted<span class="op">:</span> <span class="st">'#94A3B8'</span><span class="op">,</span></span>
+<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Status</span></span>
+<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a>  statusSuccess<span class="op">:</span> <span class="st">'#22C55E'</span><span class="op">,</span>  <span class="co">// UP - Verde</span></span>
+<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a>  statusDanger<span class="op">:</span> <span class="st">'#EF4444'</span><span class="op">,</span>   <span class="co">// DOWN - Rojo</span></span>
+<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>  statusWarning<span class="op">:</span> <span class="st">'#F59E0B'</span><span class="op">,</span>  <span class="co">// DEGRADED - Amarillo</span></span>
+<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a>  statusInfo<span class="op">:</span> <span class="st">'#3B82F6'</span><span class="op">,</span>     <span class="co">// Primary - Azul</span></span>
+<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a>  <span class="co">// UI</span></span>
+<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a>  primary<span class="op">:</span> <span class="st">'#3B82F6'</span><span class="op">,</span></span>
+<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a>  border<span class="op">:</span> <span class="st">'#334155'</span><span class="op">,</span></span>
+<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a><span class="fu">## Configuración de Expo</span></span>
+<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a><span class="co">// app.json</span></span>
+<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a>  <span class="st">"expo"</span><span class="op">:</span> {</span>
+<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span><span class="op">:</span> <span class="st">"UpTrack"</span><span class="op">,</span></span>
+<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a>    <span class="st">"slug"</span><span class="op">:</span> <span class="st">"up-track-mobile"</span><span class="op">,</span></span>
+<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a>    <span class="st">"version"</span><span class="op">:</span> <span class="st">"1.0.0"</span><span class="op">,</span></span>
+<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orientation"</span><span class="op">:</span> <span class="st">"portrait"</span><span class="op">,</span></span>
+<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a>    <span class="st">"icon"</span><span class="op">:</span> <span class="st">"./assets/icon.png"</span><span class="op">,</span></span>
+<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a>    <span class="st">"splash"</span><span class="op">:</span> {</span>
+<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a>      <span class="st">"image"</span><span class="op">:</span> <span class="st">"./assets/splash-icon.png"</span><span class="op">,</span></span>
+<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a>      <span class="st">"backgroundColor"</span><span class="op">:</span> <span class="st">"#0F172A"</span></span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ios"</span><span class="op">:</span> {</span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a>      <span class="st">"supportsTablet"</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a>      <span class="st">"bundleIdentifier"</span><span class="op">:</span> <span class="st">"com.uptrack.mobile"</span></span>
+<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a>    <span class="st">"android"</span><span class="op">:</span> {</span>
+<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a>      <span class="st">"adaptiveIcon"</span><span class="op">:</span> {</span>
+<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a>        <span class="st">"foregroundImage"</span><span class="op">:</span> <span class="st">"./assets/adaptive-icon.png"</span><span class="op">,</span></span>
+<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a>        <span class="st">"backgroundColor"</span><span class="op">:</span> <span class="st">"#0F172A"</span></span>
+<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a>      <span class="st">"package"</span><span class="op">:</span> <span class="st">"com.uptrack.mobile"</span></span>
+<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a><span class="fu">## Desarrollo Local</span></span>
+<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a><span class="fu">### Requisitos</span></span>
+<span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Node.js 18+</span>
+<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>pnpm (recomendado)</span>
+<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expo CLI</span>
+<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Android Studio / Xcode (para emuladores)</span>
+<span id="cb12-309"><a href="#cb12-309" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Expo Go app (para dispositivo físico)</span>
+<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a><span class="fu">### Instalación y Ejecución</span></span>
+<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar dependencias</span></span>
+<span id="cb12-315"><a href="#cb12-315" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> up-track-mobile</span>
+<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> install</span>
+<span id="cb12-317"><a href="#cb12-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-318"><a href="#cb12-318" aria-hidden="true" tabindex="-1"></a><span class="co"># Iniciar servidor de desarrollo</span></span>
+<span id="cb12-319"><a href="#cb12-319" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> start</span>
+<span id="cb12-320"><a href="#cb12-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-321"><a href="#cb12-321" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en Android</span></span>
+<span id="cb12-322"><a href="#cb12-322" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> android</span>
+<span id="cb12-323"><a href="#cb12-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-324"><a href="#cb12-324" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en iOS</span></span>
+<span id="cb12-325"><a href="#cb12-325" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> ios</span>
+<span id="cb12-326"><a href="#cb12-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-327"><a href="#cb12-327" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en navegador web</span></span>
+<span id="cb12-328"><a href="#cb12-328" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> web</span>
+<span id="cb12-329"><a href="#cb12-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-330"><a href="#cb12-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-331"><a href="#cb12-331" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configuración del API</span></span>
+<span id="cb12-332"><a href="#cb12-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-333"><a href="#cb12-333" aria-hidden="true" tabindex="-1"></a>La aplicación requiere configurar la URL base del backend en <span class="in">`src/api/config.ts`</span>. Debido a las restricciones de seguridad de Android/iOS (que bloquean http plano por defecto) y para facilitar las pruebas en dispositivos físicos, se recomienda encarecidamente el uso de **ngrok**.</span>
+<span id="cb12-334"><a href="#cb12-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-335"><a href="#cb12-335" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Uso de Ngrok (Recomendado)</span></span>
+<span id="cb12-336"><a href="#cb12-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-337"><a href="#cb12-337" aria-hidden="true" tabindex="-1"></a>Ngrok crea un túnel seguro (HTTPS) desde internet hacia tu servidor local, permitiendo que el dispositivo móvil acceda al backend sin problemas de red o certificados.</span>
+<span id="cb12-338"><a href="#cb12-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-339"><a href="#cb12-339" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Iniciar Backend:** Asegúrate que tu backend corre en el puerto 8080.</span>
+<span id="cb12-340"><a href="#cb12-340" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Iniciar Ngrok:** Ejecuta el siguiente comando en una terminal:</span>
+<span id="cb12-341"><a href="#cb12-341" aria-hidden="true" tabindex="-1"></a>    <span class="in">```bash</span></span>
+<span id="cb12-342"><a href="#cb12-342" aria-hidden="true" tabindex="-1"></a>    <span class="ex">ngrok</span> http 8080</span>
+<span id="cb12-343"><a href="#cb12-343" aria-hidden="true" tabindex="-1"></a>    <span class="in">```</span></span>
+<span id="cb12-344"><a href="#cb12-344" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Configurar App:** Copia la URL HTTPS generada (ej. <span class="in">`https://xxxx-xxxx.ngrok-free.app`</span>) en <span class="in">`src/api/config.ts`</span>:</span>
+<span id="cb12-345"><a href="#cb12-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-346"><a href="#cb12-346" aria-hidden="true" tabindex="-1"></a><span class="in">```typescript</span></span>
+<span id="cb12-347"><a href="#cb12-347" aria-hidden="true" tabindex="-1"></a><span class="co">// src/api/config.ts</span></span>
+<span id="cb12-348"><a href="#cb12-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-349"><a href="#cb12-349" aria-hidden="true" tabindex="-1"></a><span class="co">// RECOMENDADO: URL de Ngrok (http &amp; https tunnels)</span></span>
+<span id="cb12-350"><a href="#cb12-350" aria-hidden="true" tabindex="-1"></a><span class="co">// Permite testing en dispositivo físico sin configurar Cleartext Traffic</span></span>
+<span id="cb12-351"><a href="#cb12-351" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> API_BASE_URL <span class="op">=</span> <span class="st">'https://tu-id-ngrok.ngrok-free.app'</span><span class="op">;</span></span>
+<span id="cb12-352"><a href="#cb12-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-353"><a href="#cb12-353" aria-hidden="true" tabindex="-1"></a><span class="co">/* Otras configuraciones:</span></span>
+<span id="cb12-354"><a href="#cb12-354" aria-hidden="true" tabindex="-1"></a><span class="co">// Localhost (Solo Emulador Android)</span></span>
+<span id="cb12-355"><a href="#cb12-355" aria-hidden="true" tabindex="-1"></a><span class="co">// export const API_BASE_URL = 'http://10.0.2.2:8080';</span></span>
+<span id="cb12-356"><a href="#cb12-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-357"><a href="#cb12-357" aria-hidden="true" tabindex="-1"></a><span class="co">// IP Local (Requiere estar en la misma red WiFi)</span></span>
+<span id="cb12-358"><a href="#cb12-358" aria-hidden="true" tabindex="-1"></a><span class="co">// export const API_BASE_URL = 'http://192.168.1.X:8080';</span></span>
+<span id="cb12-359"><a href="#cb12-359" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb12-360"><a href="#cb12-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-361"><a href="#cb12-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-362"><a href="#cb12-362" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Nota:** La versión gratuita de ngrok cambia la URL cada vez que se reinicia. Recuerda actualizar </span><span class="in">`config.ts`</span><span class="at"> al obtener una nueva URL.</span></span>
+<span id="cb12-363"><a href="#cb12-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-364"><a href="#cb12-364" aria-hidden="true" tabindex="-1"></a><span class="fu">## Build de Producción</span></span>
+<span id="cb12-365"><a href="#cb12-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-366"><a href="#cb12-366" aria-hidden="true" tabindex="-1"></a><span class="fu">### EAS Build (Recomendado)</span></span>
+<span id="cb12-367"><a href="#cb12-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-368"><a href="#cb12-368" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb12-369"><a href="#cb12-369" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar EAS CLI</span></span>
+<span id="cb12-370"><a href="#cb12-370" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> eas-cli</span>
+<span id="cb12-371"><a href="#cb12-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-372"><a href="#cb12-372" aria-hidden="true" tabindex="-1"></a><span class="co"># Login en Expo</span></span>
+<span id="cb12-373"><a href="#cb12-373" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> login</span>
+<span id="cb12-374"><a href="#cb12-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-375"><a href="#cb12-375" aria-hidden="true" tabindex="-1"></a><span class="co"># Build para Android (APK)</span></span>
+<span id="cb12-376"><a href="#cb12-376" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> android <span class="at">--profile</span> preview</span>
+<span id="cb12-377"><a href="#cb12-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-378"><a href="#cb12-378" aria-hidden="true" tabindex="-1"></a><span class="co"># Build para iOS</span></span>
+<span id="cb12-379"><a href="#cb12-379" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> ios <span class="at">--profile</span> preview</span>
+<span id="cb12-380"><a href="#cb12-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-381"><a href="#cb12-381" aria-hidden="true" tabindex="-1"></a><span class="co"># Build de producción</span></span>
+<span id="cb12-382"><a href="#cb12-382" aria-hidden="true" tabindex="-1"></a><span class="ex">eas</span> build <span class="at">--platform</span> all <span class="at">--profile</span> production</span>
+<span id="cb12-383"><a href="#cb12-383" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-384"><a href="#cb12-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-385"><a href="#cb12-385" aria-hidden="true" tabindex="-1"></a><span class="fu">### Configuración EAS (eas.json)</span></span>
+<span id="cb12-386"><a href="#cb12-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-387"><a href="#cb12-387" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb12-388"><a href="#cb12-388" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-389"><a href="#cb12-389" aria-hidden="true" tabindex="-1"></a>  <span class="st">"build"</span><span class="op">:</span> {</span>
+<span id="cb12-390"><a href="#cb12-390" aria-hidden="true" tabindex="-1"></a>    <span class="st">"preview"</span><span class="op">:</span> {</span>
+<span id="cb12-391"><a href="#cb12-391" aria-hidden="true" tabindex="-1"></a>      <span class="st">"distribution"</span><span class="op">:</span> <span class="st">"internal"</span><span class="op">,</span></span>
+<span id="cb12-392"><a href="#cb12-392" aria-hidden="true" tabindex="-1"></a>      <span class="st">"android"</span><span class="op">:</span> {</span>
+<span id="cb12-393"><a href="#cb12-393" aria-hidden="true" tabindex="-1"></a>        <span class="st">"buildType"</span><span class="op">:</span> <span class="st">"apk"</span></span>
+<span id="cb12-394"><a href="#cb12-394" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-395"><a href="#cb12-395" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-396"><a href="#cb12-396" aria-hidden="true" tabindex="-1"></a>    <span class="st">"production"</span><span class="op">:</span> {</span>
+<span id="cb12-397"><a href="#cb12-397" aria-hidden="true" tabindex="-1"></a>      <span class="st">"android"</span><span class="op">:</span> {</span>
+<span id="cb12-398"><a href="#cb12-398" aria-hidden="true" tabindex="-1"></a>        <span class="st">"buildType"</span><span class="op">:</span> <span class="st">"app-bundle"</span></span>
+<span id="cb12-399"><a href="#cb12-399" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-400"><a href="#cb12-400" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-401"><a href="#cb12-401" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-402"><a href="#cb12-402" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-403"><a href="#cb12-403" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-404"><a href="#cb12-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-405"><a href="#cb12-405" aria-hidden="true" tabindex="-1"></a><span class="fu">## Funcionalidades Futuras</span></span>
+<span id="cb12-406"><a href="#cb12-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-407"><a href="#cb12-407" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Funcionalidad <span class="pp">|</span> Estado <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb12-408"><a href="#cb12-408" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------|--------|-------------|</span></span>
+<span id="cb12-409"><a href="#cb12-409" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Push Notifications <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Alertas en tiempo real vía Firebase/APNs <span class="pp">|</span></span>
+<span id="cb12-410"><a href="#cb12-410" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Widget iOS <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Widget para pantalla de inicio iOS <span class="pp">|</span></span>
+<span id="cb12-411"><a href="#cb12-411" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Modo Offline <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Caché completo con sincronización <span class="pp">|</span></span>
+<span id="cb12-412"><a href="#cb12-412" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Biometría <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Autenticación con huella/Face ID <span class="pp">|</span></span>
+<span id="cb12-413"><a href="#cb12-413" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Deep Links <span class="pp">|</span> 🔜 Planificado <span class="pp">|</span> Abrir target específico desde notificación <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DavosJar/uptrack/blob/main/arquitectura/mobile.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/DavosJar/uptrack/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

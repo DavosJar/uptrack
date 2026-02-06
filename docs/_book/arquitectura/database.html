@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Modelo de Datos – Documentación Técnica de UpTrackAI</title>
+<title>7&nbsp; Modelo de Datos – Documentación Técnica de UpTrackAI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../arquitectura/frontend.html" rel="prev">
+<link href="../diagrams.html" rel="next">
+<link href="../arquitectura/mobile.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -124,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/overview.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/database.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/index.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/database.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -140,6 +141,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Documentación Técnica de UpTrackAI</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DavosJar/uptrack" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -166,26 +170,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../arquitectura/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Arquitectura del Sistema</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../arquitectura/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visión General del Sistema</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visión General del Sistema</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../arquitectura/backend.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Backend y Servicios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../arquitectura/frontend.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../arquitectura/mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Aplicación Móvil</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../arquitectura/database.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Diagramas</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../diagrams.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagramas del Sistema</span></span></a>
   </div>
 </li>
       </ul>
@@ -200,34 +233,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#diagrama-de-clases-entidades" id="toc-diagrama-de-clases-entidades" class="nav-link active" data-scroll-target="#diagrama-de-clases-entidades"><span class="header-section-number">5.1</span> Diagrama de Clases / Entidades</a>
+  <li><a href="#diagrama-de-clases-entidades" id="toc-diagrama-de-clases-entidades" class="nav-link active" data-scroll-target="#diagrama-de-clases-entidades"><span class="header-section-number">7.1</span> Diagrama de Clases / Entidades</a></li>
+  <li><a href="#tablas-del-sistema" id="toc-tablas-del-sistema" class="nav-link" data-scroll-target="#tablas-del-sistema"><span class="header-section-number">7.2</span> Tablas del Sistema</a>
   <ul class="collapse">
-  <li><a href="#entidades-principales" id="toc-entidades-principales" class="nav-link" data-scroll-target="#entidades-principales"><span class="header-section-number">5.1.1</span> Entidades Principales</a></li>
+  <li><a href="#users" id="toc-users" class="nav-link" data-scroll-target="#users"><span class="header-section-number">7.2.1</span> users</a></li>
+  <li><a href="#credentials" id="toc-credentials" class="nav-link" data-scroll-target="#credentials"><span class="header-section-number">7.2.2</span> credentials</a></li>
+  <li><a href="#monitoring_targets" id="toc-monitoring_targets" class="nav-link" data-scroll-target="#monitoring_targets"><span class="header-section-number">7.2.3</span> monitoring_targets</a></li>
+  <li><a href="#check_results" id="toc-check_results" class="nav-link" data-scroll-target="#check_results"><span class="header-section-number">7.2.4</span> check_results</a></li>
+  <li><a href="#metrics" id="toc-metrics" class="nav-link" data-scroll-target="#metrics"><span class="header-section-number">7.2.5</span> metrics</a></li>
+  <li><a href="#target_statistics" id="toc-target_statistics" class="nav-link" data-scroll-target="#target_statistics"><span class="header-section-number">7.2.6</span> target_statistics</a></li>
+  <li><a href="#notification_channels" id="toc-notification_channels" class="nav-link" data-scroll-target="#notification_channels"><span class="header-section-number">7.2.7</span> notification_channels</a></li>
+  <li><a href="#telegram_linking_tokens" id="toc-telegram_linking_tokens" class="nav-link" data-scroll-target="#telegram_linking_tokens"><span class="header-section-number">7.2.8</span> telegram_linking_tokens</a></li>
   </ul></li>
-  <li><a href="#consideraciones-de-diseño" id="toc-consideraciones-de-diseño" class="nav-link" data-scroll-target="#consideraciones-de-diseño"><span class="header-section-number">5.2</span> Consideraciones de Diseño</a></li>
-  <li><a href="#diseño-de-base-de-datos" id="toc-diseño-de-base-de-datos" class="nav-link" data-scroll-target="#diseño-de-base-de-datos"><span class="header-section-number">5.3</span> Diseño de Base de Datos</a>
+  <li><a href="#migraciones" id="toc-migraciones" class="nav-link" data-scroll-target="#migraciones"><span class="header-section-number">7.3</span> Migraciones</a></li>
+  <li><a href="#consideraciones-de-diseño" id="toc-consideraciones-de-diseño" class="nav-link" data-scroll-target="#consideraciones-de-diseño"><span class="header-section-number">7.4</span> Consideraciones de Diseño</a>
   <ul class="collapse">
-  <li><a href="#tablas-de-monitoreo-core" id="toc-tablas-de-monitoreo-core" class="nav-link" data-scroll-target="#tablas-de-monitoreo-core"><span class="header-section-number">5.3.1</span> Tablas de Monitoreo Core</a></li>
-  <li><a href="#tablas-de-notificaciones" id="toc-tablas-de-notificaciones" class="nav-link" data-scroll-target="#tablas-de-notificaciones"><span class="header-section-number">5.3.2</span> Tablas de Notificaciones</a></li>
-  <li><a href="#tablas-de-gestión-de-usuarios" id="toc-tablas-de-gestión-de-usuarios" class="nav-link" data-scroll-target="#tablas-de-gestión-de-usuarios"><span class="header-section-number">5.3.3</span> Tablas de Gestión de Usuarios</a></li>
+  <li><a href="#separación-de-datos-calientesfríos" id="toc-separación-de-datos-calientesfríos" class="nav-link" data-scroll-target="#separación-de-datos-calientesfríos"><span class="header-section-number">7.4.1</span> Separación de Datos Calientes/Fríos</a></li>
+  <li><a href="#estrategia-de-índices" id="toc-estrategia-de-índices" class="nav-link" data-scroll-target="#estrategia-de-índices"><span class="header-section-number">7.4.2</span> Estrategia de Índices</a></li>
+  <li><a href="#uuid-v7-como-primary-key" id="toc-uuid-v7-como-primary-key" class="nav-link" data-scroll-target="#uuid-v7-como-primary-key"><span class="header-section-number">7.4.3</span> UUID v7 como Primary Key</a></li>
   </ul></li>
-  <li><a href="#evolución-del-esquema" id="toc-evolución-del-esquema" class="nav-link" data-scroll-target="#evolución-del-esquema"><span class="header-section-number">5.4</span> Evolución del Esquema</a></li>
-  <li><a href="#optimizaciones-de-rendimiento" id="toc-optimizaciones-de-rendimiento" class="nav-link" data-scroll-target="#optimizaciones-de-rendimiento"><span class="header-section-number">5.5</span> Optimizaciones de Rendimiento</a>
+  <li><a href="#conexión-y-pool" id="toc-conexión-y-pool" class="nav-link" data-scroll-target="#conexión-y-pool"><span class="header-section-number">7.5</span> Conexión y Pool</a></li>
+  <li><a href="#backup-y-recuperación" id="toc-backup-y-recuperación" class="nav-link" data-scroll-target="#backup-y-recuperación"><span class="header-section-number">7.6</span> Backup y Recuperación</a>
   <ul class="collapse">
-  <li><a href="#índices" id="toc-índices" class="nav-link" data-scroll-target="#índices"><span class="header-section-number">5.5.1</span> Índices</a></li>
-  <li><a href="#optimización-de-consultas" id="toc-optimización-de-consultas" class="nav-link" data-scroll-target="#optimización-de-consultas"><span class="header-section-number">5.5.2</span> Optimización de Consultas</a></li>
+  <li><a href="#estrategia-recomendada" id="toc-estrategia-recomendada" class="nav-link" data-scroll-target="#estrategia-recomendada"><span class="header-section-number">7.6.1</span> Estrategia Recomendada</a></li>
+  <li><a href="#comandos-de-backup" id="toc-comandos-de-backup" class="nav-link" data-scroll-target="#comandos-de-backup"><span class="header-section-number">7.6.2</span> Comandos de Backup</a></li>
   </ul></li>
-  <li><a href="#retención-de-datos" id="toc-retención-de-datos" class="nav-link" data-scroll-target="#retención-de-datos"><span class="header-section-number">5.6</span> Retención de Datos</a></li>
-  <li><a href="#estrategia-de-backup" id="toc-estrategia-de-backup" class="nav-link" data-scroll-target="#estrategia-de-backup"><span class="header-section-number">5.7</span> Estrategia de Backup</a></li>
+  <li><a href="#limpieza-de-datos" id="toc-limpieza-de-datos" class="nav-link" data-scroll-target="#limpieza-de-datos"><span class="header-section-number">7.7</span> Limpieza de Datos</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/DavosJar/uptrack/blob/main/arquitectura/database.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/DavosJar/uptrack/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/overview.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/database.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../arquitectura/index.html">Arquitectura del Sistema</a></li><li class="breadcrumb-item"><a href="../arquitectura/database.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modelo de Datos</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -244,9 +284,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>La persistencia de datos se maneja en PostgreSQL, utilizando GORM como ORM para la interacción desde Go.</p>
-<section id="diagrama-de-clases-entidades" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="diagrama-de-clases-entidades"><span class="header-section-number">5.1</span> Diagrama de Clases / Entidades</h2>
+<p>La persistencia de UpTrackAI se gestiona en PostgreSQL utilizando GORM como ORM. El esquema está diseñado para soportar alta frecuencia de escritura (health checks) y consultas eficientes de historial.</p>
+<section id="diagrama-de-clases-entidades" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="diagrama-de-clases-entidades"><span class="header-section-number">7.1</span> Diagrama de Clases / Entidades</h2>
 <p>El siguiente diagrama ilustra las entidades principales del dominio y sus relaciones.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -254,142 +294,687 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Diagrama de Clases</figcaption>
 </figure>
 </div>
-<section id="entidades-principales" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="entidades-principales"><span class="header-section-number">5.1.1</span> Entidades Principales</h3>
+</section>
+<section id="tablas-del-sistema" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="tablas-del-sistema"><span class="header-section-number">7.2</span> Tablas del Sistema</h2>
+<section id="users" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="users"><span class="header-section-number">7.2.1</span> users</h3>
+<p>Almacena información de perfil de los usuarios registrados.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Tipo</th>
+<th>Restricciones</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td><code>uuid</code></td>
+<td>PK</td>
+<td>Identificador único (UUID v7)</td>
+</tr>
+<tr class="even">
+<td><code>email</code></td>
+<td><code>varchar(254)</code></td>
+<td>UNIQUE, NOT NULL</td>
+<td>Correo electrónico</td>
+</tr>
+<tr class="odd">
+<td><code>full_name</code></td>
+<td><code>varchar(255)</code></td>
+<td>-</td>
+<td>Nombre completo</td>
+</tr>
+<tr class="even">
+<td><code>avatar_url</code></td>
+<td><code>varchar(500)</code></td>
+<td>-</td>
+<td>URL de avatar</td>
+</tr>
+<tr class="odd">
+<td><code>timezone</code></td>
+<td><code>varchar(50)</code></td>
+<td>DEFAULT ‘UTC’</td>
+<td>Zona horaria</td>
+</tr>
+<tr class="even">
+<td><code>language</code></td>
+<td><code>varchar(10)</code></td>
+<td>DEFAULT ‘en’</td>
+<td>Idioma preferido</td>
+</tr>
+<tr class="odd">
+<td><code>created_at</code></td>
+<td><code>timestamp</code></td>
+<td>AUTO</td>
+<td>Fecha de creación</td>
+</tr>
+<tr class="even">
+<td><code>updated_at</code></td>
+<td><code>timestamp</code></td>
+<td>AUTO</td>
+<td>Última actualización</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="credentials" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="credentials"><span class="header-section-number">7.2.2</span> credentials</h3>
+<p>Almacena credenciales de autenticación separadas del perfil (seguridad).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 34%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Tipo</th>
+<th>Restricciones</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td><code>uuid</code></td>
+<td>PK</td>
+<td>Identificador único</td>
+</tr>
+<tr class="even">
+<td><code>user_id</code></td>
+<td><code>uuid</code></td>
+<td>FK, UNIQUE</td>
+<td>Referencia al usuario</td>
+</tr>
+<tr class="odd">
+<td><code>password_hash</code></td>
+<td><code>varchar(255)</code></td>
+<td>NOT NULL</td>
+<td>Hash bcrypt de la contraseña</td>
+</tr>
+<tr class="even">
+<td><code>last_login_at</code></td>
+<td><code>timestamp</code></td>
+<td>-</td>
+<td>Último inicio de sesión</td>
+</tr>
+<tr class="odd">
+<td><code>login_attempts</code></td>
+<td><code>int</code></td>
+<td>DEFAULT 0</td>
+<td>Intentos fallidos consecutivos</td>
+</tr>
+<tr class="even">
+<td><code>locked_until</code></td>
+<td><code>timestamp</code></td>
+<td>-</td>
+<td>Bloqueo temporal por intentos</td>
+</tr>
+<tr class="odd">
+<td><code>password_changed_at</code></td>
+<td><code>timestamp</code></td>
+<td>NOT NULL</td>
+<td>Última cambio de contraseña</td>
+</tr>
+<tr class="even">
+<td><code>requires_password_change</code></td>
+<td><code>boolean</code></td>
+<td>DEFAULT false</td>
+<td>Forzar cambio en próximo login</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="monitoring_targets" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="monitoring_targets"><span class="header-section-number">7.2.3</span> monitoring_targets</h3>
+<p>Tabla principal de objetivos de monitoreo.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 34%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Tipo</th>
+<th>Restricciones</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td><code>uuid</code></td>
+<td>PK</td>
+<td>Identificador único (UUID v7)</td>
+</tr>
+<tr class="even">
+<td><code>user_id</code></td>
+<td><code>uuid</code></td>
+<td>FK, NOT NULL</td>
+<td>Propietario del target</td>
+</tr>
+<tr class="odd">
+<td><code>name</code></td>
+<td><code>varchar(255)</code></td>
+<td>NOT NULL</td>
+<td>Nombre descriptivo</td>
+</tr>
+<tr class="even">
+<td><code>url</code></td>
+<td><code>text</code></td>
+<td>NOT NULL</td>
+<td>URL a monitorear</td>
+</tr>
+<tr class="odd">
+<td><code>target_type</code></td>
+<td><code>varchar(50)</code></td>
+<td>NOT NULL</td>
+<td>Tipo: ‘API’ o ‘WEB’</td>
+</tr>
+<tr class="even">
+<td><code>is_active</code></td>
+<td><code>boolean</code></td>
+<td>DEFAULT true</td>
+<td>¿Monitoreo activo?</td>
+</tr>
+<tr class="odd">
+<td><code>previous_status</code></td>
+<td><code>varchar(50)</code></td>
+<td>DEFAULT ‘UNKNOWN’</td>
+<td>Estado anterior (para transiciones)</td>
+</tr>
+<tr class="even">
+<td><code>current_status</code></td>
+<td><code>varchar(50)</code></td>
+<td>DEFAULT ‘UNKNOWN’</td>
+<td>Estado actual</td>
+</tr>
+<tr class="odd">
+<td><code>check_interval_seconds</code></td>
+<td><code>int</code></td>
+<td>DEFAULT 300</td>
+<td>Frecuencia de verificación (5 min)</td>
+</tr>
+<tr class="even">
+<td><code>timeout_seconds</code></td>
+<td><code>int</code></td>
+<td>DEFAULT 10</td>
+<td>Timeout de conexión</td>
+</tr>
+<tr class="odd">
+<td><code>retry_count</code></td>
+<td><code>int</code></td>
+<td>DEFAULT 3</td>
+<td>Reintentos antes de fallar</td>
+</tr>
+<tr class="even">
+<td><code>retry_delay_seconds</code></td>
+<td><code>int</code></td>
+<td>DEFAULT 1</td>
+<td>Pausa entre reintentos</td>
+</tr>
+<tr class="odd">
+<td><code>last_checked_at</code></td>
+<td><code>timestamp</code></td>
+<td>-</td>
+<td>Última verificación</td>
+</tr>
+<tr class="even">
+<td><code>next_check_at</code></td>
+<td><code>timestamp</code></td>
+<td>INDEX</td>
+<td>Próxima verificación programada</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong></p>
 <ul>
-<li><strong>User:</strong> Propietario de la cuenta y los monitoreos.</li>
-<li><strong>MonitoringTarget:</strong> URL o servicio específico a monitorear (ej. <code>https://api.miempresa.com</code>).</li>
-<li><strong>CheckResult:</strong> Resultado individual de una ejecución de monitoreo (Status, Latencia, Timestamp).</li>
-<li><strong>NotificationChannel:</strong> Configuración de un canal de alerta (ej. un chat de Telegram).</li>
-<li><strong>AlertEvent:</strong> Registro de una alerta enviada.</li>
+<li><code>idx_monitoring_targets_next_check_at</code> en <code>next_check_at</code> (polling eficiente)</li>
 </ul>
 </section>
-</section>
-<section id="consideraciones-de-diseño" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="consideraciones-de-diseño"><span class="header-section-number">5.2</span> Consideraciones de Diseño</h2>
+<section id="check_results" class="level3" data-number="7.2.4">
+<h3 data-number="7.2.4" class="anchored" data-anchor-id="check_results"><span class="header-section-number">7.2.4</span> check_results</h3>
+<p>Almacena resultados de verificaciones con cambios de estado (alertas).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 34%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Tipo</th>
+<th>Restricciones</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td><code>uuid</code></td>
+<td>PK</td>
+<td>Identificador único</td>
+</tr>
+<tr class="even">
+<td><code>monitoring_target_id</code></td>
+<td><code>uuid</code></td>
+<td>FK, NOT NULL</td>
+<td>Target verificado</td>
+</tr>
+<tr class="odd">
+<td><code>timestamp</code></td>
+<td><code>timestamp</code></td>
+<td>NOT NULL</td>
+<td>Momento de la verificación</td>
+</tr>
+<tr class="even">
+<td><code>status</code></td>
+<td><code>varchar(50)</code></td>
+<td>NOT NULL</td>
+<td>Estado determinado</td>
+</tr>
+<tr class="odd">
+<td><code>avg_response_time_ms</code></td>
+<td><code>int</code></td>
+<td>NOT NULL</td>
+<td>Tiempo de respuesta promedio</td>
+</tr>
+<tr class="even">
+<td><code>error_message</code></td>
+<td><code>text</code></td>
+<td>-</td>
+<td>Mensaje de error (si aplica)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong></p>
 <ul>
-<li><strong>Relaciones:</strong> Un usuario tiene múltiples targets. Un target tiene múltiples resultados históricos.</li>
-<li><strong>Índices:</strong> Se utilizan índices en columnas de búsqueda frecuente como <code>target_id</code> y <code>timestamp</code> para optimizar consultas de historial.</li>
+<li><code>idx_target_timestamp</code> en <code>(monitoring_target_id, timestamp)</code> compuesto</li>
 </ul>
 </section>
-<section id="diseño-de-base-de-datos" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="diseño-de-base-de-datos"><span class="header-section-number">5.3</span> Diseño de Base de Datos</h2>
-<p>Base de datos relacional PostgreSQL con las siguientes tablas clave:</p>
-<section id="tablas-de-monitoreo-core" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="tablas-de-monitoreo-core"><span class="header-section-number">5.3.1</span> Tablas de Monitoreo Core</h3>
+<section id="metrics" class="level3" data-number="7.2.5">
+<h3 data-number="7.2.5" class="anchored" data-anchor-id="metrics"><span class="header-section-number">7.2.5</span> metrics</h3>
+<p>Serie temporal de métricas de rendimiento (solo checks exitosos).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Tipo</th>
+<th>Restricciones</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>monitoring_target_id</code></td>
+<td><code>uuid</code></td>
+<td>FK, NOT NULL</td>
+<td>Target monitoreado</td>
+</tr>
+<tr class="even">
+<td><code>timestamp</code></td>
+<td><code>timestamp</code></td>
+<td>NOT NULL</td>
+<td>Momento de la medición</td>
+</tr>
+<tr class="odd">
+<td><code>response_time_ms</code></td>
+<td><code>int</code></td>
+<td>NOT NULL</td>
+<td>Latencia en milisegundos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong></p>
 <ul>
-<li><strong>monitoring_targets</strong>: Configuraciones de objetivos
-<ul>
-<li>id (UUID, PK)</li>
-<li>name (varchar)</li>
-<li>url (varchar)</li>
-<li>check_interval (int)</li>
-<li>timeout (int)</li>
-<li>expected_status (int)</li>
-<li>created_at, updated_at (timestamp)</li>
-</ul></li>
-<li><strong>check_results</strong>: Resultados individuales de verificaciones
-<ul>
-<li>id (UUID, PK)</li>
-<li>target_id (UUID, FK)</li>
-<li>status (enum: UP, DOWN, etc.)</li>
-<li>response_time (int)</li>
-<li>status_code (int)</li>
-<li>error_message (text)</li>
-<li>checked_at (timestamp)</li>
-</ul></li>
-<li><strong>target_metrics</strong>: Datos de rendimiento agregados
-<ul>
-<li>id (UUID, PK)</li>
-<li>target_id (UUID, FK)</li>
-<li>uptime_percentage (decimal)</li>
-<li>avg_response_time (int)</li>
-<li>total_checks (int)</li>
-<li>period_start, period_end (timestamp)</li>
-</ul></li>
+<li><code>idx_metric_target_time</code> en <code>(monitoring_target_id, timestamp)</code> compuesto</li>
 </ul>
 </section>
-<section id="tablas-de-notificaciones" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="tablas-de-notificaciones"><span class="header-section-number">5.3.2</span> Tablas de Notificaciones</h3>
+<section id="target_statistics" class="level3" data-number="7.2.6">
+<h3 data-number="7.2.6" class="anchored" data-anchor-id="target_statistics"><span class="header-section-number">7.2.6</span> target_statistics</h3>
+<p>Estadísticas agregadas calculadas para cada target.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 34%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Tipo</th>
+<th>Restricciones</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>target_id</code></td>
+<td><code>uuid</code></td>
+<td>PK, FK</td>
+<td>Referencia al target</td>
+</tr>
+<tr class="even">
+<td><code>avg_response_time_ms</code></td>
+<td><code>int</code></td>
+<td>DEFAULT 0</td>
+<td>Promedio de latencia histórico</td>
+</tr>
+<tr class="odd">
+<td><code>total_checks_count</code></td>
+<td><code>int</code></td>
+<td>DEFAULT 0</td>
+<td>Total de verificaciones</td>
+</tr>
+<tr class="even">
+<td><code>last_updated_at</code></td>
+<td><code>timestamp</code></td>
+<td>AUTO</td>
+<td>Última actualización</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notification_channels" class="level3" data-number="7.2.7">
+<h3 data-number="7.2.7" class="anchored" data-anchor-id="notification_channels"><span class="header-section-number">7.2.7</span> notification_channels</h3>
+<p>Canales de notificación configurados por usuarios.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Tipo</th>
+<th>Restricciones</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td><code>varchar(100)</code></td>
+<td>PK</td>
+<td>ID del canal (ej: Telegram Chat ID)</td>
+</tr>
+<tr class="even">
+<td><code>user_id</code></td>
+<td><code>varchar(36)</code></td>
+<td>FK, NOT NULL, INDEX</td>
+<td>Propietario</td>
+</tr>
+<tr class="odd">
+<td><code>type</code></td>
+<td><code>varchar(20)</code></td>
+<td>NOT NULL</td>
+<td>Tipo: ‘telegram’, ‘email’, etc.</td>
+</tr>
+<tr class="even">
+<td><code>value</code></td>
+<td><code>text</code></td>
+<td>NOT NULL</td>
+<td>Configuración (JSON o string)</td>
+</tr>
+<tr class="odd">
+<td><code>priority</code></td>
+<td><code>int</code></td>
+<td>DEFAULT 0</td>
+<td>Prioridad de envío</td>
+</tr>
+<tr class="even">
+<td><code>is_active</code></td>
+<td><code>boolean</code></td>
+<td>DEFAULT true</td>
+<td>¿Canal activo?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="telegram_linking_tokens" class="level3" data-number="7.2.8">
+<h3 data-number="7.2.8" class="anchored" data-anchor-id="telegram_linking_tokens"><span class="header-section-number">7.2.8</span> telegram_linking_tokens</h3>
+<p>Tokens temporales para vinculación de cuentas Telegram (Magic Link).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 34%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Tipo</th>
+<th>Restricciones</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>token</code></td>
+<td><code>varchar(64)</code></td>
+<td>PK</td>
+<td>Token único generado</td>
+</tr>
+<tr class="even">
+<td><code>user_id</code></td>
+<td><code>varchar(36)</code></td>
+<td>FK, NOT NULL, INDEX</td>
+<td>Usuario solicitante</td>
+</tr>
+<tr class="odd">
+<td><code>expires_at</code></td>
+<td><code>timestamp</code></td>
+<td>NOT NULL, INDEX</td>
+<td>Fecha de expiración (15 min)</td>
+</tr>
+<tr class="even">
+<td><code>used</code></td>
+<td><code>boolean</code></td>
+<td>DEFAULT false</td>
+<td>¿Token ya utilizado?</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="migraciones" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="migraciones"><span class="header-section-number">7.3</span> Migraciones</h2>
+<p>Las migraciones se ejecutan automáticamente al iniciar la aplicación mediante GORM AutoMigrate:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// config/migrations.go</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> RunMigrations<span class="op">(</span>db <span class="op">*</span>gorm<span class="op">.</span>DB<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>AutoMigrate<span class="op">(</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// User module</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>userpostgres<span class="op">.</span>UserEntity<span class="op">{},</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Security module</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>securitypostgres<span class="op">.</span>CredentialEntity<span class="op">{},</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Monitoring module</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>monitoringpostgres<span class="op">.</span>MonitoringTargetEntity<span class="op">{},</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>monitoringpostgres<span class="op">.</span>CheckResultEntity<span class="op">{},</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>monitoringpostgres<span class="op">.</span>MetricEntity<span class="op">{},</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>monitoringpostgres<span class="op">.</span>TargetStatisticsEntity<span class="op">{},</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Notifications module</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>notifpostgres<span class="op">.</span>NotificationChannelEntity<span class="op">{},</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>notifpostgres<span class="op">.</span>TelegramLinkingToken<span class="op">{},</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Características:</strong></p>
 <ul>
-<li><strong>notification_channels</strong>: Preferencias de notificación de usuario
-<ul>
-<li>id (varchar(100), PK) - ID de canal de Telegram</li>
-<li>user_id (UUID, FK)</li>
-<li>platform (enum: telegram)</li>
-<li>enabled (boolean)</li>
-<li>created_at, updated_at (timestamp)</li>
-</ul></li>
-<li><strong>linking_tokens</strong>: Tokens de magic link
-<ul>
-<li>id (UUID, PK)</li>
-<li>token (varchar, unique)</li>
-<li>user_id (UUID, FK)</li>
-<li>expires_at (timestamp)</li>
-<li>used (boolean)</li>
-</ul></li>
+<li>Creación automática de tablas si no existen</li>
+<li>Adición de columnas nuevas</li>
+<li>No elimina columnas existentes (seguro)</li>
+<li>No modifica tipos de columnas existentes</li>
 </ul>
 </section>
-<section id="tablas-de-gestión-de-usuarios" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="tablas-de-gestión-de-usuarios"><span class="header-section-number">5.3.3</span> Tablas de Gestión de Usuarios</h3>
+<section id="consideraciones-de-diseño" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="consideraciones-de-diseño"><span class="header-section-number">7.4</span> Consideraciones de Diseño</h2>
+<section id="separación-de-datos-calientesfríos" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="separación-de-datos-calientesfríos"><span class="header-section-number">7.4.1</span> Separación de Datos Calientes/Fríos</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tabla</th>
+<th>Tipo</th>
+<th>Frecuencia</th>
+<th>Retención</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>metrics</code></td>
+<td>Caliente</td>
+<td>Alta escritura (cada check)</td>
+<td>7-30 días</td>
+</tr>
+<tr class="even">
+<td><code>check_results</code></td>
+<td>Templada</td>
+<td>Solo cambios de estado</td>
+<td>90 días</td>
+</tr>
+<tr class="odd">
+<td><code>target_statistics</code></td>
+<td>Fría</td>
+<td>Actualización periódica</td>
+<td>Indefinida</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="estrategia-de-índices" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="estrategia-de-índices"><span class="header-section-number">7.4.2</span> Estrategia de Índices</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Consultas frecuentes optimizadas:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- 1. Polling del scheduler (cada 10s)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> monitoring_targets </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> is_active <span class="op">=</span> <span class="kw">true</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> (next_check_at <span class="op">&lt;=</span> NOW() <span class="kw">OR</span> next_check_at <span class="kw">IS</span> <span class="kw">NULL</span>);</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Índice: idx_monitoring_targets_next_check_at</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- 2. Historial de un target (dashboard)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> check_results </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> monitoring_target_id <span class="op">=</span> ? </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">timestamp</span> <span class="kw">DESC</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">50</span>;</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">-- Índice compuesto: idx_target_timestamp</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">-- 3. Métricas para gráficos</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> metrics </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> monitoring_target_id <span class="op">=</span> ? </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> <span class="dt">timestamp</span> <span class="op">&gt;</span> NOW() <span class="op">-</span> <span class="dt">INTERVAL</span> <span class="st">'7 days'</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">timestamp</span>;</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">-- Índice compuesto: idx_metric_target_time</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="uuid-v7-como-primary-key" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="uuid-v7-como-primary-key"><span class="header-section-number">7.4.3</span> UUID v7 como Primary Key</h3>
+<p>Se utiliza UUID v7 en lugar de auto-increment por:</p>
 <ul>
-<li><strong>users</strong>: Cuentas de usuario
-<ul>
-<li>id (UUID, PK)</li>
-<li>email (varchar, unique)</li>
-<li>password_hash (varchar)</li>
-<li>created_at, updated_at (timestamp)</li>
-</ul></li>
+<li><strong>Ordenamiento temporal</strong>: UUID v7 incluye timestamp, preserva orden de inserción</li>
+<li><strong>Distribución</strong>: No hay colisiones en sistemas distribuidos</li>
+<li><strong>Seguridad</strong>: No expone información sobre cantidad de registros</li>
 </ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Generación en GORM hooks</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>e <span class="op">*</span>Entity<span class="op">)</span> BeforeCreate<span class="op">(</span>tx <span class="op">*</span>gorm<span class="op">.</span>DB<span class="op">)</span> <span class="dt">error</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> e<span class="op">.</span>ID <span class="op">==</span> uuid<span class="op">.</span>Nil <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        e<span class="op">.</span>ID <span class="op">=</span> uuid<span class="op">.</span>Must<span class="op">(</span>uuid<span class="op">.</span>NewV7<span class="op">())</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ot">nil</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="evolución-del-esquema" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="evolución-del-esquema"><span class="header-section-number">5.4</span> Evolución del Esquema</h2>
-<p>Migraciones de base de datos manejadas a través de GORM AutoMigrate:</p>
-<ul>
-<li><strong>Automáticas</strong>: Actualizaciones de esquema al inicio de la aplicación</li>
-<li><strong>Versionadas</strong>: Archivos de migración para cambios complejos</li>
-<li><strong>Transaccionales</strong>: Rollback seguro en fallos</li>
-</ul>
+<section id="conexión-y-pool" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="conexión-y-pool"><span class="header-section-number">7.5</span> Conexión y Pool</h2>
+<p>La conexión se configura mediante variables de entorno:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// config/database.go</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dsn <span class="op">:=</span> fmt<span class="op">.</span>Sprintf<span class="op">(</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s"</span><span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_HOST"</span><span class="op">),</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_PORT"</span><span class="op">),</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_USER"</span><span class="op">),</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_PASSWORD"</span><span class="op">),</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_NAME"</span><span class="op">),</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_SSLMODE"</span><span class="op">),</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>db<span class="op">,</span> err <span class="op">:=</span> gorm<span class="op">.</span>Open<span class="op">(</span>postgres<span class="op">.</span>Open<span class="op">(</span>dsn<span class="op">),</span> <span class="op">&amp;</span>gorm<span class="op">.</span>Config<span class="op">{})</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Configuración del Pool (recomendada para producción):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sqlDB<span class="op">,</span> _ <span class="op">:=</span> db<span class="op">.</span>DB<span class="op">()</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sqlDB<span class="op">.</span>SetMaxIdleConns<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sqlDB<span class="op">.</span>SetMaxOpenConns<span class="op">(</span><span class="dv">100</span><span class="op">)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sqlDB<span class="op">.</span>SetConnMaxLifetime<span class="op">(</span>time<span class="op">.</span>Hour<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="optimizaciones-de-rendimiento" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="optimizaciones-de-rendimiento"><span class="header-section-number">5.5</span> Optimizaciones de Rendimiento</h2>
-<section id="índices" class="level3" data-number="5.5.1">
-<h3 data-number="5.5.1" class="anchored" data-anchor-id="índices"><span class="header-section-number">5.5.1</span> Índices</h3>
-<ul>
-<li>Claves primarias en todas las tablas</li>
-<li>Índices de claves foráneas</li>
-<li>Índices compuestos en columnas consultadas frecuentemente</li>
-<li>Índices basados en tiempo para datos históricos</li>
-</ul>
+<section id="backup-y-recuperación" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="backup-y-recuperación"><span class="header-section-number">7.6</span> Backup y Recuperación</h2>
+<section id="estrategia-recomendada" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="estrategia-recomendada"><span class="header-section-number">7.6.1</span> Estrategia Recomendada</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Frecuencia</th>
+<th>Herramienta</th>
+<th>Retención</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Full Backup</td>
+<td>Diario</td>
+<td>pg_dump</td>
+<td>7 días</td>
+</tr>
+<tr class="even">
+<td>WAL Archiving</td>
+<td>Continuo</td>
+<td>pg_basebackup</td>
+<td>24 horas</td>
+</tr>
+<tr class="odd">
+<td>Snapshot</td>
+<td>Semanal</td>
+<td>Cloud Provider</td>
+<td>30 días</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="optimización-de-consultas" class="level3" data-number="5.5.2">
-<h3 data-number="5.5.2" class="anchored" data-anchor-id="optimización-de-consultas"><span class="header-section-number">5.5.2</span> Optimización de Consultas</h3>
-<ul>
-<li>Operaciones JOIN eficientes</li>
-<li>Uso apropiado de EXPLAIN ANALYZE</li>
-<li>Pooling de conexiones con driver pgx</li>
-<li>Sentencias preparadas para consultas repetidas</li>
-</ul>
+<section id="comandos-de-backup" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="comandos-de-backup"><span class="header-section-number">7.6.2</span> Comandos de Backup</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup completo</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_dump</span> <span class="at">-h</span> localhost <span class="at">-U</span> postgres <span class="at">-d</span> uptrackai_db <span class="at">-F</span> c <span class="at">-f</span> backup.dump</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Restauración</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_restore</span> <span class="at">-h</span> localhost <span class="at">-U</span> postgres <span class="at">-d</span> uptrackai_db <span class="at">-c</span> backup.dump</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup solo datos (sin esquema)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_dump</span> <span class="at">-h</span> localhost <span class="at">-U</span> postgres <span class="at">-d</span> uptrackai_db <span class="at">--data-only</span> <span class="op">&gt;</span> data.sql</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="retención-de-datos" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="retención-de-datos"><span class="header-section-number">5.6</span> Retención de Datos</h2>
-<p>Políticas de retención de datos configurables:</p>
-<ul>
-<li><strong>Resultados de Verificaciones</strong>: Ventana rodante de 30 días</li>
-<li><strong>Métricas</strong>: Datos históricos de 1 año</li>
-<li><strong>Notificaciones</strong>: Registro de auditoría de 90 días</li>
-</ul>
-</section>
-<section id="estrategia-de-backup" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="estrategia-de-backup"><span class="header-section-number">5.7</span> Estrategia de Backup</h2>
-<ul>
-<li><strong>Backups Automatizados</strong>: Instantáneas diarias</li>
-<li><strong>Recuperación Point-in-Time</strong>: Archivado WAL</li>
-<li><strong>Almacenamiento Offsite</strong>: Almacenamiento de backup en la nube</li>
-<li><strong>Pruebas</strong>: Pruebas regulares de restauración</li>
-</ul>
+<section id="limpieza-de-datos" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="limpieza-de-datos"><span class="header-section-number">7.7</span> Limpieza de Datos</h2>
+<p>Script recomendado para mantenimiento (ejecutar semanalmente):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Eliminar métricas antiguas (&gt; 30 días)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> metrics </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="dt">timestamp</span> <span class="op">&lt;</span> NOW() <span class="op">-</span> <span class="dt">INTERVAL</span> <span class="st">'30 days'</span>;</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Eliminar tokens de linking expirados</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> telegram_linking_tokens </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> expires_at <span class="op">&lt;</span> NOW();</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Vacuum para recuperar espacio</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>VACUUM <span class="kw">ANALYZE</span> metrics;</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>VACUUM <span class="kw">ANALYZE</span> check_results;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 <!-- -->
@@ -850,132 +1435,309 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../arquitectura/frontend.html" class="pagination-link" aria-label="Frontend y Experiencia de Usuario">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Frontend y Experiencia de Usuario</span></span>
+      <a href="../arquitectura/mobile.html" class="pagination-link" aria-label="Aplicación Móvil">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Aplicación Móvil</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../diagrams.html" class="pagination-link" aria-label="Diagramas del Sistema">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagramas del Sistema</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Modelo de Datos</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>La persistencia de datos se maneja en PostgreSQL, utilizando GORM como ORM para la interacción desde Go.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Diagrama de Clases / Entidades</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>El siguiente diagrama ilustra las entidades principales del dominio y sus relaciones.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="al">![Diagrama de Clases](../diagrams/img/Diagrama de Clases - UpTrackAI.png)</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### Entidades Principales</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**User:** Propietario de la cuenta y los monitoreos.</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**MonitoringTarget:** URL o servicio específico a monitorear (ej. <span class="in">`https://api.miempresa.com`</span>).</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**CheckResult:** Resultado individual de una ejecución de monitoreo (Status, Latencia, Timestamp).</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**NotificationChannel:** Configuración de un canal de alerta (ej. un chat de Telegram).</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**AlertEvent:** Registro de una alerta enviada.</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consideraciones de Diseño</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Relaciones:** Un usuario tiene múltiples targets. Un target tiene múltiples resultados históricos.</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Índices:** Se utilizan índices en columnas de búsqueda frecuente como <span class="in">`target_id`</span> y <span class="in">`timestamp`</span> para optimizar consultas de historial.</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Diseño de Base de Datos</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>Base de datos relacional PostgreSQL con las siguientes tablas clave:</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tablas de Monitoreo Core</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**monitoring_targets**: Configuraciones de objetivos</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>id (UUID, PK)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>name (varchar)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>url (varchar)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>check_interval (int)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>timeout (int)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>expected_status (int)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>created_at, updated_at (timestamp)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**check_results**: Resultados individuales de verificaciones</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>id (UUID, PK)</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>target_id (UUID, FK)</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>status (enum: UP, DOWN, etc.)</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>response_time (int)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>status_code (int)</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>error_message (text)</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>checked_at (timestamp)</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**target_metrics**: Datos de rendimiento agregados</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>id (UUID, PK)</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>target_id (UUID, FK)</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>uptime_percentage (decimal)</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>avg_response_time (int)</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>total_checks (int)</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>period_start, period_end (timestamp)</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tablas de Notificaciones</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**notification_channels**: Preferencias de notificación de usuario</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>id (varchar(100), PK) - ID de canal de Telegram</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>user_id (UUID, FK)</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>platform (enum: telegram)</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>enabled (boolean)</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>created_at, updated_at (timestamp)</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**linking_tokens**: Tokens de magic link</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>id (UUID, PK)</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>token (varchar, unique)</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>user_id (UUID, FK)</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>expires_at (timestamp)</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>used (boolean)</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tablas de Gestión de Usuarios</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**users**: Cuentas de usuario</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>id (UUID, PK)</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>email (varchar, unique)</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>password_hash (varchar)</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>created_at, updated_at (timestamp)</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evolución del Esquema</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>Migraciones de base de datos manejadas a través de GORM AutoMigrate:</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Automáticas**: Actualizaciones de esquema al inicio de la aplicación</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Versionadas**: Archivos de migración para cambios complejos</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Transaccionales**: Rollback seguro en fallos</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Optimizaciones de Rendimiento</span></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### Índices</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Claves primarias en todas las tablas</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Índices de claves foráneas</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Índices compuestos en columnas consultadas frecuentemente</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Índices basados en tiempo para datos históricos</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">### Optimización de Consultas</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Operaciones JOIN eficientes</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Uso apropiado de EXPLAIN ANALYZE</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pooling de conexiones con driver pgx</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sentencias preparadas para consultas repetidas</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## Retención de Datos</span></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>Políticas de retención de datos configurables:</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Resultados de Verificaciones**: Ventana rodante de 30 días</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Métricas**: Datos históricos de 1 año</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Notificaciones**: Registro de auditoría de 90 días</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estrategia de Backup</span></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Backups Automatizados**: Instantáneas diarias</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Recuperación Point-in-Time**: Archivado WAL</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Almacenamiento Offsite**: Almacenamiento de backup en la nube</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pruebas**: Pruebas regulares de restauración</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Modelo de Datos</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>La persistencia de UpTrackAI se gestiona en PostgreSQL utilizando GORM como ORM. El esquema está diseñado para soportar alta frecuencia de escritura (health checks) y consultas eficientes de historial.</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Diagrama de Clases / Entidades</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>El siguiente diagrama ilustra las entidades principales del dominio y sus relaciones.</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="al">![Diagrama de Clases](../diagrams/img/Diagrama de Clases - UpTrackAI.png)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tablas del Sistema</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">### users</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>Almacena información de perfil de los usuarios registrados.</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Columna <span class="pp">|</span> Tipo <span class="pp">|</span> Restricciones <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|---------------|-------------|</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> PK <span class="pp">|</span> Identificador único (UUID v7) <span class="pp">|</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`email`</span> <span class="pp">|</span> <span class="in">`varchar(254)`</span> <span class="pp">|</span> UNIQUE, NOT NULL <span class="pp">|</span> Correo electrónico <span class="pp">|</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`full_name`</span> <span class="pp">|</span> <span class="in">`varchar(255)`</span> <span class="pp">|</span> - <span class="pp">|</span> Nombre completo <span class="pp">|</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`avatar_url`</span> <span class="pp">|</span> <span class="in">`varchar(500)`</span> <span class="pp">|</span> - <span class="pp">|</span> URL de avatar <span class="pp">|</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`timezone`</span> <span class="pp">|</span> <span class="in">`varchar(50)`</span> <span class="pp">|</span> DEFAULT 'UTC' <span class="pp">|</span> Zona horaria <span class="pp">|</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`language`</span> <span class="pp">|</span> <span class="in">`varchar(10)`</span> <span class="pp">|</span> DEFAULT 'en' <span class="pp">|</span> Idioma preferido <span class="pp">|</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`created_at`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> AUTO <span class="pp">|</span> Fecha de creación <span class="pp">|</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`updated_at`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> AUTO <span class="pp">|</span> Última actualización <span class="pp">|</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### credentials</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>Almacena credenciales de autenticación separadas del perfil (seguridad).</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Columna <span class="pp">|</span> Tipo <span class="pp">|</span> Restricciones <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|---------------|-------------|</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> PK <span class="pp">|</span> Identificador único <span class="pp">|</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`user_id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> FK, UNIQUE <span class="pp">|</span> Referencia al usuario <span class="pp">|</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`password_hash`</span> <span class="pp">|</span> <span class="in">`varchar(255)`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Hash bcrypt de la contraseña <span class="pp">|</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`last_login_at`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> - <span class="pp">|</span> Último inicio de sesión <span class="pp">|</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`login_attempts`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> DEFAULT 0 <span class="pp">|</span> Intentos fallidos consecutivos <span class="pp">|</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`locked_until`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> - <span class="pp">|</span> Bloqueo temporal por intentos <span class="pp">|</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`password_changed_at`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Última cambio de contraseña <span class="pp">|</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`requires_password_change`</span> <span class="pp">|</span> <span class="in">`boolean`</span> <span class="pp">|</span> DEFAULT false <span class="pp">|</span> Forzar cambio en próximo login <span class="pp">|</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### monitoring_targets</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>Tabla principal de objetivos de monitoreo.</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Columna <span class="pp">|</span> Tipo <span class="pp">|</span> Restricciones <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|---------------|-------------|</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> PK <span class="pp">|</span> Identificador único (UUID v7) <span class="pp">|</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`user_id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> FK, NOT NULL <span class="pp">|</span> Propietario del target <span class="pp">|</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`name`</span> <span class="pp">|</span> <span class="in">`varchar(255)`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Nombre descriptivo <span class="pp">|</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`url`</span> <span class="pp">|</span> <span class="in">`text`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> URL a monitorear <span class="pp">|</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`target_type`</span> <span class="pp">|</span> <span class="in">`varchar(50)`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Tipo: 'API' o 'WEB' <span class="pp">|</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`is_active`</span> <span class="pp">|</span> <span class="in">`boolean`</span> <span class="pp">|</span> DEFAULT true <span class="pp">|</span> ¿Monitoreo activo? <span class="pp">|</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`previous_status`</span> <span class="pp">|</span> <span class="in">`varchar(50)`</span> <span class="pp">|</span> DEFAULT 'UNKNOWN' <span class="pp">|</span> Estado anterior (para transiciones) <span class="pp">|</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`current_status`</span> <span class="pp">|</span> <span class="in">`varchar(50)`</span> <span class="pp">|</span> DEFAULT 'UNKNOWN' <span class="pp">|</span> Estado actual <span class="pp">|</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`check_interval_seconds`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> DEFAULT 300 <span class="pp">|</span> Frecuencia de verificación (5 min) <span class="pp">|</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`timeout_seconds`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> DEFAULT 10 <span class="pp">|</span> Timeout de conexión <span class="pp">|</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`retry_count`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> DEFAULT 3 <span class="pp">|</span> Reintentos antes de fallar <span class="pp">|</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`retry_delay_seconds`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> DEFAULT 1 <span class="pp">|</span> Pausa entre reintentos <span class="pp">|</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`last_checked_at`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> - <span class="pp">|</span> Última verificación <span class="pp">|</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`next_check_at`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> INDEX <span class="pp">|</span> Próxima verificación programada <span class="pp">|</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>**Índices:**</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`idx_monitoring_targets_next_check_at`</span> en <span class="in">`next_check_at`</span> (polling eficiente)</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### check_results</span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>Almacena resultados de verificaciones con cambios de estado (alertas).</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Columna <span class="pp">|</span> Tipo <span class="pp">|</span> Restricciones <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|---------------|-------------|</span></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> PK <span class="pp">|</span> Identificador único <span class="pp">|</span></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`monitoring_target_id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> FK, NOT NULL <span class="pp">|</span> Target verificado <span class="pp">|</span></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Momento de la verificación <span class="pp">|</span></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`status`</span> <span class="pp">|</span> <span class="in">`varchar(50)`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Estado determinado <span class="pp">|</span></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`avg_response_time_ms`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Tiempo de respuesta promedio <span class="pp">|</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`error_message`</span> <span class="pp">|</span> <span class="in">`text`</span> <span class="pp">|</span> - <span class="pp">|</span> Mensaje de error (si aplica) <span class="pp">|</span></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>**Índices:**</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`idx_target_timestamp`</span> en <span class="in">`(monitoring_target_id, timestamp)`</span> compuesto</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### metrics</span></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>Serie temporal de métricas de rendimiento (solo checks exitosos).</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Columna <span class="pp">|</span> Tipo <span class="pp">|</span> Restricciones <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|---------------|-------------|</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`monitoring_target_id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> FK, NOT NULL <span class="pp">|</span> Target monitoreado <span class="pp">|</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Momento de la medición <span class="pp">|</span></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`response_time_ms`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Latencia en milisegundos <span class="pp">|</span></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>**Índices:**</span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`idx_metric_target_time`</span> en <span class="in">`(monitoring_target_id, timestamp)`</span> compuesto</span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### target_statistics</span></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>Estadísticas agregadas calculadas para cada target.</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Columna <span class="pp">|</span> Tipo <span class="pp">|</span> Restricciones <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|---------------|-------------|</span></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`target_id`</span> <span class="pp">|</span> <span class="in">`uuid`</span> <span class="pp">|</span> PK, FK <span class="pp">|</span> Referencia al target <span class="pp">|</span></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`avg_response_time_ms`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> DEFAULT 0 <span class="pp">|</span> Promedio de latencia histórico <span class="pp">|</span></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`total_checks_count`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> DEFAULT 0 <span class="pp">|</span> Total de verificaciones <span class="pp">|</span></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`last_updated_at`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> AUTO <span class="pp">|</span> Última actualización <span class="pp">|</span></span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### notification_channels</span></span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a>Canales de notificación configurados por usuarios.</span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Columna <span class="pp">|</span> Tipo <span class="pp">|</span> Restricciones <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|---------------|-------------|</span></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`id`</span> <span class="pp">|</span> <span class="in">`varchar(100)`</span> <span class="pp">|</span> PK <span class="pp">|</span> ID del canal (ej: Telegram Chat ID) <span class="pp">|</span></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`user_id`</span> <span class="pp">|</span> <span class="in">`varchar(36)`</span> <span class="pp">|</span> FK, NOT NULL, INDEX <span class="pp">|</span> Propietario <span class="pp">|</span></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`type`</span> <span class="pp">|</span> <span class="in">`varchar(20)`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Tipo: 'telegram', 'email', etc. <span class="pp">|</span></span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`value`</span> <span class="pp">|</span> <span class="in">`text`</span> <span class="pp">|</span> NOT NULL <span class="pp">|</span> Configuración (JSON o string) <span class="pp">|</span></span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`priority`</span> <span class="pp">|</span> <span class="in">`int`</span> <span class="pp">|</span> DEFAULT 0 <span class="pp">|</span> Prioridad de envío <span class="pp">|</span></span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`is_active`</span> <span class="pp">|</span> <span class="in">`boolean`</span> <span class="pp">|</span> DEFAULT true <span class="pp">|</span> ¿Canal activo? <span class="pp">|</span></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a><span class="fu">### telegram_linking_tokens</span></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a>Tokens temporales para vinculación de cuentas Telegram (Magic Link).</span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Columna <span class="pp">|</span> Tipo <span class="pp">|</span> Restricciones <span class="pp">|</span> Descripción <span class="pp">|</span></span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|---------------|-------------|</span></span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`token`</span> <span class="pp">|</span> <span class="in">`varchar(64)`</span> <span class="pp">|</span> PK <span class="pp">|</span> Token único generado <span class="pp">|</span></span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`user_id`</span> <span class="pp">|</span> <span class="in">`varchar(36)`</span> <span class="pp">|</span> FK, NOT NULL, INDEX <span class="pp">|</span> Usuario solicitante <span class="pp">|</span></span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`expires_at`</span> <span class="pp">|</span> <span class="in">`timestamp`</span> <span class="pp">|</span> NOT NULL, INDEX <span class="pp">|</span> Fecha de expiración (15 min) <span class="pp">|</span></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`used`</span> <span class="pp">|</span> <span class="in">`boolean`</span> <span class="pp">|</span> DEFAULT false <span class="pp">|</span> ¿Token ya utilizado? <span class="pp">|</span></span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## Migraciones</span></span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a>Las migraciones se ejecutan automáticamente al iniciar la aplicación mediante GORM AutoMigrate:</span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a><span class="co">// config/migrations.go</span></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> RunMigrations<span class="op">(</span>db <span class="op">*</span>gorm<span class="op">.</span>DB<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>AutoMigrate<span class="op">(</span></span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a>        <span class="co">// User module</span></span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>userpostgres<span class="op">.</span>UserEntity<span class="op">{},</span></span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Security module</span></span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>securitypostgres<span class="op">.</span>CredentialEntity<span class="op">{},</span></span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Monitoring module</span></span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>monitoringpostgres<span class="op">.</span>MonitoringTargetEntity<span class="op">{},</span></span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>monitoringpostgres<span class="op">.</span>CheckResultEntity<span class="op">{},</span></span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>monitoringpostgres<span class="op">.</span>MetricEntity<span class="op">{},</span></span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>monitoringpostgres<span class="op">.</span>TargetStatisticsEntity<span class="op">{},</span></span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Notifications module</span></span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>notifpostgres<span class="op">.</span>NotificationChannelEntity<span class="op">{},</span></span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span>notifpostgres<span class="op">.</span>TelegramLinkingToken<span class="op">{},</span></span>
+<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a>**Características:**</span>
+<span id="cb8-162"><a href="#cb8-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-163"><a href="#cb8-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Creación automática de tablas si no existen</span>
+<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adición de columnas nuevas</span>
+<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No elimina columnas existentes (seguro)</span>
+<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No modifica tipos de columnas existentes</span>
+<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-168"><a href="#cb8-168" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consideraciones de Diseño</span></span>
+<span id="cb8-169"><a href="#cb8-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-170"><a href="#cb8-170" aria-hidden="true" tabindex="-1"></a><span class="fu">### Separación de Datos Calientes/Fríos</span></span>
+<span id="cb8-171"><a href="#cb8-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-172"><a href="#cb8-172" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tabla <span class="pp">|</span> Tipo <span class="pp">|</span> Frecuencia <span class="pp">|</span> Retención <span class="pp">|</span></span>
+<span id="cb8-173"><a href="#cb8-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------|------|-----------|-----------|</span></span>
+<span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`metrics`</span> <span class="pp">|</span> Caliente <span class="pp">|</span> Alta escritura (cada check) <span class="pp">|</span> 7-30 días <span class="pp">|</span></span>
+<span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`check_results`</span> <span class="pp">|</span> Templada <span class="pp">|</span> Solo cambios de estado <span class="pp">|</span> 90 días <span class="pp">|</span></span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`target_statistics`</span> <span class="pp">|</span> Fría <span class="pp">|</span> Actualización periódica <span class="pp">|</span> Indefinida <span class="pp">|</span></span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estrategia de Índices</span></span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a><span class="in">```sql</span></span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a><span class="co">-- Consultas frecuentes optimizadas:</span></span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a><span class="co">-- 1. Polling del scheduler (cada 10s)</span></span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> monitoring_targets </span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> is_active <span class="op">=</span> true </span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> (next_check_at <span class="op">&lt;=</span> <span class="fu">NOW</span>() <span class="kw">OR</span> next_check_at <span class="kw">IS</span> <span class="kw">NULL</span>);</span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a><span class="co">-- Índice: idx_monitoring_targets_next_check_at</span></span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a><span class="co">-- 2. Historial de un target (dashboard)</span></span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> check_results </span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> monitoring_target_id <span class="op">=</span> ? </span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">timestamp</span> <span class="kw">DESC</span> </span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">50</span>;</span>
+<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a><span class="co">-- Índice compuesto: idx_target_timestamp</span></span>
+<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a><span class="co">-- 3. Métricas para gráficos</span></span>
+<span id="cb8-197"><a href="#cb8-197" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> metrics </span>
+<span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> monitoring_target_id <span class="op">=</span> ? </span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> <span class="dt">timestamp</span> <span class="op">&gt;</span> <span class="fu">NOW</span>() <span class="op">-</span> <span class="kw">INTERVAL</span> <span class="st">'7 days'</span></span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">timestamp</span>;</span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a><span class="co">-- Índice compuesto: idx_metric_target_time</span></span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a><span class="fu">### UUID v7 como Primary Key</span></span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a>Se utiliza UUID v7 en lugar de auto-increment por:</span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ordenamiento temporal**: UUID v7 incluye timestamp, preserva orden de inserción</span>
+<span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Distribución**: No hay colisiones en sistemas distribuidos</span>
+<span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Seguridad**: No expone información sobre cantidad de registros</span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-212"><a href="#cb8-212" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a><span class="co">// Generación en GORM hooks</span></span>
+<span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>e <span class="op">*</span>Entity<span class="op">)</span> BeforeCreate<span class="op">(</span>tx <span class="op">*</span>gorm<span class="op">.</span>DB<span class="op">)</span> <span class="dt">error</span> <span class="op">{</span></span>
+<span id="cb8-215"><a href="#cb8-215" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> e<span class="op">.</span>ID <span class="op">==</span> uuid<span class="op">.</span>Nil <span class="op">{</span></span>
+<span id="cb8-216"><a href="#cb8-216" aria-hidden="true" tabindex="-1"></a>        e<span class="op">.</span>ID <span class="op">=</span> uuid<span class="op">.</span>Must<span class="op">(</span>uuid<span class="op">.</span>NewV7<span class="op">())</span></span>
+<span id="cb8-217"><a href="#cb8-217" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-218"><a href="#cb8-218" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ot">nil</span></span>
+<span id="cb8-219"><a href="#cb8-219" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conexión y Pool</span></span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a>La conexión se configura mediante variables de entorno:</span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a><span class="co">// config/database.go</span></span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a>dsn <span class="op">:=</span> fmt<span class="op">.</span>Sprintf<span class="op">(</span></span>
+<span id="cb8-229"><a href="#cb8-229" aria-hidden="true" tabindex="-1"></a>    <span class="st">"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s"</span><span class="op">,</span></span>
+<span id="cb8-230"><a href="#cb8-230" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_HOST"</span><span class="op">),</span></span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_PORT"</span><span class="op">),</span></span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_USER"</span><span class="op">),</span></span>
+<span id="cb8-233"><a href="#cb8-233" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_PASSWORD"</span><span class="op">),</span></span>
+<span id="cb8-234"><a href="#cb8-234" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_NAME"</span><span class="op">),</span></span>
+<span id="cb8-235"><a href="#cb8-235" aria-hidden="true" tabindex="-1"></a>    os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"DB_SSLMODE"</span><span class="op">),</span></span>
+<span id="cb8-236"><a href="#cb8-236" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb8-237"><a href="#cb8-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-238"><a href="#cb8-238" aria-hidden="true" tabindex="-1"></a>db<span class="op">,</span> err <span class="op">:=</span> gorm<span class="op">.</span>Open<span class="op">(</span>postgres<span class="op">.</span>Open<span class="op">(</span>dsn<span class="op">),</span> <span class="op">&amp;</span>gorm<span class="op">.</span>Config<span class="op">{})</span></span>
+<span id="cb8-239"><a href="#cb8-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-240"><a href="#cb8-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-241"><a href="#cb8-241" aria-hidden="true" tabindex="-1"></a>**Configuración del Pool (recomendada para producción):**</span>
+<span id="cb8-242"><a href="#cb8-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-243"><a href="#cb8-243" aria-hidden="true" tabindex="-1"></a><span class="in">```go</span></span>
+<span id="cb8-244"><a href="#cb8-244" aria-hidden="true" tabindex="-1"></a>sqlDB<span class="op">,</span> _ <span class="op">:=</span> db<span class="op">.</span>DB<span class="op">()</span></span>
+<span id="cb8-245"><a href="#cb8-245" aria-hidden="true" tabindex="-1"></a>sqlDB<span class="op">.</span>SetMaxIdleConns<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
+<span id="cb8-246"><a href="#cb8-246" aria-hidden="true" tabindex="-1"></a>sqlDB<span class="op">.</span>SetMaxOpenConns<span class="op">(</span><span class="dv">100</span><span class="op">)</span></span>
+<span id="cb8-247"><a href="#cb8-247" aria-hidden="true" tabindex="-1"></a>sqlDB<span class="op">.</span>SetConnMaxLifetime<span class="op">(</span>time<span class="op">.</span>Hour<span class="op">)</span></span>
+<span id="cb8-248"><a href="#cb8-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-249"><a href="#cb8-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-250"><a href="#cb8-250" aria-hidden="true" tabindex="-1"></a><span class="fu">## Backup y Recuperación</span></span>
+<span id="cb8-251"><a href="#cb8-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-252"><a href="#cb8-252" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estrategia Recomendada</span></span>
+<span id="cb8-253"><a href="#cb8-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-254"><a href="#cb8-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tipo <span class="pp">|</span> Frecuencia <span class="pp">|</span> Herramienta <span class="pp">|</span> Retención <span class="pp">|</span></span>
+<span id="cb8-255"><a href="#cb8-255" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|-----------|-------------|-----------|</span></span>
+<span id="cb8-256"><a href="#cb8-256" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Full Backup <span class="pp">|</span> Diario <span class="pp">|</span> pg_dump <span class="pp">|</span> 7 días <span class="pp">|</span></span>
+<span id="cb8-257"><a href="#cb8-257" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> WAL Archiving <span class="pp">|</span> Continuo <span class="pp">|</span> pg_basebackup <span class="pp">|</span> 24 horas <span class="pp">|</span></span>
+<span id="cb8-258"><a href="#cb8-258" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Snapshot <span class="pp">|</span> Semanal <span class="pp">|</span> Cloud Provider <span class="pp">|</span> 30 días <span class="pp">|</span></span>
+<span id="cb8-259"><a href="#cb8-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-260"><a href="#cb8-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comandos de Backup</span></span>
+<span id="cb8-261"><a href="#cb8-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-262"><a href="#cb8-262" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb8-263"><a href="#cb8-263" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup completo</span></span>
+<span id="cb8-264"><a href="#cb8-264" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_dump</span> <span class="at">-h</span> localhost <span class="at">-U</span> postgres <span class="at">-d</span> uptrackai_db <span class="at">-F</span> c <span class="at">-f</span> backup.dump</span>
+<span id="cb8-265"><a href="#cb8-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-266"><a href="#cb8-266" aria-hidden="true" tabindex="-1"></a><span class="co"># Restauración</span></span>
+<span id="cb8-267"><a href="#cb8-267" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_restore</span> <span class="at">-h</span> localhost <span class="at">-U</span> postgres <span class="at">-d</span> uptrackai_db <span class="at">-c</span> backup.dump</span>
+<span id="cb8-268"><a href="#cb8-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-269"><a href="#cb8-269" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup solo datos (sin esquema)</span></span>
+<span id="cb8-270"><a href="#cb8-270" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_dump</span> <span class="at">-h</span> localhost <span class="at">-U</span> postgres <span class="at">-d</span> uptrackai_db <span class="at">--data-only</span> <span class="op">&gt;</span> data.sql</span>
+<span id="cb8-271"><a href="#cb8-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-272"><a href="#cb8-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-273"><a href="#cb8-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limpieza de Datos</span></span>
+<span id="cb8-274"><a href="#cb8-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-275"><a href="#cb8-275" aria-hidden="true" tabindex="-1"></a>Script recomendado para mantenimiento (ejecutar semanalmente):</span>
+<span id="cb8-276"><a href="#cb8-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-277"><a href="#cb8-277" aria-hidden="true" tabindex="-1"></a><span class="in">```sql</span></span>
+<span id="cb8-278"><a href="#cb8-278" aria-hidden="true" tabindex="-1"></a><span class="co">-- Eliminar métricas antiguas (&gt; 30 días)</span></span>
+<span id="cb8-279"><a href="#cb8-279" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> metrics </span>
+<span id="cb8-280"><a href="#cb8-280" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="dt">timestamp</span> <span class="op">&lt;</span> <span class="fu">NOW</span>() <span class="op">-</span> <span class="kw">INTERVAL</span> <span class="st">'30 days'</span>;</span>
+<span id="cb8-281"><a href="#cb8-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-282"><a href="#cb8-282" aria-hidden="true" tabindex="-1"></a><span class="co">-- Eliminar tokens de linking expirados</span></span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> telegram_linking_tokens </span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> expires_at <span class="op">&lt;</span> <span class="fu">NOW</span>();</span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a><span class="co">-- Vacuum para recuperar espacio</span></span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a>VACUUM <span class="kw">ANALYZE</span> metrics;</span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a>VACUUM <span class="kw">ANALYZE</span> check_results;</span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DavosJar/uptrack/blob/main/arquitectura/database.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/DavosJar/uptrack/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

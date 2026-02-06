@@ -38,12 +38,13 @@ func (h *TelegramWebhookHandler) RegisterRoutes(router *gin.RouterGroup) {
 
 // HandleWebhook processes incoming Telegram updates
 // @Summary Telegram webhook endpoint
-// @Description Receives updates from Telegram Bot API (messages, commands, etc.)
+// @Description Receives updates from Telegram Bot API (messages, commands, etc.). This endpoint is called by Telegram servers.
 // @Tags webhooks
 // @Accept json
 // @Produce json
-// @Param update body TelegramUpdate true "Telegram Update"
-// @Success 200 {object} app.SuccessResponse
+// @Param update body TelegramUpdate true "Telegram Update object"
+// @Success 200 {object} app.APIResponse "Webhook processed successfully"
+// @Failure 400 {object} app.APIResponse "Invalid update format"
 // @Router /webhooks/telegram [post]
 func (h *TelegramWebhookHandler) HandleWebhook(c *gin.Context) {
 	log.Printf("🌐 Webhook received - processing Telegram update")

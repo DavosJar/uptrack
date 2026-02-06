@@ -28,14 +28,15 @@ const AddTarget: React.FC = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    if (modalType === 'success') {
-      navigate('/dashboard');
-    }
+    navigate('/dashboard');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitting form...");
+    
+    // Prevent double submission
+    if (loading) return;
+    
     setLoading(true);
     setError('');
 
@@ -47,7 +48,6 @@ const AddTarget: React.FC = () => {
     }
 
     try {
-      console.log("Sending request to /api/v1/targets");
       const response = await fetchWithAuth('/api/v1/targets', {
         method: 'POST',
         headers: {
@@ -60,32 +60,19 @@ const AddTarget: React.FC = () => {
         }),
       });
 
-      console.log("Response status:", response.status);
-
       if (response.ok) {
         setModalTitle('Éxito');
         setModalMessage('Sistema agregado correctamente');
         setModalType('success');
         setIsModalOpen(true);
       } else {
-        let errorMsg = 'Error al crear el sistema';
-        try {
-            const data = await response.json();
-            console.log("Error data:", data);
-            errorMsg = data.error || data.message || errorMsg;
-        } catch (jsonError) {
-            console.error("Error parsing JSON:", jsonError);
-        }
-        
-        console.log("Opening modal with error:", errorMsg);
+        const data = await response.json();
         setModalTitle('Error');
-        setModalMessage(errorMsg);
+        setModalMessage(data.message || 'Error al crear el sistema');
         setModalType('error');
         setIsModalOpen(true);
       }
     } catch (err) {
-      console.error("Fetch error:", err);
-      console.log("Opening modal with network error");
       setModalTitle('Error');
       setModalMessage('Error de red');
       setModalType('error');
@@ -219,7 +206,7 @@ const AddTarget: React.FC = () => {
         {error && <p role="alert" aria-live="assertive" className="text-destructive text-sm">{error}</p>}
 
         <div className="flex justify-end gap-3 pt-6 border-t border-border-dark">
-          <Button variant="secondary" onClick={() => navigate('/dashboard')} aria-label="Cancelar y volver al dashboard">
+          <Button type="button" variant="secondary" onClick={() => navigate('/dashboard')} aria-label="Cancelar y volver al dashboard">
             Cancelar
           </Button>
           <Button type="submit" disabled={loading} aria-label="Agregar sistema">

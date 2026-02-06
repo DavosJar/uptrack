@@ -1,6 +1,6 @@
 # Backend y Servicios
 
-El backend de UpTrackAI está construido en Go, priorizando el rendimiento y la concurrencia.
+El backend de UpTrackAI está construido en Go 1.21+, aprovechando su modelo de concurrencia nativo para ejecutar health checks en paralelo de manera eficiente.
 
 ## Arquitectura de Componentes (C4 Nivel 3)
 
@@ -8,63 +8,321 @@ El siguiente diagrama detalla los módulos internos del Backend API y sus intera
 
 ![Diagrama de Componentes](../diagrams/img/Diagrama de Componentes C4 - Backend UpTrackAI.png)
 
-### Módulos Principales
+## Arquitectura de Módulos
 
-- **API REST (Gin):** Punto de entrada para clientes Web y Móviles.
-- **Scheduler:** Orquestador que gestiona la ejecución periódica de chequeos.
-- **Monitoring Module:** Núcleo de lógica de negocio que ejecuta los health checks.
-- **Notification Module:** Gestiona canales y envío de alertas.
-- **Security Module:** Autenticación y autorización (JWT).
-
-## Flujo de Monitoreo
-
-El proceso de verificación de un objetivo sigue un flujo estricto para determinar el estado y la necesidad de alertar.
-
-![Flujo de Monitoreo](../diagrams/img/Flujo de Monitoreo - UpTrackAI.png)
-
-1.  **Scheduler:** Desencadena el trabajo.
-2.  **Worker:** Ejecuta el chequeo HTTP/TCP.
-3.  **Analyzer:** Evalúa si el resultado implica un cambio de estado (UP -> DOWN).
-4.  **Notifier:** Si la severidad cambia, se despacha una alerta asíncrona.
-
-## Estructura Clean Architecture
+El sistema está organizado en módulos independientes, cada uno siguiendo Clean Architecture internamente.
 
 ![Arquitectura Clean](../diagrams/img/arquitectura_clean.png)
 
-La implementación respeta las capas de Clean Architecture, asegurando que la lógica de dominio permanezca agnóstica a frameworks externos como Gin o GORM.
+### Estructura de Directorios
+
+```
+backend/
+├── main.go                 # Punto de entrada
+├── config/                 # Configuración de infraestructura
+│   ├── database.go        # Conexión PostgreSQL
+│   ├── migrations.go      # Auto-migraciones GORM
+│   ├── server.go          # Configuración HTTP
+│   └── telemetry.go       # Observabilidad
+├── internal/
+│   ├── app/               # Utilidades compartidas (APIResponse)
+│   ├── monitoring/        # Módulo de monitoreo
+│   │   ├── domain/        # Entidades y reglas de negocio
+│   │   ├── application/   # Casos de uso y DTOs
+│   │   ├── infrastructure/# Repositorios PostgreSQL
+│   │   ├── presentation/  # Handlers HTTP
+│   │   └── scheduler/     # Orquestador de health checks
+│   ├── notifications/     # Módulo de notificaciones
+│   │   ├── domain/        # AlertEvent, Channels, Senders
+│   │   ├── application/   # NotificationService, Linking
+│   │   ├── infrastructure/# Telegram API, Repos
+│   │   └── presentation/  # Webhooks y handlers
+│   ├── security/          # Autenticación y autorización
+│   │   ├── domain/        # Credentials, Tokens
+│   │   ├── application/   # AuthService
+│   │   ├── infrastructure/# JWT, Bcrypt
+│   │   └── presentation/  # Login/Register handlers
+│   ├── user/              # Gestión de usuarios
+│   └── server/            # Middleware compartido
+└── docs/                  # Swagger generado
+```
+
+## Módulo de Monitoreo
+
+### Entidades de Dominio
+
+**MonitoringTarget** - Representa un servicio a monitorear:
+
+```go
+type MonitoringTarget struct {
+    userId           UserId
+    targetId         TargetId
+    name             string
+    url              string
+    isActive         bool
+    previousStatus   TargetStatus  // Para detectar cambios
+    currentStatus    TargetStatus
+    createdAt        time.Time
+    lastCheckedAt    time.Time
+    lastResponseTime int           // ms
+    targetType       TargetType    // API | WEB
+    configuration    *CheckConfiguration
+}
+```
+
+**CheckResult** - Resultado de una verificación individual:
+
+```go
+type CheckResult struct {
+    id             CheckResultId
+    targetId       TargetId
+    timestamp      time.Time
+    responseTimeMs int
+    reachable      bool
+    status         TargetStatus
+    errorMessage   string
+}
+```
+
+**TargetStatistics** - Métricas agregadas históricas:
+
+```go
+type TargetStatistics struct {
+    targetId          TargetId
+    avgResponseTimeMs int
+    totalChecksCount  int
+    lastUpdatedAt     time.Time
+}
+```
+
+### Value Objects
+
+| Value Object | Tipo | Descripción |
+|-------------|------|-------------|
+| `TargetId` | `string` | UUID v7 del target |
+| `TargetStatus` | `enum` | UP, DOWN, DEGRADED, FLAPPING, UNSTABLE, UNKNOWN |
+| `TargetType` | `enum` | API, WEB |
+| `CheckConfiguration` | `struct` | Intervalo, timeout, umbral de latencia |
+
+### Scheduler y Orquestador
+
+El sistema de scheduling ejecuta health checks de manera periódica y concurrente.
+
+![Flujo de Monitoreo](diagramas/Flujo de Monitoreo - UpTrackAI .png)
+
+**Componentes del Scheduler:**
+
+| Componente | Responsabilidad |
+|-----------|-----------------|
+| `PollingScheduler` | Loop principal cada 10s, coordina ejecución |
+| `Orchestrator` | Orquesta el pipeline completo de un target |
+| `WorkerPool` | Pool de 4 goroutines procesando en paralelo |
+| `HealthChecker` | Ejecuta HTTP requests y determina estado |
+| `ResultAnalyzer` | Analiza sesión de pings para determinar estado final |
+| `StateUpdater` | Persiste cambios en base de datos |
+| `NotificationDispatcher` | Cola asíncrona de alertas (buffer 100) |
+
+### Algoritmo de Detección de Estado
+
+El sistema realiza hasta 12 pings por sesión para determinar el estado:
+
+```
+1. Ejecutar ping HTTP HEAD/GET
+2. Repetir hasta conseguir 3 resultados consecutivos iguales
+3. Si se logra en ≤4 intentos → Estado estable (UP/DOWN)
+4. Si se logra en 5-9 intentos → UNSTABLE
+5. Si no se logra en 12 intentos → FLAPPING
+```
+
+## Módulo de Notificaciones
+
+### Sistema de Alertas
+
+El módulo de notificaciones gestiona el envío de alertas a través de múltiples canales.
+
+**AlertEvent** - Evento de alerta:
+
+```go
+type AlertEvent struct {
+    userId       string
+    title        string
+    message      string
+    severity     Severity      // CRITICAL, WARNING, INFO, RESOLVED
+    prevSeverity Severity
+    source       string
+    alertType    AlertType     // MONITORING, SYSTEM
+    metadata     map[string]string
+    timestamp    time.Time
+}
+```
+
+**ShouldNotify()** determina si la alerta debe enviarse:
+
+- Cambio de severidad (ej: WARNING → CRITICAL)
+- Nueva alerta CRITICAL o WARNING
+- Resolución de un problema previo
+
+### Magic Link para Telegram
+
+El sistema implementa vinculación sin fricción de cuentas de Telegram:
+
+1. Usuario hace click en "Conectar Telegram" en el Frontend
+2. Backend genera un token único con TTL de 15 minutos
+3. Frontend redirige al usuario a Telegram con deep link
+4. Usuario envía `/start TOKEN` al bot
+5. Bot valida el token y asocia el ChatID al usuario
+6. Confirmación de vinculación exitosa
+
+## Módulo de Seguridad
+
+### Autenticación JWT
+
+El sistema utiliza JWT (JSON Web Tokens) para autenticación stateless:
+
+```go
+// Estructura del token
+type Claims struct {
+    UserID string `json:"user_id"`
+    Email  string `json:"email"`
+    Role   string `json:"role"`
+    jwt.RegisteredClaims
+}
+```
+
+**Endpoints de Autenticación:**
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `POST` | `/api/v1/register` | Registro de usuario |
+| `POST` | `/api/v1/login` | Login, retorna JWT |
+
+**Middleware de Extracción:**
+
+```go
+func ExtractUserID(tokenService TokenGenerator) gin.HandlerFunc {
+    return func(c *gin.Context) {
+        // Extrae token del header Authorization: Bearer <token>
+        // Valida firma y expiración
+        // Inyecta userID y role en el contexto
+    }
+}
+```
+
+### Seguridad de Contraseñas
+
+- Hashing con **bcrypt** (cost factor 10)
+- Validación de longitud mínima (8 caracteres)
+- No se almacenan contraseñas en texto plano
+
+## API REST
+
+### Estándar de Respuestas
+
+Todas las respuestas siguen el formato `APIResponse`:
+
+```json
+{
+  "success": true,
+  "message": "targets_retrieved",
+  "data": [...],
+  "links": {
+    "self": "/api/v1/targets",
+    "next": "/api/v1/targets?page=2"
+  },
+  "meta": {
+    "page": 1,
+    "limit": 20,
+    "total": 45
+  }
+}
+```
+
+### Endpoints Principales
+
+**Monitoreo:**
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/v1/targets` | Listar targets del usuario |
+| `POST` | `/api/v1/targets` | Crear nuevo target |
+| `GET` | `/api/v1/targets/:id` | Detalle de un target |
+| `DELETE` | `/api/v1/targets/:id` | Eliminar target |
+| `PATCH` | `/api/v1/targets/:id/toggle` | Activar/desactivar |
+| `PUT` | `/api/v1/targets/:id/configuration` | Actualizar config |
+| `GET` | `/api/v1/targets/:id/metrics` | Métricas del target |
+| `GET` | `/api/v1/targets/:id/history` | Historial de checks |
+| `GET` | `/api/v1/targets/:id/statistics` | Estadísticas agregadas |
+
+**Notificaciones:**
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/v1/notifications/channels` | Canales configurados |
+| `POST` | `/api/v1/telegram/link` | Iniciar vinculación Telegram |
+| `POST` | `/api/webhooks/telegram` | Webhook para Telegram |
+
+**Autenticación:**
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `POST` | `/api/v1/register` | Registrar usuario |
+| `POST` | `/api/v1/login` | Obtener token JWT |
+
+### Documentación Swagger
+
+La API está documentada con Swagger/OpenAPI. Accesible en:
+
+[http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
 
 ## Stack Tecnológico
 
-- **Lenguaje**: Go 1.21+
-- **Framework**: Gin (enrutador HTTP)
-- **Base de Datos**: PostgreSQL con GORM
-- **Migraciones**: GORM AutoMigrate
-- **Configuración**: Variables de entorno
-- **Logging**: Logging estructurado con contexto
+| Categoría | Tecnología | Versión |
+|-----------|-----------|---------|
+| Lenguaje | Go | 1.21+ |
+| Framework HTTP | Gin | 1.9+ |
+| ORM | GORM | 1.25+ |
+| Base de Datos | PostgreSQL | 15+ |
+| Autenticación | JWT (golang-jwt) | v5 |
+| Hashing | bcrypt | - |
+| Documentación | Swaggo | 1.16+ |
+| Variables de entorno | godotenv | 1.5+ |
 
-## Estructura de Módulos
+## Ejecución Local
 
+### Requisitos
+
+- Go 1.21+
+- PostgreSQL 15+
+- Variables de entorno configuradas
+
+### Comandos
+
+```bash
+# Instalar dependencias
+go mod download
+
+# Ejecutar en modo desarrollo
+go run .
+
+# Compilar binario
+go build -o uptrack-api .
+
+# Ejecutar tests
+go test ./...
+
+# Generar documentación Swagger
+swag init
 ```
-internal/
-├── monitoring/          # Objetivos de monitoreo y verificaciones
-├── notifications/       # Sistema de notificaciones asíncronas
-├── user/               # Gestión de usuarios
-├── security/           # Autenticación y autorización
-├── server/             # Servidor HTTP y middleware
-└── repository/         # Interfaces de repositorio compartidas
+
+### Configuración Mínima (.env)
+
+```properties
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=password
+DB_NAME=uptrackai_db
+DB_SSLMODE=disable
+PORT=8080
+GIN_MODE=debug
 ```
-
-API RESTful con respuestas JSON:
-
-- `GET /api/targets` - Listar objetivos de monitoreo
-- `POST /api/targets` - Crear nuevo objetivo
-- `GET /api/targets/{id}` - Obtener detalles del objetivo
-- `PUT /api/targets/{id}` - Actualizar objetivo
-- `DELETE /api/targets/{id}` - Eliminar objetivo
-
-## Manejo de Errores
-
-- **Errores de Dominio**: Validación de lógica de negocio
-- **Errores de Infraestructura**: Fallos de servicios externos
-- **Errores HTTP**: Códigos de estado y mensajes apropiados
-- **Logging**: Reporte estructurado de errores

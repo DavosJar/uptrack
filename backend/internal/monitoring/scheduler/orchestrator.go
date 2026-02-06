@@ -23,7 +23,8 @@ type Orchestrator struct {
 	notificationChecker NotificationChecker
 	severityMapper      *notificationdomain.SeverityMapper
 
-	workerPool *WorkerPool
+	workerPool           *WorkerPool
+	onProcessingComplete func(domain.TargetId)
 }
 
 type OrchestratorConfig struct {
@@ -74,12 +75,23 @@ func (o *Orchestrator) Stop() {
 	log.Println("Scheduler Orchestrator detenido")
 }
 
+// SetOnProcessingComplete establece una callback que se ejecute al finalizar un target
+func (o *Orchestrator) SetOnProcessingComplete(callback func(domain.TargetId)) {
+	o.onProcessingComplete = callback
+}
+
 // Schedule agrega una lista de targets para ser procesados
 func (o *Orchestrator) Schedule(targets []*domain.MonitoringTarget) {
 	o.workerPool.SubmitBatch(targets)
 }
 
 func (o *Orchestrator) processTarget(target *domain.MonitoringTarget) {
+	defer func() {
+		if o.onProcessingComplete != nil {
+			o.onProcessingComplete(target.ID())
+		}
+	}()
+
 	// 1. Health Check
 	session := o.healthChecker.Check(target)
 
@@ -133,7 +145,9 @@ func (o *Orchestrator) processTarget(target *domain.MonitoringTarget) {
 	_ = o.statsRepo.Save(historical)
 
 	// 7. Notificar si es necesario
-	if o.notificationChecker != nil && o.notificationChecker.HasActiveChannel(target.UserId().String()) {
+	// Eliminamos la verificación de canales activos aqu para permitir que se generen
+	// alertas internas (historial frontend) incluso si no hay Telegram/Email configurado.
+	if o.notificationChecker != nil {
 		newSeverity := o.severityMapper.Map(string(newStatus))
 		prevSeverity := o.severityMapper.Map(string(previousStatus))
 
